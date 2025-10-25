@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIR / AFR / FAR Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --purple: #9b59b6;
+            --pink: #e84393;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content Section */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        /* Project Meta Section */
+        .project-meta-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .meta-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-label {
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .meta-input {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .meta-input:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        /* Example Buttons */
+        .example-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .example-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .example-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            background: var(--secondary);
+            color: white;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .btn-success {
+            background: linear-gradient(45deg, var(--success), #2ecc71);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: linear-gradient(45deg, var(--warning), #f39c12);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, var(--danger), #e74c3c);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        /* Note Section */
+        .note-section {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--warning);
+            animation: fadeIn 1s ease;
+        }
+        
+        .note-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .note-title i {
+            margin-right: 8px;
+            color: var(--warning);
+        }
+        
+        /* Entry Mode Section */
+        .entry-mode-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .toggle-section {
+            margin-bottom: 20px;
+        }
+        
+        .toggle-buttons {
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .toggle-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn.active {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .helper-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        /* Rate Sections */
+        .rate-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .rate-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .rate-formula {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .rate-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .rate-result {
+            margin-top: 15px;
+            padding: 10px;
+            background: #e8f4fc;
+            border-radius: 6px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        /* Preview Section */
+        .preview-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .preview-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .preview-header h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .preview-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        .preview-table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .preview-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        
+        .preview-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .preview-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--light);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .signature-line {
+            text-align: center;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .signature-space {
+            height: 40px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+        
+        .watermark {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .meta-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .example-buttons {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .helper-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .rate-inputs {
+                grid-template-columns: 1fr;
+            }
+            
+            .preview-footer {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TRIR / AFR / FAR Calculator</h1>
+            <p class="subtitle">Enter details, preview, and export to PDF.</p>
+        </header>
+        <script type="text/javascript">
+	atOptions = {
+		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+        <div class="main-content">
+            <!-- Project Information Section -->
+            <div class="project-meta-section">
+                <h2 class="section-title"><i class="fas fa-hard-hat"></i> Project / Site</h2>
+                
+                <div class="meta-grid">
+                    <div class="meta-item">
+                        <label class="meta-label">Project / Site Name</label>
+                        <input type="text" class="meta-input" id="projectName" placeholder="e.g., Riverfront Expressway Pkg-III">
+                    </div>
+                    
+                    <div class="meta-item">
+                        <label class="meta-label">Client / Company</label>
+                        <input type="text" class="meta-input" id="clientCompany" placeholder="e.g., InfraBuild Constructions Ltd.">
+                    </div>
+                    
+                    <div class="meta-item">
+                        <label class="meta-label">Location</label>
+                        <input type="text" class="meta-input" id="location" placeholder="City, Country">
+                    </div>
+                </div>
+                
+                <div class="date-row">
+                    <div class="meta-item">
+                        <label class="meta-label">Period (From)</label>
+                        <input type="date" class="meta-input" id="periodFrom">
+                    </div>
+                    
+                    <div class="meta-item">
+                        <label class="meta-label">Period (To)</label>
+                        <input type="date" class="meta-input" id="periodTo">
+                    </div>
+                </div>
+                
+                <div class="example-buttons">
+                    <button class="example-btn" id="loadExampleBtn">Load Example</button>
+                    <button class="example-btn" id="constructionBtn">Construction</button>
+                    <button class="example-btn" id="manufacturingBtn">Manufacturing</button>
+                    <button class="example-btn" id="oilGasBtn">O&G Turnaround</button>
+                    <button class="example-btn" id="highRiseBtn">High-Rise</button>
+                </div>
+                
+                <div class="note-section">
+                    <div class="note-title"><i class="fas fa-lightbulb"></i> Note: What data you need & definitions</div>
+                    <p>Fill in project details and select an industry type to pre-populate realistic values for all inputs.</p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="previewBtn">
+                        <i class="fas fa-eye"></i> Preview
+                    </button>
+                    <button class="btn btn-success" id="downloadPdfBtn">
+                        <i class="fas fa-file-pdf"></i> Download PDF
+                    </button>
+                    <button class="btn btn-danger" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Total Man-Hours Section -->
+            <div class="entry-mode-section">
+                <h2 class="section-title"><i class="fas fa-clock"></i> Total Man-Hours</h2>
+                
+                <div class="toggle-section">
+                    <div class="toggle-buttons">
+                        <button class="toggle-btn active" id="toggleDirect">Enter Total Man-Hours directly</button>
+                        <button class="toggle-btn" id="toggleCalculate">Calculate using helper (Workers × Hours/Day × Days × Shifts)</button>
+                    </div>
+                </div>
+                
+                <div id="directEntry">
+                    <div class="meta-item">
+                        <label class="meta-label">Total Man-Hours</label>
+                        <input type="number" class="meta-input" id="totalManHours" placeholder="e.g., 450000">
+                    </div>
+                </div>
+                
+                <div id="calculateEntry" class="hidden">
+                    <div class="helper-grid">
+                        <div class="meta-item">
+                            <label class="meta-label">Workers</label>
+                            <input type="number" class="meta-input" id="workers" placeholder="e.g., 50">
+                        </div>
+                        
+                        <div class="meta-item">
+                            <label class="meta-label">Hours/Day</label>
+                            <input type="number" class="meta-input" id="hoursPerDay" placeholder="e.g., 8">
+                        </div>
+                        
+                        <div class="meta-item">
+                            <label class="meta-label">Days</label>
+                            <input type="number" class="meta-input" id="days" placeholder="e.g., 180">
+                        </div>
+                        
+                        <div class="meta-item">
+                            <label class="meta-label">Shifts</label>
+                            <input type="number" class="meta-input" id="shifts" placeholder="e.g., 2">
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-secondary" id="calculateManHoursBtn">
+                            <i class="fas fa-calculator"></i> Calculate Man-Hours
+                        </button>
+                    </div>
+                    
+                    <div class="meta-item">
+                        <label class="meta-label">Calculated Man-Hours</label>
+                        <input type="number" class="meta-input" id="calculatedManHours" readonly>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TRIR Section -->
+            <div class="rate-section">
+                <h2 class="rate-title">TRIR (Total Recordable Incident Rate)</h2>
+                
+                <div class="rate-formula">Formula: TRIR = (TRC × 200,000) ÷ Man-Hours</div>
+                
+                <div class="rate-inputs">
+                    <div class="meta-item">
+                        <label class="meta-label">TRC (Total Recordable Cases)</label>
+                        <input type="number" class="meta-input" id="trc" placeholder="0">
+                    </div>
+                    
+                    <div class="meta-item">
+                        <label class="meta-label">Rate Base</label>
+                        <input type="text" class="meta-input" value="Per 200,000 hours (OSHA)" readonly>
+                    </div>
+                </div>
+                
+                <div class="rate-result" id="trirResult">TRIR: 0.00</div>
+            </div>
+            
+            <!-- AFR Section -->
+            <div class="rate-section">
+                <h2 class="rate-title">AFR (Accident Frequency Rate)</h2>
+                
+                <div class="rate-formula">Formula: AFR = (Accidents × 1,000,000) ÷ Man-Hours</div>
+                
+                <div class="rate-inputs">
+                    <div class="meta-item">
+                        <label class="meta-label">Accidents (as per your policy)</label>
+                        <input type="number" class="meta-input" id="accidents" placeholder="0">
+                    </div>
+                    
+                    <div class="meta-item">
+                        <label class="meta-label">Rate Base</label>
+                        <input type="text" class="meta-input" value="Per 1,000,000 hours" readonly>
+                    </div>
+                </div>
+                
+                <div class="rate-result" id="afrResult">AFR: 0.00</div>
+            </div>
+            
+            <!-- FAR Section -->
+            <div class="rate-section">
+                <h2 class="rate-title">FAR (Fatal Accident Rate)</h2>
+                
+                <div class="rate-formula">Formula: FAR = (Fatalities × 1,000,000) ÷ Man-Hours</div>
+                
+                <div class="rate-inputs">
+                    <div class="meta-item">
+                        <label class="meta-label">Fatalities</label>
+                        <input type="number" class="meta-input" id="fatalities" placeholder="0">
+                    </div>
+                    
+                    <div class="meta-item">
+                        <label class="meta-label">Rate Base</label>
+                        <input type="text" class="meta-input" value="Per 1,000,000 hours" readonly>
+                    </div>
+                </div>
+                
+                <div class="rate-result" id="farResult">FAR: 0.00</div>
+            </div>
+            
+            <!-- Preview Section -->
+            <div class="preview-section" id="previewSection">
+                <h2 class="preview-title">TRIR / AFR / FAR Calculator</h2>
+                
+                <div class="preview-header">
+                    <h2>TRIR / AFR / FAR Calculator</h2>
+                    <div class="preview-meta">
+                        <div id="previewProject">Project: Not specified | Client: Not specified</div>
+                        <div id="previewGenerated">Generated: <span id="generatedDate"></span></div>
+                    </div>
+                </div>
+                
+                <table class="preview-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                            <th>Rate Base</th>
+                        </tr>
+                    </thead>
+                    <tbody id="previewTableBody">
+                        <tr>
+                            <td>Total Man-Hours</td>
+                            <td id="previewManHours">0</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>TRIR (Total Recordable Incident Rate)</td>
+                            <td id="previewTRIR">0.00</td>
+                            <td>Per 200,000 hours</td>
+                        </tr>
+                        <tr>
+                            <td>AFR (Accident Frequency Rate)</td>
+                            <td id="previewAFR">0.00</td>
+                            <td>Per 1,000,000 hours</td>
+                        </tr>
+                        <tr>
+                            <td>FAR (Fatal Accident Rate)</td>
+                            <td id="previewFAR">0.00</td>
+                            <td>Per 1,000,000 hours</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="preview-footer">
+                    <div class="signature-line">
+                        <div class="signature-label">Prepared by</div>
+                        <div class="signature-space"></div>
+                        <div>Name & Signature</div>
+                    </div>
+                    <div class="signature-line">
+                        <div class="signature-label">Reviewed by</div>
+                        <div class="signature-space"></div>
+                        <div>Name & Signature</div>
+                    </div>
+                    <div class="signature-line">
+                        <div class="signature-label">Approved by</div>
+                        <div class="signature-space"></div>
+                        <div>Name & Signature</div>
+                    </div>
+                </div>
+                
+                <div class="watermark">
+                    Generated with The HSE Tools — thehsetools.com
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const toggleDirect = document.getElementById('toggleDirect');
+            const toggleCalculate = document.getElementById('toggleCalculate');
+            const directEntry = document.getElementById('directEntry');
+            const calculateEntry = document.getElementById('calculateEntry');
+            const totalManHours = document.getElementById('totalManHours');
+            const workers = document.getElementById('workers');
+            const hoursPerDay = document.getElementById('hoursPerDay');
+            const days = document.getElementById('days');
+            const shifts = document.getElementById('shifts');
+            const calculatedManHours = document.getElementById('calculatedManHours');
+            const calculateManHoursBtn = document.getElementById('calculateManHoursBtn');
+            const trc = document.getElementById('trc');
+            const accidents = document.getElementById('accidents');
+            const fatalities = document.getElementById('fatalities');
+            const trirResult = document.getElementById('trirResult');
+            const afrResult = document.getElementById('afrResult');
+            const farResult = document.getElementById('farResult');
+            const previewBtn = document.getElementById('previewBtn');
+            const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const previewSection = document.getElementById('previewSection');
+            const previewProject = document.getElementById('previewProject');
+            const generatedDate = document.getElementById('generatedDate');
+            const previewManHours = document.getElementById('previewManHours');
+            const previewTRIR = document.getElementById('previewTRIR');
+            const previewAFR = document.getElementById('previewAFR');
+            const previewFAR = document.getElementById('previewFAR');
+            const projectName = document.getElementById('projectName');
+            const clientCompany = document.getElementById('clientCompany');
+            const locationInput = document.getElementById('location');
+            const periodFrom = document.getElementById('periodFrom');
+            const periodTo = document.getElementById('periodTo');
+            
+            // Example buttons
+            const loadExampleBtn = document.getElementById('loadExampleBtn');
+            const constructionBtn = document.getElementById('constructionBtn');
+            const manufacturingBtn = document.getElementById('manufacturingBtn');
+            const oilGasBtn = document.getElementById('oilGasBtn');
+            const highRiseBtn = document.getElementById('highRiseBtn');
+            
+            // Set default dates
+            const now = new Date();
+            periodFrom.valueAsDate = now;
+            const endDate = new Date(now);
+            endDate.setMonth(endDate.getMonth() + 6);
+            periodTo.valueAsDate = endDate;
+            
+            // Set generated date
+            generatedDate.textContent = now.toLocaleDateString('en-US') + ', ' + now.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'});
+            
+            // Toggle between direct entry and calculation
+            toggleDirect.addEventListener('click', function() {
+                toggleDirect.classList.add('active');
+                toggleCalculate.classList.remove('active');
+                directEntry.classList.remove('hidden');
+                calculateEntry.classList.add('hidden');
+                updatePreview();
+            });
+            
+            toggleCalculate.addEventListener('click', function() {
+                toggleCalculate.classList.add('active');
+                toggleDirect.classList.remove('active');
+                calculateEntry.classList.remove('hidden');
+                directEntry.classList.add('hidden');
+                updatePreview();
+            });
+            
+            // Calculate man-hours
+            calculateManHoursBtn.addEventListener('click', function() {
+                const workersVal = parseInt(workers.value) || 0;
+                const hoursPerDayVal = parseInt(hoursPerDay.value) || 0;
+                const daysVal = parseInt(days.value) || 0;
+                const shiftsVal = parseInt(shifts.value) || 1;
+                
+                const calculated = workersVal * hoursPerDayVal * daysVal * shiftsVal;
+                calculatedManHours.value = calculated;
+                totalManHours.value = calculated;
+                
+                updateRates();
+                updatePreview();
+            });
+            
+            // Update rates when inputs change
+            function updateRates() {
+                const manHours = parseInt(totalManHours.value) || 0;
+                const trcVal = parseInt(trc.value) || 0;
+                const accidentsVal = parseInt(accidents.value) || 0;
+                const fatalitiesVal = parseInt(fatalities.value) || 0;
+                
+                // Calculate TRIR
+                const trir = manHours > 0 ? (trcVal * 200000) / manHours : 0;
+                trirResult.textContent = `TRIR: ${trir.toFixed(2)}`;
+                
+                // Calculate AFR
+                const afr = manHours > 0 ? (accidentsVal * 1000000) / manHours : 0;
+                afrResult.textContent = `AFR: ${afr.toFixed(2)}`;
+                
+                // Calculate FAR
+                const far = manHours > 0 ? (fatalitiesVal * 1000000) / manHours : 0;
+                farResult.textContent = `FAR: ${far.toFixed(2)}`;
+            }
+            
+            // Add event listeners for rate calculations
+            totalManHours.addEventListener('input', updateRates);
+            trc.addEventListener('input', updateRates);
+            accidents.addEventListener('input', updateRates);
+            fatalities.addEventListener('input', updateRates);
+            
+            // Update preview
+            function updatePreview() {
+                const project = projectName.value || 'Not specified';
+                const client = clientCompany.value || 'Not specified';
+                const location = locationInput.value || 'Not specified';
+                
+                previewProject.textContent = `Project: ${project} | Client: ${client} | Location: ${location}`;
+                
+                const manHours = parseInt(totalManHours.value) || 0;
+                const trcVal = parseInt(trc.value) || 0;
+                const accidentsVal = parseInt(accidents.value) || 0;
+                const fatalitiesVal = parseInt(fatalities.value) || 0;
+                
+                // Calculate rates for preview
+                const trir = manHours > 0 ? (trcVal * 200000) / manHours : 0;
+                const afr = manHours > 0 ? (accidentsVal * 1000000) / manHours : 0;
+                const far = manHours > 0 ? (fatalitiesVal * 1000000) / manHours : 0;
+                
+                previewManHours.textContent = manHours.toLocaleString();
+                previewTRIR.textContent = trir.toFixed(2);
+                previewAFR.textContent = afr.toFixed(2);
+                previewFAR.textContent = far.toFixed(2);
+            }
+            
+            // Add event listeners for preview updates
+            projectName.addEventListener('input', updatePreview);
+            clientCompany.addEventListener('input', updatePreview);
+            locationInput.addEventListener('input', updatePreview);
+            periodFrom.addEventListener('input', updatePreview);
+            periodTo.addEventListener('input', updatePreview);
+            
+            // Preview button
+            previewBtn.addEventListener('click', function() {
+                previewSection.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Reset button - FIXED
+            resetBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                    // Reset all form inputs
+                    projectName.value = '';
+                    clientCompany.value = '';
+                    locationInput.value = '';
+                    
+                    // Reset dates to current values
+                    const now = new Date();
+                    periodFrom.valueAsDate = now;
+                    const endDate = new Date(now);
+                    endDate.setMonth(endDate.getMonth() + 6);
+                    periodTo.valueAsDate = endDate;
+                    
+                    // Reset man-hours section
+                    totalManHours.value = '';
+                    workers.value = '';
+                    hoursPerDay.value = '';
+                    days.value = '';
+                    shifts.value = '';
+                    calculatedManHours.value = '';
+                    
+                    // Reset to direct entry mode
+                    toggleDirect.classList.add('active');
+                    toggleCalculate.classList.remove('active');
+                    directEntry.classList.remove('hidden');
+                    calculateEntry.classList.add('hidden');
+                    
+                    // Reset rate inputs
+                    trc.value = '';
+                    accidents.value = '';
+                    fatalities.value = '';
+                    
+                    // Reset results
+                    updateRates();
+                    updatePreview();
+                    
+                    // Show confirmation
+                    alert('Form has been reset successfully!');
+                }
+            });
+            
+            // PDF Generation - FIXED
+            downloadPdfBtn.addEventListener('click', function() {
+                // Check if jsPDF is available
+                if (typeof window.jspdf === 'undefined') {
+                    alert('PDF generation library is not loaded. Please check your internet connection.');
+                    return;
+                }
+                
+                try {
+                    // Create a new jsPDF instance
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF('p', 'mm', 'a4');
+                    
+                    // Set document properties
+                    doc.setProperties({
+                        title: 'TRIR / AFR / FAR Calculator Report',
+                        subject: 'Safety Metrics Report',
+                        author: 'The HSE Tools',
+                        keywords: 'trir, afr, far, safety, metrics',
+                        creator: 'The HSE Tools'
+                    });
+                    
+                    // Add header
+                    doc.setFontSize(20);
+                    doc.setTextColor(40, 40, 40);
+                    doc.text('TRIR / AFR / FAR Calculator', 105, 20, { align: 'center' });
+                    
+                    // Add project details
+                    doc.setFontSize(12);
+                    const project = projectName.value || 'Not specified';
+                    const client = clientCompany.value || 'Not specified';
+                    const location = locationInput.value || 'Not specified';
+                    const periodFromVal = periodFrom.value ? new Date(periodFrom.value).toLocaleDateString() : 'Not specified';
+                    const periodToVal = periodTo.value ? new Date(periodTo.value).toLocaleDateString() : 'Not specified';
+                    
+                    doc.text(`Project: ${project}`, 20, 35);
+                    doc.text(`Client: ${client}`, 20, 42);
+                    doc.text(`Location: ${location}`, 20, 49);
+                    doc.text(`Period: ${periodFromVal} to ${periodToVal}`, 20, 56);
+                    doc.text(`Generated: ${generatedDate.textContent}`, 105, 56, { align: 'right' });
+                    
+                    // Add table headers
+                    doc.setFillColor(44, 62, 80);
+                    doc.setTextColor(255, 255, 255);
+                    doc.rect(20, 70, 170, 10, 'F');
+                    
+                    doc.setFontSize(10);
+                    doc.text('Metric', 25, 77);
+                    doc.text('Value', 100, 77);
+                    doc.text('Rate Base', 150, 77);
+                    
+                    // Add table rows
+                    doc.setTextColor(0, 0, 0);
+                    let yPosition = 85;
+                    
+                    const metrics = [
+                        { name: 'Total Man-Hours', value: previewManHours.textContent, base: '-' },
+                        { name: 'TRIR (Total Recordable Incident Rate)', value: previewTRIR.textContent, base: 'Per 200,000 hours' },
+                        { name: 'AFR (Accident Frequency Rate)', value: previewAFR.textContent, base: 'Per 1,000,000 hours' },
+                        { name: 'FAR (Fatal Accident Rate)', value: previewFAR.textContent, base: 'Per 1,000,000 hours' }
+                    ];
+                    
+                    metrics.forEach(metric => {
+                        // Alternate row background
+                        if (metrics.indexOf(metric) % 2 === 0) {
+                            doc.setFillColor(240, 240, 240);
+                            doc.rect(20, yPosition - 5, 170, 10, 'F');
+                        }
+                        
+                        // Add row content
+                        doc.setFontSize(9);
+                        doc.text(metric.name, 25, yPosition);
+                        doc.text(metric.value, 100, yPosition);
+                        doc.text(metric.base, 150, yPosition);
+                        
+                        yPosition += 10;
+                    });
+                    
+                    // Add footer with signatures
+                    yPosition = Math.max(yPosition, 200);
+                    doc.setFontSize(12);
+                    doc.text('Prepared by', 30, yPosition + 20);
+                    doc.text('Reviewed by', 105, yPosition + 20, { align: 'center' });
+                    doc.text('Approved by', 160, yPosition + 20, { align: 'right' });
+                    
+                    // Add signature lines
+                    doc.line(20, yPosition + 25, 60, yPosition + 25);
+                    doc.line(80, yPosition + 25, 120, yPosition + 25);
+                    doc.line(140, yPosition + 25, 180, yPosition + 25);
+                    
+                    // Add watermark
+                    doc.setFontSize(8);
+                    doc.setTextColor(150, 150, 150);
+                    doc.text('Generated with The HSE Tools — thehsetools.com', 105, 290, { align: 'center' });
+                    
+                    // Save the PDF
+                    const projectNameForFile = projectName.value ? projectName.value.replace(/[^a-zA-Z0-9]/g, '_') : 'SafetyMetrics';
+                    doc.save(`TRIR_AFR_FAR_Calculator_${projectNameForFile}.pdf`);
+                    
+                } catch (error) {
+                    console.error('PDF generation error:', error);
+                    alert('Error generating PDF. Please try again.');
+                }
+            });
+            
+            // Example data functions
+            function loadExampleData() {
+                projectName.value = 'Riverfront Expressway Pkg-III';
+                clientCompany.value = 'InfraBuild Constructions Ltd.';
+                locationInput.value = 'Houston, USA';
+                
+                const startDate = new Date();
+                startDate.setMonth(startDate.getMonth() - 3);
+                periodFrom.valueAsDate = startDate;
+                
+                const endDate = new Date();
+                endDate.setMonth(endDate.getMonth() + 3);
+                periodTo.valueAsDate = endDate;
+                
+                totalManHours.value = 450000;
+                trc.value = 3;
+                accidents.value = 1;
+                fatalities.value = 0;
+                
+                updateRates();
+                updatePreview();
+            }
+            
+            function loadConstructionData() {
+                projectName.value = 'Commercial Building Construction';
+                clientCompany.value = 'Skyline Developers Inc.';
+                locationInput.value = 'Chicago, USA';
+                
+                totalManHours.value = 320000;
+                trc.value = 4;
+                accidents.value = 2;
+                fatalities.value = 0;
+                
+                updateRates();
+                updatePreview();
+            }
+            
+            function loadManufacturingData() {
+                projectName.value = 'Automotive Parts Manufacturing';
+                clientCompany.value = 'Precision Manufacturing Co.';
+                locationInput.value = 'Detroit, USA';
+                
+                totalManHours.value = 580000;
+                trc.value = 2;
+                accidents.value = 1;
+                fatalities.value = 0;
+                
+                updateRates();
+                updatePreview();
+            }
+            
+            function loadOilGasData() {
+                projectName.value = 'Refinery Turnaround Project';
+                clientCompany.value = 'Global Energy Solutions';
+                locationInput.value = 'Gulf Coast, USA';
+                
+                totalManHours.value = 750000;
+                trc.value = 5;
+                accidents.value = 3;
+                fatalities.value = 0;
+                
+                updateRates();
+                updatePreview();
+            }
+            
+            function loadHighRiseData() {
+                projectName.value = 'Downtown Skyscraper';
+                clientCompany.value = 'Urban Development Group';
+                locationInput.value = 'New York, USA';
+                
+                totalManHours.value = 620000;
+                trc.value = 6;
+                accidents.value = 2;
+                fatalities.value = 1;
+                
+                updateRates();
+                updatePreview();
+            }
+            
+            // Add event listeners for example buttons
+            loadExampleBtn.addEventListener('click', loadExampleData);
+            constructionBtn.addEventListener('click', loadConstructionData);
+            manufacturingBtn.addEventListener('click', loadManufacturingData);
+            oilGasBtn.addEventListener('click', loadOilGasData);
+            highRiseBtn.addEventListener('click', loadHighRiseData);
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Initialize the page
+            updateRates();
+            updatePreview();
+        });
+    </script>
+</body>
+</html>

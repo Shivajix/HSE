@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Time Injury Calculator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --purple: #9b59b6;
+            --pink: #e84393;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            animation: fadeIn 1s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            animation: slideUp 1s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            animation: fadeIn 1s ease;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item, .application-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .application-item {
+            background: #f8f9fa;
+            border-left: 3px solid var(--warning);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .lti-calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+            animation: slideUp 1s ease;
+        }
+        
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+            max-width: 100%;
+            margin: 15px auto;
+        }
+        
+        .risk-cell {
+            padding: 10px 4px;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: 600;
+            color: white;
+            animation: pulse 2s infinite;
+            font-size: 0.8rem;
+        }
+        
+        .risk-low { background-color: var(--success); }
+        .risk-medium { background-color: var(--warning); }
+        .risk-high { background-color: #e67e22; }
+        .risk-extreme { background-color: var(--danger); }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--success), #2ecc71); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--purple), #9b59b6); }
+        .icon-5 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-6 { background: linear-gradient(45deg, var(--pink), #e84393); }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        /* Large Desktop Styles */
+        @media (min-width: 1200px) {
+            .guide-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1s; }
+        
+        .content-item:nth-child(1) { animation-delay: 0.1s; }
+        .content-item:nth-child(2) { animation-delay: 0.2s; }
+        .content-item:nth-child(3) { animation-delay: 0.3s; }
+        .content-item:nth-child(4) { animation-delay: 0.4s; }
+        .content-item:nth-child(5) { animation-delay: 0.5s; }
+        .content-item:nth-child(6) { animation-delay: 0.6s; }
+        .content-item:nth-child(7) { animation-delay: 0.7s; }
+        .content-item:nth-child(8) { animation-delay: 0.8s; }
+        .content-item:nth-child(9) { animation-delay: 0.9s; }
+        .content-item:nth-child(10) { animation-delay: 1s; }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+        
+        /* Mobile Navigation Improvements */
+        @media (max-width: 480px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card-content {
+                font-size: 0.95rem;
+            }
+            
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .content-item:hover,
+            .card:hover,
+            .btn:hover {
+                transform: none;
+            }
+            
+            .content-item:active,
+            .card:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+	atOptions = {
+		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+    <div class="container">
+        <header>
+            <h1>Lost Time Injury Calculator - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for calculating and understanding Lost Time Injuries. Learn how to measure serious workplace incidents, implement preventive measures, and improve safety performance.</p>
+        </header>
+        
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-is-lti">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3 class="content-title">What Is Lost Time Injury?</h3>
+                    <p class="content-desc">Understand the definition and significance of Lost Time Injuries in workplace safety management.</p>
+                </div>
+                
+                <div class="content-item" data-target="formula">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="content-title">LTI Formula</h3>
+                    <p class="content-desc">Learn the standard formulas for calculating Lost Time Injury Frequency Rate and related metrics.</p>
+                </div>
+                
+                <div class="content-item" data-target="calculator">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="content-title">How to Use Calculator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive Lost Time Injury Calculator tool.</p>
+                </div>
+                
+                <div class="content-item" data-target="examples">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="content-title">Example Calculations</h3>
+                    <p class="content-desc">Real-world examples of LTI calculations across different industries and scenarios.</p>
+                </div>
+                
+                <div class="content-item" data-target="importance">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="content-title">Why Is Tracking LTI Important?</h3>
+                    <p class="content-desc">Discover the critical benefits and regulatory requirements of tracking Lost Time Injuries.</p>
+                </div>
+                
+                <div class="content-item" data-target="real-world">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="content-title">Real-World Examples</h3>
+                    <p class="content-desc">Explore how LTI tracking is used in various industries and safety programs.</p>
+                </div>
+                
+                <div class="content-item" data-target="common-mistakes">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="content-title">Common Mistakes</h3>
+                    <p class="content-desc">Avoid these common pitfalls that can undermine your LTI tracking and analysis.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices</h3>
+                    <p class="content-desc">Learn proven strategies for accurate LTI calculation and effective injury prevention.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">FAQ</h3>
+                    <p class="content-desc">Get answers to frequently asked questions about LTI implementation and tracking.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for effective Lost Time Injury management.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What Is LTI Card -->
+            <div class="card" id="what-is-lti">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h2 class="card-title">What Is Lost Time Injury (LTI)?</h2>
+                </div>
+                <div class="card-content">
+                    <p>A Lost Time Injury (LTI) is a workplace injury that results in an employee being unable to perform their regular job duties for at least one full day beyond the day of the injury. This is one of the most important safety metrics as it indicates serious incidents with significant impact on workers and operations.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>LTI Definition:</strong> Any work-related injury or illness that results in an employee being unable to work their next scheduled shift or being placed on restricted/light duty for one or more days.</p>
+                    </div>
+                    
+                    <p>LTIs differ from other recordable incidents because they specifically track injuries that result in time away from regular work duties, making them a key indicator of serious safety issues.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Lost Workday Cases</h3>
+                            <p>Injuries resulting in days away from work beyond the day of injury</p>
+                        </div>
+                        <div class="step">
+                            <h3>Restricted Work Cases</h3>
+                            <p>Injuries where employees can work but not perform all regular job functions</p>
+                        </div>
+                        <div class="step">
+                            <h3>Calculation Period</h3>
+                            <p>Typically measured per 200,000 or 1,000,000 hours worked for standardization</p>
+                        </div>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Definition</th>
+                                <th>Significance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LTI Frequency Rate</td>
+                                <td>Number of LTIs × 1,000,000 / Hours Worked</td>
+                                <td>Measures how often serious injuries occur</td>
+                            </tr>
+                            <tr>
+                                <td>LTI Severity Rate</td>
+                                <td>Total Lost Days × 1,000,000 / Hours Worked</td>
+                                <td>Measures the impact of injuries in lost time</td>
+                            </tr>
+                            <tr>
+                                <td>LTI Incident Rate</td>
+                                <td>Number of LTIs × 200,000 / Hours Worked</td>
+                                <td>OSHA standard measurement</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Formula Card -->
+            <div class="card" id="formula">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2 class="card-title">Formula for Total LTI</h2>
+                </div>
+                <div class="card-content">
+                    <p>There are several key formulas used to calculate and analyze Lost Time Injuries, each providing different insights into safety performance:</p>
+                    
+                    <div class="highlight-box">
+                        <h3>Lost Time Injury Frequency Rate (LTIFR)</h3>
+                        <p>The most common metric for comparing LTI performance across organizations and industries.</p>
+                        <div class="formula">
+                            LTIFR = (Number of LTIs × 1,000,000) / Total Hours Worked
+                        </div>
+                        <p>This formula standardizes the rate to 1,000,000 hours worked, allowing comparison between organizations of different sizes.</p>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3>Lost Time Injury Severity Rate (LTISR)</h3>
+                        <p>Measures the impact of LTIs in terms of total days lost from work.</p>
+                        <div class="formula">
+                            LTISR = (Total Lost Days × 1,000,000) / Total Hours Worked
+                        </div>
+                        <p>This helps organizations understand not just how often injuries occur, but their severity and impact on operations.</p>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3>OSHA Lost Workday Injury Rate</h3>
+                        <p>The standard measurement used in the United States for regulatory reporting.</p>
+                        <div class="formula">
+                            LTI Rate = (Number of LTIs × 200,000) / Total Hours Worked
+                        </div>
+                        <p>This uses 200,000 hours as the base (equivalent to 100 employees working full-time for one year).</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Description</th>
+                                <th>Example Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Number of LTIs</td>
+                                <td>Count of lost time injuries in period</td>
+                                <td>5 incidents</td>
+                            </tr>
+                            <tr>
+                                <td>Total Lost Days</td>
+                                <td>Sum of all days away from work</td>
+                                <td>87 days</td>
+                            </tr>
+                            <tr>
+                                <td>Total Hours Worked</td>
+                                <td>Sum of all employee work hours</td>
+                                <td>500,000 hours</td>
+                            </tr>
+                            <tr>
+                                <td>LTIFR</td>
+                                <td>Frequency rate per million hours</td>
+                                <td>10.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Calculator Card -->
+            <div class="card" id="calculator">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h2 class="card-title">How to Use the Total Lost Time Injury Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our Lost Time Injury Calculator simplifies the calculation process by providing a structured tool to input your data and get accurate results with industry context.</p>
+                    
+                    <div class="lti-calculator">
+                        <h3 class="calculator-title">Interactive LTI Calculator</h3>
+                        
+                        <div class="form-group">
+                            <label for="ltiCount">Number of Lost Time Injuries</label>
+                            <input type="number" id="ltiCount" min="0" value="0" placeholder="Enter number of LTIs">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lostDays">Total Lost Days</label>
+                            <input type="number" id="lostDays" min="0" value="0" placeholder="Enter total lost days">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hoursWorked">Total Hours Worked</label>
+                            <input type="number" id="hoursWorked" min="0" value="200000" placeholder="Enter total hours worked">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="industry">Industry Benchmark</label>
+                            <select id="industry">
+                                <option value="construction">Construction</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="transportation">Transportation</option>
+                                <option value="mining">Mining</option>
+                                <option value="general">General Industry</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="calculateLTI">
+                            <i class="fas fa-bolt"></i> Calculate LTI Metrics
+                        </button>
+                        
+                        <div class="result-box" id="ltiResult">
+                            <h3>LTI Calculation Results</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                    
+                    <p>To use the calculator effectively:</p>
+                    <ol>
+                        <li>Gather accurate data on LTIs, lost days, and total hours worked</li>
+                        <li>Select your industry for appropriate benchmarking</li>
+                        <li>Enter the data into the calculator</li>
+                        <li>Interpret the results in context with industry standards</li>
+                        <li>Use the insights to prioritize safety improvements</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Examples Card -->
+            <div class="card" id="examples">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h2 class="card-title">Example Calculations</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of how LTI metrics are calculated in different workplace scenarios:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hard-hat"></i> Construction Company Example</div>
+                        <p><strong>Scenario:</strong> A construction firm with 150 employees working 500,000 total hours experiences 4 LTIs with a total of 62 lost days.</p>
+                        <p><strong>LTIFR Calculation:</strong> (4 × 1,000,000) / 500,000 = 8.0</p>
+                        <p><strong>LTISR Calculation:</strong> (62 × 1,000,000) / 500,000 = 124.0</p>
+                        <p><strong>Interpretation:</strong> The company has a LTIFR of 8.0, which is slightly better than the construction industry average of 8.5.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-industry"></i> Manufacturing Plant Example</div>
+                        <p><strong>Scenario:</strong> A manufacturing facility with 300 employees working 600,000 total hours experiences 3 LTIs with a total of 45 lost days.</p>
+                        <p><strong>LTIFR Calculation:</strong> (3 × 1,000,000) / 600,000 = 5.0</p>
+                        <p><strong>LTISR Calculation:</strong> (45 × 1,000,000) / 600,000 = 75.0</p>
+                        <p><strong>OSHA Rate:</strong> (3 × 200,000) / 600,000 = 1.0</p>
+                        <p><strong>Interpretation:</strong> The facility performs significantly better than the manufacturing industry average LTIFR of 6.2.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hospital"></i> Healthcare Facility Example</div>
+                        <p><strong>Scenario:</strong> A hospital with 500 employees working 1,000,000 total hours experiences 7 LTIs with a total of 105 lost days.</p>
+                        <p><strong>LTIFR Calculation:</strong> (7 × 1,000,000) / 1,000,000 = 7.0</p>
+                        <p><strong>LTISR Calculation:</strong> (105 × 1,000,000) / 1,000,000 = 105.0</p>
+                        <p><strong>Interpretation:</strong> The hospital's LTIFR of 7.0 is slightly higher than the healthcare industry average of 6.5, indicating room for improvement.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Importance Card -->
+            <div class="card" id="importance">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2 class="card-title">Why Is Tracking LTI Important?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Tracking Lost Time Injuries is critical for several important reasons that impact both safety outcomes and business performance:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Serious Incident Indicator</h3>
+                            <p>LTIs represent the most serious workplace injuries with significant human and operational impact.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Regulatory Compliance</h3>
+                            <p>Required by OSHA and other regulatory bodies for reporting and compliance purposes.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Performance Benchmarking</h3>
+                            <p>Allows comparison with industry averages and helps set realistic safety improvement targets.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Cost Management</h3>
+                            <p>LTIs are associated with high direct and indirect costs including workers' compensation and productivity losses.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Prevention Focus</h3>
+                            <p>Helps identify high-risk activities and prioritize preventive measures.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Stakeholder Confidence</h3>
+                            <p>Demonstrates commitment to safety to employees, clients, investors, and regulators.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Did You Know?</strong> The average Lost Time Injury costs organizations between $38,000 and $150,000 in direct and indirect costs, including medical expenses, lost productivity, and administrative costs.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-World Examples Card -->
+            <div class="card" id="real-world">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h2 class="card-title">Real-World Examples</h2>
+                </div>
+                <div class="card-content">
+                    <p>Understanding how LTI tracking applies in real-world scenarios helps contextualize the metrics and their importance:</p>
+                    
+                    <div class="application-item">
+                        <h3>Case Study: Construction Company Safety Transformation</h3>
+                        <p>A large construction company reduced its LTIFR from 12.5 to 4.2 over three years by implementing a comprehensive safety program focused on fall protection, equipment safety, and supervisor training. This reduction represented 42 fewer serious injuries annually and saved an estimated $3.8 million in direct costs.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Case Study: Manufacturing Plant Ergonomics Program</h3>
+                        <p>A manufacturing facility identified through LTI analysis that musculoskeletal disorders accounted for 65% of their lost time injuries. They implemented an ergonomics program with workstation redesign, employee training, and early intervention that reduced LTIs by 58% in two years.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Case Study: Warehouse Slip and Fall Reduction</h3>
+                        <p>A distribution center used LTI data to identify that slips, trips, and falls were their leading cause of lost time injuries. By implementing improved flooring, better lighting, and housekeeping protocols, they reduced these incidents by 72% and decreased their LTIFR from 8.3 to 3.1.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Common Mistakes Card -->
+            <div class="card" id="common-mistakes">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Common Mistakes in Tracking LTIs</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common errors when tracking and analyzing Lost Time Injuries:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Inconsistent Classification</h3>
+                        <p>Applying different criteria for what constitutes a Lost Time Injury across departments or locations.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Underreporting</h3>
+                        <p>Failing to record all LTIs due to pressure to maintain low injury rates or lack of reporting culture.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Inaccurate Hours Data</h3>
+                        <p>Using estimated rather than actual hours worked, especially for contractors and temporary workers.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Focusing Only on Frequency</h3>
+                        <p>Ignoring severity rates and the underlying causes of the most serious injuries.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Lack of Root Cause Analysis</h3>
+                        <p>Tracking LTIs without investigating and addressing the underlying causes.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Inappropriate Benchmarking</h3>
+                        <p>Comparing LTI rates with organizations in different industries without proper context.</p>
+                        <span class="badge badge-info">Note</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices to Reduce LTIs</h2>
+                </div>
+                <div class="card-content">
+                    <p>Follow these best practices to effectively reduce Lost Time Injuries in your organization:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Consistent Reporting Standards</h3>
+                        <p>Establish clear, consistent criteria for classifying and reporting LTIs across the organization.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Comprehensive Investigation</h3>
+                        <p>Conduct thorough root cause analyses for all LTIs to identify and address underlying issues.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Targeted Training</h3>
+                        <p>Focus safety training on the specific hazards and activities that cause the most serious injuries.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Early Intervention</h3>
+                        <p>Implement programs to identify and address potential injury risks before they result in LTIs.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Leadership Engagement</h3>
+                        <p>Ensure management actively participates in safety initiatives and demonstrates commitment.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Employee Involvement</h3>
+                        <p>Engage workers in safety committees, hazard identification, and solution development.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Data-Driven Approach</h3>
+                        <p>Use LTI data to identify trends, prioritize interventions, and measure improvement.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Continuous Improvement</h3>
+                        <p>Regularly review and update safety programs based on LTI analysis and emerging best practices.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">Frequently Asked Questions (FAQ)</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What's the difference between LTI and recordable incident?</div>
+                        <p>A recordable incident is any work-related injury or illness that requires medical treatment beyond first aid, while an LTI specifically refers to incidents that result in time away from regular work duties.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How many days away from work defines an LTI?</div>
+                        <p>An LTI is typically defined as any injury that results in an employee being unable to work their next regularly scheduled work day or being placed on restricted duty.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Should restricted work cases be included in LTI counts?</div>
+                        <p>Yes, both days away from work and restricted work cases are generally included in LTI calculations, though some organizations track them separately for more detailed analysis.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What is a good LTIFR for my industry?</div>
+                        <p>Good LTIFR values vary by industry. Construction typically averages 8-10, manufacturing 5-7, and office environments 1-2. Always compare with current industry benchmarks.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How often should we calculate our LTI rates?</div>
+                        <p>Most organizations calculate LTI rates quarterly for trend analysis and annually for benchmarking and reporting purposes.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Can we have a zero LTI rate?</div>
+                        <p>While challenging, a zero LTI rate is possible with exceptional safety programs. However, focusing on continuous improvement is often more realistic than pursuing absolute zero.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts</h2>
+                </div>
+                <div class="card-content">
+                    <p>Lost Time Injury tracking is more than just a regulatory requirement—it's a fundamental component of effective safety management that protects your most valuable asset: your people. A well-implemented LTI program creates a safer work environment, reduces costs, improves productivity, and demonstrates your organization's commitment to safety.</p>
+                    
+                    <p>Remember that the ultimate goal isn't just to achieve low LTI rates, but to create a workplace where serious injuries are prevented through proactive safety measures. Use LTI data as a tool to identify areas for improvement, measure progress, and guide your safety investments.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Improving Your LTI Performance Today</h3>
+                        <p>Use our Lost Time Injury Calculator to begin measuring and understanding your serious injury performance. Consistent tracking, thorough analysis, and targeted interventions will help you reduce LTIs and create a safer workplace for everyone.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // LTI Calculator functionality
+            const calculateBtn = document.getElementById('calculateLTI');
+            const resultBox = document.getElementById('ltiResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            calculateBtn.addEventListener('click', function() {
+                const ltiCount = parseInt(document.getElementById('ltiCount').value);
+                const lostDays = parseInt(document.getElementById('lostDays').value);
+                const hoursWorked = parseInt(document.getElementById('hoursWorked').value);
+                const industry = document.getElementById('industry').value;
+                
+                if (isNaN(ltiCount) || isNaN(lostDays) || isNaN(hoursWorked) || hoursWorked === 0) {
+                    alert('Please enter valid numbers for all fields.');
+                    return;
+                }
+                
+                // Calculate metrics
+                const ltifr = (ltiCount * 1000000) / hoursWorked;
+                const ltisfr = (lostDays * 1000000) / hoursWorked;
+                const oshaRate = (ltiCount * 200000) / hoursWorked;
+                
+                // Industry benchmarks
+                const benchmarks = {
+                    construction: { ltifr: 8.5, description: "Construction industry average" },
+                    manufacturing: { ltifr: 6.2, description: "Manufacturing industry average" },
+                    healthcare: { ltifr: 6.5, description: "Healthcare industry average" },
+                    transportation: { ltifr: 7.8, description: "Transportation industry average" },
+                    mining: { ltifr: 12.3, description: "Mining industry average" },
+                    general: { ltifr: 4.5, description: "General industry average" }
+                };
+                
+                const benchmark = benchmarks[industry];
+                const comparison = ltifr < benchmark.ltifr ? "better than" : "worse than";
+                
+                // Determine performance level
+                let performance = "";
+                let performanceClass = "";
+                
+                if (ltifr < benchmark.ltifr * 0.5) {
+                    performance = "Excellent";
+                    performanceClass = "badge-success";
+                } else if (ltifr < benchmark.ltifr) {
+                    performance = "Good";
+                    performanceClass = "badge-info";
+                } else if (ltifr < benchmark.ltifr * 1.5) {
+                    performance = "Needs Improvement";
+                    performanceClass = "badge-warning";
+                } else {
+                    performance = "Poor";
+                    performanceClass = "badge-danger";
+                }
+                
+                resultContent.innerHTML = `
+                    <p><strong>Lost Time Injury Frequency Rate (LTIFR):</strong> ${ltifr.toFixed(2)}</p>
+                    <p><strong>Lost Time Injury Severity Rate (LTISR):</strong> ${ltisfr.toFixed(2)}</p>
+                    <p><strong>OSHA LTI Rate:</strong> ${oshaRate.toFixed(2)}</p>
+                    <p><strong>Performance Assessment:</strong> <span class="badge ${performanceClass}">${performance}</span></p>
+                    <p><strong>Industry Context:</strong> Your LTIFR of ${ltifr.toFixed(2)} is ${comparison} the ${benchmark.description} of ${benchmark.ltifr}.</p>
+                    <p><strong>Recommendation:</strong> ${ltifr < benchmark.ltifr ? 'Continue current safety practices and focus on continuous improvement.' : 'Implement targeted safety interventions and increase focus on high-risk activities.'}</p>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

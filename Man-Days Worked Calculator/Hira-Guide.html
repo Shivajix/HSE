@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Man-Days Worked Calculator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+        }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--success), #2ecc71); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-5 { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        .icon-6 { background: linear-gradient(45deg, #e84393, #fd79a8); }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Man-Days Worked Calculator - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for calculating and understanding man-days worked for project management, HSE metrics, and resource planning</p>
+        </header>
+        <script type="text/javascript">
+	atOptions = {
+		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-is-calculator">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="content-title">What is a Man-Days Worked Calculator?</h3>
+                    <p class="content-desc">Understand the purpose and importance of calculating man-days for project management and HSE metrics.</p>
+                </div>
+                
+                <div class="content-item" data-target="core-formulas">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-square-root-alt"></i>
+                    </div>
+                    <h3 class="content-title">Core Formulas (Standard)</h3>
+                    <p class="content-desc">Learn the mathematical formulas used to calculate man-days with detailed explanations.</p>
+                </div>
+                
+                <div class="content-item" data-target="key-components">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="content-title">Key Components of the Calculator</h3>
+                    <p class="content-desc">Explore the essential elements that make up an effective man-days calculator.</p>
+                </div>
+                
+                <div class="content-item" data-target="how-to-use">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="content-title">How to Use the Calculator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive man-days calculator effectively.</p>
+                </div>
+                
+                <div class="content-item" data-target="worked-examples">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="content-title">Worked Examples</h3>
+                    <p class="content-desc">Real-world examples demonstrating how to calculate man-days in different scenarios.</p>
+                </div>
+                
+                <div class="content-item" data-target="hse-pmo">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="content-title">Why This Matters for HSE & PMO</h3>
+                    <p class="content-desc">Discover the critical importance of man-days calculation for Health, Safety, Environment and Project Management.</p>
+                </div>
+                
+                <div class="content-item" data-target="common-pitfalls">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="content-title">Common Pitfalls (and Fixes)</h3>
+                    <p class="content-desc">Avoid these common mistakes in man-days calculation and learn how to fix them.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices</h3>
+                    <p class="content-desc">Learn proven strategies for accurate man-days tracking and calculation.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">Frequently Asked Questions</h3>
+                    <p class="content-desc">Get answers to common questions about man-days calculation and application.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for successful man-days implementation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What is a Man-Days Worked Calculator Card -->
+            <div class="card" id="what-is-calculator">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2 class="card-title">What is a Man-Days Worked Calculator?</h2>
+                </div>
+                <div class="card-content">
+                    <p>A Man-Days Worked Calculator is a tool used to quantify the total labor input on a project or task, measured in person-days. It helps organizations track workforce productivity, calculate safety metrics, and manage project resources effectively.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Definition:</strong> One man-day represents one person working for one full day (typically 8 hours). It's a standardized unit for measuring labor input regardless of the specific hours worked by individuals.</p>
+                    </div>
+                    
+                    <p>The calculator typically includes:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Workforce Data Input</h3>
+                            <p>Fields to enter number of workers, work duration, and hours per day</p>
+                        </div>
+                        <div class="step">
+                            <h3>Calculation Engine</h3>
+                            <p>Automated computation of total man-days based on input parameters</p>
+                        </div>
+                        <div class="step">
+                            <h3>Reporting Features</h3>
+                            <p>Generation of reports for HSE metrics, project tracking, and resource planning</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-info-circle"></i> Key Applications</div>
+                        <ul>
+                            <li><strong>HSE Metrics:</strong> Calculating incident rates like TRIR and LTIR</li>
+                            <li><strong>Project Management:</strong> Tracking labor costs and productivity</li>
+                            <li><strong>Resource Planning:</strong> Estimating workforce requirements for future projects</li>
+                            <li><strong>Compliance Reporting:</strong> Meeting regulatory requirements for safety reporting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Core Formulas Card -->
+            <div class="card" id="core-formulas">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-square-root-alt"></i>
+                    </div>
+                    <h2 class="card-title">Core Formulas (Standard)</h2>
+                </div>
+                <div class="card-content">
+                    <p>These are the standard formulas used to calculate man-days in various scenarios:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calculator"></i> Basic Man-Days Formula</div>
+                        <p><strong>Man-Days = Number of Workers × Number of Days Worked</strong></p>
+                        <p>This basic formula assumes standard 8-hour work days.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calculator"></i> Hours-Based Calculation</div>
+                        <p><strong>Man-Days = Total Hours Worked ÷ 8</strong></p>
+                        <p>Use this when you have total hours data instead of day counts.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calculator"></i> Mixed Workforce Calculation</div>
+                        <p><strong>Total Man-Days = Σ(Workers in Category × Days Worked by Category)</strong></p>
+                        <p>Use this formula when different worker groups work different numbers of days.</p>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Note:</strong> While 8 hours is the standard for one man-day, some industries or projects may use different standards (e.g., 10 hours in mining or construction). Always verify the standard used in your industry.</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Calculation Type</th>
+                                <th>Formula</th>
+                                <th>When to Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Standard</td>
+                                <td>Workers × Days</td>
+                                <td>Uniform workforce, standard days</td>
+                            </tr>
+                            <tr>
+                                <td>Hours-Based</td>
+                                <td>Total Hours ÷ 8</td>
+                                <td>When tracking actual hours worked</td>
+                            </tr>
+                            <tr>
+                                <td>Partial Days</td>
+                                <td>Σ(Hours Worked ÷ 8)</td>
+                                <td>Mixed full and partial days</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Key Components Card -->
+            <div class="card" id="key-components">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h2 class="card-title">Key Components of the Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>An effective man-days calculator consists of several key components that work together to provide accurate calculations:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Input Parameters</h3>
+                            <p>Fields to capture workforce size, work duration, hours per day, and any special conditions.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Calculation Logic</h3>
+                            <p>Algorithms that process input data according to standardized formulas and business rules.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Validation Rules</h3>
+                            <p>Checks to ensure data integrity and flag potential errors in input values.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Reporting Module</h3>
+                            <p>Generation of standardized reports for different stakeholders (HSE, PMO, Finance).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-table"></i> Essential Input Fields</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Description</th>
+                                    <th>Example</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Number of Workers</td>
+                                    <td>Total personnel involved in the task</td>
+                                    <td>15</td>
+                                </tr>
+                                <tr>
+                                    <td>Work Period</td>
+                                    <td>Start and end dates of work</td>
+                                    <td>Jan 1 - Jan 15</td>
+                                </tr>
+                                <tr>
+                                    <td>Hours Per Day</td>
+                                    <td>Standard work hours per day</td>
+                                    <td>8</td>
+                                </tr>
+                                <tr>
+                                    <td>Exclusions</td>
+                                    <td>Non-working days (weekends, holidays)</td>
+                                    <td>Weekends</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Use Card -->
+            <div class="card" id="how-to-use">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h2 class="card-title">How to Use the Man-Days Worked Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our interactive calculator simplifies the process of calculating man-days by providing a structured framework.</p>
+                    
+                    <div class="calculator">
+                        <h3 class="calculator-title">Interactive Man-Days Calculator</h3>
+                        
+                        <div class="form-group">
+                            <label for="numWorkers">Number of Workers</label>
+                            <input type="number" id="numWorkers" placeholder="Enter number of workers" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="workDays">Number of Work Days</label>
+                            <input type="number" id="workDays" placeholder="Enter number of days" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hoursPerDay">Hours Per Day</label>
+                            <select id="hoursPerDay">
+                                <option value="8">Standard (8 hours)</option>
+                                <option value="10">Extended (10 hours)</option>
+                                <option value="12">Long (12 hours)</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="customHoursContainer" style="display: none;">
+                            <label for="customHours">Custom Hours Per Day</label>
+                            <input type="number" id="customHours" placeholder="Enter custom hours" min="1" max="24">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="projectType">Project Type</label>
+                            <select id="projectType">
+                                <option value="standard">Standard Project</option>
+                                <option value="construction">Construction</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="shutdown">Plant Shutdown</option>
+                                <option value="maintenance">Maintenance</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="calculateManDays">
+                            <i class="fas fa-bolt"></i> Calculate Man-Days
+                        </button>
+                        
+                        <div class="result-box" id="calculationResult">
+                            <h3>Man-Days Calculation Results</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-list-ol"></i> Step-by-Step Calculation Process</h3>
+                        <ol>
+                            <li><strong>Gather Workforce Data:</strong> Collect accurate data on workers, dates, and hours</li>
+                            <li><strong>Input Parameters:</strong> Enter data into the calculator fields</li>
+                            <li><strong>Apply Formulas:</strong> The calculator processes data using appropriate formulas</li>
+                            <li><strong>Review Results:</strong> Check calculated man-days and any additional metrics</li>
+                            <li><strong>Generate Reports:</strong> Use results for HSE reporting, project tracking, or planning</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Worked Examples Card -->
+            <div class="card" id="worked-examples">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h2 class="card-title">Worked Examples</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of man-days calculations in different scenarios:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hard-hat"></i> Example 1 – Construction Project (Standard 8-hour day)</div>
+                        <p><strong>Scenario:</strong> A construction project with 25 workers over 20 working days (excluding weekends)</p>
+                        <p><strong>Calculation:</strong> 25 workers × 20 days = <strong>500 man-days</strong></p>
+                        <p><strong>Application:</strong> Used for project costing and scheduling</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-tools"></i> Example 2 – Shutdown (10-hour day)</div>
+                        <p><strong>Scenario:</strong> Plant shutdown with 50 technicians working 12 days at 10 hours per day</p>
+                        <p><strong>Calculation:</strong> (50 workers × 12 days × 10 hours) ÷ 8 = <strong>750 man-days</strong></p>
+                        <p><strong>Application:</strong> Used for HSE incident rate calculations and resource tracking</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-chalkboard-teacher"></i> Example 3 – Training Day (Count but no hours)</div>
+                        <p><strong>Scenario:</strong> Safety training for 75 employees for one 8-hour day</p>
+                        <p><strong>Calculation:</strong> 75 workers × 1 day = <strong>75 man-days</strong></p>
+                        <p><strong>Application:</strong> Included in total man-days for HSE metrics but may be excluded from productivity calculations</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Example</th>
+                                <th>Workers</th>
+                                <th>Days</th>
+                                <th>Hours/Day</th>
+                                <th>Man-Days</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Office Project</td>
+                                <td>10</td>
+                                <td>15</td>
+                                <td>8</td>
+                                <td>150</td>
+                            </tr>
+                            <tr>
+                                <td>Factory Line</td>
+                                <td>45</td>
+                                <td>22</td>
+                                <td>8</td>
+                                <td>990</td>
+                            </tr>
+                            <tr>
+                                <td>Emergency Repair</td>
+                                <td>8</td>
+                                <td>5</td>
+                                <td>12</td>
+                                <td>60</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- HSE & PMO Card -->
+            <div class="card" id="hse-pmo">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2 class="card-title">Why This Matters for HSE & PMO</h2>
+                </div>
+                <div class="card-content">
+                    <p>Accurate man-days calculation is critical for both Health, Safety, Environment (HSE) and Project Management Office (PMO) functions:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>HSE Incident Rates</h3>
+                            <p>Man-days are the denominator in key safety metrics like TRIR, LTIR, and DART rates.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Regulatory Compliance</h3>
+                            <p>OSHA and other regulators require accurate man-days data for safety reporting.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Project Performance</h3>
+                            <p>PMOs use man-days to track productivity, costs, and schedule adherence.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Resource Optimization</h3>
+                            <p>Accurate data helps optimize workforce allocation and identify inefficiencies.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Benchmarking</h3>
+                            <p>Enables comparison of safety performance across projects, departments, and time periods.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Critical Connection:</strong> A 10% error in man-days calculation can result in a 10% error in safety incident rates, potentially leading to incorrect safety performance assessment and misguided safety initiatives.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-exclamation-triangle"></i> HSE Metric Calculation</div>
+                        <p><strong>TRIR Formula:</strong> (Number of Recordable Incidents × 200,000) ÷ Total Man-Hours</p>
+                        <p><strong>Relationship:</strong> Total Man-Hours = Man-Days × 8 (for standard calculations)</p>
+                        <p>This demonstrates how man-days directly impact critical safety metrics.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Common Pitfalls Card -->
+            <div class="card" id="common-pitfalls">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2 class="card-title">Common Pitfalls (and Fixes)</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common mistakes in man-days calculation to ensure accurate data:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Inconsistent Definitions</h3>
+                        <p>Using different definitions of "man-day" across departments or projects.</p>
+                        <p><strong>Fix:</strong> Establish and document a standardized definition organization-wide.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Partial Day Miscalculation</h3>
+                        <p>Incorrectly calculating man-days for part-time workers or partial work days.</p>
+                        <p><strong>Fix:</strong> Use hours-based calculation: Man-Days = Total Hours ÷ 8.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Exclusion Errors</h3>
+                        <p>Failing to properly account for holidays, weekends, or non-working days.</p>
+                        <p><strong>Fix:</strong> Implement clear rules for day counting and use calendar-based tools.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Contractor Omission</h3>
+                        <p>Not including contractor hours in total man-days calculations.</p>
+                        <p><strong>Fix:</strong> Establish processes to capture all worker data, regardless of employment status.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Double Counting</h3>
+                        <p>Counting the same worker multiple times across different projects or time periods.</p>
+                        <p><strong>Fix:</strong> Implement unique worker identification and time allocation systems.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices</h2>
+                </div>
+                <div class="card-content">
+                    <p>Follow these best practices to ensure accurate and meaningful man-days tracking:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Standardize Definitions</h3>
+                        <p>Establish clear, organization-wide definitions for man-day calculations and ensure all stakeholders understand them.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Automate Data Collection</h3>
+                        <p>Use digital time tracking systems to minimize manual entry errors and improve data accuracy.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Regular Audits</h3>
+                        <p>Conduct periodic audits of man-days data to identify and correct inconsistencies or errors.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Training and Documentation</h3>
+                        <p>Provide comprehensive training for personnel involved in data collection and calculation.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Centralized Repository</h3>
+                        <p>Maintain a single source of truth for man-days data to prevent version control issues.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Include All Workers</h3>
+                        <p>Ensure contractors, temporary staff, and part-time workers are included in calculations.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Review and Adjust</h3>
+                        <p>Regularly review calculation methodologies and adjust as business needs evolve.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">Frequently Asked Questions</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What's the difference between man-days and man-hours?</div>
+                        <p>Man-days represent full days of work (typically 8 hours), while man-hours represent the total hours worked. Man-days are often used for high-level planning and reporting, while man-hours provide more granular data for detailed analysis.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Should overtime hours be included in man-days calculations?</div>
+                        <p>For HSE metrics, all hours worked (including overtime) should be included as they represent actual exposure time. For productivity metrics, organizations may use standard hours only to enable fair comparisons.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How do I calculate man-days for part-time workers?</div>
+                        <p>Convert part-time hours to man-days using the formula: Man-Days = Total Hours Worked ÷ 8. For example, a part-time worker who works 20 hours in a week would contribute 2.5 man-days (20 ÷ 8).</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Are training days included in man-days calculations?</div>
+                        <p>Yes, training days are typically included in man-days calculations for HSE metrics as workers are still exposed to potential incidents during training. However, some organizations track them separately for productivity analysis.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How often should man-days be calculated?</div>
+                        <p>Man-days should be calculated at minimum monthly for ongoing reporting, but many organizations track them weekly or even daily for large projects. The frequency should match your reporting needs and resource availability.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What is the industry standard for hours in a man-day?</div>
+                        <p>While 8 hours is the most common standard, some industries use different standards. Construction and mining often use 10 hours, while manufacturing typically uses 8. Always verify the standard used in your specific industry or organization.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts</h2>
+                </div>
+                <div class="card-content">
+                    <p>Accurate man-days calculation is more than an administrative task—it's a critical business function that impacts safety performance measurement, project management, resource planning, and regulatory compliance. While the concept seems simple, consistent and accurate implementation requires attention to detail and organizational discipline.</p>
+                    
+                    <p>Remember that the value of man-days data extends beyond simple headcounts. When properly tracked and analyzed, this data provides insights into workforce productivity, safety performance trends, and operational efficiency. The effort invested in accurate calculation pays dividends in better decision-making and improved organizational performance.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Calculating Your Man-Days Accurately Today</h3>
+                        <p>Use our Man-Days Calculator to begin tracking your workforce data with precision. Consistent, accurate calculation will provide the foundation for meaningful safety metrics, reliable project reporting, and data-driven resource planning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // Custom hours field toggle
+            const hoursPerDaySelect = document.getElementById('hoursPerDay');
+            const customHoursContainer = document.getElementById('customHoursContainer');
+            
+            hoursPerDaySelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customHoursContainer.style.display = 'block';
+                } else {
+                    customHoursContainer.style.display = 'none';
+                }
+            });
+            
+            // Man-Days Calculator functionality
+            const calculateBtn = document.getElementById('calculateManDays');
+            const resultBox = document.getElementById('calculationResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            calculateBtn.addEventListener('click', function() {
+                const numWorkers = parseInt(document.getElementById('numWorkers').value) || 0;
+                const workDays = parseInt(document.getElementById('workDays').value) || 0;
+                const hoursPerDaySelect = document.getElementById('hoursPerDay');
+                const projectType = document.getElementById('projectType').value;
+                
+                let hoursPerDay;
+                if (hoursPerDaySelect.value === 'custom') {
+                    hoursPerDay = parseInt(document.getElementById('customHours').value) || 8;
+                } else {
+                    hoursPerDay = parseInt(hoursPerDaySelect.value);
+                }
+                
+                if (!numWorkers || numWorkers <= 0 || !workDays || workDays <= 0) {
+                    alert('Please enter valid values for workers and work days');
+                    return;
+                }
+                
+                // Calculate man-days
+                const standardManDays = numWorkers * workDays;
+                const totalHours = numWorkers * workDays * hoursPerDay;
+                const hoursBasedManDays = totalHours / 8;
+                
+                // Determine industry context
+                let industryContext = "";
+                let typicalRange = "";
+                
+                switch(projectType) {
+                    case 'construction':
+                        industryContext = "Construction projects typically have higher man-day utilization with extended hours.";
+                        typicalRange = "Typical range: 200-500+ man-days per month for medium projects";
+                        break;
+                    case 'manufacturing':
+                        industryContext = "Manufacturing operations usually follow standard 8-hour shifts with consistent workforce.";
+                        typicalRange = "Typical range: 150-300 man-days per month for medium facilities";
+                        break;
+                    case 'shutdown':
+                        industryContext = "Plant shutdowns involve intensive work with extended hours and large crews.";
+                        typicalRange = "Typical range: 1,000-5,000+ man-days for major shutdowns";
+                        break;
+                    case 'maintenance':
+                        industryContext = "Maintenance work varies widely from routine tasks to major overhauls.";
+                        typicalRange = "Typical range: 50-200 man-days per month for routine maintenance";
+                        break;
+                    default:
+                        industryContext = "Standard projects follow typical 8-hour work days.";
+                        typicalRange = "Typical range: 100-250 man-days per month for medium projects";
+                }
+                
+                resultContent.innerHTML = `
+                    <div class="highlight-box">
+                        <h4>Man-Days Calculation Results</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Calculation Method</th>
+                                    <th>Formula</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Standard Calculation</td>
+                                    <td>${numWorkers} workers × ${workDays} days</td>
+                                    <td><strong>${standardManDays} man-days</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Hours-Based Calculation</td>
+                                    <td>(${numWorkers} × ${workDays} × ${hoursPerDay}) ÷ 8</td>
+                                    <td><strong>${hoursBasedManDays.toFixed(1)} man-days</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-industry"></i> Project Context</div>
+                        <p><strong>Project Type:</strong> ${document.getElementById('projectType').options[document.getElementById('projectType').selectedIndex].text}</p>
+                        <p><strong>Industry Context:</strong> ${industryContext}</p>
+                        <p><strong>Typical Range:</strong> ${typicalRange}</p>
+                    </div>
+                    <div class="highlight-box">
+                        <h4>Application Notes</h4>
+                        <ul>
+                            <li>For HSE metrics, use the <strong>hours-based calculation</strong> (${hoursBasedManDays.toFixed(1)} man-days)</li>
+                            <li>For project planning and reporting, use the <strong>standard calculation</strong> (${standardManDays} man-days)</li>
+                            <li>Always verify which calculation method your organization or industry standard requires</li>
+                            <li>Remember to exclude non-working days (weekends, holidays) if not already accounted for</li>
+                        </ul>
+                    </div>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

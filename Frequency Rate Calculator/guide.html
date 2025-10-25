@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequency Rate Calculator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+        }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--success), #2ecc71); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-5 { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        .icon-6 { background: linear-gradient(45deg, #e84393, #fd79a8); }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Frequency Rate Calculator - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for understanding and calculating Frequency Rate (FR) for workplace safety performance measurement</p>
+        </header>
+        <script type="text/javascript">
+	atOptions = {
+		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-is-fr">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="content-title">What is Frequency Rate (FR)?</h3>
+                    <p class="content-desc">Understand the fundamentals of Frequency Rate as a key safety performance indicator and its importance in workplace safety management.</p>
+                </div>
+                
+                <div class="content-item" data-target="formulas">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="content-title">Formula for Frequency Rate Calculator</h3>
+                    <p class="content-desc">Learn the mathematical formulas used to calculate FR with international (ILO/ISO) and OSHA methods.</p>
+                </div>
+                
+                <div class="content-item" data-target="how-to-use">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="content-title">How to Use the Frequency Rate Calculator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive FR Calculator tool effectively.</p>
+                </div>
+                
+                <div class="content-item" data-target="example-calculations">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="content-title">Example Calculations</h3>
+                    <p class="content-desc">Real-world examples demonstrating how to calculate FR in construction, manufacturing, and oil & gas operations.</p>
+                </div>
+                
+                <div class="content-item" data-target="importance">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="content-title">Why Is Frequency Rate Important?</h3>
+                    <p class="content-desc">Discover the critical benefits and applications of tracking Frequency Rate in safety management systems.</p>
+                </div>
+                
+                <div class="content-item" data-target="real-world-examples">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="content-title">Real-World Examples</h3>
+                    <p class="content-desc">Explore how organizations across industries use Frequency Rate metrics to improve safety performance.</p>
+                </div>
+                
+                <div class="content-item" data-target="common-mistakes">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="content-title">Common Mistakes in Calculating FR</h3>
+                    <p class="content-desc">Avoid these common pitfalls that can undermine your Frequency Rate calculations and interpretations.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices to Reduce FR</h3>
+                    <p class="content-desc">Learn proven strategies for enhancing safety performance and reducing Frequency Rate.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">Frequently Asked Questions (FAQ)</h3>
+                    <p class="content-desc">Get answers to common questions about Frequency Rate calculations and application.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for successful Frequency Rate implementation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What is Frequency Rate Card -->
+            <div class="card" id="what-is-fr">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2 class="card-title">What is Frequency Rate (FR)?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Frequency Rate (FR) is a key safety performance indicator that measures the rate at which work-related injuries and illnesses occur within a specific workforce over a defined period. It provides a standardized way to compare safety performance across different organizations, industries, and time periods.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Definition:</strong> Frequency Rate represents the number of recordable injuries and illnesses per 1,000,000 hours worked. This standardization allows for meaningful comparisons regardless of organization size or work schedule.</p>
+                    </div>
+                    
+                    <p>Frequency Rate is particularly valuable because it:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Standardizes Measurement</h3>
+                            <p>Allows comparison between organizations of different sizes and industries</p>
+                        </div>
+                        <div class="step">
+                            <h3>Tracks Performance Trends</h3>
+                            <p>Helps identify whether safety performance is improving or deteriorating over time</p>
+                        </div>
+                        <div class="step">
+                            <h3>Supports Decision Making</h3>
+                            <p>Provides data-driven insights for safety program improvements and resource allocation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-info-circle"></i> Key Characteristics</div>
+                        <ul>
+                            <li><strong>Standardized Unit:</strong> Injuries per 1,000,000 hours worked</li>
+                            <li><strong>International Acceptance:</strong> Recognized globally as a key safety metric</li>
+                            <li><strong>Leading Indicator:</strong> Helps predict future safety performance when tracked consistently</li>
+                            <li><strong>Benchmarking Tool:</strong> Enables comparison with industry averages and best practices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formulas Card -->
+            <div class="card" id="formulas">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2 class="card-title">Formula for Frequency Rate Calculator (FR)</h2>
+                </div>
+                <div class="card-content">
+                    <p>There are two primary methods for calculating Frequency Rate, each with its own formula and application context:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-globe"></i> International Method (ILO / ISO)</div>
+                        <p><strong>FR = (Number of Recordable Injuries × 1,000,000) ÷ Total Hours Worked</strong></p>
+                        <p>This is the most widely accepted international standard used by ILO (International Labor Organization) and ISO (International Organization for Standardization).</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-flag-usa"></i> OSHA Method (USA)</div>
+                        <p><strong>FR = (Number of Recordable Injuries × 200,000) ÷ Total Hours Worked</strong></p>
+                        <p>Used primarily in the United States, where 200,000 represents 100 employees working 40 hours per week for 50 weeks.</p>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Key Difference:</strong> The international method uses 1,000,000 as the base (representing 500 employees), while the OSHA method uses 200,000 (representing 100 employees). This means international FR values will be 5 times higher than OSHA FR values for the same safety performance.</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Method</th>
+                                <th>Formula</th>
+                                <th>Base Hours</th>
+                                <th>Primary Use</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>International (ILO/ISO)</td>
+                                <td>(Injuries × 1,000,000) ÷ Hours</td>
+                                <td>1,000,000</td>
+                                <td>Global operations, multinational companies</td>
+                            </tr>
+                            <tr>
+                                <td>OSHA (USA)</td>
+                                <td>(Injuries × 200,000) ÷ Hours</td>
+                                <td>200,000</td>
+                                <td>United States operations, OSHA reporting</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- How to Use Card -->
+            <div class="card" id="how-to-use">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h2 class="card-title">How to Use the Frequency Rate Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our interactive Frequency Rate Calculator simplifies the process of calculating this important safety metric by providing a structured framework.</p>
+                    
+                    <div class="calculator">
+                        <h3 class="calculator-title">Interactive Frequency Rate Calculator</h3>
+                        
+                        <div class="form-group">
+                            <label for="recordableInjuries">Number of Recordable Injuries</label>
+                            <input type="number" id="recordableInjuries" placeholder="Enter number of injuries" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="totalHours">Total Hours Worked</label>
+                            <input type="number" id="totalHours" placeholder="Enter total hours worked" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="calculationMethod">Calculation Method</label>
+                            <select id="calculationMethod">
+                                <option value="international">International (ILO/ISO) - 1,000,000 base</option>
+                                <option value="osha">OSHA (USA) - 200,000 base</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="industryType">Industry Type (for benchmarking)</label>
+                            <select id="industryType">
+                                <option value="general">General Industry</option>
+                                <option value="construction">Construction</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="oilgas">Oil & Gas</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="transportation">Transportation</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="calculateFR">
+                            <i class="fas fa-bolt"></i> Calculate Frequency Rate
+                        </button>
+                        
+                        <div class="result-box" id="calculationResult">
+                            <h3>Frequency Rate Calculation Results</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-list-ol"></i> Step-by-Step Calculation Process</h3>
+                        <ol>
+                            <li><strong>Gather Data:</strong> Collect accurate data on recordable injuries and total hours worked</li>
+                            <li><strong>Classify Injuries:</strong> Ensure injuries meet the criteria for "recordable" based on your standard</li>
+                            <li><strong>Select Method:</strong> Choose the appropriate calculation method (International or OSHA)</li>
+                            <li><strong>Apply Formula:</strong> Use the correct formula with your data</li>
+                            <li><strong>Interpret Results:</strong> Compare your FR to industry benchmarks and previous periods</li>
+                            <li><strong>Take Action:</strong> Use insights to improve safety programs and reduce future incidents</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Example Calculations Card -->
+            <div class="card" id="example-calculations">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h2 class="card-title">Example Calculations</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of Frequency Rate calculations across different industries:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hard-hat"></i> Example 1 – Construction Project</div>
+                        <p><strong>Scenario:</strong> A construction company with 5 recordable injuries over 450,000 hours worked</p>
+                        <p><strong>International FR:</strong> (5 × 1,000,000) ÷ 450,000 = <strong>11.11</strong></p>
+                        <p><strong>OSHA FR:</strong> (5 × 200,000) ÷ 450,000 = <strong>2.22</strong></p>
+                        <p><strong>Interpretation:</strong> This FR is slightly above average for construction industry (avg: 8-10 international)</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-industry"></i> Example 2 – Manufacturing Plant</div>
+                        <p><strong>Scenario:</strong> A manufacturing facility with 3 recordable injuries over 600,000 hours worked</p>
+                        <p><strong>International FR:</strong> (3 × 1,000,000) ÷ 600,000 = <strong>5.00</strong></p>
+                        <p><strong>OSHA FR:</strong> (3 × 200,000) ÷ 600,000 = <strong>1.00</strong></p>
+                        <p><strong>Interpretation:</strong> This is an excellent FR, well below manufacturing industry average (avg: 6-8 international)</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-oil-well"></i> Example 3 – Oil & Gas Operation</div>
+                        <p><strong>Scenario:</strong> An offshore drilling operation with 2 recordable injuries over 280,000 hours worked</p>
+                        <p><strong>International FR:</strong> (2 × 1,000,000) ÷ 280,000 = <strong>7.14</strong></p>
+                        <p><strong>OSHA FR:</strong> (2 × 200,000) ÷ 280,000 = <strong>1.43</strong></p>
+                        <p><strong>Interpretation:</strong> This is a good FR for oil & gas, slightly better than industry average (avg: 8-12 international)</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Industry</th>
+                                <th>Average International FR</th>
+                                <th>Average OSHA FR</th>
+                                <th>World-Class FR</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Construction</td>
+                                <td>8-10</td>
+                                <td>1.6-2.0</td>
+                                <td>&lt; 5.0</td>
+                            </tr>
+                            <tr>
+                                <td>Manufacturing</td>
+                                <td>6-8</td>
+                                <td>1.2-1.6</td>
+                                <td>&lt; 3.0</td>
+                            </tr>
+                            <tr>
+                                <td>Oil & Gas</td>
+                                <td>8-12</td>
+                                <td>1.6-2.4</td>
+                                <td>&lt; 5.0</td>
+                            </tr>
+                            <tr>
+                                <td>Healthcare</td>
+                                <td>10-14</td>
+                                <td>2.0-2.8</td>
+                                <td>&lt; 6.0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Importance Card -->
+            <div class="card" id="importance">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2 class="card-title">Why Is Frequency Rate Important?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Frequency Rate is a critical safety metric that provides valuable insights into organizational safety performance and risk management effectiveness.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Performance Measurement</h3>
+                            <p>Quantifies safety performance in a standardized way that can be tracked over time and compared across operations.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Risk Assessment</h3>
+                            <p>Helps identify high-risk areas, processes, or departments that need targeted safety interventions.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Regulatory Compliance</h3>
+                            <p>Required for OSHA reporting in the US and often requested by clients, insurers, and regulatory bodies globally.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Benchmarking</h3>
+                            <p>Enables comparison with industry averages, competitors, and best-in-class safety performers.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Decision Support</h3>
+                            <p>Provides data-driven insights for safety program improvements, resource allocation, and strategic planning.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Business Impact:</strong> Organizations with lower Frequency Rates typically experience higher productivity, lower insurance costs, reduced absenteeism, and better employee morale. A 10% reduction in FR can translate to significant financial savings through reduced workers' compensation claims and improved operational efficiency.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-chart-bar"></i> Strategic Applications</div>
+                        <ul>
+                            <li><strong>Safety Program Evaluation:</strong> Measure the effectiveness of safety initiatives and training programs</li>
+                            <li><strong>Contractor Management:</strong> Evaluate and select contractors based on their safety performance</li>
+                            <li><strong>Insurance Premiums:</strong> Demonstrate safety performance to negotiate better insurance rates</li>
+                            <li><strong>Corporate Reporting:</strong> Include in sustainability reports and corporate social responsibility disclosures</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-World Examples Card -->
+            <div class="card" id="real-world-examples">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h2 class="card-title">Real-World Examples</h2>
+                </div>
+                <div class="card-content">
+                    <p>Frequency Rate is used across industries to measure and improve safety performance. Here are some real-world applications:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-building"></i> Multinational Corporation</div>
+                        <p><strong>Scenario:</strong> A global manufacturing company uses FR to compare safety performance across its 25 facilities in 12 countries</p>
+                        <p><strong>Application:</strong> Standardized International FR calculation allows meaningful comparison despite different local regulations</p>
+                        <p><strong>Outcome:</strong> Identified underperforming facilities and implemented targeted improvement programs, reducing corporate FR by 35% over three years</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-tools"></i> Construction Company</div>
+                        <p><strong>Scenario:</strong> A construction firm tracks FR separately for different project types (commercial, residential, industrial)</p>
+                        <p><strong>Application:</strong> Uses FR data to identify that industrial projects have 40% higher FR than commercial projects</p>
+                        <p><strong>Outcome:</strong> Implemented specialized safety protocols for industrial projects, reducing their FR to match commercial levels</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-truck"></i> Logistics Company</div>
+                        <p><strong>Scenario:</strong> A transportation company uses FR to evaluate safety performance across different departments (warehouse, drivers, office)</p>
+                        <p><strong>Application:</strong> Discovered warehouse operations had FR 3 times higher than other departments</p>
+                        <p><strong>Outcome:</strong> Implemented ergonomic improvements and material handling training, reducing warehouse FR by 60%</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Company Type</th>
+                                <th>Initial FR</th>
+                                <th>Intervention</th>
+                                <th>Final FR</th>
+                                <th>Improvement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Chemical Plant</td>
+                                <td>9.2</td>
+                                <td>Process safety management</td>
+                                <td>4.1</td>
+                                <td>55% reduction</td>
+                            </tr>
+                            <tr>
+                                <td>Food Processing</td>
+                                <td>12.8</td>
+                                <td>Machine guarding & training</td>
+                                <td>6.3</td>
+                                <td>51% reduction</td>
+                            </tr>
+                            <tr>
+                                <td>Utility Company</td>
+                                <td>7.5</td>
+                                <td>Fall protection program</td>
+                                <td>3.2</td>
+                                <td>57% reduction</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Common Mistakes Card -->
+            <div class="card" id="common-mistakes">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Common Mistakes in Calculating FR</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common pitfalls to ensure accurate and meaningful Frequency Rate calculations:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Inconsistent Injury Classification</h3>
+                        <p>Applying different criteria for what constitutes a "recordable injury" across departments or over time.</p>
+                        <p><strong>Fix:</strong> Establish clear, documented criteria and provide consistent training to all involved in injury classification.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Inaccurate Hours Tracking</h3>
+                        <p>Not properly capturing all hours worked, including overtime, contractor hours, and part-time workers.</p>
+                        <p><strong>Fix:</strong> Implement robust time tracking systems and include all worker categories in hour calculations.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Mixing Calculation Methods</h3>
+                        <p>Using International method for some calculations and OSHA method for others without clear documentation.</p>
+                        <p><strong>Fix:</strong> Standardize on one method organization-wide and clearly document which method is being used.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Small Sample Size Interpretation</h3>
+                        <p>Drawing significant conclusions from FR calculated with very few hours or injuries.</p>
+                        <p><strong>Fix:</strong> Use larger time periods (quarterly or annual) for meaningful analysis and trend identification.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Ignoring Industry Context</h3>
+                        <p>Comparing FR across different industries without understanding industry-specific risk profiles.</p>
+                        <p><strong>Fix:</strong> Always benchmark against industry averages and understand industry-specific risk factors.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices to Reduce FR</h2>
+                </div>
+                <div class="card-content">
+                    <p>Follow these best practices to enhance safety performance and reduce Frequency Rate:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Proactive Hazard Identification</h3>
+                        <p>Implement regular safety inspections, job hazard analyses, and risk assessments to identify and control hazards before incidents occur.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Comprehensive Safety Training</h3>
+                        <p>Provide ongoing, job-specific safety training for all employees, with special emphasis on high-risk tasks and procedures.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Strong Safety Leadership</h3>
+                        <p>Ensure visible commitment from management and supervisors, with clear safety expectations and accountability.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Employee Engagement</h3>
+                        <p>Involve workers in safety committees, incident investigations, and safety program development.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Data-Driven Improvement</h3>
+                        <p>Use FR and other safety metrics to identify trends, prioritize interventions, and measure improvement.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Continuous Monitoring</h3>
+                        <p>Track FR regularly (monthly or quarterly) to identify emerging trends and respond quickly to performance changes.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Contractor Management</h3>
+                        <p>Apply the same safety standards to contractors and include their hours and injuries in FR calculations.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">Frequently Asked Questions (FAQ)</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What's the difference between Frequency Rate and Incident Rate?</div>
+                        <p>Frequency Rate specifically measures the rate of recordable injuries and illnesses, while Incident Rate is a broader term that can include various types of incidents. In practice, they are often used interchangeably, but Frequency Rate typically refers to the standardized calculation using 1,000,000 or 200,000 base hours.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How often should we calculate Frequency Rate?</div>
+                        <p>Frequency Rate should be calculated at minimum quarterly for meaningful trend analysis, but many organizations track it monthly for more responsive performance management. Annual calculation is essential for regulatory reporting and year-over-year comparison.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Should we include contractor hours in FR calculations?</div>
+                        <p>Yes, contractor hours should be included if the organization is responsible for tracking and reporting safety performance for all workers at the site. This provides a complete picture of safety performance and ensures accurate benchmarking.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What is a good Frequency Rate?</div>
+                        <p>A lower FR is always better. While industry averages vary, many organizations aim for FR below 5.0 (international) or 1.0 (OSHA). World-class safety performers achieve rates below 3.0 (international) or 0.6 (OSHA). The ultimate goal should be zero injuries, reflected in an FR of 0.0.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How can we improve our Frequency Rate?</div>
+                        <p>Focus on proactive safety measures: comprehensive hazard identification and control, effective safety training, strong safety leadership, employee engagement in safety programs, thorough incident investigation, and continuous improvement based on data analysis.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Can Frequency Rate be zero?</div>
+                        <p>Yes, many organizations achieve zero recordable injuries, resulting in an FR of 0.0. This represents excellent safety performance and should be the ultimate goal of any safety program.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts</h2>
+                </div>
+                <div class="card-content">
+                    <p>Frequency Rate is more than just a number—it's a powerful tool for understanding and improving workplace safety. While it provides valuable insights into safety performance, it's important to remember that FR is a lagging indicator, reflecting past performance rather than predicting future safety.</p>
+                    
+                    <p>The true value of Frequency Rate lies in how you use it. When tracked consistently and analyzed thoughtfully, FR can help identify trends, prioritize safety initiatives, and measure the effectiveness of your safety programs. However, it should be used in conjunction with leading indicators and qualitative assessments for a complete picture of safety performance.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Tracking Your Frequency Rate Today</h3>
+                        <p>Use our Frequency Rate Calculator to begin measuring your organization's safety performance with precision. Consistent tracking, accurate calculation, and meaningful action based on your FR will lead to continuous safety improvement and, most importantly, help ensure every worker goes home safe and healthy every day.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // Frequency Rate Calculator functionality
+            const calculateBtn = document.getElementById('calculateFR');
+            const resultBox = document.getElementById('calculationResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            calculateBtn.addEventListener('click', function() {
+                const recordableInjuries = parseInt(document.getElementById('recordableInjuries').value) || 0;
+                const totalHours = parseInt(document.getElementById('totalHours').value) || 0;
+                const calculationMethod = document.getElementById('calculationMethod').value;
+                const industryType = document.getElementById('industryType').value;
+                
+                if (!totalHours || totalHours <= 0) {
+                    alert('Please enter valid total hours worked');
+                    return;
+                }
+                
+                // Calculate Frequency Rate
+                let fr, baseHours, methodName;
+                
+                if (calculationMethod === 'international') {
+                    baseHours = 1000000;
+                    methodName = 'International (ILO/ISO)';
+                    fr = (recordableInjuries * baseHours) / totalHours;
+                } else {
+                    baseHours = 200000;
+                    methodName = 'OSHA (USA)';
+                    fr = (recordableInjuries * baseHours) / totalHours;
+                }
+                
+                // Determine industry benchmarks
+                let industryBenchmarks = {
+                    'general': { avg: 8.0, good: 4.0, excellent: 2.0 },
+                    'construction': { avg: 9.0, good: 5.0, excellent: 3.0 },
+                    'manufacturing': { avg: 7.0, good: 4.0, excellent: 2.0 },
+                    'oilgas': { avg: 10.0, good: 6.0, excellent: 3.0 },
+                    'healthcare': { avg: 12.0, good: 7.0, excellent: 4.0 },
+                    'transportation': { avg: 9.0, good: 5.0, excellent: 3.0 }
+                };
+                
+                const benchmark = industryBenchmarks[industryType];
+                
+                // Determine performance level
+                let performanceLevel, performanceColor;
+                if (fr === 0) {
+                    performanceLevel = "Perfect - Zero Injuries";
+                    performanceColor = "success";
+                } else if (fr <= benchmark.excellent) {
+                    performanceLevel = "Excellent - World Class";
+                    performanceColor = "success";
+                } else if (fr <= benchmark.good) {
+                    performanceLevel = "Good - Above Average";
+                    performanceColor = "info";
+                } else if (fr <= benchmark.avg) {
+                    performanceLevel = "Average - Industry Standard";
+                    performanceColor = "warning";
+                } else {
+                    performanceLevel = "Needs Improvement - Below Average";
+                    performanceColor = "danger";
+                }
+                
+                resultContent.innerHTML = `
+                    <div class="highlight-box">
+                        <h4>Frequency Rate Calculation Results</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Recordable Injuries</td>
+                                    <td>${recordableInjuries}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Hours Worked</td>
+                                    <td>${totalHours.toLocaleString()}</td>
+                                </tr>
+                                <tr>
+                                    <td>Calculation Method</td>
+                                    <td>${methodName}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Frequency Rate (FR)</strong></td>
+                                    <td><strong>${fr.toFixed(2)}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-chart-line"></i> Performance Assessment</div>
+                        <p><strong>Performance Level:</strong> <span class="badge badge-${performanceColor}">${performanceLevel}</span></p>
+                        <p><strong>Industry Context:</strong> ${document.getElementById('industryType').options[document.getElementById('industryType').selectedIndex].text}</p>
+                        <p><strong>Industry Average FR:</strong> ${benchmark.avg} (International Method)</p>
+                        <p><strong>Good Performance FR:</strong> ${benchmark.good} or lower (International Method)</p>
+                        <p><strong>Excellent Performance FR:</strong> ${benchmark.excellent} or lower (International Method)</p>
+                    </div>
+                    <div class="highlight-box">
+                        <h4>Next Steps</h4>
+                        <ol>
+                            <li>Compare your FR to previous periods to identify trends</li>
+                            <li>Benchmark against industry averages and competitors</li>
+                            <li>Investigate the root causes of any recordable injuries</li>
+                            <li>Implement targeted safety improvements based on your findings</li>
+                            <li>Set realistic goals for FR improvement</li>
+                            <li>Track FR regularly to monitor progress</li>
+                        </ol>
+                    </div>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

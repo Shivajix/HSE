@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIR Calculator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .trir-calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+        }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--success), #2ecc71); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-5 { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        .icon-6 { background: linear-gradient(45deg, #e84393, #fd79a8); }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>TRIR Calculator - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for understanding and calculating workplace safety metrics - TRIR, AFR, and FAR</p>
+        </header>
+        <script type="text/javascript">
+	atOptions = {
+		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-are-trir-afr-far">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="content-title">What Are TRIR, AFR, and FAR?</h3>
+                    <p class="content-desc">Understand the fundamentals of Total Recordable Incident Rate (TRIR), All Injury Frequency Rate (AFR), and Fatal Accident Rate (FAR).</p>
+                </div>
+                
+                <div class="content-item" data-target="formulas">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="content-title">Formulas</h3>
+                    <p class="content-desc">Learn the mathematical formulas used to calculate TRIR, AFR, and FAR with detailed explanations.</p>
+                </div>
+                
+                <div class="content-item" data-target="how-to-use">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="content-title">How to Use the TRIR Calculator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive TRIR Calculator tool effectively.</p>
+                </div>
+                
+                <div class="content-item" data-target="example-calculations">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="content-title">Example Calculations</h3>
+                    <p class="content-desc">Real-world examples demonstrating how to calculate TRIR, AFR, and FAR with sample data.</p>
+                </div>
+                
+                <div class="content-item" data-target="importance">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="content-title">Why Are TRIR, AFR, and FAR Important?</h3>
+                    <p class="content-desc">Discover the critical benefits and regulatory requirements of tracking these safety metrics.</p>
+                </div>
+                
+                <div class="content-item" data-target="real-world-examples">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="content-title">Real-World Examples</h3>
+                    <p class="content-desc">Explore how organizations across industries use TRIR, AFR, and FAR metrics.</p>
+                </div>
+                
+                <div class="content-item" data-target="common-mistakes">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="content-title">Common Mistakes in Tracking</h3>
+                    <p class="content-desc">Avoid these common pitfalls that can undermine your safety metric tracking.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices to Improve TRIR / AFR / FAR</h3>
+                    <p class="content-desc">Learn proven strategies for enhancing safety performance and reducing incident rates.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">Frequently Asked Questions (FAQ)</h3>
+                    <p class="content-desc">Get answers to common questions about TRIR, AFR, and FAR calculations and interpretation.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for successful safety metric implementation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What Are TRIR, AFR, and FAR Card -->
+            <div class="card" id="what-are-trir-afr-far">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="card-title">What Are TRIR, AFR, and FAR?</h2>
+                </div>
+                <div class="card-content">
+                    <p>TRIR, AFR, and FAR are key safety metrics used to measure workplace safety performance across industries.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>TRIR Definition:</strong> Total Recordable Incident Rate measures the number of recordable incidents per 100 full-time employees during a one-year period.</p>
+                    </div>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Total Recordable Incident Rate (TRIR)</h3>
+                            <p>A comprehensive metric that includes fatalities, lost workday cases, restricted work cases, and medical treatment cases (excluding first aid).</p>
+                        </div>
+                        <div class="step">
+                            <h3>All Injury Frequency Rate (AFR)</h3>
+                            <p>Measures the frequency of all workplace injuries, including those requiring medical treatment beyond first aid.</p>
+                        </div>
+                        <div class="step">
+                            <h3>Fatal Accident Rate (FAR)</h3>
+                            <p>Calculates the number of fatalities per 100 million hours worked, providing perspective on the most serious safety outcomes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formulas Card -->
+            <div class="card" id="formulas">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2 class="card-title">Formulas</h2>
+                </div>
+                <div class="card-content">
+                    <p>Each safety metric has a specific formula for calculation:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calculator"></i> TRIR Formula</div>
+                        <p><strong>TRIR = (Number of Recordable Incidents × 200,000) / Total Hours Worked</strong></p>
+                        <p>Where 200,000 represents 100 employees working 40 hours per week for 50 weeks.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calculator"></i> AFR Formula</div>
+                        <p><strong>AFR = (Number of Injuries × 1,000,000) / Total Hours Worked</strong></p>
+                        <p>Where 1,000,000 represents the base for 500 employees.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calculator"></i> FAR Formula</div>
+                        <p><strong>FAR = (Number of Fatalities × 100,000,000) / Total Hours Worked</strong></p>
+                        <p>Where 100,000,000 represents 1,000 employees working over 50 years.</p>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Note:</strong> These formulas allow for standardized comparison of safety performance across organizations of different sizes and industries.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Use Card -->
+            <div class="card" id="how-to-use">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">How to Use the TRIR Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our TRIR Calculator simplifies the process of calculating safety metrics by providing a structured framework.</p>
+                    
+                    <div class="trir-calculator">
+                        <h3 class="calculator-title">Interactive TRIR Calculator</h3>
+                        
+                        <div class="form-group">
+                            <label for="recordableIncidents">Number of Recordable Incidents</label>
+                            <input type="number" id="recordableIncidents" placeholder="Enter number of incidents">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="totalHours">Total Hours Worked</label>
+                            <input type="number" id="totalHours" placeholder="Enter total hours worked">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fatalities">Number of Fatalities (for FAR)</label>
+                            <input type="number" id="fatalities" placeholder="Enter number of fatalities">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="injuries">Number of Injuries (for AFR)</label>
+                            <input type="number" id="injuries" placeholder="Enter number of injuries">
+                        </div>
+                        
+                        <button class="btn btn-primary" id="calculateMetrics">
+                            <i class="fas fa-bolt"></i> Calculate Safety Metrics
+                        </button>
+                        
+                        <div class="result-box" id="calculationResult">
+                            <h3>Safety Metrics Calculated</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-list-ol"></i> Step-by-Step Calculation Process</h3>
+                        <ol>
+                            <li><strong>Gather Data:</strong> Collect accurate data on incidents, hours worked, and workforce size</li>
+                            <li><strong>Classify Incidents:</strong> Properly classify incidents as recordable or non-recordable</li>
+                            <li><strong>Apply Formulas:</strong> Use the appropriate formulas for TRIR, AFR, and FAR</li>
+                            <li><strong>Interpret Results:</strong> Compare results to industry benchmarks and previous periods</li>
+                            <li><strong>Implement Actions:</strong> Use insights to improve safety programs and reduce future incidents</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Example Calculations Card -->
+            <div class="card" id="example-calculations">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Example Calculations for TRIR Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of how to calculate TRIR, AFR, and FAR:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-industry"></i> Manufacturing Company Example</div>
+                        <p><strong>Given:</strong> 5 recordable incidents, 500,000 hours worked, 2 fatalities, 8 injuries</p>
+                        <p><strong>TRIR Calculation:</strong> (5 × 200,000) / 500,000 = <strong>2.0</strong></p>
+                        <p><strong>AFR Calculation:</strong> (8 × 1,000,000) / 500,000 = <strong>16.0</strong></p>
+                        <p><strong>FAR Calculation:</strong> (2 × 100,000,000) / 500,000 = <strong>400.0</strong></p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hard-hat"></i> Construction Company Example</div>
+                        <p><strong>Given:</strong> 12 recordable incidents, 750,000 hours worked, 1 fatality, 15 injuries</p>
+                        <p><strong>TRIR Calculation:</strong> (12 × 200,000) / 750,000 = <strong>3.2</strong></p>
+                        <p><strong>AFR Calculation:</strong> (15 × 1,000,000) / 750,000 = <strong>20.0</strong></p>
+                        <p><strong>FAR Calculation:</strong> (1 × 100,000,000) / 750,000 = <strong>133.3</strong></p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-clinic-medical"></i> Healthcare Facility Example</div>
+                        <p><strong>Given:</strong> 8 recordable incidents, 1,200,000 hours worked, 0 fatalities, 10 injuries</p>
+                        <p><strong>TRIR Calculation:</strong> (8 × 200,000) / 1,200,000 = <strong>1.33</strong></p>
+                        <p><strong>AFR Calculation:</strong> (10 × 1,000,000) / 1,200,000 = <strong>8.33</strong></p>
+                        <p><strong>FAR Calculation:</strong> (0 × 100,000,000) / 1,200,000 = <strong>0.0</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Importance Card -->
+            <div class="card" id="importance">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Why Are TRIR, AFR, and FAR Important?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Tracking TRIR, AFR, and FAR provides critical insights into workplace safety performance and organizational risk management.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Regulatory Compliance</h3>
+                            <p>Many regulatory bodies require tracking and reporting of safety metrics for compliance purposes.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Benchmarking</h3>
+                            <p>Allows comparison of safety performance against industry averages and competitors.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Risk Assessment</h3>
+                            <p>Helps identify high-risk areas and prioritize safety interventions.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Performance Measurement</h3>
+                            <p>Quantifies the effectiveness of safety programs and initiatives.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Insurance and Liability</h3>
+                            <p>Impacts insurance premiums and can influence legal liability in case of incidents.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Did You Know?</strong> Organizations with lower TRIR rates typically experience higher productivity, lower turnover, and better overall business performance.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-World Examples Card -->
+            <div class="card" id="real-world-examples">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Real-World Examples</h2>
+                </div>
+                <div class="card-content">
+                    <p>TRIR, AFR, and FAR are used across industries to measure and improve safety performance:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-oil-well"></i> Oil and Gas Industry</div>
+                        <p><strong>Typical TRIR:</strong> 0.5 - 1.5 (varies by company and region)</p>
+                        <p><strong>Application:</strong> Used to identify high-risk operations and implement targeted safety measures in remote and hazardous environments.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-truck"></i> Transportation and Logistics</div>
+                        <p><strong>Typical TRIR:</strong> 2.0 - 4.0</p>
+                        <p><strong>Application:</strong> Helps reduce vehicle-related incidents and warehouse injuries through improved training and procedures.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-warehouse"></i> Manufacturing Sector</div>
+                        <p><strong>Typical TRIR:</strong> 3.0 - 6.0</p>
+                        <p><strong>Application:</strong> Guides machine guarding improvements, ergonomic assessments, and chemical safety protocols.</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Industry</th>
+                                <th>Average TRIR</th>
+                                <th>Average AFR</th>
+                                <th>Key Focus Areas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Construction</td>
+                                <td>3.2</td>
+                                <td>18.5</td>
+                                <td>Fall protection, equipment safety</td>
+                            </tr>
+                            <tr>
+                                <td>Healthcare</td>
+                                <td>4.5</td>
+                                <td>22.0</td>
+                                <td>Patient handling, needlestick prevention</td>
+                            </tr>
+                            <tr>
+                                <td>Utilities</td>
+                                <td>1.8</td>
+                                <td>12.3</td>
+                                <td>Electrical safety, confined spaces</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Common Mistakes Card -->
+            <div class="card" id="common-mistakes">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Common Mistakes in Tracking</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common pitfalls to ensure accurate and meaningful safety metric tracking:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Inconsistent Classification</h3>
+                        <p>Applying different criteria for what constitutes a recordable incident across departments or over time.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Underreporting</h3>
+                        <p>Failing to record all incidents due to fear of consequences or lack of reporting culture.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Inaccurate Hours Tracking</h3>
+                        <p>Not properly capturing all hours worked, including overtime and contractor hours.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Focusing Only on Numbers</h3>
+                        <p>Prioritizing metric improvement over actual safety improvements and hazard elimination.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Lack of Context</h3>
+                        <p>Reporting metrics without explaining the underlying causes or business context.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices to Improve TRIR / AFR / FAR</h2>
+                </div>
+                <div class="card-content">
+                    <p>Follow these best practices to enhance safety performance and reduce incident rates:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Establish Clear Reporting Procedures</h3>
+                        <p>Create simple, accessible incident reporting systems and encourage near-miss reporting.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Regular Safety Training</h3>
+                        <p>Provide ongoing, job-specific safety training for all employees and contractors.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Hazard Identification and Control</h3>
+                        <p>Implement systematic processes for identifying, assessing, and controlling workplace hazards.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Leadership Commitment</h3>
+                        <p>Ensure visible safety leadership and adequate resource allocation for safety programs.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Employee Involvement</h3>
+                        <p>Engage workers in safety committees, inspections, and program development.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Data Analysis and Action</h3>
+                        <p>Regularly analyze safety data to identify trends and implement corrective actions.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Continuous Improvement</h3>
+                        <p>Regularly review and update safety programs based on performance metrics and feedback.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">Frequently Asked Questions (FAQ)</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What is considered a recordable incident?</div>
+                        <p>A recordable incident is any work-related injury or illness that results in death, loss of consciousness, days away from work, restricted work activity, job transfer, or medical treatment beyond first aid.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How often should TRIR be calculated?</div>
+                        <p>TRIR is typically calculated annually, but many organizations track it monthly or quarterly to monitor trends and implement timely interventions.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What is a good TRIR rate?</div>
+                        <p>A lower TRIR is always better. While industry averages vary, many organizations aim for TRIR below 2.0, with world-class safety performers achieving rates below 1.0.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Should contractor hours be included in TRIR calculations?</div>
+                        <p>Yes, contractor hours should be included if the organization is responsible for tracking and reporting safety performance for all workers at the site.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Can TRIR be zero?</div>
+                        <p>Yes, many organizations achieve zero recordable incidents, resulting in a TRIR of 0.0. This represents excellent safety performance.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How do I improve our TRIR?</div>
+                        <p>Focus on proactive safety measures: hazard identification and control, employee training, safety leadership, incident investigation, and continuous improvement of safety systems.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts</h2>
+                </div>
+                <div class="card-content">
+                    <p>TRIR, AFR, and FAR are more than just numbers—they are vital indicators of your organization's safety culture and commitment to protecting workers. While these metrics provide valuable insights, they should be used as tools for improvement rather than just performance indicators.</p>
+                    
+                    <p>Remember that the ultimate goal is not just to improve metrics, but to create a workplace where every employee goes home safe and healthy every day. Use these metrics to identify areas for improvement, track progress, and celebrate successes in your safety journey.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Tracking Your Safety Metrics Today</h3>
+                        <p>Use our TRIR Calculator to begin measuring and improving your organization's safety performance. Consistent tracking, accurate reporting, and meaningful action based on your metrics will lead to continuous safety improvement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // TRIR Calculator functionality
+            const calculateBtn = document.getElementById('calculateMetrics');
+            const resultBox = document.getElementById('calculationResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            calculateBtn.addEventListener('click', function() {
+                const recordableIncidents = parseInt(document.getElementById('recordableIncidents').value) || 0;
+                const totalHours = parseInt(document.getElementById('totalHours').value) || 0;
+                const fatalities = parseInt(document.getElementById('fatalities').value) || 0;
+                const injuries = parseInt(document.getElementById('injuries').value) || 0;
+                
+                if (!totalHours || totalHours <= 0) {
+                    alert('Please enter valid total hours worked');
+                    return;
+                }
+                
+                // Calculate metrics
+                const trir = (recordableIncidents * 200000) / totalHours;
+                const afr = (injuries * 1000000) / totalHours;
+                const far = (fatalities * 100000000) / totalHours;
+                
+                // Determine industry comparison
+                let industryComparison = "";
+                if (trir < 1.0) {
+                    industryComparison = "Excellent - World Class Safety Performance";
+                } else if (trir < 2.0) {
+                    industryComparison = "Good - Above Average Safety Performance";
+                } else if (trir < 4.0) {
+                    industryComparison = "Average - Typical Industry Performance";
+                } else {
+                    industryComparison = "Needs Improvement - Below Average Safety Performance";
+                }
+                
+                resultContent.innerHTML = `
+                    <div class="highlight-box">
+                        <h4>Calculated Safety Metrics</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Formula</th>
+                                    <th>Result</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>TRIR</td>
+                                    <td>(${recordableIncidents} × 200,000) / ${totalHours.toLocaleString()}</td>
+                                    <td><strong>${trir.toFixed(2)}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>AFR</td>
+                                    <td>(${injuries} × 1,000,000) / ${totalHours.toLocaleString()}</td>
+                                    <td><strong>${afr.toFixed(2)}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>FAR</td>
+                                    <td>(${fatalities} × 100,000,000) / ${totalHours.toLocaleString()}</td>
+                                    <td><strong>${far.toFixed(2)}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-chart-line"></i> Performance Assessment</div>
+                        <p><strong>TRIR Assessment:</strong> ${industryComparison}</p>
+                        <p><strong>Industry Context:</strong> The average TRIR across all industries is approximately 3.0</p>
+                    </div>
+                    <div class="highlight-box">
+                        <h4>Next Steps</h4>
+                        <ol>
+                            <li>Compare your metrics to previous periods and industry benchmarks</li>
+                            <li>Identify trends and patterns in your incident data</li>
+                            <li>Implement targeted safety improvements based on your findings</li>
+                            <li>Set realistic goals for metric improvement</li>
+                            <li>Regularly track and review your safety performance</li>
+                        </ol>
+                    </div>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

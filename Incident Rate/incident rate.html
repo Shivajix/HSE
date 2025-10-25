@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Rate Calculator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --purple: #9b59b6;
+            --pink: #e84393;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            animation: fadeIn 1s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            animation: slideUp 1s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            animation: fadeIn 1s ease;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item, .application-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .application-item {
+            background: #f8f9fa;
+            border-left: 3px solid var(--warning);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .incident-calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+            animation: slideUp 1s ease;
+        }
+        
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+            max-width: 100%;
+            margin: 15px auto;
+        }
+        
+        .risk-cell {
+            padding: 10px 4px;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: 600;
+            color: white;
+            animation: pulse 2s infinite;
+            font-size: 0.8rem;
+        }
+        
+        .risk-low { background-color: var(--success); }
+        .risk-medium { background-color: var(--warning); }
+        .risk-high { background-color: #e67e22; }
+        .risk-extreme { background-color: var(--danger); }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--success), #2ecc71); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--purple), #9b59b6); }
+        .icon-5 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-6 { background: linear-gradient(45deg, var(--pink), #e84393); }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        /* Large Desktop Styles */
+        @media (min-width: 1200px) {
+            .guide-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1s; }
+        
+        .content-item:nth-child(1) { animation-delay: 0.1s; }
+        .content-item:nth-child(2) { animation-delay: 0.2s; }
+        .content-item:nth-child(3) { animation-delay: 0.3s; }
+        .content-item:nth-child(4) { animation-delay: 0.4s; }
+        .content-item:nth-child(5) { animation-delay: 0.5s; }
+        .content-item:nth-child(6) { animation-delay: 0.6s; }
+        .content-item:nth-child(7) { animation-delay: 0.7s; }
+        .content-item:nth-child(8) { animation-delay: 0.8s; }
+        .content-item:nth-child(9) { animation-delay: 0.9s; }
+        .content-item:nth-child(10) { animation-delay: 1s; }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+        
+        /* Mobile Navigation Improvements */
+        @media (max-width: 480px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card-content {
+                font-size: 0.95rem;
+            }
+            
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .content-item:hover,
+            .card:hover,
+            .btn:hover {
+                transform: none;
+            }
+            
+            .content-item:active,
+            .card:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Incident Rate Calculator - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for calculating and understanding workplace incident rates. Learn how to measure safety performance, benchmark against industry standards, and improve workplace safety.</p>
+        </header>
+        <script type="text/javascript">
+	atOptions = {
+		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-is-ir">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h3 class="content-title">What Is Incident Rate?</h3>
+                    <p class="content-desc">Understand the fundamentals of incident rate calculation and its importance in workplace safety management.</p>
+                </div>
+                
+                <div class="content-item" data-target="formula">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="content-title">IR Formula</h3>
+                    <p class="content-desc">Learn about the OSHA and international formulas for calculating incident rates with examples.</p>
+                </div>
+                
+                <div class="content-item" data-target="calculator">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="content-title">How to Use Calculator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive Incident Rate Calculator tool.</p>
+                </div>
+                
+                <div class="content-item" data-target="examples">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="content-title">Example Calculations</h3>
+                    <p class="content-desc">Real-world examples of incident rate calculations across different industries.</p>
+                </div>
+                
+                <div class="content-item" data-target="importance">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="content-title">Why Is IR Important?</h3>
+                    <p class="content-desc">Discover the critical benefits and regulatory requirements of tracking incident rates.</p>
+                </div>
+                
+                <div class="content-item" data-target="real-world">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="content-title">Real-World Examples</h3>
+                    <p class="content-desc">Explore how incident rates are used in various industries and safety programs.</p>
+                </div>
+                
+                <div class="content-item" data-target="common-mistakes">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="content-title">Common Mistakes</h3>
+                    <p class="content-desc">Avoid these common pitfalls that can undermine your incident rate calculations.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices</h3>
+                    <p class="content-desc">Learn proven strategies for accurate incident rate calculation and interpretation.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">FAQ</h3>
+                    <p class="content-desc">Get answers to frequently asked questions about incident rate implementation.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for effective incident rate tracking.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What Is Incident Rate Card -->
+            <div class="card" id="what-is-ir">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <h2 class="card-title">What Is Incident Rate (IR)?</h2>
+                </div>
+                <div class="card-content">
+                    <p>The Incident Rate (IR) is a key safety metric used to measure the number of work-related injuries and illnesses per a standardized number of work hours. It allows organizations to track safety performance over time and compare it with industry benchmarks.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Incident Rate Definition:</strong> A standardized measurement that expresses the number of recordable workplace injuries and illnesses per 100 full-time workers during a one-year period.</p>
+                    </div>
+                    
+                    <p>Incident rates are typically calculated per 100 full-time workers over one year, with the standard base being 200,000 hours in the United States (OSHA method) or 1,000,000 hours internationally.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Recordable Incidents</h3>
+                            <p>Injuries and illnesses that require medical treatment beyond first aid, result in restricted work, or involve days away from work</p>
+                        </div>
+                        <div class="step">
+                            <h3>Total Hours Worked</h3>
+                            <p>Sum of all hours worked by all employees during the period being measured</p>
+                        </div>
+                        <div class="step">
+                            <h3>Standardization</h3>
+                            <p>Using a base rate (200,000 or 1,000,000 hours) to allow comparison across organizations of different sizes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formula Card -->
+            <div class="card" id="formula">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2 class="card-title">Formula for Incident Rate (IR)</h2>
+                </div>
+                <div class="card-content">
+                    <p>There are two primary methods for calculating incident rates, depending on your location and industry standards:</p>
+                    
+                    <div class="highlight-box">
+                        <h3>OSHA Method (200,000 base hours)</h3>
+                        <p>The Occupational Safety and Health Administration (OSHA) in the United States uses 200,000 hours as the base, representing 100 employees working 40 hours per week for 50 weeks.</p>
+                        <div class="formula">
+                            IR = (Number of recordable incidents × 200,000) / Total hours worked
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3>International Method (1,000,000 base hours)</h3>
+                        <p>Many countries outside the United States use 1,000,000 hours as the base, which represents 500 employees working full-time for one year.</p>
+                        <div class="formula">
+                            IR = (Number of recordable incidents × 1,000,000) / Total hours worked
+                        </div>
+                        <p>This method produces a smaller number than the OSHA method but allows for easier comparison across different industries and countries.</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Recordable Incidents</td>
+                                <td>Work-related injuries/illnesses requiring medical treatment</td>
+                                <td>5 incidents</td>
+                            </tr>
+                            <tr>
+                                <td>Total Hours Worked</td>
+                                <td>Sum of all employee work hours</td>
+                                <td>100,000 hours</td>
+                            </tr>
+                            <tr>
+                                <td>Base Hours</td>
+                                <td>Standardization factor (OSHA/International)</td>
+                                <td>200,000 or 1,000,000</td>
+                            </tr>
+                            <tr>
+                                <td>Incident Rate</td>
+                                <td>Final calculated rate</td>
+                                <td>10.0 (OSHA method)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Calculator Card -->
+            <div class="card" id="calculator">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h2 class="card-title">How to Use the Incident Rate Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our Incident Rate Calculator simplifies the calculation process by providing a structured tool to input your data and get accurate results instantly.</p>
+                    
+                    <div class="incident-calculator">
+                        <h3 class="calculator-title">Interactive Incident Rate Calculator</h3>
+                        
+                        <div class="form-group">
+                            <label for="incidents">Number of Recordable Incidents</label>
+                            <input type="number" id="incidents" min="0" value="0" placeholder="Enter number of incidents">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hours">Total Hours Worked</label>
+                            <input type="number" id="hours" min="0" value="200000" placeholder="Enter total hours worked">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="method">Calculation Method</label>
+                            <select id="method">
+                                <option value="osha">OSHA (200,000 base hours)</option>
+                                <option value="international">International (1,000,000 base hours)</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="calculateIR">
+                            <i class="fas fa-bolt"></i> Calculate Incident Rate
+                        </button>
+                        
+                        <div class="result-box" id="irResult">
+                            <h3>Incident Rate Result</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                    
+                    <p>To use the calculator effectively:</p>
+                    <ol>
+                        <li>Gather accurate data on recordable incidents and total hours worked</li>
+                        <li>Select the appropriate calculation method based on your location and industry standards</li>
+                        <li>Enter the data into the calculator</li>
+                        <li>Interpret the results in context with industry benchmarks</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Examples Card -->
+            <div class="card" id="examples">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h2 class="card-title">Example Calculations</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of how incident rates are calculated in different workplace scenarios:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hard-hat"></i> Construction Project Example</div>
+                        <p><strong>Scenario:</strong> A construction company with 50 employees working 40 hours/week for 50 weeks (100,000 total hours) experiences 5 recordable incidents.</p>
+                        <p><strong>OSHA Calculation:</strong> IR = (5 × 200,000) / 100,000 = 10.0</p>
+                        <p><strong>Interpretation:</strong> This means the company experienced 10 recordable incidents per 100 full-time workers during the year, which is higher than the industry average of 3.1 for construction.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-industry"></i> Manufacturing Plant Example</div>
+                        <p><strong>Scenario:</strong> A manufacturing facility with 200 employees working 40 hours/week for 50 weeks (400,000 total hours) experiences 8 recordable incidents.</p>
+                        <p><strong>OSHA Calculation:</strong> IR = (8 × 200,000) / 400,000 = 4.0</p>
+                        <p><strong>International Calculation:</strong> IR = (8 × 1,000,000) / 400,000 = 20.0</p>
+                        <p><strong>Interpretation:</strong> The facility's incident rate of 4.0 is slightly below the manufacturing industry average of 4.6, indicating relatively good safety performance.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-oil-well"></i> Oil & Gas Operation Example</div>
+                        <p><strong>Scenario:</strong> An oil and gas company with 500 employees working various shifts totaling 1,000,000 hours experiences 12 recordable incidents.</p>
+                        <p><strong>OSHA Calculation:</strong> IR = (12 × 200,000) / 1,000,000 = 2.4</p>
+                        <p><strong>International Calculation:</strong> IR = (12 × 1,000,000) / 1,000,000 = 12.0</p>
+                        <p><strong>Interpretation:</strong> With an incident rate of 2.4, this company performs better than the oil and gas extraction industry average of 3.5.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Importance Card -->
+            <div class="card" id="importance">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2 class="card-title">Why Is Incident Rate Important?</h2>
+                </div>
+                <div class="card-content">
+                    <p>The Incident Rate is a critical safety metric for several reasons:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Benchmarking</h3>
+                            <p>Allows comparison of safety performance against industry averages and competitors.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Trend Analysis</h3>
+                            <p>Helps identify whether safety performance is improving or deteriorating over time.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Regulatory Compliance</h3>
+                            <p>Required by OSHA and other regulatory bodies in many countries.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Risk Assessment</h3>
+                            <p>Provides insight into the effectiveness of safety programs and controls.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Insurance Premiums</h3>
+                            <p>Can impact workers' compensation insurance costs.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Stakeholder Communication</h3>
+                            <p>Demonstrates commitment to safety to employees, investors, and the public.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Did You Know?</strong> Organizations with lower incident rates typically experience 30-50% lower workers' compensation costs and 20-40% higher productivity compared to industry averages.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-World Examples Card -->
+            <div class="card" id="real-world">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h2 class="card-title">Real-World Examples</h2>
+                </div>
+                <div class="card-content">
+                    <p>Understanding how incident rates apply in real-world scenarios helps contextualize the numbers:</p>
+                    
+                    <div class="application-item">
+                        <h3>Case Study: Automotive Manufacturer</h3>
+                        <p>A major automotive manufacturer reduced its incident rate from 5.2 to 2.1 over three years through a comprehensive safety program that included enhanced training, ergonomic improvements, and stronger management commitment. This reduction translated to approximately $3.2 million in annual savings from reduced workers' compensation claims and productivity losses.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Case Study: Healthcare System</h3>
+                        <p>A large hospital system with 15,000 employees implemented a safety observation program that increased near-miss reporting by 300%. Despite the increased reporting, their recordable incident rate decreased from 4.8 to 3.2 over two years, demonstrating that proactive safety measures can effectively reduce injuries.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Case Study: Construction Company</h3>
+                        <p>A construction firm with 500 employees focused on fall protection training and equipment after analyzing their incident rate data, which showed falls were their most common serious incident. Within 18 months, their incident rate dropped from 4.5 to 2.8, and they eliminated fall-related lost-time injuries entirely.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Common Mistakes Card -->
+            <div class="card" id="common-mistakes">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Common Mistakes</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common errors when calculating and interpreting incident rates:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Inconsistent Recordkeeping</h3>
+                        <p>Failing to consistently record all recordable incidents according to established criteria.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Inaccurate Hours Data</h3>
+                        <p>Using estimated rather than actual hours worked, especially for part-time or temporary workers.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Misclassification</h3>
+                        <p>Incorrectly classifying incidents as recordable or non-recordable based on OSHA or local regulations.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Wrong Base Hours</h3>
+                        <p>Using the wrong base (200,000 vs. 1,000,000) for comparison purposes with industry benchmarks.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Small Sample Size</h3>
+                        <p>Calculating rates for very small workforces or short time periods, which can produce misleading results.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Ignoring Severity</h3>
+                        <p>Focusing only on frequency without considering incident severity or potential severity.</p>
+                        <span class="badge badge-info">Note</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices</h2>
+                </div>
+                <div class="card-content">
+                    <p>Follow these best practices to maximize the effectiveness of your incident rate tracking and analysis:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Consistent Data Collection</h3>
+                        <p>Establish clear procedures for recording incidents and tracking hours worked across all departments and locations.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Regular Calculation</h3>
+                        <p>Calculate incident rates monthly or quarterly to identify trends and address issues promptly.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Benchmark Appropriately</h3>
+                        <p>Compare your rates with industry-specific benchmarks that use the same calculation method.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Use Multiple Metrics</h3>
+                        <p>Supplement incident rate with other metrics like severity rate, near-miss reporting, and safety culture surveys.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Communicate Results</h3>
+                        <p>Share incident rate data with employees and management to foster transparency and accountability.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Focus on Leading Indicators</h3>
+                        <p>Track proactive measures like safety training completion, inspection findings, and near-miss reports alongside incident rates.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Review and Adjust</h3>
+                        <p>Regularly review your incident rate calculation process and adjust based on regulatory changes or organizational needs.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">FAQ</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What's the difference between incident rate and severity rate?</div>
+                        <p>Incident rate measures the frequency of recordable incidents, while severity rate measures the impact of those incidents, typically calculated as the number of days away from work, restricted duty, or job transfer per hours worked.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How often should we calculate our incident rate?</div>
+                        <p>Most organizations calculate incident rates quarterly and annually. Quarterly calculations help track trends, while annual rates are typically used for benchmarking and regulatory reporting.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What is considered a "good" incident rate?</div>
+                        <p>A "good" incident rate varies by industry. Compare your rate to industry averages published by organizations like OSHA or the Bureau of Labor Statistics. Generally, rates below the industry average are considered good, and rates significantly below average are excellent.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Should we include near-misses in incident rate calculations?</div>
+                        <p>No, near-misses should not be included in the official incident rate calculation. However, tracking and analyzing near-misses is valuable for proactive safety improvement as they represent potential incidents that were narrowly avoided.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How can we compare our incident rate to companies of different sizes?</div>
+                        <p>The incident rate calculation already normalizes for company size by using total hours worked. This allows for direct comparison between organizations of different sizes, as long as they're using the same base (200,000 or 1,000,000 hours).</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What training is needed for accurate incident rate calculation?</div>
+                        <p>Personnel responsible for recording incidents and calculating rates need training on recordkeeping requirements, incident classification criteria, and the specific calculation methodology being used.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts</h2>
+                </div>
+                <div class="card-content">
+                    <p>The incident rate is more than just a number—it's a reflection of your organization's safety culture and the effectiveness of your safety management system. While calculating and tracking this metric is important, it should be used as one component of a comprehensive safety program.</p>
+                    
+                    <p>Remember that the ultimate goal isn't just to achieve a low incident rate, but to create a workplace where employees are protected from harm. Use the incident rate as a tool to identify areas for improvement, measure progress, and demonstrate your commitment to workplace safety.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Tracking Your Incident Rate Today</h3>
+                        <p>Use our Incident Rate Calculator to begin measuring and understanding your safety performance. Consistent tracking and analysis will help you identify trends, prioritize interventions, and demonstrate your commitment to workplace safety.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // Incident Rate Calculator functionality
+            const calculateBtn = document.getElementById('calculateIR');
+            const resultBox = document.getElementById('irResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            calculateBtn.addEventListener('click', function() {
+                const incidents = parseInt(document.getElementById('incidents').value);
+                const hours = parseInt(document.getElementById('hours').value);
+                const method = document.getElementById('method').value;
+                
+                if (isNaN(incidents) || isNaN(hours) || hours === 0) {
+                    alert('Please enter valid numbers for incidents and hours worked.');
+                    return;
+                }
+                
+                const baseHours = method === 'osha' ? 200000 : 1000000;
+                const ir = (incidents * baseHours) / hours;
+                
+                // Industry benchmarks for context
+                let industryAvg = 0;
+                let industryName = "";
+                
+                if (ir < 2) {
+                    industryAvg = 3.5;
+                    industryName = "Professional Services";
+                } else if (ir < 4) {
+                    industryAvg = 4.6;
+                    industryName = "Manufacturing";
+                } else if (ir < 6) {
+                    industryAvg = 5.2;
+                    industryName = "Construction";
+                } else {
+                    industryAvg = 6.8;
+                    industryName = "Transportation";
+                }
+                
+                const comparison = ir < industryAvg ? "better than" : "worse than";
+                
+                resultContent.innerHTML = `
+                    <p><strong>Incident Rate:</strong> ${ir.toFixed(2)}</p>
+                    <p><strong>Calculation Method:</strong> ${method === 'osha' ? 'OSHA (200,000 base hours)' : 'International (1,000,000 base hours)'}</p>
+                    <p><strong>Interpretation:</strong> Your organization experienced ${ir.toFixed(2)} recordable incidents per ${method === 'osha' ? '100' : '500'} full-time workers.</p>
+                    <p><strong>Industry Context:</strong> Your rate is ${comparison} the ${industryName} industry average of ${industryAvg}.</p>
+                    <p><strong>Recommendation:</strong> ${ir < 2.0 ? 'Excellent safety performance. Continue current practices.' : 'Consider implementing additional safety measures and training.'}</p>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
