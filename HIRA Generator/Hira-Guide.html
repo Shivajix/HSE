@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIRA Generator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --purple: #9b59b6;
+            --pink: #e84393;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            animation: fadeIn 1s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            animation: slideUp 1s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            animation: fadeIn 1s ease;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item, .application-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .application-item {
+            background: #f8f9fa;
+            border-left: 3px solid var(--warning);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .hira-generator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .generator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+            animation: slideUp 1s ease;
+        }
+        
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+            max-width: 100%;
+            margin: 15px auto;
+        }
+        
+        .risk-cell {
+            padding: 10px 4px;
+            text-align: center;
+            border-radius: 6px;
+            font-weight: 600;
+            color: white;
+            animation: pulse 2s infinite;
+            font-size: 0.8rem;
+        }
+        
+        .risk-low { background-color: var(--success); }
+        .risk-medium { background-color: var(--warning); }
+        .risk-high { background-color: #e67e22; }
+        .risk-extreme { background-color: var(--danger); }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--success), #2ecc71); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--purple), #9b59b6); }
+        .icon-5 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-6 { background: linear-gradient(45deg, var(--pink), #e84393); }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        /* Large Desktop Styles */
+        @media (min-width: 1200px) {
+            .guide-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1s; }
+        
+        .content-item:nth-child(1) { animation-delay: 0.1s; }
+        .content-item:nth-child(2) { animation-delay: 0.2s; }
+        .content-item:nth-child(3) { animation-delay: 0.3s; }
+        .content-item:nth-child(4) { animation-delay: 0.4s; }
+        .content-item:nth-child(5) { animation-delay: 0.5s; }
+        .content-item:nth-child(6) { animation-delay: 0.6s; }
+        .content-item:nth-child(7) { animation-delay: 0.7s; }
+        .content-item:nth-child(8) { animation-delay: 0.8s; }
+        .content-item:nth-child(9) { animation-delay: 0.9s; }
+        .content-item:nth-child(10) { animation-delay: 1s; }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+        
+        /* Mobile Navigation Improvements */
+        @media (max-width: 480px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .card-content {
+                font-size: 0.95rem;
+            }
+            
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .content-item:hover,
+            .card:hover,
+            .btn:hover {
+                transform: none;
+            }
+            
+            .content-item:active,
+            .card:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HIRA Generator - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for Hazard Identification and Risk Assessment. Learn how to identify workplace hazards, assess risks, and implement effective controls.</p>
+        </header>
+        
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-is-hira">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="content-title">What Is HIRA?</h3>
+                    <p class="content-desc">Understand the fundamentals of Hazard Identification and Risk Assessment and its importance in workplace safety.</p>
+                </div>
+                
+                <div class="content-item" data-target="key-components">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="content-title">Key Components</h3>
+                    <p class="content-desc">Learn about the essential elements that make up a comprehensive HIRA process.</p>
+                </div>
+                
+                <div class="content-item" data-target="how-to-use">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="content-title">How to Use HIRA Generator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive HIRA Generator tool.</p>
+                </div>
+                
+                <div class="content-item" data-target="example-usage">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="content-title">Example Usage</h3>
+                    <p class="content-desc">Real-world examples of HIRA applications across different industries.</p>
+                </div>
+                
+                <div class="content-item" data-target="importance">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="content-title">Why Is HIRA Important?</h3>
+                    <p class="content-desc">Discover the critical benefits and legal requirements of implementing HIRA.</p>
+                </div>
+                
+                <div class="content-item" data-target="applications">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="content-title">Real-World Applications</h3>
+                    <p class="content-desc">Explore how HIRA is used in various industries and workplace scenarios.</p>
+                </div>
+                
+                <div class="content-item" data-target="common-mistakes">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="content-title">Common Mistakes</h3>
+                    <p class="content-desc">Avoid these common pitfalls that can undermine your HIRA process.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices</h3>
+                    <p class="content-desc">Learn proven strategies for effective hazard identification and risk assessment.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">FAQ</h3>
+                    <p class="content-desc">Get answers to frequently asked questions about HIRA implementation.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for successful HIRA implementation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What Is HIRA Card -->
+            <div class="card" id="what-is-hira">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="card-title">What Is HIRA?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Hazard Identification and Risk Assessment (HIRA) is a systematic process used to identify potential hazards in the workplace, evaluate the risks associated with those hazards, and determine appropriate control measures.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>HIRA Definition:</strong> A proactive approach to safety management that helps organizations prevent accidents, injuries, and illnesses by identifying potential hazards before they cause harm.</p>
+                    </div>
+                    
+                    <p>The HIRA process involves examining all aspects of the workplace to identify physical, chemical, biological, ergonomic, and psychosocial hazards.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Hazard Identification</h3>
+                            <p>Systematic process of finding, recognizing, and describing hazards</p>
+                        </div>
+                        <div class="step">
+                            <h3>Risk Analysis</h3>
+                            <p>Process to comprehend the nature of risk and to determine the level of risk</p>
+                        </div>
+                        <div class="step">
+                            <h3>Risk Evaluation</h3>
+                            <p>Process of comparing the results of risk analysis with risk criteria</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Key Components Card -->
+            <div class="card" id="key-components">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Key Components</h2>
+                </div>
+                <div class="card-content">
+                    <p>A comprehensive HIRA consists of several key components that work together to provide a complete picture of workplace risks:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Hazard Identification</h3>
+                            <p>Recognizing sources of potential harm through inspections and analysis.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Risk Analysis</h3>
+                            <p>Evaluating the likelihood and severity of harm using risk matrices.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Risk Evaluation</h3>
+                            <p>Comparing estimated risks against established criteria to determine significance.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Control Measures</h3>
+                            <p>Implementing measures to eliminate or reduce risks following the hierarchy of controls.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Documentation</h3>
+                            <p>Recording findings, assessments, and control measures for future reference.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Review and Update</h3>
+                            <p>Regularly reviewing and updating the assessment to reflect changes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Use Card -->
+            <div class="card" id="how-to-use">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">How to Use HIRA Generator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our HIRA Generator simplifies the risk assessment process by providing a structured framework to identify hazards, assess risks, and determine control measures.</p>
+                    
+                    <div class="hira-generator">
+                        <h3 class="generator-title">Interactive HIRA Generator</h3>
+                        
+                        <div class="form-group">
+                            <label for="hazardDescription">Hazard Description</label>
+                            <textarea id="hazardDescription" rows="3" placeholder="Describe the hazard in detail"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hazardType">Hazard Type</label>
+                            <select id="hazardType">
+                                <option value="">Select Hazard Type</option>
+                                <option value="physical">Physical</option>
+                                <option value="chemical">Chemical</option>
+                                <option value="biological">Biological</option>
+                                <option value="ergonomic">Ergonomic</option>
+                                <option value="psychosocial">Psychosocial</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="severity">Severity of Potential Harm</label>
+                            <select id="severity">
+                                <option value="">Select Severity Level</option>
+                                <option value="1">1 - Negligible</option>
+                                <option value="2">2 - Minor</option>
+                                <option value="3">3 - Moderate</option>
+                                <option value="4">4 - Major</option>
+                                <option value="5">5 - Catastrophic</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="likelihood">Likelihood of Occurrence</label>
+                            <select id="likelihood">
+                                <option value="">Select Likelihood</option>
+                                <option value="1">1 - Rare</option>
+                                <option value="2">2 - Unlikely</option>
+                                <option value="3">3 - Possible</option>
+                                <option value="4">4 - Likely</option>
+                                <option value="5">5 - Almost Certain</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="generateHira">
+                            <i class="fas fa-bolt"></i> Generate HIRA
+                        </button>
+                        
+                        <div class="result-box" id="hiraResult">
+                            <h3>HIRA Result</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Example Usage Card -->
+            <div class="card" id="example-usage">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Example Usage</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of how HIRA is applied in different workplace scenarios:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-industry"></i> Manufacturing Example</div>
+                        <p><strong>Hazard:</strong> Unguarded rotating machinery</p>
+                        <p><strong>Risk Assessment:</strong> High likelihood of contact with severe injury potential</p>
+                        <p><strong>Control Measures:</strong> Install machine guards, implement lockout/tagout procedures</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-flask"></i> Laboratory Example</div>
+                        <p><strong>Hazard:</strong> Chemical exposure to toxic substances</p>
+                        <p><strong>Risk Assessment:</strong> Moderate likelihood with potential for serious health effects</p>
+                        <p><strong>Control Measures:</strong> Use fume hoods, provide PPE, implement safe handling procedures</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hard-hat"></i> Construction Example</div>
+                        <p><strong>Hazard:</strong> Working at height without fall protection</p>
+                        <p><strong>Risk Assessment:</strong> High likelihood with potential for fatal injuries</p>
+                        <p><strong>Control Measures:</strong> Install guardrails, use fall arrest systems, provide training</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Importance Card -->
+            <div class="card" id="importance">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Why Is HIRA Important?</h2>
+                </div>
+                <div class="card-content">
+                    <p>HIRA is a fundamental component of any effective safety management system. Its importance extends across multiple dimensions:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Legal Compliance</h3>
+                            <p>Demonstrates compliance with occupational health and safety regulations.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Accident Prevention</h3>
+                            <p>Enables proactive measures to prevent workplace accidents and injuries.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Cost Reduction</h3>
+                            <p>Reduces costs associated with workers' compensation and productivity losses.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Improved Safety Culture</h3>
+                            <p>Fosters employee engagement and creates a positive safety culture.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Informed Decision Making</h3>
+                            <p>Provides data-driven insights for prioritizing safety investments.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Did You Know?</strong> Organizations that implement systematic risk assessment processes typically experience 40-60% fewer workplace incidents.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-World Applications Card -->
+            <div class="card" id="applications">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Real-World Applications</h2>
+                </div>
+                <div class="card-content">
+                    <p>HIRA is applied across various industries and contexts to manage workplace risks effectively:</p>
+                    
+                    <div class="application-item">
+                        <h3>Manufacturing Industry</h3>
+                        <p>Assesses risks associated with machinery, chemical handling, material storage, and production processes. It helps implement engineering controls, safe work procedures, and personal protective equipment requirements.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Healthcare Sector</h3>
+                        <p>In healthcare settings, HIRA addresses risks such as needlestick injuries, patient handling, infectious diseases, and chemical exposures. It guides the implementation of infection control measures and safe patient handling protocols.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Construction Projects</h3>
+                        <p>Construction sites use HIRA to identify risks related to working at heights, excavation, electrical work, heavy equipment, and falling objects. This informs site-specific safety plans and controls.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Office Environments</h3>
+                        <p>Even in office settings, HIRA helps address ergonomic risks, slip and trip hazards, electrical safety, and psychosocial factors like workplace stress.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Common Mistakes Card -->
+            <div class="card" id="common-mistakes">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Common Mistakes</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common pitfalls to ensure your HIRA process is effective and reliable:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Incomplete Hazard Identification</h3>
+                        <p>Failing to identify all potential hazards, especially those that are less obvious or only present under specific conditions.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Subjectivity in Risk Assessment</h3>
+                        <p>Allowing personal biases or opinions to influence risk ratings rather than using objective criteria and data.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Poor Documentation</h3>
+                        <p>Failing to properly document the HIRA process, making it difficult to track actions, demonstrate compliance, or review later.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Lack of Employee Involvement</h3>
+                        <p>Not involving frontline workers who have valuable knowledge about workplace hazards and practical control measures.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Failure to Review and Update</h3>
+                        <p>Treating HIRA as a one-time activity rather than an ongoing process that needs regular review and updating.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices</h2>
+                </div>
+                <div class="card-content">
+                    <p>Follow these best practices to maximize the effectiveness of your HIRA process:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Use a Structured Approach</h3>
+                        <p>Follow a systematic process for hazard identification, risk assessment, and control implementation. Use standardized forms and risk matrices for consistency.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Involve the Right People</h3>
+                        <p>Include employees, supervisors, safety professionals, and technical experts in the HIRA process. Different perspectives lead to more comprehensive hazard identification.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Focus on High-Risk Activities</h3>
+                        <p>Prioritize assessment of tasks with the highest potential for severe injuries or those performed frequently.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Consider All Types of Hazards</h3>
+                        <p>Look beyond physical safety to include chemical, biological, ergonomic, and psychosocial hazards in your assessment.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Use the Hierarchy of Controls</h3>
+                        <p>When selecting control measures, prioritize elimination and substitution over reliance on administrative controls or PPE.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Document Everything</h3>
+                        <p>Maintain clear records of identified hazards, risk assessments, control decisions, and implementation timelines.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Review Regularly</h3>
+                        <p>Schedule periodic reviews of your HIRA, especially when processes change, new equipment is introduced, or after incidents occur.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">FAQ</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How often should HIRA be conducted?</div>
+                        <p>HIRA should be conducted initially for all work activities and then reviewed regularly (at least annually) or whenever there are significant changes to processes, equipment, or regulations.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Who should be involved in the HIRA process?</div>
+                        <p>The HIRA team should include management representatives, safety professionals, supervisors, and frontline employees who have direct knowledge of the work being assessed.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What's the difference between hazard and risk?</div>
+                        <p>A hazard is any source of potential harm, while risk is the combination of the likelihood of that harm occurring and the severity of the consequences.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Can HIRA eliminate all workplace risks?</div>
+                        <p>No, HIRA cannot eliminate all risks, but it can help reduce them to an acceptable level. The goal is to manage risks effectively, not necessarily to eliminate them entirely.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How detailed should HIRA documentation be?</div>
+                        <p>Documentation should be sufficiently detailed to clearly communicate hazards, risk assessments, and control measures to all relevant parties, while being practical to maintain and update.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What training is needed for HIRA?</div>
+                        <p>Team members need training on hazard identification techniques, risk assessment methods, the hierarchy of controls, and your organization's specific HIRA procedures.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts</h2>
+                </div>
+                <div class="card-content">
+                    <p>Hazard Identification and Risk Assessment is not just a regulatory requirement—it's a fundamental business practice that protects your most valuable asset: your people. A well-implemented HIRA process creates a safer work environment, reduces costs, improves productivity, and demonstrates your organization's commitment to safety.</p>
+                    
+                    <p>Remember that HIRA is an ongoing process, not a one-time activity. As your workplace evolves, so should your understanding and management of risks. Regular review and continuous improvement will ensure your HIRA remains effective and relevant.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Your HIRA Journey Today</h3>
+                        <p>Use our HIRA Generator to begin identifying and assessing risks in your workplace. The process may seem complex at first, but with practice and the right tools, it will become an integral part of your safety management system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // HIRA Generator functionality
+            const generateBtn = document.getElementById('generateHira');
+            const resultBox = document.getElementById('hiraResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            generateBtn.addEventListener('click', function() {
+                const hazardDescription = document.getElementById('hazardDescription').value;
+                const hazardType = document.getElementById('hazardType').value;
+                const severity = parseInt(document.getElementById('severity').value);
+                const likelihood = parseInt(document.getElementById('likelihood').value);
+                
+                if (!hazardDescription || !hazardType || !severity || !likelihood) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+                
+                const riskScore = severity * likelihood;
+                let riskLevel, riskColor;
+                
+                if (riskScore <= 5) {
+                    riskLevel = 'Low Risk';
+                    riskColor = 'risk-low';
+                } else if (riskScore <= 10) {
+                    riskLevel = 'Medium Risk';
+                    riskColor = 'risk-medium';
+                } else if (riskScore <= 15) {
+                    riskLevel = 'High Risk';
+                    riskColor = 'risk-high';
+                } else {
+                    riskLevel = 'Extreme Risk';
+                    riskColor = 'risk-extreme';
+                }
+                
+                // Generate control recommendations based on risk level
+                let controls = '';
+                if (riskLevel === 'Low Risk') {
+                    controls = '<p><strong>Recommended Controls:</strong> Basic awareness training, periodic monitoring</p>';
+                } else if (riskLevel === 'Medium Risk') {
+                    controls = '<p><strong>Recommended Controls:</strong> Standard operating procedures, specific training, regular inspections</p>';
+                } else if (riskLevel === 'High Risk') {
+                    controls = '<p><strong>Recommended Controls:</strong> Engineering controls, detailed procedures, specialized training, frequent monitoring</p>';
+                } else {
+                    controls = '<p><strong>Recommended Controls:</strong> Immediate action required. Consider elimination or substitution of hazard. Implement multiple control layers.</p>';
+                }
+                
+                resultContent.innerHTML = `
+                    <p><strong>Hazard:</strong> ${hazardDescription}</p>
+                    <p><strong>Type:</strong> ${hazardType.charAt(0).toUpperCase() + hazardType.slice(1)}</p>
+                    <p><strong>Severity:</strong> ${severity}/5</p>
+                    <p><strong>Likelihood:</strong> ${likelihood}/5</p>
+                    <p><strong>Risk Score:</strong> ${riskScore} <span class="badge ${riskColor}">${riskLevel}</span></p>
+                    ${controls}
+                    <p><strong>Next Steps:</strong> Document this assessment, implement recommended controls, and schedule follow-up review.</p>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

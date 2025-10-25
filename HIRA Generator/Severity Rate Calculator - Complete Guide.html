@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Severity Rate Calculator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .calculator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+        }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--success), #27ae60); }
+        .icon-5 { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        .icon-6 { background: linear-gradient(45deg, #e84393, #fd79a8); }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Severity Rate Calculator - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for understanding and calculating Severity Rate (SR) to measure the impact of workplace injuries</p>
+        </header>
+        
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-is-sr">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-weight-scale"></i>
+                    </div>
+                    <h3 class="content-title">What Is Severity Rate (SR)?</h3>
+                    <p class="content-desc">Understand the fundamentals of Severity Rate as a key safety performance indicator measuring the impact of workplace injuries.</p>
+                </div>
+                
+                <div class="content-item" data-target="formula">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="content-title">Formula for Severity Rate (SR)</h3>
+                    <p class="content-desc">Learn the mathematical formulas used to calculate Severity Rate with detailed explanations and examples.</p>
+                </div>
+                
+                <div class="content-item" data-target="how-to-use">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="content-title">How to Use the Severity Rate Calculator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive SR Calculator tool effectively.</p>
+                </div>
+                
+                <div class="content-item" data-target="example-calculations">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="content-title">Example Calculations</h3>
+                    <p class="content-desc">Real-world examples demonstrating how to calculate SR in construction, manufacturing, and oil & gas operations.</p>
+                </div>
+                
+                <div class="content-item" data-target="importance">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="content-title">Why Is Severity Rate Important?</h3>
+                    <p class="content-desc">Discover the critical benefits and applications of tracking Severity Rate in safety management systems.</p>
+                </div>
+                
+                <div class="content-item" data-target="real-world-examples">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="content-title">Real-World Examples</h3>
+                    <p class="content-desc">Explore how organizations across industries use Severity Rate metrics to improve safety performance.</p>
+                </div>
+                
+                <div class="content-item" data-target="common-mistakes">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="content-title">Common Mistakes in Calculating SR</h3>
+                    <p class="content-desc">Avoid these common pitfalls that can undermine your Severity Rate calculations and interpretations.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices to Reduce Severity Rate</h3>
+                    <p class="content-desc">Learn proven strategies for enhancing safety performance and reducing Severity Rate.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">Frequently Asked Questions (FAQ)</h3>
+                    <p class="content-desc">Get answers to common questions about Severity Rate calculations and application.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for successful Severity Rate implementation.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What Is Severity Rate Card -->
+            <div class="card" id="what-is-sr">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-weight-scale"></i>
+                    </div>
+                    <h2 class="card-title">What Is Severity Rate (SR)?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Severity Rate (SR) is a critical safety performance indicator that measures the severity of workplace injuries by calculating the average number of days lost or charged per recordable injury. Unlike Frequency Rate which measures how often injuries occur, Severity Rate focuses on the impact and consequences of those injuries.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Definition:</strong> Severity Rate represents the total number of days lost or charged due to workplace injuries per 1,000,000 hours worked. It provides insight into the seriousness of injuries and their impact on workforce productivity and well-being.</p>
+                    </div>
+                    
+                    <p>Severity Rate is particularly valuable because it:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Measures Impact</h3>
+                            <p>Quantifies the actual impact of injuries in terms of lost workdays and productivity</p>
+                        </div>
+                        <div class="step">
+                            <h3>Identifies Serious Risks</h3>
+                            <p>Highlights high-consequence incidents that may require different prevention strategies</p>
+                        </div>
+                        <div class="step">
+                            <h3>Supports Resource Allocation</h3>
+                            <p>Helps prioritize safety investments based on the severity of potential outcomes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-info-circle"></i> Key Characteristics</div>
+                        <ul>
+                            <li><strong>Focus on Impact:</strong> Measures consequences rather than frequency</li>
+                            <li><strong>Standardized Unit:</strong> Days lost per 1,000,000 hours worked</li>
+                            <li><strong>Complementary Metric:</strong> Used alongside Frequency Rate for complete safety picture</li>
+                            <li><strong>Business Impact:</strong> Directly relates to productivity loss and workers' compensation costs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formula Card -->
+            <div class="card" id="formula">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2 class="card-title">Formula for Severity Rate (SR)</h2>
+                </div>
+                <div class="card-content">
+                    <p>The Severity Rate formula calculates the average number of days lost per recordable injury, standardized to 1,000,000 hours worked:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-square-root-alt"></i> Standard Severity Rate Formula</div>
+                        <p><strong>SR = (Total Days Lost × 1,000,000) ÷ Total Hours Worked</strong></p>
+                        <p>This formula provides a standardized measure that allows comparison across organizations of different sizes.</p>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Understanding "Days Lost":</strong> Days lost include actual days away from work plus days of restricted work activity or job transfer. Some organizations also include permanent impairments and fatalities with standardized day charges (typically 6,000 days for a fatality).</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calendar-alt"></i> Days Lost Calculation</div>
+                        <p><strong>Total Days Lost =</strong> Days Away From Work + Days of Restricted Work + Standardized Charges</p>
+                        <p>Where standardized charges might include:
+                            <ul>
+                                <li>Fatality: 6,000 days</li>
+                                <li>Permanent total disability: 6,000 days</li>
+                                <li>Permanent partial disability: Varies by impairment rating</li>
+                            </ul>
+                        </p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Description</th>
+                                <th>Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Days Away From Work</td>
+                                <td>Calendar days employee could not work due to injury</td>
+                                <td>14 days</td>
+                            </tr>
+                            <tr>
+                                <td>Restricted Work Days</td>
+                                <td>Days employee worked with restrictions due to injury</td>
+                                <td>7 days</td>
+                            </tr>
+                            <tr>
+                                <td>Standard Charges</td>
+                                <td>Pre-set values for serious outcomes (fatalities, disabilities)</td>
+                                <td>6,000 days (fatality)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- How to Use Card -->
+            <div class="card" id="how-to-use">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h2 class="card-title">How to Use the Severity Rate Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our interactive Severity Rate Calculator simplifies the process of calculating this important safety metric by providing a structured framework.</p>
+                    
+                    <div class="calculator">
+                        <h3 class="calculator-title">Interactive Severity Rate Calculator</h3>
+                        
+                        <div class="form-group">
+                            <label for="daysAway">Days Away From Work</label>
+                            <input type="number" id="daysAway" placeholder="Enter total days away" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="restrictedDays">Restricted Work Days</label>
+                            <input type="number" id="restrictedDays" placeholder="Enter restricted days" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fatalities">Number of Fatalities</label>
+                            <input type="number" id="fatalities" placeholder="Enter fatalities count" min="0">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="totalHours">Total Hours Worked</label>
+                            <input type="number" id="totalHours" placeholder="Enter total hours worked" min="1">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="industryType">Industry Type (for benchmarking)</label>
+                            <select id="industryType">
+                                <option value="general">General Industry</option>
+                                <option value="construction">Construction</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="oilgas">Oil & Gas</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="transportation">Transportation</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="calculateSR">
+                            <i class="fas fa-bolt"></i> Calculate Severity Rate
+                        </button>
+                        
+                        <div class="result-box" id="calculationResult">
+                            <h3>Severity Rate Calculation Results</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-list-ol"></i> Step-by-Step Calculation Process</h3>
+                        <ol>
+                            <li><strong>Gather Data:</strong> Collect accurate data on days lost and total hours worked</li>
+                            <li><strong>Calculate Total Days Lost:</strong> Sum days away, restricted days, and standardized charges</li>
+                            <li><strong>Apply Formula:</strong> Use SR = (Total Days Lost × 1,000,000) ÷ Total Hours Worked</li>
+                            <li><strong>Interpret Results:</strong> Compare your SR to industry benchmarks and previous periods</li>
+                            <li><strong>Identify Trends:</strong> Look for patterns in types of injuries causing high severity</li>
+                            <li><strong>Take Action:</strong> Implement targeted interventions for high-severity risks</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Example Calculations Card -->
+            <div class="card" id="example-calculations">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h2 class="card-title">Example Calculations for Severity Rate Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of Severity Rate calculations across different industries:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hard-hat"></i> Example 1 – Construction Project</div>
+                        <p><strong>Scenario:</strong> A construction company with 85 total days lost (65 days away + 20 restricted) over 450,000 hours worked</p>
+                        <p><strong>Calculation:</strong> (85 × 1,000,000) ÷ 450,000 = <strong>188.89 SR</strong></p>
+                        <p><strong>Interpretation:</strong> This SR is moderate for construction industry (avg: 150-250)</p>
+                        <p><strong>Analysis:</strong> The relatively high SR suggests fewer but more serious injuries</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-industry"></i> Example 2 – Manufacturing Plant</div>
+                        <p><strong>Scenario:</strong> A manufacturing facility with 1 fatality (6,000 days) + 40 other days lost over 600,000 hours worked</p>
+                        <p><strong>Calculation:</strong> ((6,000 + 40) × 1,000,000) ÷ 600,000 = <strong>10,066.67 SR</strong></p>
+                        <p><strong>Interpretation:</strong> This extremely high SR reflects a serious incident with fatal outcome</p>
+                        <p><strong>Analysis:</strong> The fatality dramatically increases SR, highlighting need for serious injury prevention</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-oil-well"></i> Example 3 – Oil & Gas Operation</div>
+                        <p><strong>Scenario:</strong> An offshore operation with 120 total days lost (no fatalities) over 280,000 hours worked</p>
+                        <p><strong>Calculation:</strong> (120 × 1,000,000) ÷ 280,000 = <strong>428.57 SR</strong></p>
+                        <p><strong>Interpretation:</strong> This SR is typical for oil & gas industry (avg: 300-500)</p>
+                        <p><strong>Analysis:</strong> Moderate SR suggests mix of minor and more serious injuries</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Industry</th>
+                                <th>Average SR</th>
+                                <th>Low SR (Good)</th>
+                                <th>High SR (Concerning)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Construction</td>
+                                <td>150-250</td>
+                                <td>&lt; 100</td>
+                                <td>&gt; 300</td>
+                            </tr>
+                            <tr>
+                                <td>Manufacturing</td>
+                                <td>100-200</td>
+                                <td>&lt; 80</td>
+                                <td>&gt; 250</td>
+                            </tr>
+                            <tr>
+                                <td>Oil & Gas</td>
+                                <td>300-500</td>
+                                <td>&lt; 200</td>
+                                <td>&gt; 600</td>
+                            </tr>
+                            <tr>
+                                <td>Healthcare</td>
+                                <td>80-150</td>
+                                <td>&lt; 60</td>
+                                <td>&gt; 200</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Importance Card -->
+            <div class="card" id="importance">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h2 class="card-title">Why Is Severity Rate Important?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Severity Rate provides crucial insights that complement Frequency Rate, offering a more complete picture of organizational safety performance and risk management.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Impact Measurement</h3>
+                            <p>Quantifies the actual business impact of injuries in terms of lost productivity and operational disruption.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Serious Injury Focus</h3>
+                            <p>Highlights high-consequence incidents that may require different prevention strategies than minor injuries.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Resource Prioritization</h3>
+                            <p>Helps prioritize safety investments toward preventing the most serious types of injuries.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Cost Management</h3>
+                            <p>Directly correlates with workers' compensation costs and insurance premiums.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Performance Benchmarking</h3>
+                            <p>Enables comparison with industry averages and identification of improvement opportunities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Strategic Value:</strong> Organizations that effectively manage Severity Rate typically experience 30-50% lower workers' compensation costs, reduced operational disruptions, and improved workforce stability. A focus on serious injury prevention can yield significant financial and operational benefits.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-balance-scale"></i> SR vs FR: Complementary Metrics</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Scenario</th>
+                                    <th>Frequency Rate</th>
+                                    <th>Severity Rate</th>
+                                    <th>Interpretation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>High FR, Low SR</td>
+                                    <td>High</td>
+                                    <td>Low</td>
+                                    <td>Many minor injuries - focus on basic safety</td>
+                                </tr>
+                                <tr>
+                                    <td>Low FR, High SR</td>
+                                    <td>Low</td>
+                                    <td>High</td>
+                                    <td>Few but serious injuries - focus on critical risks</td>
+                                </tr>
+                                <tr>
+                                    <td>High FR, High SR</td>
+                                    <td>High</td>
+                                    <td>High</td>
+                                    <td>Systemic safety issues - comprehensive approach needed</td>
+                                </tr>
+                                <tr>
+                                    <td>Low FR, Low SR</td>
+                                    <td>Low</td>
+                                    <td>Low</td>
+                                    <td>Excellent safety performance - maintain and improve</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-World Examples Card -->
+            <div class="card" id="real-world-examples">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h2 class="card-title">Real-World Examples</h2>
+                </div>
+                <div class="card-content">
+                    <p>Severity Rate is used across industries to measure and improve safety performance. Here are some real-world applications:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-building"></i> Automotive Manufacturer</div>
+                        <p><strong>Scenario:</strong> A major automotive plant reduced SR from 180 to 45 over three years</p>
+                        <p><strong>Interventions:</strong> Implemented ergonomic improvements, machine guarding enhancements, and serious injury prevention program</p>
+                        <p><strong>Outcome:</strong> 75% reduction in SR, $2.3M annual savings in workers' compensation costs</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-warehouse"></i> Logistics Company</div>
+                        <p><strong>Scenario:</strong> A distribution center with high SR due to manual handling injuries</p>
+                        <p><strong>Interventions:</strong> Introduced automated material handling equipment and revised work procedures</p>
+                        <p><strong>Outcome:</strong> SR reduced from 320 to 110, with 65% reduction in back injury claims</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-tools"></i> Construction Firm</div>
+                        <p><strong>Scenario:</strong> Specialty contractor with high SR from falls and equipment incidents</p>
+                        <p><strong>Interventions:</strong> Enhanced fall protection systems, equipment operator certification, and critical risk controls</p>
+                        <p><strong>Outcome:</strong> SR decreased from 450 to 180, with zero fatalities over 4 years</p>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Industry</th>
+                                <th>Typical SR Range</th>
+                                <th>Primary Severity Drivers</th>
+                                <th>Improvement Strategies</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Construction</td>
+                                <td>150-400</td>
+                                <td>Falls, struck-by, equipment</td>
+                                <td>Fall protection, equipment safety</td>
+                            </tr>
+                            <tr>
+                                <td>Manufacturing</td>
+                                <td>100-250</td>
+                                <td>Machine incidents, ergonomics</td>
+                                <td>Machine guarding, ergonomic design</td>
+                            </tr>
+                            <tr>
+                                <td>Oil & Gas</td>
+                                <td>300-600</td>
+                                <td>Fires, explosions, confined spaces</td>
+                                <td>Process safety, hazard control</td>
+                            </tr>
+                            <tr>
+                                <td>Healthcare</td>
+                                <td>80-180</td>
+                                <td>Patient handling, needlesticks</td>
+                                <td>Ergonomics, safe patient handling</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Common Mistakes Card -->
+            <div class="card" id="common-mistakes">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Common Mistakes in Calculating Severity Rate</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common pitfalls to ensure accurate and meaningful Severity Rate calculations:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Inconsistent Day Counting</h3>
+                        <p>Using different methods to count lost days (calendar days vs. work days) across incidents or over time.</p>
+                        <p><strong>Fix:</strong> Standardize on calendar days for all lost time calculations and document the methodology.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Ignoring Restricted Work</h3>
+                        <p>Failing to include days of restricted work or job transfer in total days lost calculations.</p>
+                        <p><strong>Fix:</strong> Ensure all forms of lost productivity (away, restricted, transfer) are captured consistently.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Small Sample Size Interpretation</h3>
+                        <p>Drawing significant conclusions from SR calculated with very few incidents or hours.</p>
+                        <p><strong>Fix:</strong> Use larger time periods (annual or multi-year) for meaningful SR analysis and trend identification.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Excluding Contractor Data</h3>
+                        <p>Not including contractor injuries and hours in SR calculations for sites where contractors work.</p>
+                        <p><strong>Fix:</strong> Include all workers (employees and contractors) in SR calculations for complete picture.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Misunderstanding SR Volatility</h3>
+                        <p>Overreacting to SR fluctuations caused by single serious incidents in small populations.</p>
+                        <p><strong>Fix:</strong> Understand that SR can be volatile; focus on long-term trends rather than short-term changes.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices to Reduce Severity Rate</h2>
+                </div>
+                <div class="card-content">
+                    <p>Follow these best practices to enhance safety performance and reduce Severity Rate:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Serious Injury Prevention Focus</h3>
+                        <p>Identify and implement specific controls for high-severity potential incidents, not just frequent minor injuries.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Critical Risk Management</h3>
+                        <p>Implement robust controls for high-consequence risks like falls, confined spaces, and energy isolation.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Early Intervention Programs</h3>
+                        <p>Develop proactive programs to address injuries early, reducing their severity and duration.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Return-to-Work Programs</h3>
+                        <p>Implement structured return-to-work programs to minimize lost time from injuries.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Engineering Controls</h3>
+                        <p>Prioritize engineering solutions over administrative controls for high-severity risks.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Safety by Design</h3>
+                        <p>Incorporate safety considerations into equipment selection, process design, and facility layout.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Leadership Engagement</h3>
+                        <p>Ensure visible commitment from leadership to serious injury prevention and resource allocation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">Frequently Asked Questions (FAQ) on Severity Rate Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What's the difference between Severity Rate and Frequency Rate?</div>
+                        <p>Frequency Rate measures how often injuries occur (number of injuries per hours worked), while Severity Rate measures the impact of those injuries (days lost per hours worked). FR tells you about injury frequency, SR tells you about injury consequences.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How are fatalities counted in Severity Rate calculations?</div>
+                        <p>Most organizations use a standardized charge for fatalities, typically 6,000 days. This represents the permanent loss and allows meaningful comparison across organizations. Some standards may use different values, so consistency within your organization is key.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Should we include light duty or restricted work in Severity Rate?</div>
+                        <p>Yes, days of restricted work or job transfer should be included in Severity Rate calculations. These represent lost productivity and are an important component of understanding the full impact of injuries.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What is a good Severity Rate?</div>
+                        <p>A lower SR is always better. While industry averages vary, many organizations aim for SR below 100. World-class safety performers often achieve rates below 50. The ultimate goal should be zero injuries, reflected in an SR of 0.0.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How can a single serious incident affect our Severity Rate?</div>
+                        <p>A single serious incident (like a fatality or permanent disability) can dramatically increase Severity Rate, especially in smaller organizations. This is why SR should be interpreted in context and tracked over longer periods to identify true trends.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Should we track Severity Rate if we have zero injuries?</div>
+                        <p>Yes, even with zero injuries, tracking Severity Rate (which would be 0.0) provides important baseline data and demonstrates excellent safety performance. It also prepares your organization for consistent metric tracking when injuries do occur.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts on Severity Rate Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Severity Rate is a powerful metric that complements Frequency Rate by focusing on the consequences rather than just the frequency of workplace injuries. While a low Frequency Rate indicates fewer injuries occur, a low Severity Rate indicates that when injuries do happen, their impact is minimized.</p>
+                    
+                    <p>The true value of Severity Rate lies in its ability to highlight serious injury risks that might be masked by focusing solely on injury frequency. Organizations that effectively manage both Frequency Rate and Severity Rate typically experience not only better safety performance but also significant operational and financial benefits.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Tracking Your Severity Rate Today</h3>
+                        <p>Use our Severity Rate Calculator to begin measuring the impact of workplace injuries in your organization. Consistent tracking, accurate calculation, and thoughtful analysis of your SR will help you identify serious injury risks, prioritize safety investments, and ultimately create a safer workplace for everyone.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // Severity Rate Calculator functionality
+            const calculateBtn = document.getElementById('calculateSR');
+            const resultBox = document.getElementById('calculationResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            calculateBtn.addEventListener('click', function() {
+                const daysAway = parseInt(document.getElementById('daysAway').value) || 0;
+                const restrictedDays = parseInt(document.getElementById('restrictedDays').value) || 0;
+                const fatalities = parseInt(document.getElementById('fatalities').value) || 0;
+                const totalHours = parseInt(document.getElementById('totalHours').value) || 0;
+                const industryType = document.getElementById('industryType').value;
+                
+                if (!totalHours || totalHours <= 0) {
+                    alert('Please enter valid total hours worked');
+                    return;
+                }
+                
+                // Calculate total days lost (including fatality charges)
+                const fatalityDays = fatalities * 6000; // Standard charge for fatalities
+                const totalDaysLost = daysAway + restrictedDays + fatalityDays;
+                
+                // Calculate Severity Rate
+                const sr = (totalDaysLost * 1000000) / totalHours;
+                
+                // Determine industry benchmarks
+                let industryBenchmarks = {
+                    'general': { avg: 120, good: 80, excellent: 50 },
+                    'construction': { avg: 200, good: 120, excellent: 80 },
+                    'manufacturing': { avg: 150, good: 100, excellent: 60 },
+                    'oilgas': { avg: 400, good: 250, excellent: 150 },
+                    'healthcare': { avg: 120, good: 80, excellent: 50 },
+                    'transportation': { avg: 180, good: 120, excellent: 80 }
+                };
+                
+                const benchmark = industryBenchmarks[industryType];
+                
+                // Determine performance level
+                let performanceLevel, performanceColor;
+                if (sr === 0) {
+                    performanceLevel = "Perfect - Zero Injuries";
+                    performanceColor = "success";
+                } else if (sr <= benchmark.excellent) {
+                    performanceLevel = "Excellent - World Class";
+                    performanceColor = "success";
+                } else if (sr <= benchmark.good) {
+                    performanceLevel = "Good - Above Average";
+                    performanceColor = "info";
+                } else if (sr <= benchmark.avg) {
+                    performanceLevel = "Average - Industry Standard";
+                    performanceColor = "warning";
+                } else {
+                    performanceLevel = "Needs Improvement - Below Average";
+                    performanceColor = "danger";
+                }
+                
+                resultContent.innerHTML = `
+                    <div class="highlight-box">
+                        <h4>Severity Rate Calculation Results</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Component</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Days Away From Work</td>
+                                    <td>${daysAway}</td>
+                                </tr>
+                                <tr>
+                                    <td>Restricted Work Days</td>
+                                    <td>${restrictedDays}</td>
+                                </tr>
+                                <tr>
+                                    <td>Fatalities (6,000 days each)</td>
+                                    <td>${fatalities} (${fatalityDays} days)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Days Lost</strong></td>
+                                    <td><strong>${totalDaysLost}</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Hours Worked</td>
+                                    <td>${totalHours.toLocaleString()}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Severity Rate (SR)</strong></td>
+                                    <td><strong>${sr.toFixed(2)}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-chart-line"></i> Performance Assessment</div>
+                        <p><strong>Performance Level:</strong> <span class="badge badge-${performanceColor}">${performanceLevel}</span></p>
+                        <p><strong>Industry Context:</strong> ${document.getElementById('industryType').options[document.getElementById('industryType').selectedIndex].text}</p>
+                        <p><strong>Industry Average SR:</strong> ${benchmark.avg}</p>
+                        <p><strong>Good Performance SR:</strong> ${benchmark.good} or lower</p>
+                        <p><strong>Excellent Performance SR:</strong> ${benchmark.excellent} or lower</p>
+                    </div>
+                    <div class="highlight-box">
+                        <h4>Interpretation & Next Steps</h4>
+                        <ul>
+                            <li>Compare your SR to previous periods to identify trends</li>
+                            <li>Analyze the types of injuries contributing to days lost</li>
+                            <li>Focus prevention efforts on high-severity potential risks</li>
+                            <li>Implement return-to-work programs to reduce lost days</li>
+                            <li>Set realistic goals for SR improvement</li>
+                            <li>Track SR alongside Frequency Rate for complete safety picture</li>
+                        </ul>
+                    </div>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

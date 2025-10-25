@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Man Hours Calculator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --purple: #9b59b6;
+            --pink: #e84393;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            animation: fadeIn 1s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            animation: slideUp 1s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            animation: fadeIn 1s ease;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item, .application-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .application-item {
+            background: #f8f9fa;
+            border-left: 3px solid var(--warning);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .safe-hours-calculator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .generator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+            animation: slideUp 1s ease;
+        }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--success), #2ecc71); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--purple), #9b59b6); }
+        .icon-5 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-6 { background: linear-gradient(45deg, var(--pink), #e84393); }
+        
+        /* Safe Hours Calculator Styles */
+        .worker-category {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--info);
+        }
+        
+        .worker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .remove-worker {
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .add-worker-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        /* Large Desktop Styles */
+        @media (min-width: 1200px) {
+            .guide-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1s; }
+        
+        .content-item:nth-child(1) { animation-delay: 0.1s; }
+        .content-item:nth-child(2) { animation-delay: 0.2s; }
+        .content-item:nth-child(3) { animation-delay: 0.3s; }
+        .content-item:nth-child(4) { animation-delay: 0.4s; }
+        .content-item:nth-child(5) { animation-delay: 0.5s; }
+        .content-item:nth-child(6) { animation-delay: 0.6s; }
+        .content-item:nth-child(7) { animation-delay: 0.7s; }
+        .content-item:nth-child(8) { animation-delay: 0.8s; }
+        .content-item:nth-child(9) { animation-delay: 0.9s; }
+        .content-item:nth-child(10) { animation-delay: 1s; }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+        
+        /* Mobile Navigation Improvements */
+        @media (max-width: 480px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-content {
+                font-size: 0.95rem;
+            }
+            
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .content-item:hover,
+            .card:hover,
+            .btn:hover {
+                transform: none;
+            }
+            
+            .content-item:active,
+            .card:active {
+                transform: scale(0.98);
+            }
+        }
+        
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner"></div>
+        <p>Preparing your guide for download...</p>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Safe Man Hours Calculator - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for calculating, tracking, and improving safe man hours in your organization. Learn how to measure safety performance and create a safer work environment.</p>
+        </header>
+        
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-are-safe-man-hours">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="content-title">What Are Safe Man Hours?</h3>
+                    <p class="content-desc">Understand the fundamentals of safe man hours and their importance in workplace safety management.</p>
+                </div>
+                
+                <div class="content-item" data-target="formula">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="content-title">Formula for Safe Man Hours</h3>
+                    <p class="content-desc">Learn the calculation methods and formulas for accurate safe man hours tracking.</p>
+                </div>
+                
+                <div class="content-item" data-target="how-to-use">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-user-guide"></i>
+                    </div>
+                    <h3 class="content-title">How to Use the Calculator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive Safe Man Hours Calculator.</p>
+                </div>
+                
+                <div class="content-item" data-target="examples">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="content-title">Example Calculations</h3>
+                    <p class="content-desc">Practical examples showing how to calculate safe man hours in different scenarios.</p>
+                </div>
+                
+                <div class="content-item" data-target="importance">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <h3 class="content-title">Why Are They Important?</h3>
+                    <p class="content-desc">Discover the critical benefits and regulatory importance of tracking safe man hours.</p>
+                </div>
+                
+                <div class="content-item" data-target="real-world">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="content-title">Real-World Examples</h3>
+                    <p class="content-desc">Explore how safe man hours tracking is implemented across various industries.</p>
+                </div>
+                
+                <div class="content-item" data-target="mistakes">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="content-title">Common Mistakes</h3>
+                    <p class="content-desc">Avoid these common pitfalls that can undermine your safe hours tracking process.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices</h3>
+                    <p class="content-desc">Learn proven strategies for achieving and maintaining high safe man hours.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">FAQ</h3>
+                    <p class="content-desc">Get answers to frequently asked questions about safe man hours implementation.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for successful safe man hours tracking.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What Are Safe Man Hours Card -->
+            <div class="card" id="what-are-safe-man-hours">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="card-title">What Are Safe Man Hours?</h2>
+                </div>
+                <div class="card-content">
+                    <p><strong>Safe Man Hours</strong> represent the total number of working hours completed by employees without any incident that results in lost time due to injury (LTI - Lost Time Injury).</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Key Concept:</strong> If an LTI occurs, the safe man hours counter resets to zero, and counting begins again from that point. This creates a powerful incentive for maintaining safe working conditions.</p>
+                    </div>
+                    
+                    <p>This metric is crucial for measuring safety performance in industries like construction, manufacturing, oil and gas, and other high-risk environments.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Lost Time Injury (LTI)</h3>
+                            <p>Any work-related injury that results in an employee being unable to perform their regular job duties for one or more full days after the incident.</p>
+                        </div>
+                        <div class="step">
+                            <h3>Safe Hours Accumulation</h3>
+                            <p>The continuous counting of work hours without any LTI incidents, representing the organization's safety performance.</p>
+                        </div>
+                        <div class="step">
+                            <h3>Reset Mechanism</h3>
+                            <p>When an LTI occurs, the safe man hours counter resets to zero, emphasizing the importance of consistent safety practices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Formula Card -->
+            <div class="card" id="formula">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2 class="card-title">Formula for Safe Man Hours</h2>
+                </div>
+                <div class="card-content">
+                    <p>The calculation for safe man hours is straightforward but requires accurate tracking of workforce data.</p>
+                    
+                    <div class="highlight-box">
+                        <h3>Basic Safe Man Hours Formula</h3>
+                        <div style="text-align: center; font-size: 1.2rem; font-weight: 600; margin: 15px 0; color: var(--success);">
+                            Safe Man Hours = Σ(Number of Workers × Hours Worked per Day × Days Worked)
+                        </div>
+                        <p>Where Σ represents the sum across all workforce categories and time periods since the last LTI.</p>
+                    </div>
+                    
+                    <p>For more precise calculations that account for different worker categories and overtime:</p>
+                    
+                    <div class="highlight-box">
+                        <h3>Detailed Calculation Formula</h3>
+                        <div style="text-align: center; font-size: 1.2rem; font-weight: 600; margin: 15px 0; color: var(--info);">
+                            Total Hours = (Regular Hours + Overtime Hours) × Number of Workers × Days Worked
+                        </div>
+                    </div>
+                    
+                    <p>It's important to track hours for all personnel on site, including contractors and temporary workers, for a comprehensive safety measurement.</p>
+                </div>
+            </div>
+            
+            <!-- How to Use Card -->
+            <div class="card" id="how-to-use">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-user-guide"></i>
+                    </div>
+                    <h2 class="card-title">How to Use the Safe Man Hours Calculator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our calculator simplifies the process of tracking and calculating safe man hours. Follow these steps:</p>
+                    
+                    <div class="safe-hours-calculator">
+                        <h3 class="generator-title">Interactive Safe Man Hours Calculator</h3>
+                        
+                        <div class="form-group">
+                            <label for="projectName">Project Name</label>
+                            <input type="text" id="projectName" placeholder="Enter project name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="reportingPeriod">Reporting Period</label>
+                            <input type="text" id="reportingPeriod" placeholder="e.g., January 2023">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ltiStatus">LTI Status During This Period</label>
+                            <select id="ltiStatus">
+                                <option value="no">No LTI - Continue Counting</option>
+                                <option value="yes">LTI Occurred - Reset Counter</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="previousHours">Previous Safe Hours (if continuing)</label>
+                            <input type="number" id="previousHours" placeholder="Enter previous safe hours">
+                        </div>
+                        
+                        <div id="workerCategories">
+                            <div class="worker-category">
+                                <div class="worker-header">
+                                    <h4>Worker Category 1</h4>
+                                    <button class="remove-worker" onclick="removeWorkerCategory(this)">Remove</button>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Category Name</label>
+                                        <input type="text" placeholder="e.g., General Labor" value="General Labor">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Number of Workers</label>
+                                        <input type="number" placeholder="e.g., 25" value="25">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Hours/Day</label>
+                                        <input type="number" placeholder="e.g., 8" value="8">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Days Worked</label>
+                                        <input type="number" placeholder="e.g., 22" value="22">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>OT Hours/Day</label>
+                                        <input type="number" placeholder="e.g., 0" value="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="add-worker-btn" id="addWorkerBtn">
+                            <i class="fas fa-plus"></i> Add Another Worker Category
+                        </button>
+                        
+                        <button class="btn btn-primary" id="calculateSafeHours" style="margin-top: 20px;">
+                            <i class="fas fa-calculator"></i> Calculate Safe Man Hours
+                        </button>
+                        
+                        <div class="result-box" id="safeHoursResult">
+                            <h3>Safe Man Hours Calculation Result</h3>
+                            <div id="safeHoursContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-list-ol"></i> Step-by-Step Guide</h3>
+                        <ol>
+                            <li><strong>Enter Project Details:</strong> Input project name, location, client, and reporting period</li>
+                            <li><strong>Specify LTI Status:</strong> Indicate if any Lost Time Injury occurred during the period</li>
+                            <li><strong>Input Workforce Data:</strong> Add rows for different worker categories with hours and days worked</li>
+                            <li><strong>Include Previous Hours:</strong> Enter any carry-over safe hours from previous periods</li>
+                            <li><strong>Generate Report:</strong> Use the preview function to review calculations</li>
+                            <li><strong>Export Results:</strong> Download the report as PDF for documentation</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Examples Card -->
+            <div class="card" id="examples">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h2 class="card-title">Example Calculations</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of safe man hours calculations in different workplace scenarios:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calculator"></i> Example 1 – No LTI Case</div>
+                        <p>A construction project has been running for 3 months without any Lost Time Injuries.</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Worker Category</th>
+                                    <th># Workers</th>
+                                    <th>Hours/Day</th>
+                                    <th>Days Worked</th>
+                                    <th>OT Hours/Day</th>
+                                    <th>Total Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>General Labor</td>
+                                    <td>25</td>
+                                    <td>8</td>
+                                    <td>65</td>
+                                    <td>0</td>
+                                    <td>13,000</td>
+                                </tr>
+                                <tr>
+                                    <td>Skilled Trades</td>
+                                    <td>15</td>
+                                    <td>8</td>
+                                    <td>65</td>
+                                    <td>2</td>
+                                    <td>9,750</td>
+                                </tr>
+                                <tr>
+                                    <td>Supervisors</td>
+                                    <td>5</td>
+                                    <td>8</td>
+                                    <td>65</td>
+                                    <td>0</td>
+                                    <td>2,600</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td><strong>45</strong></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><strong>25,350</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <p><strong>Result:</strong> The project has achieved 25,350 safe man hours without any LTI.</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-calculator"></i> Example 2 – With LTI Case</div>
+                        <p>The same project continues for another month, but an LTI occurs on day 15 of the fourth month.</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Worker Category</th>
+                                    <th># Workers</th>
+                                    <th>Hours/Day</th>
+                                    <th>Days Worked</th>
+                                    <th>OT Hours/Day</th>
+                                    <th>Total Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>All Categories</td>
+                                    <td>45</td>
+                                    <td>8</td>
+                                    <td>15</td>
+                                    <td>1</td>
+                                    <td>6,075</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <p><strong>Result:</strong> Despite the previous 25,350 hours, the LTI resets the counter. The project now has 6,075 safe man hours since the last LTI.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Importance Card -->
+            <div class="card" id="importance">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <h2 class="card-title">Why Are Safe Man Hours Important?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Tracking safe man hours provides multiple benefits for organizations:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Safety Performance Measurement</h3>
+                            <p>Quantifiable metric for safety program effectiveness that can be tracked over time.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Regulatory Compliance</h3>
+                            <p>Meets OSHA and other regulatory reporting requirements for workplace safety.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Risk Management</h3>
+                            <p>Identifies trends and areas for safety improvement through data analysis.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Employee Engagement</h3>
+                            <p>Motivates workers to maintain safe practices and be actively involved in safety programs.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Contractor Evaluation</h3>
+                            <p>Helps in assessing safety records of subcontractors and making informed decisions.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Insurance Premiums</h3>
+                            <p>Can lead to lower insurance costs with good safety records and demonstrated risk management.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Did You Know?</strong> Organizations with robust safe man hours tracking typically experience 30-50% fewer workplace incidents and achieve significant cost savings in workers' compensation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Real-World Applications Card -->
+            <div class="card" id="real-world">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h2 class="card-title">Real-World Examples</h2>
+                </div>
+                <div class="card-content">
+                    <p>Safe man hours tracking is implemented across various industries with impressive results:</p>
+                    
+                    <div class="application-item">
+                        <h3>Construction Industry</h3>
+                        <p><strong>Case Study:</strong> A large infrastructure project achieved 5 million safe man hours over 3 years, resulting in:</p>
+                        <ul>
+                            <li>45% reduction in recordable incidents</li>
+                            <li>$2.3 million saved in insurance premiums</li>
+                            <li>Improved project completion timeline by 8%</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Manufacturing Sector</h3>
+                        <p><strong>Case Study:</strong> An automotive plant implemented rigorous safe hours tracking and achieved:</p>
+                        <ul>
+                            <li>1.2 million safe man hours in one year</li>
+                            <li>75% reduction in lost time injuries</li>
+                            <li>15% increase in productivity</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Oil and Gas Industry</h3>
+                        <p><strong>Case Study:</strong> An offshore drilling platform maintained 2.8 million safe man hours, leading to:</p>
+                        <ul>
+                            <li>Zero LTIs for 3 consecutive years</li>
+                            <li>Recognition as industry safety leader</li>
+                            <li>Enhanced contractor selection criteria</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Common Mistakes Card -->
+            <div class="card" id="mistakes">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Common Mistakes</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common pitfalls when implementing safe man hours tracking:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Inconsistent Reporting</h3>
+                        <p>Failing to track hours consistently across all departments and projects, leading to inaccurate data.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Misclassifying Injuries</h3>
+                        <p>Incorrectly categorizing injuries as non-LTI to maintain high safe hours, compromising data integrity.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Ignoring Near Misses</h3>
+                        <p>Focusing only on LTIs while ignoring near-miss incidents that indicate potential safety issues.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Poor Data Quality</h3>
+                        <p>Inaccurate recording of worker hours and categories, resulting in unreliable safety metrics.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Lack of Employee Training</h3>
+                        <p>Not educating workers on the importance and methodology of tracking, reducing buy-in and accuracy.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices</h2>
+                </div>
+                <div class="card-content">
+                    <p>Implement these strategies to improve your safe man hours performance:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Leadership Commitment</h3>
+                        <p>Visible and active safety leadership from top management that prioritizes safety over production.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Comprehensive Training</h3>
+                        <p>Regular safety training for all employees and contractors on procedures, hazards, and reporting.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Proactive Hazard Identification</h3>
+                        <p>Regular safety audits and hazard assessments to identify and address risks before incidents occur.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Employee Involvement</h3>
+                        <p>Engage workers in safety committees and decision-making to foster ownership of safety programs.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Clear Reporting Procedures</h3>
+                        <p>Simple, transparent processes for reporting incidents and hours that are easy to follow.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Technology Utilization</h3>
+                        <p>Use digital tools like our calculator for accurate tracking and real-time safety performance monitoring.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Celebrate Milestones</h3>
+                        <p>Recognize and reward teams for achieving safety milestones to maintain motivation and engagement.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">FAQ</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What counts as a Lost Time Injury (LTI)?</div>
+                        <p>An LTI is any work-related injury that results in an employee being unable to perform their regular job duties for one or more full days after the incident. This includes injuries that require medical treatment beyond first aid.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How should we handle contractor hours in our calculations?</div>
+                        <p>Contractor hours should be included in your safe man hours calculations. All personnel working on your site, regardless of employment status, should be tracked for comprehensive safety measurement and to ensure everyone's safety is prioritized.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Can we include hours from multiple sites in our safe man hours?</div>
+                        <p>Yes, but it's important to track them separately as well as collectively. This allows you to identify specific sites that may need additional safety focus while still presenting an overall organizational safety performance.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How often should we reset our safe man hours counter?</div>
+                        <p>The counter should only reset when an LTI occurs. Some organizations also reset annually for reporting purposes, but the primary counter should reflect continuous hours since the last LTI to maintain accuracy in safety performance measurement.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What's the difference between safe man hours and man hours?</div>
+                        <p>Man hours refer to the total hours worked by all employees, while safe man hours specifically track hours worked without any lost time injuries. Safe man hours reset after an LTI, emphasizing the importance of continuous safety.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts</h2>
+                </div>
+                <div class="card-content">
+                    <p>Tracking safe man hours is more than just a regulatory requirement—it's a powerful tool for creating a culture of safety within your organization. Our calculator simplifies this process, allowing you to focus on what matters most: keeping your workers safe.</p>
+                    
+                    <p>Remember that safe man hours are not just a number but a reflection of your organization's commitment to safety. Regular tracking, analysis, and improvement based on this data will lead to better safety outcomes and operational excellence.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Tracking Your Safe Man Hours Today</h3>
+                        <p>Use our Safe Man Hours Calculator to begin monitoring your safety performance. Consistent tracking and analysis will help you identify trends, celebrate successes, and continuously improve your safety culture.</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-primary" id="downloadGuideBtn">
+                            <i class="fas fa-download"></i> Download This Guide as PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // Safe Hours Calculator functionality
+            const calculateBtn = document.getElementById('calculateSafeHours');
+            const resultBox = document.getElementById('safeHoursResult');
+            const resultContent = document.getElementById('safeHoursContent');
+            const addWorkerBtn = document.getElementById('addWorkerBtn');
+            const workerCategories = document.getElementById('workerCategories');
+            
+            let workerCount = 1;
+            
+            // Add worker category
+            addWorkerBtn.addEventListener('click', function() {
+                workerCount++;
+                const newWorker = document.createElement('div');
+                newWorker.className = 'worker-category';
+                newWorker.innerHTML = `
+                    <div class="worker-header">
+                        <h4>Worker Category ${workerCount}</h4>
+                        <button class="remove-worker" onclick="removeWorkerCategory(this)">Remove</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            <input type="text" placeholder="e.g., Skilled Trades">
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Workers</label>
+                            <input type="number" placeholder="e.g., 15">
+                        </div>
+                        <div class="form-group">
+                            <label>Hours/Day</label>
+                            <input type="number" placeholder="e.g., 8" value="8">
+                        </div>
+                        <div class="form-group">
+                            <label>Days Worked</label>
+                            <input type="number" placeholder="e.g., 22">
+                        </div>
+                        <div class="form-group">
+                            <label>OT Hours/Day</label>
+                            <input type="number" placeholder="e.g., 0" value="0">
+                        </div>
+                    </div>
+                `;
+                workerCategories.appendChild(newWorker);
+            });
+            
+            // Calculate safe hours
+            calculateBtn.addEventListener('click', function() {
+                const projectName = document.getElementById('projectName').value;
+                const reportingPeriod = document.getElementById('reportingPeriod').value;
+                const ltiStatus = document.getElementById('ltiStatus').value;
+                const previousHours = parseInt(document.getElementById('previousHours').value) || 0;
+                
+                if (!projectName || !reportingPeriod) {
+                    alert('Please fill in project details');
+                    return;
+                }
+                
+                // Calculate total hours from all worker categories
+                let totalHours = 0;
+                let workerDetails = '';
+                
+                const workerElements = document.querySelectorAll('.worker-category');
+                workerElements.forEach((worker, index) => {
+                    const inputs = worker.querySelectorAll('input');
+                    const categoryName = inputs[0].value || `Category ${index+1}`;
+                    const numWorkers = parseInt(inputs[1].value) || 0;
+                    const hoursPerDay = parseInt(inputs[2].value) || 0;
+                    const daysWorked = parseInt(inputs[3].value) || 0;
+                    const otHours = parseInt(inputs[4].value) || 0;
+                    
+                    const categoryHours = (hoursPerDay + otHours) * numWorkers * daysWorked;
+                    totalHours += categoryHours;
+                    
+                    workerDetails += `
+                        <tr>
+                            <td>${categoryName}</td>
+                            <td>${numWorkers}</td>
+                            <td>${hoursPerDay}</td>
+                            <td>${daysWorked}</td>
+                            <td>${otHours}</td>
+                            <td>${categoryHours.toLocaleString()}</td>
+                        </tr>
+                    `;
+                });
+                
+                if (totalHours === 0) {
+                    alert('Please enter valid worker data');
+                    return;
+                }
+                
+                // Determine safe hours based on LTI status
+                let safeHours = ltiStatus === 'no' ? previousHours + totalHours : totalHours;
+                let ltiMessage = ltiStatus === 'no' ? 
+                    'No LTI occurred during this period. Safe hours continue from previous total.' : 
+                    'LTI occurred. Safe hours counter has been reset.';
+                
+                resultContent.innerHTML = `
+                    <h4>Project: ${projectName}</h4>
+                    <p><strong>Reporting Period:</strong> ${reportingPeriod}</p>
+                    <p><strong>LTI Status:</strong> ${ltiMessage}</p>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Worker Category</th>
+                                <th># Workers</th>
+                                <th>Hours/Day</th>
+                                <th>Days Worked</th>
+                                <th>OT Hours/Day</th>
+                                <th>Total Hours</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${workerDetails}
+                            <tr>
+                                <td><strong>Total</strong></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><strong>${totalHours.toLocaleString()}</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="highlight-box">
+                        <h3>Safe Man Hours Result</h3>
+                        <p><strong>Total Safe Man Hours:</strong> ${safeHours.toLocaleString()} hours</p>
+                        <p><strong>Status:</strong> ${ltiStatus === 'no' ? 'Continuing' : 'Reset after LTI'}</p>
+                    </div>
+                    
+                    <p><strong>Next Steps:</strong> Document this calculation, review safety performance, and implement improvements as needed.</p>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Download Guide functionality
+            const downloadBtn = document.getElementById('downloadGuideBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            downloadBtn.addEventListener('click', function() {
+                // Show loading spinner
+                loadingSpinner.style.display = 'flex';
+                
+                // Get the guide content
+                const element = document.getElementById('guideContent');
+                
+                // Options for PDF generation
+                const options = {
+                    margin: 15,
+                    filename: 'Safe-Man-Hours-Calculator-Guide.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { 
+                        scale: 2,
+                        useCORS: true,
+                        scrollY: -window.scrollY
+                    },
+                    jsPDF: { 
+                        unit: 'mm', 
+                        format: 'a4', 
+                        orientation: 'portrait' 
+                    },
+                    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+                };
+                
+                // Generate PDF
+                html2pdf().set(options).from(element).save().then(() => {
+                    // Hide loading spinner when PDF is generated
+                    loadingSpinner.style.display = 'none';
+                });
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Remove worker category function
+        function removeWorkerCategory(button) {
+            const workerCategories = document.getElementById('workerCategories');
+            if (workerCategories.children.length > 1) {
+                button.closest('.worker-category').remove();
+            } else {
+                alert('You need at least one worker category');
+            }
+        }
+    </script>
+</body>
+</html>
