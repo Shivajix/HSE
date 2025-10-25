@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSE Tools - Free Safety Calculators, Templates & Reports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            /*Color mode HSL(hue, saturation, lightness)*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+
+            /*========== Font and typography ==========*/
+            /*.5rem = 8px | 1rem = 16px ...*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: #1e293b;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== HERO SECTION ===============*/
+        .hero {
+            background: linear-gradient(135deg, #1e40af, #065f46);
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: var(--font-bold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            font-weight: var(--font-regular);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #1e40af;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: var(--font-semibold);
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: var(--white-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--white-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #d97706;
+        }
+
+        /*=============== SECTION STYLES ===============*/
+        .section {
+            margin: 40px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #1e293b;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .section-header:hover {
+            background-color: #334155;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .toggle-btn:hover {
+            background-color: rgba(96, 165, 250, 0.2);
+        }
+
+        .toggle-btn.rotated {
+            transform: rotate(45deg);
+        }
+
+        .section-content {
+            background-color: #1e293b;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin-top: 5px;
+        }
+
+        .section-content.hidden {
+            display: none;
+        }
+
+        /*=============== TOOLS GRID ===============*/
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .tool-card {
+            background: linear-gradient(145deg, #1e293b, #334155);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(96, 165, 250, 0.4);
+        }
+
+        .tool-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+            color: var(--white-color);
+        }
+
+        .tool-content {
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: var(--font-semibold);
+        }
+
+        .tool-content p {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            font-size: var(--normal-font-size);
+        }
+
+        .tool-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: var(--font-medium);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .tool-link:hover {
+            color: #22c55e;
+        }
+
+        /*=============== HOW IT WORKS ===============*/
+        .how-it-works {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 50px 0;
+            margin: 40px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .step h3 {
+            margin-bottom: 10px;
+            color: #e2e8f0;
+            font-weight: var(--font-semibold);
+        }
+
+        .step p {
+            color: #cbd5e1;
+            font-size: var(--normal-font-size);
+        }
+
+        /*=============== ABOUT SECTION ===============*/
+        .about-card {
+            background: linear-gradient(145deg, #1e293b, #334155);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 30px;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .profile-section {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #334155;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .about-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: var(--font-medium);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+
+        .about-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /*=============== FAQ SECTION ===============*/
+        .faq-item {
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: #1e293b;
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: #334155;
+        }
+
+        .faq-answer {
+            background-color: #0f172a;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: #1e293b;
+            color: #cbd5e1;
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid #334155;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: #cbd5e1;
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #1e293b;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .steps {
+                flex-direction: column;
+            }
+
+            .step {
+                margin-bottom: 20px;
+            }
+
+            .about-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <i class="fas fa-tools logo-icon"></i>
+                    HSE <span>Tools</span>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="#"><i class="fas fa-compass" style="color: var(--info-color);"></i> Explore All Tools</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt" style="color: var(--primary-color);"></i> Open HIRA & JSA</a></li>
+                    <li><a href="#"><i class="fas fa-calculator" style="color: var(--success-color);"></i> Calculators & KPIs</a></li>
+                    <li><a href="#"><i class="fas fa-clipboard-check" style="color: var(--warning-color);"></i> Risk Assessment</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar" style="color: var(--accent-color);"></i> Reports</a></li>
+                    <li><a href="#"><i class="fas fa-graduation-cap" style="color: var(--secondary-color);"></i> Training</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Free Online HSE Tools for Safety Professionals</h1>
+            <p>The HSE Tools - Free Safety Calculators, Templates & Reports</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary"><i class="fas fa-compass"></i> Explore All Tools</a>
+                <a href="#" class="btn"><i class="fas fa-file-alt"></i> Open HIRA & JSA</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Featured Tools Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-star" style="color: var(--accent-color);"></i> Featured Tools</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content">
+                <p style="text-align: center; margin-bottom: 30px;">Quick entry points to the most-used tools. Free and mobile-friendly.</p>
+                
+                <div class="tools-grid">
+                    <!-- Safe Man-Hours -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-clock"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-user-clock" style="color: var(--info-color);"></i> Safe Man-Hours Calculator</h3>
+                            <p>Track period & cumulative safe hours (no LTI!) with PDF</p>
+                            <a href="Safe Man-Hours/index.html" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- HIRA Generator -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-clipboard-list" style="color: var(--warning-color);"></i> HIRA Generator</h3>
+                            <p>Identify hazards, evaluate risk, auto risk levels, and controls.</p>
+                            <a href="HIRA Generator/index.html" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- JSA -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-hard-hat" style="color: var(--accent-color);"></i> Job Safety Analysis</h3>
+                            <p>Break jobs into steps, add hazards/controls & export a JSA.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- TRIR/AFR -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-calculator" style="color: var(--success-color);"></i> TRIR / AFR / FAR Calculator</h3>
+                            <p>Calculate key HSE KPIs with 200k / 1M base options.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculators & KPIs Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-calculator" style="color: var(--success-color);"></i> Calculators & KPIs</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="tools-grid">
+                    <!-- Man-Days Worked -->
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <h3><i class="fas fa-users" style="color: var(--info-color);"></i> Man-Days Worked Calculator</h3>
+                            <p>Compute total man-days from skilled, unskilled, and contract workers over a given period.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Frequency Rate -->
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <h3><i class="fas fa-wave-square" style="color: var(--primary-color);"></i> Frequency Rate (FR) Calculator</h3>
+                            <p>Calculate accident frequency rate (LTIs per million man-hours).</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Severity Rate -->
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <h3><i class="fas fa-weight-hanging" style="color: var(--warning-color);"></i> Severity Rate (SR) Calculator</h3>
+                            <p>Measure severity of incidents based on days lost due to LTIs.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Incident Rate -->
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <h3><i class="fas fa-exclamation-circle" style="color: var(--danger-color);"></i> Incident Rate (IR) Calculator</h3>
+                            <p>Standard OSHA metric - recordable cases per 200,000 man-hours worked.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Total LTI -->
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <h3><i class="fas fa-bed" style="color: var(--secondary-color);"></i> Total Lost Time Injury (LTI) Calculator</h3>
+                            <p>Count and track LTIs to monitor safety performance.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- TRIR/AFR -->
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <h3><i class="fas fa-chart-bar" style="color: var(--accent-color);"></i> TRIR / AFR / FAR Calculator</h3>
+                            <p>Calculate key HSE KPIs with custom base (200k / 1M)</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Risk Assessment & PTW Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-clipboard-check" style="color: var(--warning-color);"></i> Risk Assessment & PTW</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="tools-grid">
+                    <!-- HIRA Generator -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-file-contract"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-file-contract" style="color: var(--primary-color);"></i> HIRA Generator</h3>
+                            <p>Create Hazard Identification & Risk Assessment (HIRA) reports with risk ratings and controls.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- JSA Generator -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-tasks" style="color: var(--accent-color);"></i> Job Safety Analysis (JSA) Generator</h3>
+                            <p>Break jobs into tasks, identify hazards, and define safe procedures.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- PTW Generator -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-id-card"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-id-card" style="color: var(--secondary-color);"></i> Permit-to-Work (PTW) Generator</h3>
+                            <p>Generate structured PTWs for hot work, confined space, electrical, excavation, and lifting jobs.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Risk Matrix -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-th"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-th" style="color: var(--info-color);"></i> Risk Matrix Generator</h3>
+                            <p>Create customizable risk matrices for your organization's specific needs.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- SWMS Generator -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-file-alt" style="color: var(--danger-color);"></i> SWMS Generator</h3>
+                            <p>Create Safe Work Method Statements for high-risk construction work.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports & Documentation Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-file-alt" style="color: var(--primary-color);"></i> Reports & Documentation</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="tools-grid">
+                    <!-- Daily Safety Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-calendar-day"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-calendar-day" style="color: var(--info-color);"></i> Daily Safety Report Generator</h3>
+                            <p>Record headcount, activities, hazards, and actions in a daily PDF report.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Weekly Safety Report -->
+                    <div class="tool-card">
+                       
+                        <div class="tool-content">
+                            <h3><i class="fas fa-calendar-week" style="color: var(--success-color);"></i> Weekly Safety Report Generator</h3>
+                            <p>Summarize weekly safety performance and inspections in a compliance-ready report.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Monthly Safety Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-calendar-alt" style="color: var(--accent-color);"></i> Monthly Safety Report Generator</h3>
+                            <p>Create a comprehensive monthly HSE report with KPIs, incidents, and CAPA.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Incident Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-exclamation-triangle" style="color: var(--danger-color);"></i> Incident Report Generator</h3>
+                            <p>Document workplace incidents with detailed investigation and corrective actions.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Audit Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-clipboard-check" style="color: var(--warning-color);"></i> Safety Audit Report Generator</h3>
+                            <p>Generate comprehensive safety audit reports with findings and recommendations.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklists & Inspections Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-clipboard-list" style="color: var(--secondary-color);"></i> Checklists & Inspections</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="tools-grid">
+                    <!-- Construction Safety Checklist -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-hard-hat"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-hard-hat" style="color: var(--accent-color);"></i> Construction Safety Checklist</h3>
+                            <p>Inspect scaffolds, excavations, hot work, lifting, and PPE compliance.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Factory/Manufacturing Safety Checklist -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-industry"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-industry" style="color: var(--primary-color);"></i> Factory/Manufacturing Safety Checklist</h3>
+                            <p>Verify machine guarding, LOTO, fire safety, chemical storage, and housekeeping.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Office Safety Checklist -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-building"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-building" style="color: var(--info-color);"></i> Office Safety Checklist</h3>
+                            <p>Check ergonomics, fire exits, electrical safety, slips/trips, and welfare facilities.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Fire Safety Checklist -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-fire-extinguisher"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-fire-extinguisher" style="color: var(--danger-color);"></i> Fire Safety Checklist</h3>
+                            <p>Inspect fire extinguishers, alarms, emergency exits, and evacuation plans.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Electrical Safety Checklist -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-bolt" style="color: var(--warning-color);"></i> Electrical Safety Checklist</h3>
+                            <p>Check electrical panels, equipment, grounding, and lockout/tagout procedures.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training & Toolbox Talks Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-chalkboard-teacher" style="color: var(--accent-color);"></i> Training & Toolbox Talks</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="tools-grid">
+                    <!-- Toolbox Talk Generator -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-toolbox"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-toolbox" style="color: var(--primary-color);"></i> Toolbox Talk Generator</h3>
+                            <p>Generate safety talk scripts with objectives, key points, and attendance logs.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Safety Induction Checklist -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-user-plus"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-user-plus" style="color: var(--info-color);"></i> Safety Induction Checklist</h3>
+                            <p>Structured checklist covering rules, PPE, emergency, hazard reporting, and welfare.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Training Attendance Sheet -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-clipboard-check" style="color: var(--success-color);"></i> Training Attendance Sheet Generator</h3>
+                            <p>Record participant names, companies, and signatures with exportable PDF sheets.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Training Needs Analysis -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-chart-bar"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-chart-bar" style="color: var(--warning-color);"></i> Training Needs Analysis</h3>
+                            <p>Identify skill gaps and create targeted training programs for your workforce.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Competency Assessment -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-user-check"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-user-check" style="color: var(--secondary-color);"></i> Competency Assessment Tool</h3>
+                            <p>Evaluate employee competency levels for specific HSE roles and responsibilities.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-cogs" style="color: var(--info-color);"></i> How It Works</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-keyboard"></i></div>
+                        <h3>Enter your data</h3>
+                        <p>Site/project, hours, hazards, inspections, or training details — only what's needed.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-magic"></i></div>
+                        <h3>Generate results</h3>
+                        <p>See KPIs, risk ratings, and summaries instantly. Validate with your standards.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon"><i class="fas fa-file-export"></i></div>
+                        <h3>Export & share</h3>
+                        <p>Download clean A4 PDFs for audits and client reporting. No logins required.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-info-circle" style="color: var(--primary-color);"></i> About The HSE Tools</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="about-card">
+                    <div class="profile-section">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Mahendra Lanjewar" class="profile-pic">
+                        <h3>Mahendra Lanjewar</h3>
+                        <p><i class="fas fa-hard-hat" style="color: var(--accent-color);"></i> HSE Professional</p>
+                    </div>
+                    <div class="about-text">
+                        <p>Created by Mahendra Lanjewar, an HSE professional with 12+ years of field experience across construction, oil & gas, power, and manufacturing. These tools are practical, audit-ready, and fast.</p>
+                        <p><i class="fas fa-shield-alt" style="color: var(--success-color);"></i> No sign-up required—your inputs stay in your browser.</p>
+                        <p><i class="fas fa-book" style="color: var(--info-color);"></i> Calculations follow commonly used HSE practices. Always confirm with your organization's definitions and local regulations. References: OSHA 1904, ISO 45001, ILO OSH.</p>
+                        <div class="about-links">
+                            <a href="#"><i class="fas fa-user" style="color: var(--primary-color);"></i> Meet the author</a>
+                            <a href="#"><i class="fas fa-tools" style="color: var(--accent-color);"></i> Browse all tools</a>
+                            <a href="#"><i class="fas fa-book" style="color: var(--info-color);"></i> Methodology</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-question-circle" style="color: var(--warning-color);"></i> FAQ</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span><i class="fas fa-dollar-sign" style="color: var(--success-color);"></i> Are these tools free?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, all tools are completely free to use with no hidden costs.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span><i class="fas fa-file-pdf" style="color: var(--danger-color);"></i> Do the PDFs pass client audits?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, our PDFs are designed to meet professional standards for client audits.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span><i class="fas fa-database" style="color: var(--info-color);"></i> Is my data stored on your server?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        No, your data stays in your browser and is not stored on our servers.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span><i class="fas fa-table" style="color: var(--primary-color);"></i> Do you support HIRA/JSA risk matrices?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, our tools support standard risk matrices used in HIRA and JSA processes.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span><i class="fas fa-play-circle" style="color: var(--accent-color);"></i> Where do I start?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Begin with our featured tools like HIRA Generator or Safe Man-Hours Calculator.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="#" class="footer-icon">
+                    <i class="fas fa-home" style="color: var(--primary-color);"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#" class="footer-icon">
+                    <i class="fas fa-tools" style="color: var(--accent-color);"></i>
+                    <span>Tools</span>
+                </a>
+                <a href="#" class="footer-icon">
+                    <i class="fas fa-info-circle" style="color: var(--info-color);"></i>
+                    <span>About</span>
+                </a>
+                <a href="#" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);"></i>
+                    <span>Contact</span>
+                </a>
+                <a href="#" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);"></i>
+                    <span>Privacy</span>
+                </a>
+                <a href="#" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);"></i>
+                    <span>Help</span>
+                </a>
+            </div>
+            <p>© All Rights Reserved by thehsetools.com</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle with animation
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Change icon based on state
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Section toggle functionality
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const toggleBtn = this.querySelector('.toggle-btn');
+                
+                content.classList.toggle('hidden');
+                toggleBtn.textContent = content.classList.contains('hidden') ? '+' : '-';
+                toggleBtn.classList.toggle('rotated');
+            });
+        });
+
+        // FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Open Featured Tools section by default
+        document.querySelector('.section-content').classList.remove('hidden');
+        document.querySelector('.section-header .toggle-btn').textContent = '-';
+        document.querySelector('.section-header .toggle-btn').classList.add('rotated');
+    </script>
+</body>
+</html>
