@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electrical Safety Checklist Generator | Comprehensive Electrical Inspection</title>
+    <meta name="description" content="Generate professional electrical safety checklists for buildings and facilities. Complete inspection tool with PDF export capability.">
+    <meta name="keywords" content="electrical safety checklist, electrical inspection, safety audit, electrical maintenance, OSHA compliance, PDF generator">
+    <meta name="author" content="Safety Tools Pro">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #f39c12;
+            --secondary-color: #e67e22;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3c4e;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f9fa;
+            --border-color: #ddd;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --radius: 8px;
+        }
+
+        .dark-mode {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --success-color: #2ecc71;
+            --danger-color: #c0392b;
+            --warning-color: #e67e22;
+            --light-color: #2c3e50;
+            --dark-color: #1a252f;
+            --text-color: #ecf0f1;
+            --bg-color: #1e2a3a;
+            --card-bg: #2c3c4e;
+            --border-color: #34495e;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius) var(--radius) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-light {
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        .form-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-section h2 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checklist-category {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: var(--light-color);
+            border-radius: var(--radius);
+        }
+
+        .checklist-category h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-item label {
+            flex: 1;
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-compliant {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .status-noncompliant {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .status-na {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-count {
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .preview-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            background-color: var(--success-color);
+            color: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background-color: var(--danger-color);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .example-btn {
+            background-color: var(--warning-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .category-icon {
+            font-size: 1.2rem;
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .risk-high {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .risk-medium {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .risk-low {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .header-controls {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .summary {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .checklist-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Electrical Safety Checklist Generator</h1>
+                <p>Comprehensive electrical safety inspection and reporting tool</p>
+            </div>
+            <div class="header-controls">
+                <button id="translateBtn" class="btn-light" aria-label="Toggle language">
+                    <span class="lang-text">हिंदी</span>
+                </button>
+                <button id="darkModeBtn" class="btn-light" aria-label="Toggle dark mode">
+                    <span class="mode-text">Dark Mode</span>
+                </button>
+                <button id="previewBtn" class="btn-primary">Preview</button>
+                <button id="downloadBtn" class="btn-success">Download PDF</button>
+                <button id="resetBtn" class="btn-danger">Reset</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="formView">
+                <div class="form-section">
+                    <h2>Facility Information</h2>
+                    <button id="loadExample" class="example-btn">
+                        <span>⚡</span> Load Example
+                    </button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="facilityName">Facility / Building Name</label>
+                            <input type="text" id="facilityName" placeholder="e.g., Manufacturing Plant Unit 5" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="facilityAddress">Address</label>
+                            <input type="text" id="facilityAddress" placeholder="Street, City, State, ZIP" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="inspectorName">Inspector Name</label>
+                            <input type="text" id="inspectorName" placeholder="Full name of inspector" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="inspectionDate">Inspection Date</label>
+                            <input type="date" id="inspectionDate" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="facilityType">Facility Type</label>
+                            <select id="facilityType" aria-required="true">
+                                <option value="">Select facility type</option>
+                                <option value="industrial">Industrial/Manufacturing</option>
+                                <option value="commercial">Commercial Building</option>
+                                <option value="office">Office Building</option>
+                                <option value="residential">Residential Building</option>
+                                <option value="healthcare">Healthcare Facility</option>
+                                <option value="educational">Educational Institution</option>
+                                <option value="warehouse">Warehouse</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nextInspection">Next Inspection Due</label>
+                            <input type="date" id="nextInspection" aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Electrical Safety Checklist</h2>
+                    
+                    <div class="info-box">
+                        <p><strong>Instructions:</strong> Check each item that is compliant. Leave unchecked for non-compliant items.</p>
+                        <p><strong>Risk Levels:</strong> <span class="risk-level risk-high">High</span> <span class="risk-level risk-medium">Medium</span> <span class="risk-level risk-low">Low</span></p>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🔌</span> Electrical Panels & Distribution</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="panel_clearance" class="checklist-checkbox">
+                            <label for="panel_clearance">Electrical panels have 36" clear working space <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="panel_doors" class="checklist-checkbox">
+                            <label for="panel_doors">Panel doors close properly and are not damaged <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="panel_labeling" class="checklist-checkbox">
+                            <label for="panel_labeling">All circuits clearly labeled and legible <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="panel_condition" class="checklist-checkbox">
+                            <label for="panel_condition">No signs of overheating, corrosion, or damage <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="panel_guards" class="checklist-checkbox">
+                            <label for="panel_guards">Live parts properly guarded <span class="risk-level risk-high">High</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🔋</span> Wiring & Cables</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="wiring_protected" class="checklist-checkbox">
+                            <label for="wiring_protected">Electrical wiring properly protected from damage <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="cables_secured" class="checklist-checkbox">
+                            <label for="cables_secured">Cables properly secured and supported <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="extension_proper" class="checklist-checkbox">
+                            <label for="extension_proper">Extension cords used properly (temporary use only) <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="cord_condition" class="checklist-checkbox">
+                            <label for="cord_condition">Power cords in good condition (no cracks, frays, or damage) <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="cord_placement" class="checklist-checkbox">
+                            <label for="cord_placement">Cords not run through doors, windows, or under carpets <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🛡️</span> Grounding & Protection</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="grounding_proper" class="checklist-checkbox">
+                            <label for="grounding_proper">Electrical systems properly grounded <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="gfci_present" class="checklist-checkbox">
+                            <label for="gfci_present">GFCI protection in wet/damp locations <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="gfci_tested" class="checklist-checkbox">
+                            <label for="gfci_tested">GFCIs tested monthly and working properly <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="equipment_grounded" class="checklist-checkbox">
+                            <label for="equipment_grounded">Equipment properly grounded (3-prong plugs intact) <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="bonding_proper" class="checklist-checkbox">
+                            <label for="bonding_proper">Bonding connections secure and intact <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🚨</span> Safety Devices & Procedures</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lockout_procedure" class="checklist-checkbox">
+                            <label for="lockout_procedure">Lockout/Tagout procedures established and followed <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="emergency_stops" class="checklist-checkbox">
+                            <label for="emergency_stops">Emergency stop buttons accessible and functional <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="warning_signs" class="checklist-checkbox">
+                            <label for="warning_signs">Warning signs posted where required <span class="risk-level risk-low">Low</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="qualified_personnel" class="checklist-checkbox">
+                            <label for="qualified_personnel">Only qualified personnel work on electrical equipment <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="ppe_available" class="checklist-checkbox">
+                            <label for="ppe_available">Proper PPE available and used when required <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🏭</span> Equipment & Machinery</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="equipment_guards" class="checklist-checkbox">
+                            <label for="equipment_guards">Moving parts properly guarded <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="equipment_maintained" class="checklist-checkbox">
+                            <label for="equipment_maintained">Electrical equipment properly maintained <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="ventilation_adequate" class="checklist-checkbox">
+                            <label for="ventilation_adequate">Adequate ventilation for electrical equipment <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="area_clean" class="checklist-checkbox">
+                            <label for="area_clean">Electrical rooms clean and free of combustible materials <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="transformers_clear" class="checklist-checkbox">
+                            <label for="transformers_clear">Transformers have proper clearances <span class="risk-level risk-high">High</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalNotes">Additional Notes & Observations</label>
+                        <textarea id="additionalNotes" placeholder="Any additional observations, recommendations, or comments..."></textarea>
+                    </div>
+                </div>
+
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count" id="totalItems">0</div>
+                        <div>Total Items</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="compliantItems">0</div>
+                        <div>Compliant</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="nonCompliantItems">0</div>
+                        <div>Needs Attention</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="complianceRate">0%</div>
+                        <div>Compliance Rate</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Inspection Summary</h2>
+                    <div class="form-group">
+                        <label for="overallAssessment">Overall Assessment</label>
+                        <select id="overallAssessment">
+                            <option value="excellent">Excellent - Fully Compliant</option>
+                            <option value="good">Good - Minor Issues</option>
+                            <option value="fair">Fair - Some Concerns</option>
+                            <option value="poor">Poor - Significant Issues</option>
+                            <option value="critical">Critical - Immediate Action Required</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="correctiveActions">Corrective Actions Required</label>
+                        <textarea id="correctiveActions" placeholder="List any corrective actions needed with deadlines..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="riskAssessment">Risk Assessment Summary</label>
+                        <textarea id="riskAssessment" placeholder="Summary of high-risk findings and immediate concerns..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="previewView" class="hidden">
+                <div class="preview-section">
+                    <h2>Electrical Safety Checklist Preview</h2>
+                    <div class="header-controls">
+                        <button id="backToFormBtn" class="btn-primary">Back to Form</button>
+                        <button id="downloadFromPreviewBtn" class="btn-success">Download PDF</button>
+                    </div>
+                    <div id="previewContent"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="notification" class="notification" role="alert" aria-live="polite"></div>
+
+    <script>
+        // Translation data
+        const translations = {
+            en: {
+                title: "Electrical Safety Checklist Generator",
+                subtitle: "Comprehensive electrical safety inspection and reporting tool",
+                facilityName: "Facility / Building Name",
+                facilityAddress: "Address",
+                inspectorName: "Inspector Name",
+                inspectionDate: "Inspection Date",
+                facilityType: "Facility Type",
+                nextInspection: "Next Inspection Due",
+                electricalSafetyChecklist: "Electrical Safety Checklist",
+                additionalNotes: "Additional Notes & Observations",
+                overallAssessment: "Overall Assessment",
+                correctiveActions: "Corrective Actions Required",
+                riskAssessment: "Risk Assessment Summary",
+                preview: "Preview",
+                downloadPDF: "Download PDF",
+                reset: "Reset",
+                backToForm: "Back to Form",
+                loadExample: "Load Example",
+                electricalSafetyReport: "Electrical Safety Inspection Report",
+                facilityInfo: "Facility Information",
+                checklistResults: "Checklist Results",
+                inspectionSummary: "Inspection Summary",
+                generatedOn: "Generated on",
+                generatedBy: "Generated by Safety Tools Pro - Electrical Safety Checklist",
+                requiredField: "This field is required",
+                pdfGenerated: "PDF generated successfully",
+                formReset: "Form has been reset",
+                errorGeneratingPDF: "Error generating PDF. Please try again.",
+                exampleLoaded: "Example data loaded successfully",
+                totalItems: "Total Items",
+                compliantItems: "Compliant",
+                nonCompliantItems: "Needs Attention",
+                complianceRate: "Compliance Rate",
+                compliant: "Compliant",
+                nonCompliant: "Needs Attention",
+                riskHigh: "High",
+                riskMedium: "Medium",
+                riskLow: "Low",
+                categoryElectricalPanels: "Electrical Panels & Distribution",
+                categoryWiringCables: "Wiring & Cables",
+                categoryGroundingProtection: "Grounding & Protection",
+                categorySafetyDevices: "Safety Devices & Procedures",
+                categoryEquipmentMachinery: "Equipment & Machinery",
+                assessmentExcellent: "Excellent - Fully Compliant",
+                assessmentGood: "Good - Minor Issues",
+                assessmentFair: "Fair - Some Concerns",
+                assessmentPoor: "Poor - Significant Issues",
+                assessmentCritical: "Critical - Immediate Action Required"
+            },
+            hi: {
+                title: "इलेक्ट्रिकल सेफ्टी चेकलिस्ट जनरेटर",
+                subtitle: "व्यापक इलेक्ट्रिकल सेफ्टी निरीक्षण और रिपोर्टिंग टूल",
+                facilityName: "सुविधा / भवन का नाम",
+                facilityAddress: "पता",
+                inspectorName: "निरीक्षक का नाम",
+                inspectionDate: "निरीक्षण तिथि",
+                facilityType: "सुविधा प्रकार",
+                nextInspection: "अगला निरीक्षण नियत",
+                electricalSafetyChecklist: "इलेक्ट्रिकल सेफ्टी चेकलिस्ट",
+                additionalNotes: "अतिरिक्त नोट्स और अवलोकन",
+                overallAssessment: "समग्र मूल्यांकन",
+                correctiveActions: "आवश्यक सुधारात्मक कार्य",
+                riskAssessment: "जोखिम मूल्यांकन सारांश",
+                preview: "पूर्वावलोकन",
+                downloadPDF: "PDF डाउनलोड करें",
+                reset: "रीसेट",
+                backToForm: "फॉर्म पर वापस जाएं",
+                loadExample: "उदाहरण लोड करें",
+                electricalSafetyReport: "इलेक्ट्रिकल सेफ्टी निरीक्षण रिपोर्ट",
+                facilityInfo: "सुविधा जानकारी",
+                checklistResults: "चेकलिस्ट परिणाम",
+                inspectionSummary: "निरीक्षण सारांश",
+                generatedOn: "पर जनरेट किया गया",
+                generatedBy: "सेफ्टी टूल्स प्रो - इलेक्ट्रिकल सेफ्टी चेकलिस्ट द्वारा जनरेट किया गया",
+                requiredField: "यह फ़ील्ड आवश्यक है",
+                pdfGenerated: "PDF सफलतापूर्वक जनरेट किया गया",
+                formReset: "फॉर्म रीसेट कर दिया गया है",
+                errorGeneratingPDF: "PDF जनरेट करने में त्रुटि। कृपया पुनः प्रयास करें।",
+                exampleLoaded: "उदाहरण डेटा सफलतापूर्वक लोड किया गया",
+                totalItems: "कुल आइटम",
+                compliantItems: "अनुपालन",
+                nonCompliantItems: "ध्यान देने की आवश्यकता",
+                complianceRate: "अनुपालन दर",
+                compliant: "अनुपालन",
+                nonCompliant: "ध्यान देने की आवश्यकता",
+                riskHigh: "उच्च",
+                riskMedium: "मध्यम",
+                riskLow: "कम",
+                categoryElectricalPanels: "इलेक्ट्रिकल पैनल और वितरण",
+                categoryWiringCables: "वायरिंग और केबल",
+                categoryGroundingProtection: "ग्राउंडिंग और सुरक्षा",
+                categorySafetyDevices: "सुरक्षा उपकरण और प्रक्रियाएं",
+                categoryEquipmentMachinery: "उपकरण और मशीनरी",
+                assessmentExcellent: "उत्कृष्ट - पूर्ण अनुपालन",
+                assessmentGood: "अच्छा - मामूली मुद्दे",
+                assessmentFair: "निष्पक्ष - कुछ चिंताएं",
+                assessmentPoor: "खराब - महत्वपूर्ण मुद्दे",
+                assessmentCritical: "गंभीर - तत्काल कार्रवाई आवश्यक"
+            }
+        };
+
+        // Checklist items data with risk levels
+        const checklistItems = {
+            "Electrical Panels & Distribution": [
+                { id: "panel_clearance", text: "Electrical panels have 36\" clear working space", risk: "high" },
+                { id: "panel_doors", text: "Panel doors close properly and are not damaged", risk: "medium" },
+                { id: "panel_labeling", text: "All circuits clearly labeled and legible", risk: "medium" },
+                { id: "panel_condition", text: "No signs of overheating, corrosion, or damage", risk: "high" },
+                { id: "panel_guards", text: "Live parts properly guarded", risk: "high" }
+            ],
+            "Wiring & Cables": [
+                { id: "wiring_protected", text: "Electrical wiring properly protected from damage", risk: "high" },
+                { id: "cables_secured", text: "Cables properly secured and supported", risk: "medium" },
+                { id: "extension_proper", text: "Extension cords used properly (temporary use only)", risk: "medium" },
+                { id: "cord_condition", text: "Power cords in good condition (no cracks, frays, or damage)", risk: "high" },
+                { id: "cord_placement", text: "Cords not run through doors, windows, or under carpets", risk: "medium" }
+            ],
+            "Grounding & Protection": [
+                { id: "grounding_proper", text: "Electrical systems properly grounded", risk: "high" },
+                { id: "gfci_present", text: "GFCI protection in wet/damp locations", risk: "high" },
+                { id: "gfci_tested", text: "GFCIs tested monthly and working properly", risk: "medium" },
+                { id: "equipment_grounded", text: "Equipment properly grounded (3-prong plugs intact)", risk: "high" },
+                { id: "bonding_proper", text: "Bonding connections secure and intact", risk: "medium" }
+            ],
+            "Safety Devices & Procedures": [
+                { id: "lockout_procedure", text: "Lockout/Tagout procedures established and followed", risk: "high" },
+                { id: "emergency_stops", text: "Emergency stop buttons accessible and functional", risk: "high" },
+                { id: "warning_signs", text: "Warning signs posted where required", risk: "low" },
+                { id: "qualified_personnel", text: "Only qualified personnel work on electrical equipment", risk: "high" },
+                { id: "ppe_available", text: "Proper PPE available and used when required", risk: "medium" }
+            ],
+            "Equipment & Machinery": [
+                { id: "equipment_guards", text: "Moving parts properly guarded", risk: "high" },
+                { id: "equipment_maintained", text: "Electrical equipment properly maintained", risk: "medium" },
+                { id: "ventilation_adequate", text: "Adequate ventilation for electrical equipment", risk: "medium" },
+                { id: "area_clean", text: "Electrical rooms clean and free of combustible materials", risk: "medium" },
+                { id: "transformers_clear", text: "Transformers have proper clearances", risk: "high" }
+            ]
+        };
+
+        // State management
+        let state = {
+            isHindi: false,
+            isDarkMode: false
+        };
+
+        // Initialize the application
+        function init() {
+            loadSettings();
+            setupEventListeners();
+            updateSummary();
+            
+            // Set default dates
+            const today = new Date();
+            const nextInspection = new Date(today);
+            nextInspection.setMonth(today.getMonth() + 6); // 6 months from now
+            
+            document.getElementById('inspectionDate').valueAsDate = today;
+            document.getElementById('nextInspection').valueAsDate = nextInspection;
+        }
+
+        // Load saved settings from localStorage
+        function loadSettings() {
+            const savedLanguage = localStorage.getItem('electricalSafetyLanguage');
+            const savedDarkMode = localStorage.getItem('electricalSafetyDarkMode');
+            
+            if (savedLanguage === 'hi') {
+                state.isHindi = true;
+                document.getElementById('translateBtn').querySelector('.lang-text').textContent = 'English';
+                updateLanguage();
+            }
+            
+            if (savedDarkMode === 'true') {
+                state.isDarkMode = true;
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeBtn').querySelector('.mode-text').textContent = 'Light Mode';
+            }
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            localStorage.setItem('electricalSafetyLanguage', state.isHindi ? 'hi' : 'en');
+            localStorage.setItem('electricalSafetyDarkMode', state.isDarkMode);
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mode and language toggles
+            document.getElementById('translateBtn').addEventListener('click', toggleLanguage);
+            document.getElementById('darkModeBtn').addEventListener('click', toggleDarkMode);
+            
+            // Main buttons
+            document.getElementById('previewBtn').addEventListener('click', showPreview);
+            document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+            document.getElementById('resetBtn').addEventListener('click', resetForm);
+            document.getElementById('loadExample').addEventListener('click', loadExampleData);
+            
+            // Preview buttons
+            document.getElementById('backToFormBtn').addEventListener('click', backToForm);
+            document.getElementById('downloadFromPreviewBtn').addEventListener('click', downloadPDF);
+            
+            // Checklist changes
+            document.addEventListener('change', function(e) {
+                if (e.target.classList.contains('checklist-checkbox')) {
+                    updateSummary();
+                }
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+Enter to preview
+                if (e.ctrlKey && e.key === 'Enter') {
+                    e.preventDefault();
+                    showPreview();
+                }
+                
+                // Ctrl+D to download
+                if (e.ctrlKey && e.key === 'd') {
+                    e.preventDefault();
+                    downloadPDF();
+                }
+            });
+        }
+
+        // Show notification
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification';
+            
+            if (isError) {
+                notification.classList.add('error');
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Load example data
+        function loadExampleData() {
+            document.getElementById('facilityName').value = 'Manufacturing Plant Unit 5';
+            document.getElementById('facilityAddress').value = '456 Industrial Avenue, Tech City, TC 67890';
+            document.getElementById('inspectorName').value = 'Sarah Electrical Engineer';
+            
+            // Set dates
+            const today = new Date();
+            const nextInspection = new Date(today);
+            nextInspection.setMonth(today.getMonth() + 6);
+            
+            document.getElementById('inspectionDate').valueAsDate = today;
+            document.getElementById('nextInspection').valueAsDate = nextInspection;
+            document.getElementById('facilityType').value = 'industrial';
+            
+            // Check some example items
+            document.getElementById('panel_clearance').checked = true;
+            document.getElementById('panel_doors').checked = true;
+            document.getElementById('wiring_protected').checked = true;
+            document.getElementById('cables_secured').checked = true;
+            document.getElementById('grounding_proper').checked = true;
+            document.getElementById('gfci_present').checked = true;
+            document.getElementById('lockout_procedure').checked = true;
+            document.getElementById('equipment_guards').checked = true;
+            
+            document.getElementById('additionalNotes').value = 'Overall electrical safety is good. Found two extension cords being used as permanent wiring in the production area. Recommend installing additional outlets.';
+            document.getElementById('overallAssessment').value = 'good';
+            document.getElementById('correctiveActions').value = '1. Replace extension cords with permanent wiring in production area - Due: 30 days\n2. Install additional GFCI outlets in maintenance workshop - Due: 45 days\n3. Update electrical panel labeling for new equipment - Due: 60 days';
+            document.getElementById('riskAssessment').value = 'High Risk: Found one electrical panel with inadequate clearance (24" instead of required 36").\nMedium Risk: Two extension cords being used as permanent wiring.\nLow Risk: Minor labeling issues in electrical room.';
+            
+            updateSummary();
+            
+            const lang = state.isHindi ? translations.hi : translations.en;
+            showNotification(lang.exampleLoaded);
+        }
+
+        // Update calculation and summary
+        function updateSummary() {
+            const checkboxes = document.querySelectorAll('.checklist-checkbox');
+            let totalItems = checkboxes.length;
+            let compliantItems = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    compliantItems++;
+                }
+            });
+            
+            const nonCompliantItems = totalItems - compliantItems;
+            const complianceRate = totalItems > 0 ? Math.round((compliantItems / totalItems) * 100) : 0;
+            
+            // Update summary displays
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('compliantItems').textContent = compliantItems;
+            document.getElementById('nonCompliantItems').textContent = nonCompliantItems;
+            document.getElementById('complianceRate').textContent = complianceRate + '%';
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            state.isHindi = !state.isHindi;
+            const btn = document.getElementById('translateBtn');
+            btn.querySelector('.lang-text').textContent = state.isHindi ? 'English' : 'हिंदी';
+            
+            // Update all text content
+            updateLanguage();
+            saveSettings();
+        }
+
+        // Update all text content based on current language
+        function updateLanguage() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Update header
+            document.querySelector('h1').textContent = lang.title;
+            document.querySelector('header p').textContent = lang.subtitle;
+            
+            // Update form labels
+            document.querySelector('label[for="facilityName"]').textContent = lang.facilityName;
+            document.querySelector('label[for="facilityAddress"]').textContent = lang.facilityAddress;
+            document.querySelector('label[for="inspectorName"]').textContent = lang.inspectorName;
+            document.querySelector('label[for="inspectionDate"]').textContent = lang.inspectionDate;
+            document.querySelector('label[for="facilityType"]').textContent = lang.facilityType;
+            document.querySelector('label[for="nextInspection"]').textContent = lang.nextInspection;
+            document.querySelector('label[for="additionalNotes"]').textContent = lang.additionalNotes;
+            document.querySelector('label[for="overallAssessment"]').textContent = lang.overallAssessment;
+            document.querySelector('label[for="correctiveActions"]').textContent = lang.correctiveActions;
+            document.querySelector('label[for="riskAssessment"]').textContent = lang.riskAssessment;
+            
+            // Update section headers
+            document.querySelectorAll('.form-section h2')[0].textContent = lang.facilityInfo;
+            document.querySelectorAll('.form-section h2')[1].textContent = lang.electricalSafetyChecklist;
+            document.querySelectorAll('.form-section h2')[2].textContent = lang.inspectionSummary;
+            
+            // Update buttons
+            document.getElementById('previewBtn').textContent = lang.preview;
+            document.getElementById('downloadBtn').textContent = lang.downloadPDF;
+            document.getElementById('resetBtn').textContent = lang.reset;
+            document.getElementById('backToFormBtn').textContent = lang.backToForm;
+            document.getElementById('downloadFromPreviewBtn').textContent = lang.downloadPDF;
+            document.getElementById('loadExample').textContent = lang.loadExample;
+            
+            // Update placeholders
+            document.getElementById('facilityName').placeholder = lang.facilityName;
+            document.getElementById('facilityAddress').placeholder = lang.facilityAddress;
+            document.getElementById('inspectorName').placeholder = lang.inspectorName;
+            document.getElementById('additionalNotes').placeholder = lang.additionalNotes;
+            document.getElementById('correctiveActions').placeholder = lang.correctiveActions;
+            document.getElementById('riskAssessment').placeholder = lang.riskAssessment;
+            
+            // Update category headers
+            const categories = document.querySelectorAll('.checklist-category h3');
+            if (categories.length >= 5) {
+                categories[0].innerHTML = `<span class="category-icon">🔌</span> ${lang.categoryElectricalPanels}`;
+                categories[1].innerHTML = `<span class="category-icon">🔋</span> ${lang.categoryWiringCables}`;
+                categories[2].innerHTML = `<span class="category-icon">🛡️</span> ${lang.categoryGroundingProtection}`;
+                categories[3].innerHTML = `<span class="category-icon">🚨</span> ${lang.categorySafetyDevices}`;
+                categories[4].innerHTML = `<span class="category-icon">🏭</span> ${lang.categoryEquipmentMachinery}`;
+            }
+            
+            // Update risk level labels
+            document.querySelectorAll('.risk-level').forEach(element => {
+                if (element.classList.contains('risk-high')) {
+                    element.textContent = lang.riskHigh;
+                } else if (element.classList.contains('risk-medium')) {
+                    element.textContent = lang.riskMedium;
+                } else if (element.classList.contains('risk-low')) {
+                    element.textContent = lang.riskLow;
+                }
+            });
+            
+            // Update summary labels
+            document.querySelectorAll('.summary-item div:last-child')[0].textContent = lang.totalItems;
+            document.querySelectorAll('.summary-item div:last-child')[1].textContent = lang.compliantItems;
+            document.querySelectorAll('.summary-item div:last-child')[2].textContent = lang.nonCompliantItems;
+            document.querySelectorAll('.summary-item div:last-child')[3].textContent = lang.complianceRate;
+            
+            // Update assessment options
+            const assessmentSelect = document.getElementById('overallAssessment');
+            if (assessmentSelect) {
+                assessmentSelect.innerHTML = `
+                    <option value="excellent">${lang.assessmentExcellent}</option>
+                    <option value="good">${lang.assessmentGood}</option>
+                    <option value="fair">${lang.assessmentFair}</option>
+                    <option value="poor">${lang.assessmentPoor}</option>
+                    <option value="critical">${lang.assessmentCritical}</option>
+                `;
+            }
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.isDarkMode = !state.isDarkMode;
+            const btn = document.getElementById('darkModeBtn');
+            
+            if (state.isDarkMode) {
+                document.body.classList.add('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Light Mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Dark Mode';
+            }
+            
+            saveSettings();
+        }
+
+        // Show preview
+        function showPreview() {
+            // Validate required fields
+            if (!validateForm()) {
+                return;
+            }
+            
+            document.getElementById('formView').classList.add('hidden');
+            document.getElementById('previewView').classList.remove('hidden');
+            
+            generatePreviewContent();
+        }
+
+        // Validate form
+        function validateForm() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            let isValid = true;
+            
+            // Check required fields
+            const requiredFields = [
+                { id: 'facilityName', name: lang.facilityName },
+                { id: 'facilityAddress', name: lang.facilityAddress },
+                { id: 'inspectorName', name: lang.inspectorName },
+                { id: 'inspectionDate', name: lang.inspectionDate },
+                { id: 'facilityType', name: lang.facilityType },
+                { id: 'nextInspection', name: lang.nextInspection }
+            ];
+            
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element.value.trim()) {
+                    isValid = false;
+                    element.style.borderColor = 'var(--danger-color)';
+                    showNotification(`${field.name} ${lang.requiredField}`, true);
+                } else {
+                    element.style.borderColor = '';
+                }
+            });
+            
+            return isValid;
+        }
+
+        // Back to form
+        function backToForm() {
+            document.getElementById('formView').classList.remove('hidden');
+            document.getElementById('previewView').classList.add('hidden');
+        }
+
+        // Generate preview content
+        function generatePreviewContent() {
+            const previewContent = document.getElementById('previewContent');
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Get form values
+            const facilityName = document.getElementById('facilityName').value || '—';
+            const facilityAddress = document.getElementById('facilityAddress').value || '—';
+            const inspectorName = document.getElementById('inspectorName').value || '—';
+            const inspectionDate = document.getElementById('inspectionDate').value || '—';
+            const facilityType = document.getElementById('facilityType').value || '—';
+            const nextInspection = document.getElementById('nextInspection').value || '—';
+            const additionalNotes = document.getElementById('additionalNotes').value || '—';
+            const overallAssessment = document.getElementById('overallAssessment').value || '—';
+            const correctiveActions = document.getElementById('correctiveActions').value || '—';
+            const riskAssessment = document.getElementById('riskAssessment').value || '—';
+            
+            // Get checklist results
+            const checklistResults = {};
+            Object.keys(checklistItems).forEach(category => {
+                checklistResults[category] = [];
+                checklistItems[category].forEach(item => {
+                    const checkbox = document.getElementById(item.id);
+                    checklistResults[category].push({
+                        text: item.text,
+                        compliant: checkbox ? checkbox.checked : false,
+                        risk: item.risk
+                    });
+                });
+            });
+            
+            // Calculate summary
+            const checkboxes = document.querySelectorAll('.checklist-checkbox');
+            let totalItems = checkboxes.length;
+            let compliantItems = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    compliantItems++;
+                }
+            });
+            
+            const nonCompliantItems = totalItems - compliantItems;
+            const complianceRate = totalItems > 0 ? Math.round((compliantItems / totalItems) * 100) : 0;
+            
+            // Build preview HTML
+            let html = `
+                <div class="form-section">
+                    <h2>${lang.electricalSafetyReport}</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.facilityName}:</label>
+                            <p>${facilityName}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.facilityType}:</label>
+                            <p>${facilityType}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.facilityAddress}:</label>
+                            <p>${facilityAddress}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.inspectorName}:</label>
+                            <p>${inspectorName}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.inspectionDate}:</label>
+                            <p>${inspectionDate}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.nextInspection}:</label>
+                            <p>${nextInspection}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count">${totalItems}</div>
+                        <div>${lang.totalItems}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${compliantItems}</div>
+                        <div>${lang.compliantItems}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${nonCompliantItems}</div>
+                        <div>${lang.nonCompliantItems}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${complianceRate}%</div>
+                        <div>${lang.complianceRate}</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.checklistResults}</h2>
+            `;
+            
+            // Add checklist results by category
+            Object.keys(checklistResults).forEach(category => {
+                const categoryTitle = lang[`category${category.replace(/\s+/g, '')}`] || category;
+                html += `
+                    <div class="checklist-category">
+                        <h3>${categoryTitle}</h3>
+                `;
+                
+                checklistResults[category].forEach(item => {
+                    const status = item.compliant ? lang.compliant : lang.nonCompliant;
+                    const statusClass = item.compliant ? 'status-compliant' : 'status-noncompliant';
+                    const riskClass = `risk-${item.risk}`;
+                    const riskText = lang[`risk${item.risk.charAt(0).toUpperCase() + item.risk.slice(1)}`];
+                    
+                    html += `
+                        <div class="checklist-item">
+                            <span class="status-badge ${statusClass}">${status}</span>
+                            <label>${item.text} <span class="risk-level ${riskClass}">${riskText}</span></label>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            });
+            
+            html += `
+                    <div class="form-group">
+                        <label>${lang.additionalNotes}:</label>
+                        <p>${additionalNotes}</p>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.inspectionSummary}</h2>
+                    <div class="form-group">
+                        <label>${lang.overallAssessment}:</label>
+                        <p>${document.getElementById('overallAssessment').options[document.getElementById('overallAssessment').selectedIndex].text}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>${lang.correctiveActions}:</label>
+                        <p>${correctiveActions.replace(/\n/g, '<br>')}</p>
+                    </div>
+                    <div class="form-group">
+                        <label>${lang.riskAssessment}:</label>
+                        <p>${riskAssessment.replace(/\n/g, '<br>')}</p>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            previewContent.innerHTML = html;
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            // Validate form first
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Show loading indicator
+            const originalText = document.querySelector('#downloadBtn').innerHTML;
+            document.querySelector('#downloadBtn').innerHTML = '<span class="loading"></span> Generating...';
+            document.querySelector('#downloadBtn').disabled = true;
+            
+            // Use html2canvas and jsPDF to generate PDF
+            generatePDF().then(() => {
+                // Restore button text
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+                
+                const lang = state.isHindi ? translations.hi : translations.en;
+                showNotification(lang.pdfGenerated);
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                const lang = state.isHindi ? translations.hi : translations.en;
+                showNotification(lang.errorGeneratingPDF, true);
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            });
+        }
+
+        // Generate PDF using html2canvas and jsPDF
+        async function generatePDF() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Create a temporary element for PDF generation
+            const pdfElement = document.createElement('div');
+            pdfElement.style.width = '210mm';
+            pdfElement.style.padding = '20px';
+            pdfElement.style.backgroundColor = 'white';
+            pdfElement.style.color = 'black';
+            pdfElement.style.fontFamily = 'Arial, sans-serif';
+            
+            // Get form values
+            const facilityName = document.getElementById('facilityName').value || '—';
+            const facilityAddress = document.getElementById('facilityAddress').value || '—';
+            const inspectorName = document.getElementById('inspectorName').value || '—';
+            const inspectionDate = document.getElementById('inspectionDate').value || '—';
+            const facilityType = document.getElementById('facilityType').value || '—';
+            const nextInspection = document.getElementById('nextInspection').value || '—';
+            const additionalNotes = document.getElementById('additionalNotes').value || '—';
+            const overallAssessment = document.getElementById('overallAssessment').value || '—';
+            const correctiveActions = document.getElementById('correctiveActions').value || '—';
+            const riskAssessment = document.getElementById('riskAssessment').value || '—';
+            
+            // Get checklist results
+            const checklistResults = {};
+            Object.keys(checklistItems).forEach(category => {
+                checklistResults[category] = [];
+                checklistItems[category].forEach(item => {
+                    const checkbox = document.getElementById(item.id);
+                    checklistResults[category].push({
+                        text: item.text,
+                        compliant: checkbox ? checkbox.checked : false,
+                        risk: item.risk
+                    });
+                });
+            });
+            
+            // Calculate summary
+            const checkboxes = document.querySelectorAll('.checklist-checkbox');
+            let totalItems = checkboxes.length;
+            let compliantItems = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    compliantItems++;
+                }
+            });
+            
+            const nonCompliantItems = totalItems - compliantItems;
+            const complianceRate = totalItems > 0 ? Math.round((compliantItems / totalItems) * 100) : 0;
+            
+            // Build PDF content
+            let html = `
+                <h1 style="text-align: center; color: #f39c12; margin-bottom: 10px;">${lang.electricalSafetyReport}</h1>
+                <p style="text-align: center; margin-bottom: 20px;">${lang.subtitle}</p>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; color: #f39c12;">${lang.facilityInfo}</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.facilityName}:</strong> ${facilityName}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.facilityType}:</strong> ${facilityType}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.facilityAddress}:</strong> ${facilityAddress}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.inspectorName}:</strong> ${inspectorName}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.inspectionDate}:</strong> ${inspectionDate}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.nextInspection}:</strong> ${nextInspection}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; background-color: #f39c12; color: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${totalItems}</div>
+                        <div>${lang.totalItems}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${compliantItems}</div>
+                        <div>${lang.compliantItems}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${nonCompliantItems}</div>
+                        <div>${lang.nonCompliantItems}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${complianceRate}%</div>
+                        <div>${lang.complianceRate}</div>
+                    </div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; color: #f39c12;">${lang.checklistResults}</h2>
+            `;
+            
+            // Add checklist results by category
+            Object.keys(checklistResults).forEach(category => {
+                const categoryTitle = lang[`category${category.replace(/\s+/g, '')}`] || category;
+                html += `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #f39c12; margin-bottom: 10px;">${categoryTitle}</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                `;
+                
+                checklistResults[category].forEach(item => {
+                    const status = item.compliant ? lang.compliant : lang.nonCompliant;
+                    const statusColor = item.compliant ? '#27ae60' : '#e74c3c';
+                    const riskColor = item.risk === 'high' ? '#e74c3c' : item.risk === 'medium' ? '#f39c12' : '#27ae60';
+                    const riskText = lang[`risk${item.risk.charAt(0).toUpperCase() + item.risk.slice(1)}`];
+                    
+                    html += `
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px; width: 100px;">
+                                <span style="background-color: ${statusColor}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px;">${status}</span>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 8px; width: 80px;">
+                                <span style="background-color: ${riskColor}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px;">${riskText}</span>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">${item.text}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `</table></div>`;
+            });
+            
+            html += `
+                    <div style="margin-bottom: 10px;"><strong>${lang.additionalNotes}:</strong></div>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 40px; border-radius: 4px;">${additionalNotes}</div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; color: #f39c12;">${lang.inspectionSummary}</h2>
+                    <div style="margin-bottom: 10px;"><strong>${lang.overallAssessment}:</strong> ${document.getElementById('overallAssessment').options[document.getElementById('overallAssessment').selectedIndex].text}</div>
+                    <div style="margin-bottom: 10px;"><strong>${lang.correctiveActions}:</strong></div>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px; white-space: pre-line;">${correctiveActions}</div>
+                    <div style="margin-top: 15px; margin-bottom: 10px;"><strong>${lang.riskAssessment}:</strong></div>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px; white-space: pre-line;">${riskAssessment}</div>
+                </div>
+                
+                <div style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 20px; font-size: 12px; color: #666;">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            pdfElement.innerHTML = html;
+            document.body.appendChild(pdfElement);
+            
+            try {
+                // Use html2canvas to capture the content
+                const canvas = await html2canvas(pdfElement, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                });
+                
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Add image to PDF
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add new pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Download PDF
+                const fileName = `Electrical_Safety_Checklist_${facilityName.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                throw error;
+            } finally {
+                // Clean up
+                document.body.removeChild(pdfElement);
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            if (confirm(state.isHindi ? 'क्या आप वाकई फॉर्म रीसेट करना चाहते हैं? सभी डेटा खो जाएगा।' : 'Are you sure you want to reset the form? All data will be lost.')) {
+                // Reset form fields
+                document.getElementById('facilityName').value = '';
+                document.getElementById('facilityAddress').value = '';
+                document.getElementById('inspectorName').value = '';
+                
+                // Set default dates
+                const today = new Date();
+                const nextInspection = new Date(today);
+                nextInspection.setMonth(today.getMonth() + 6);
+                
+                document.getElementById('inspectionDate').valueAsDate = today;
+                document.getElementById('nextInspection').valueAsDate = nextInspection;
+                document.getElementById('facilityType').value = '';
+                
+                document.getElementById('additionalNotes').value = '';
+                document.getElementById('overallAssessment').value = 'excellent';
+                document.getElementById('correctiveActions').value = '';
+                document.getElementById('riskAssessment').value = '';
+                
+                // Reset all checkboxes
+                document.querySelectorAll('.checklist-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Update summary
+                updateSummary();
+                
+                // If in preview, go back to form
+                if (!document.getElementById('previewView').classList.contains('hidden')) {
+                    backToForm();
+                }
+                
+                showNotification(lang.formReset);
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

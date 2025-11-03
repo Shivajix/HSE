@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIR Calculator - Complete Guide | HSE Tools</title>
+    <meta name="description" content="Complete guide to TRIR, AFR, and FAR calculation. Learn formulas, examples, and best practices for safety performance metrics.">
+    <meta name="keywords" content="TRIR calculator, AFR calculator, FAR calculator, HSE tools, safety metrics, OSHA">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="TRIR Calculator - Complete Guide | HSE Tools">
+    <meta property="og:description" content="Complete guide to TRIR, AFR, and FAR calculation with formulas, examples, and best practices.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/trir-calculator.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="TRIR Calculator - Complete Guide">
+    <meta name="twitter:description" content="Complete guide to TRIR, AFR, and FAR calculation">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Content Styles */
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example-box h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border: 2px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 1.2rem;
+        }
+
+        /* How to Use Section */
+        .how-to-use-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-bold);
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* Metric Cards */
+        .metric-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid var(--bg-tertiary);
+            transition: all 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .metric-card i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .metric-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .metric-card p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .metric-base {
+            font-weight: var(--font-bold);
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .metric-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-en="TRIR Calculator - Complete Guide" data-hi="TRIR कैलकुलेटर - संपूर्ण गाइड">TRIR Calculator - Complete Guide</h1>
+            <p data-en="Calculate and understand TRIR, AFR, and FAR safety metrics" data-hi="TRIR, AFR, और FAR सुरक्षा मेट्रिक्स की गणना और समझ">Calculate and understand TRIR, AFR, and FAR safety metrics</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Introduction -->
+        <div class="content-card">
+            <h2><i class="fas fa-hard-hat"></i> <span data-en="TRIR Calculator - Complete Guide" data-hi="TRIR कैलकुलेटर - संपूर्ण गाइड">TRIR Calculator - Complete Guide</span></h2>
+            <p data-en="In occupational health and safety (HSE), organizations must track more than just incident counts — they must also normalize safety performance so that it can be compared across projects, companies, or industries." 
+               data-hi="व्यावसायिक स्वास्थ्य और सुरक्षा (HSE) में, संगठनों को केवल घटना गणना से अधिक ट्रैक करना चाहिए — उन्हें सुरक्षा प्रदर्शन को सामान्यीकृत भी करना चाहिए ताकि इसे परियोजनाओं, कंपनियों या उद्योगों में तुलना की जा सके।">
+                In occupational health and safety (HSE), organizations must track more than just incident counts — they must also normalize safety performance so that it can be compared across projects, companies, or industries.
+            </p>
+            <p data-en="This is where TRIR (Total Recordable Incident Rate), AFR (All Injury Frequency Rate), and FAR (Fatal Accident Rate) come in." 
+               data-hi="यहीं TRIR (टोटल रिकॉर्डेबल इंसीडेंट रेट), AFR (ऑल इंजरी फ्रीक्वेंसी रेट), और FAR (फेटल एक्सीडेंट रेट) आते हैं।">
+                This is where TRIR (Total Recordable Incident Rate), AFR (All Injury Frequency Rate), and FAR (Fatal Accident Rate) come in.
+            </p>
+            <p data-en="These standardized indicators allow safety professionals to measure the rate of recordable incidents, injuries, and fatalities relative to workforce size and exposure hours, making safety data comparable across organizations." 
+               data-hi="ये मानकीकृत संकेतक सुरक्षा पेशेवरों को कार्यबल आकार और एक्सपोजर घंटों के सापेक्ष रिकॉर्डेबल घटनाओं, चोटों और मौतों की दर को मापने की अनुमति देते हैं, जिससे सुरक्षा डेटा संगठनों में तुलनीय हो जाता है।">
+                These standardized indicators allow safety professionals to measure the rate of recordable incidents, injuries, and fatalities relative to workforce size and exposure hours, making safety data comparable across organizations.
+            </p>
+        </div>
+
+        <!-- What Are TRIR, AFR, and FAR -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle"></i> <span data-en="What Are TRIR, AFR, and FAR?" data-hi="TRIR, AFR, और FAR क्या हैं?">What Are TRIR, AFR, and FAR?</span></h2>
+            
+            <div class="metric-cards">
+                <div class="metric-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h4 data-en="Total Recordable Incident Rate (TRIR)" data-hi="टोटल रिकॉर्डेबल इंसीडेंट रेट (TRIR)">Total Recordable Incident Rate (TRIR)</h4>
+                    <p data-en="TRIR measures the number of OSHA recordable incidents (including fatalities, lost time, restricted work, and medical treatment cases) per 200,000 man-hours worked." 
+                       data-hi="TRIR 200,000 मैन-घंटे काम करने पर OSHA रिकॉर्डेबल घटनाओं (मौतों, लॉस्ट टाइम, प्रतिबंधित कार्य, और चिकित्सा उपचार मामलों सहित) की संख्या को मापता है।">
+                        TRIR measures the number of OSHA recordable incidents per 200,000 man-hours worked.
+                    </p>
+                    <div class="metric-base" data-en="Base: 200,000 hours" data-hi="आधार: 200,000 घंटे">Base: 200,000 hours</div>
+                    <p data-en="Used mainly in the USA (OSHA standard)." 
+                       data-hi="मुख्य रूप से USA में उपयोग किया जाता है (OSHA मानक)।">
+                        Used mainly in the USA (OSHA standard).
+                    </p>
+                </div>
+
+                <div class="metric-card">
+                    <i class="fas fa-user-injured"></i>
+                    <h4 data-en="All Injury Frequency Rate (AFR)" data-hi="ऑल इंजरी फ्रीक्वेंसी रेट (AFR)">All Injury Frequency Rate (AFR)</h4>
+                    <p data-en="AFR measures the number of all work-related injuries (fatalities + LTIs + MTCs + restricted work cases) per 1,000,000 man-hours worked." 
+                       data-hi="AFR 1,000,000 मैन-घंटे काम करने पर सभी कार्य-संबंधी चोटों (मौतें + LTI + MTC + प्रतिबंधित कार्य मामले) की संख्या को मापता है।">
+                        AFR measures the number of all work-related injuries per 1,000,000 man-hours worked.
+                    </p>
+                    <div class="metric-base" data-en="Base: 1,000,000 hours" data-hi="आधार: 1,000,000 घंटे">Base: 1,000,000 hours</div>
+                    <p data-en="Commonly used in the UK, Europe, and Middle East." 
+                       data-hi="आमतौर पर UK, यूरोप और मध्य पूर्व में उपयोग किया जाता है।">
+                        Commonly used in the UK, Europe, and Middle East.
+                    </p>
+                </div>
+
+                <div class="metric-card">
+                    <i class="fas fa-skull-crossbones"></i>
+                    <h4 data-en="Fatal Accident Rate (FAR)" data-hi="फेटल एक्सीडेंट रेट (FAR)">Fatal Accident Rate (FAR)</h4>
+                    <p data-en="FAR measures the number of fatalities per 100,000,000 man-hours worked." 
+                       data-hi="FAR 100,000,000 मैन-घंटे काम करने पर मौतों की संख्या को मापता है।">
+                        FAR measures the number of fatalities per 100,000,000 man-hours worked.
+                    </p>
+                    <div class="metric-base" data-en="Base: 100,000,000 hours" data-hi="आधार: 100,000,000 घंटे">Base: 100,000,000 hours</div>
+                    <p data-en="Designed to capture the rarity but severity of workplace fatalities." 
+                       data-hi="कार्यस्थल मौतों की दुर्लभता लेकिन गंभीरता को पकड़ने के लिए डिज़ाइन किया गया।">
+                        Designed to capture the rarity but severity of workplace fatalities.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulas -->
+        <div class="content-card">
+            <h2><i class="fas fa-square-root-alt"></i> <span data-en="Formulas" data-hi="सूत्र">Formulas</span></h2>
+            
+            <div class="formula-box">
+                <h4 data-en="TRIR Formula" data-hi="TRIR सूत्र">TRIR Formula</h4>
+                <p>TRIR = (Total Recordable Cases × 200,000) ÷ Total Man-Hours Worked</p>
+            </div>
+
+            <div class="formula-box">
+                <h4 data-en="AFR Formula" data-hi="AFR सूत्र">AFR Formula</h4>
+                <p>AFR = (Total Injuries × 1,000,000) ÷ Total Man-Hours Worked</p>
+            </div>
+
+            <div class="formula-box">
+                <h4 data-en="FAR Formula" data-hi="FAR सूत्र">FAR Formula</h4>
+                <p>FAR = (Total Fatalities × 100,000,000) ÷ Total Man-Hours Worked</p>
+            </div>
+
+            <div class="highlight-box">
+                <p data-en="Multipliers (200,000 / 1,000,000 / 100,000,000) standardize results so organizations of all sizes can be compared fairly." 
+                   data-hi="गुणक (200,000 / 1,000,000 / 100,000,000) परिणामों को मानकीकृत करते हैं ताकि सभी आकार के संगठनों की निष्पक्ष रूप से तुलना की जा सके।">
+                    Multipliers (200,000 / 1,000,000 / 100,000,000) standardize results so organizations of all sizes can be compared fairly.
+                </p>
+            </div>
+        </div>
+
+        <!-- How to Use Calculator -->
+        <div class="content-card">
+            <h2><i class="fas fa-user-check"></i> <span data-en="How to Use the TRIR Calculator" data-hi="TRIR कैलकुलेटर का उपयोग कैसे करें">How to Use the TRIR Calculator</span></h2>
+            
+            <div class="how-to-use-section">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4 data-en="Enter Total Man-Hours Worked" data-hi="कुल मैन-घंटे काम किए दर्ज करें">Enter Total Man-Hours Worked</h4>
+                        <p data-en="Include employees + contractors." 
+                           data-hi="कर्मचारी + ठेकेदार शामिल करें।">
+                            Include employees + contractors.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4 data-en="Enter Incident Counts" data-hi="घटना गणना दर्ज करें">Enter Incident Counts</h4>
+                        <p data-en="TRIR — Total recordable incidents<br>AFR — All work-related injuries<br>FAR — Fatalities" 
+                           data-hi="TRIR — कुल रिकॉर्डेबल घटनाएं<br>AFR — सभी कार्य-संबंधी चोटें<br>FAR — मौतें">
+                            TRIR — Total recordable incidents<br>AFR — All work-related injuries<br>FAR — Fatalities
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4 data-en="Click Calculate" data-hi="गणना करें पर क्लिक करें">Click Calculate</h4>
+                        <p data-en="Get standardized safety performance rates." 
+                           data-hi="मानकीकृत सुरक्षा प्रदर्शन दरें प्राप्त करें।">
+                            Get standardized safety performance rates.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3 data-en="Pro Tip" data-hi="प्रो टिप">Pro Tip</h3>
+                <p data-en="Use all three metrics together for a complete picture of safety culture." 
+                   data-hi="सुरक्षा संस्कृति की पूरी तस्वीर के लिए तीनों मेट्रिक्स को एक साथ उपयोग करें।">
+                    Use all three metrics together for a complete picture of safety culture.
+                </p>
+            </div>
+        </div>
+
+        <!-- Example Calculations -->
+        <div class="content-card">
+            <h2><i class="fas fa-calculator"></i> <span data-en="Example Calculations for TRIR Calculator" data-hi="TRIR कैलकुलेटर के लिए उदाहरण गणनाएं">Example Calculations for TRIR Calculator</span></h2>
+            
+            <div class="example-box">
+                <h4 data-en="Example 1 — TRIR (Construction Project)" data-hi="उदाहरण 1 — TRIR (निर्माण परियोजना)">Example 1 — TRIR (Construction Project)</h4>
+                <ul>
+                    <li data-en="Total Recordable Cases: 6" data-hi="कुल रिकॉर्डेबल मामले: 6">Total Recordable Cases: 6</li>
+                    <li data-en="Man-Hours: 2,400,000" data-hi="मैन-घंटे: 2,400,000">Man-Hours: 2,400,000</li>
+                    <li data-en="TRIR = (6 × 200,000) ÷ 2,400,000 = 0.5" data-hi="TRIR = (6 × 200,000) ÷ 2,400,000 = 0.5">TRIR = (6 × 200,000) ÷ 2,400,000 = 0.5</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Example 2 — AFR (Manufacturing Plant)" data-hi="उदाहरण 2 — AFR (विनिर्माण संयंत्र)">Example 2 — AFR (Manufacturing Plant)</h4>
+                <ul>
+                    <li data-en="Total Injuries: 15" data-hi="कुल चोटें: 15">Total Injuries: 15</li>
+                    <li data-en="Man-Hours: 5,000,000" data-hi="मैन-घंटे: 5,000,000">Man-Hours: 5,000,000</li>
+                    <li data-en="AFR = (15 × 1,000,000) ÷ 5,000,000 = 3" data-hi="AFR = (15 × 1,000,000) ÷ 5,000,000 = 3">AFR = (15 × 1,000,000) ÷ 5,000,000 = 3</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Example 3 — FAR (Oil & Gas Site)" data-hi="उदाहरण 3 — FAR (तेल और गैस साइट)">Example 3 — FAR (Oil & Gas Site)</h4>
+                <ul>
+                    <li data-en="Fatalities: 1" data-hi="मौतें: 1">Fatalities: 1</li>
+                    <li data-en="Man-Hours: 50,000,000" data-hi="मैन-घंटे: 50,000,000">Man-Hours: 50,000,000</li>
+                    <li data-en="FAR = (1 × 100,000,000) ÷ 50,000,000 = 2" data-hi="FAR = (1 × 100,000,000) ÷ 50,000,000 = 2">FAR = (1 × 100,000,000) ÷ 50,000,000 = 2</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Why Important -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-circle"></i> <span data-en="Why Are TRIR, AFR, and FAR Important?" data-hi="TRIR, AFR, और FAR क्यों महत्वपूर्ण हैं?">Why Are TRIR, AFR, and FAR Important?</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Standardization — Enables benchmarking across industries." 
+                        data-hi="मानकीकरण — उद्योगों में बेंचमार्किंग सक्षम करता है।">Standardization — Enables benchmarking across industries.</li>
+                    <li data-en="Regulatory Compliance — OSHA, ILO, and ISO standards." 
+                        data-hi="नियामक अनुपालन — OSHA, ILO, और ISO मानक।">Regulatory Compliance — OSHA, ILO, and ISO standards.</li>
+                    <li data-en="Client & Tender Requirements — Many bids require TRIR/FAR history." 
+                        data-hi="क्लाइंट और टेंडर आवश्यकताएं — कई बोलियों को TRIR/FAR इतिहास की आवश्यकता होती है।">Client & Tender Requirements — Many bids require TRIR/FAR history.</li>
+                    <li data-en="Performance Monitoring — Identifies trends in safety performance." 
+                        data-hi="प्रदर्शन निगरानी — सुरक्षा प्रदर्शन में रुझानों की पहचान करता है।">Performance Monitoring — Identifies trends in safety performance.</li>
+                    <li data-en="Reputation Management — A low TRIR/FAR signals strong safety culture." 
+                        data-hi="प्रतिष्ठा प्रबंधन — कम TRIR/FAR मजबूत सुरक्षा संस्कृति का संकेत देता है।">Reputation Management — A low TRIR/FAR signals strong safety culture.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Real-World Examples -->
+        <div class="content-card">
+            <h2><i class="fas fa-industry"></i> <span data-en="Real-World Examples" data-hi="वास्तविक दुनिया के उदाहरण">Real-World Examples</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Metro Rail Project — TRIR of 0.7 in 5M hours." 
+                        data-hi="मेट्रो रेल परियोजना — 5M घंटे में 0.7 का TRIR।">Metro Rail Project — TRIR of 0.7 in 5M hours.</li>
+                    <li data-en="Oil Refinery Turnaround — AFR of 4 in 10M hours." 
+                        data-hi="तेल रिफाइनरी टर्नअराउंड — 10M घंटे में 4 का AFR।">Oil Refinery Turnaround — AFR of 4 in 10M hours.</li>
+                    <li data-en="Wind Farm Construction — FAR of 0 in 12M hours (excellent performance)." 
+                        data-hi="विंड फार्म निर्माण — 12M घंटे में 0 का FAR (उत्कृष्ट प्रदर्शन)।">Wind Farm Construction — FAR of 0 in 12M hours (excellent performance).</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-triangle"></i> <span data-en="Common Mistakes in Tracking" data-hi="ट्रैकिंग में सामान्य गलतियाँ">Common Mistakes in Tracking</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Using total headcount instead of total hours worked." 
+                        data-hi="कुल काम किए गए घंटों के बजाय कुल हेडकाउंट का उपयोग करना।">Using total headcount instead of total hours worked.</li>
+                    <li data-en="Not including contractors' hours/incidents." 
+                        data-hi="ठेकेदारों के घंटे/घटनाओं को शामिल न करना।">Not including contractors' hours/incidents.</li>
+                    <li data-en="Mixing up TRIR (200,000 base) with AFR (1,000,000 base)." 
+                        data-hi="TRIR (200,000 आधार) को AFR (1,000,000 आधार) के साथ मिलाना।">Mixing up TRIR (200,000 base) with AFR (1,000,000 base).</li>
+                    <li data-en="Recording first-aid cases as recordable incidents." 
+                        data-hi="फर्स्ट-एड मामलों को रिकॉर्डेबल घटनाओं के रूप में दर्ज करना।">Recording first-aid cases as recordable incidents.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-card">
+            <h2><i class="fas fa-trophy"></i> <span data-en="Best Practices to Improve TRIR / AFR / FAR" data-hi="TRIR / AFR / FAR में सुधार के लिए सर्वोत्तम प्रथाएं">Best Practices to Improve TRIR / AFR / FAR</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Conduct proactive risk assessments (HIRA & JSA)." 
+                        data-hi="सक्रिय जोखिम मूल्यांकन (HIRA और JSA) करें।">Conduct proactive risk assessments (HIRA & JSA).</li>
+                    <li data-en="Enforce Permit-to-Work (PTW) for high-risk tasks." 
+                        data-hi="उच्च-जोखिम वाले कार्यों के लिए Permit-to-Work (PTW) लागू करें।">Enforce Permit-to-Work (PTW) for high-risk tasks.</li>
+                    <li data-en="Regular toolbox talks and targeted training." 
+                        data-hi="नियमित टूलबॉक्स टॉक और लक्षित प्रशिक्षण।">Regular toolbox talks and targeted training.</li>
+                    <li data-en="Monitor leading indicators (near misses, unsafe acts)." 
+                        data-hi="अग्रणी संकेतकों (नियर मिस, असुरक्षित कार्य) की निगरानी करें।">Monitor leading indicators (near misses, unsafe acts).</li>
+                    <li data-en="Encourage open reporting without blame culture." 
+                        data-hi="दोष संस्कृति के बिना खुली रिपोर्टिंग को प्रोत्साहित करें।">Encourage open reporting without blame culture.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle"></i> <span data-en="Frequently Asked Questions (FAQ)" data-hi="अक्सर पूछे जाने वाले प्रश्न (FAQ)">Frequently Asked Questions (FAQ)</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="What's the difference between TRIR and AFR?" data-hi="TRIR और AFR में क्या अंतर है?">What's the difference between TRIR and AFR?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="TRIR uses 200,000 hours (OSHA standard). AFR uses 1,000,000 hours (global)." 
+                       data-hi="TRIR 200,000 घंटे (OSHA मानक) का उपयोग करता है। AFR 1,000,000 घंटे (वैश्विक) का उपयोग करता है।">
+                        TRIR uses 200,000 hours (OSHA standard). AFR uses 1,000,000 hours (global).
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Why does FAR use 100,000,000 hours?" data-hi="FAR 100,000,000 घंटे क्यों उपयोग करता है?">Why does FAR use 100,000,000 hours?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Because fatalities are rare; scaling helps show meaningful results." 
+                       data-hi="क्योंकि मौतें दुर्लभ हैं; स्केलिंग सार्थक परिणाम दिखाने में मदद करती है।">
+                        Because fatalities are rare; scaling helps show meaningful results.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can TRIR / AFR / FAR be zero?" data-hi="क्या TRIR / AFR / FAR शून्य हो सकता है?">Can TRIR / AFR / FAR be zero?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes. A zero rate means no recordables/injuries/fatalities in the period." 
+                       data-hi="हाँ। शून्य दर का मतलब है कि अवधि में कोई रिकॉर्डेबल/चोट/मौत नहीं हुई।">
+                        Yes. A zero rate means no recordables/injuries/fatalities in the period.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Thoughts -->
+        <div class="content-card">
+            <h2><i class="fas fa-lightbulb"></i> <span data-en="Final Thoughts" data-hi="अंतिम विचार">Final Thoughts</span></h2>
+            <p data-en="The TRIR, AFR, and FAR are cornerstone KPIs in global safety reporting." 
+               data-hi="TRIR, AFR, और FAR वैश्विक सुरक्षा रिपोर्टिंग में आधारशिला KPI हैं।">
+                The TRIR, AFR, and FAR are cornerstone KPIs in global safety reporting.
+            </p>
+            <p data-en="They don't just count incidents — they normalize performance across industries and projects, helping organizations monitor, benchmark, and continuously improve." 
+               data-hi="वे सिर्फ घटनाओं की गिनती नहीं करते हैं — वे उद्योगों और परियोजनाओं में प्रदर्शन को सामान्यीकृत करते हैं, जिससे संगठनों को निगरानी, बेंचमार्क और लगातार सुधार करने में मदद मिलती है।">
+                They don't just count incidents — they normalize performance across industries and projects, helping organizations monitor, benchmark, and continuously improve.
+            </p>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Standardize your reporting." 
+                        data-hi="अपनी रिपोर्टिंग को मानकीकृत करें।">Standardize your reporting.</li>
+                    <li data-en="Meet client and compliance requirements." 
+                        data-hi="क्लाइंट और अनुपालन आवश्यकताओं को पूरा करें।">Meet client and compliance requirements.</li>
+                    <li data-en="Benchmark your safety culture against industry peers." 
+                        data-hi="उद्योग के साथियों के खिलाफ अपनी सुरक्षा संस्कृति का बेंचमार्क करें।">Benchmark your safety culture against industry peers.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h3 data-en="Pro Tip" data-hi="प्रो टिप">Pro Tip</h3>
+                <p data-en="Don't use these metrics in isolation. Combine them with LTIs, FR, SR, and Safe Man-Hours for a complete Safety Performance Dashboard." 
+                   data-hi="इन मेट्रिक्स को अलगाव में उपयोग न करें। एक संपूर्ण सुरक्षा प्रदर्शन डैशबोर्ड के लिए उन्हें LTI, FR, SR, और सुरक्षित मैन-घंटे के साथ संयोजित करें।">
+                    Don't use these metrics in isolation. Combine them with LTIs, FR, SR, and Safe Man-Hours for a complete Safety Performance Dashboard.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

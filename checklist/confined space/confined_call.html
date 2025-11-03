@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confined Space Checklist Generator | Safety Compliance Tool</title>
+    <meta name="description" content="Generate professional confined space entry checklists and permits. Complete safety assessment tool with PDF export capability.">
+    <meta name="keywords" content="confined space checklist, permit required confined space, safety assessment, OSHA compliance, entry permit, PDF generator">
+    <meta name="author" content="Safety Tools Pro">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #8e44ad;
+            --secondary-color: #9b59b6;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3c4e;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f9fa;
+            --border-color: #ddd;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --radius: 8px;
+        }
+
+        .dark-mode {
+            --primary-color: #8e44ad;
+            --secondary-color: #9b59b6;
+            --success-color: #2ecc71;
+            --danger-color: #c0392b;
+            --warning-color: #e67e22;
+            --light-color: #2c3e50;
+            --dark-color: #1a252f;
+            --text-color: #ecf0f1;
+            --bg-color: #1e2a3a;
+            --card-bg: #2c3c4e;
+            --border-color: #34495e;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius) var(--radius) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-light {
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        .form-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-section h2 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checklist-category {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: var(--light-color);
+            border-radius: var(--radius);
+        }
+
+        .checklist-category h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        .checklist-item label {
+            flex: 1;
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-compliant {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .status-noncompliant {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .status-na {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-count {
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .preview-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            background-color: var(--success-color);
+            color: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background-color: var(--danger-color);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        .example-btn {
+            background-color: var(--warning-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .category-icon {
+            font-size: 1.2rem;
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .risk-high {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .risk-medium {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .risk-low {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .permit-section {
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 20px 0;
+            background: linear-gradient(135deg, var(--light-color) 0%, var(--card-bg) 100%);
+        }
+
+        .permit-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .permit-header h2 {
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .permit-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .permit-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .permit-detail strong {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .header-controls {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .summary {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .checklist-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .permit-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Confined Space Checklist Generator</h1>
+                <p>Comprehensive confined space entry assessment and permit system</p>
+            </div>
+            <div class="header-controls">
+                <button id="translateBtn" class="btn-light" aria-label="Toggle language">
+                    <span class="lang-text">हिंदी</span>
+                </button>
+                <button id="darkModeBtn" class="btn-light" aria-label="Toggle dark mode">
+                    <span class="mode-text">Dark Mode</span>
+                </button>
+                <button id="previewBtn" class="btn-primary">Preview</button>
+                <button id="downloadBtn" class="btn-success">Download PDF</button>
+                <button id="resetBtn" class="btn-danger">Reset</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="formView">
+                <div class="form-section">
+                    <h2>Entry Information</h2>
+                    <button id="loadExample" class="example-btn">
+                        <span>🏭</span> Load Example
+                    </button>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="siteLocation">Site/Location</label>
+                            <input type="text" id="siteLocation" placeholder="e.g., Chemical Plant - Tank Farm" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="confinedSpaceId">Confined Space ID/Name</label>
+                            <input type="text" id="confinedSpaceId" placeholder="e.g., TK-101 - Process Tank" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="workToBeDone">Work to be Done</label>
+                            <input type="text" id="workToBeDone" placeholder="e.g., Internal inspection and cleaning" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="entryDate">Entry Date</label>
+                            <input type="date" id="entryDate" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="entrySupervisor">Entry Supervisor</label>
+                            <input type="text" id="entrySupervisor" placeholder="Full name" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="permitExpiry">Permit Expiry Date/Time</label>
+                            <input type="datetime-local" id="permitExpiry" aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="permit-section">
+                    <div class="permit-header">
+                        <h2>CONFINED SPACE ENTRY PERMIT</h2>
+                        <p>PERMIT REQUIRED CONFINED SPACE - OSHA 29 CFR 1910.146</p>
+                    </div>
+                    <div class="permit-details">
+                        <div class="permit-detail">
+                            <strong>Permit Number:</strong>
+                            <span id="permitNumberDisplay">CS-2025-001</span>
+                        </div>
+                        <div class="permit-detail">
+                            <strong>Issued Date:</strong>
+                            <span id="issuedDateDisplay">-</span>
+                        </div>
+                        <div class="permit-detail">
+                            <strong>Expires:</strong>
+                            <span id="expiryDateDisplay">-</span>
+                        </div>
+                        <div class="permit-detail">
+                            <strong>Status:</strong>
+                            <span id="permitStatusDisplay" class="status-badge status-noncompliant">PENDING</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Confined Space Entry Checklist</h2>
+                    
+                    <div class="info-box">
+                        <p><strong>Instructions:</strong> Check each item that is compliant. This permit is NOT valid until ALL items are checked.</p>
+                        <p><strong>Risk Levels:</strong> <span class="risk-level risk-high">High</span> <span class="risk-level risk-medium">Medium</span> <span class="risk-level risk-low">Low</span></p>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🌬️</span> Atmospheric Testing</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="atmospheric_tested" class="checklist-checkbox">
+                            <label for="atmospheric_tested">Atmosphere tested prior to entry <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="oxygen_levels" class="checklist-checkbox">
+                            <label for="oxygen_levels">Oxygen levels between 19.5% - 23.5% <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="combustible_gases" class="checklist-checkbox">
+                            <label for="combustible_gases">Combustible gases less than 10% LEL <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="toxic_gases" class="checklist-checkbox">
+                            <label for="toxic_gases">Toxic gases within safe exposure limits <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="continuous_monitoring" class="checklist-checkbox">
+                            <label for="continuous_monitoring">Continuous atmospheric monitoring during entry <span class="risk-level risk-high">High</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🔄</span> Isolation & Lockout/Tagout</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="energy_isolated" class="checklist-checkbox">
+                            <label for="energy_isolated">All energy sources isolated and locked out <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="pipelines_blinded" class="checklist-checkbox">
+                            <label for="pipelines_blinded">Pipelines blinded, disconnected, or blocked <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="mechanical_isolated" class="checklist-checkbox">
+                            <label for="mechanical_isolated">Mechanical equipment locked out <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="isolation_verified" class="checklist-checkbox">
+                            <label for="isolation_verified">Isolation verified by authorized person <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🦺</span> Personal Protective Equipment</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="ppe_appropriate" class="checklist-checkbox">
+                            <label for="ppe_appropriate">Appropriate PPE selected for hazards <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="harness_available" class="checklist-checkbox">
+                            <label for="harness_available">Retrieval harness available and properly fitted <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="respiratory_protection" class="checklist-checkbox">
+                            <label for="respiratory_protection">Respiratory protection available if needed <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="communication_equipment" class="checklist-checkbox">
+                            <label for="communication_equipment">Communication equipment tested <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">🚨</span> Emergency Preparedness</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="attendant_assigned" class="checklist-checkbox">
+                            <label for="attendant_assigned">Attendant assigned and stationed outside <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="rescue_equipment" class="checklist-checkbox">
+                            <label for="rescue_equipment">Rescue equipment available and inspected <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="rescue_team" class="checklist-checkbox">
+                            <label for="rescue_team">Rescue team notified and on standby <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="emergency_procedures" class="checklist-checkbox">
+                            <label for="emergency_procedures">Emergency procedures reviewed with all personnel <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-category">
+                        <h3><span class="category-icon">📝</span> Entry Procedures</h3>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="entry_team_briefed" class="checklist-checkbox">
+                            <label for="entry_team_briefed">Entry team briefed on hazards and procedures <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="ventilation_adequate" class="checklist-checkbox">
+                            <label for="ventilation_adequate">Adequate ventilation provided <span class="risk-level risk-high">High</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="lighting_adequate" class="checklist-checkbox">
+                            <label for="lighting_adequate">Adequate lighting provided <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="entry_log_maintained" class="checklist-checkbox">
+                            <label for="entry_log_maintained">Entry log maintained for all personnel <span class="risk-level risk-medium">Medium</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalHazards">Additional Hazards & Controls</label>
+                        <textarea id="additionalHazards" placeholder="Describe any additional hazards and control measures..."></textarea>
+                    </div>
+                </div>
+
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count" id="totalItems">0</div>
+                        <div>Total Items</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="compliantItems">0</div>
+                        <div>Compliant</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="nonCompliantItems">0</div>
+                        <div>Required</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="complianceRate">0%</div>
+                        <div>Completion</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Personnel & Authorization</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="entrantNames">Entrant Names</label>
+                            <textarea id="entrantNames" placeholder="List all personnel entering the confined space..." aria-required="true"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendantName">Attendant Name</label>
+                            <input type="text" id="attendantName" placeholder="Attendant's full name" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="entrySupervisorSign">Entry Supervisor Signature</label>
+                            <input type="text" id="entrySupervisorSign" placeholder="Supervisor's name for signature" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="safetyOfficerSign">Safety Officer Signature</label>
+                            <input type="text" id="safetyOfficerSign" placeholder="Safety officer's name for signature">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="previewView" class="hidden">
+                <div class="preview-section">
+                    <h2>Confined Space Entry Permit Preview</h2>
+                    <div class="header-controls">
+                        <button id="backToFormBtn" class="btn-primary">Back to Form</button>
+                        <button id="downloadFromPreviewBtn" class="btn-success">Download PDF</button>
+                    </div>
+                    <div id="previewContent"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="notification" class="notification" role="alert" aria-live="polite"></div>
+
+    <script>
+        // Translation data
+        const translations = {
+            en: {
+                title: "Confined Space Checklist Generator",
+                subtitle: "Comprehensive confined space entry assessment and permit system",
+                siteLocation: "Site/Location",
+                confinedSpaceId: "Confined Space ID/Name",
+                workToBeDone: "Work to be Done",
+                entryDate: "Entry Date",
+                entrySupervisor: "Entry Supervisor",
+                permitExpiry: "Permit Expiry Date/Time",
+                confinedSpaceChecklist: "Confined Space Entry Checklist",
+                additionalHazards: "Additional Hazards & Controls",
+                entrantNames: "Entrant Names",
+                attendantName: "Attendant Name",
+                entrySupervisorSign: "Entry Supervisor Signature",
+                safetyOfficerSign: "Safety Officer Signature",
+                preview: "Preview",
+                downloadPDF: "Download PDF",
+                reset: "Reset",
+                backToForm: "Back to Form",
+                loadExample: "Load Example",
+                confinedSpaceReport: "Confined Space Entry Permit",
+                entryInfo: "Entry Information",
+                checklistResults: "Checklist Results",
+                personnelAuthorization: "Personnel & Authorization",
+                generatedOn: "Generated on",
+                generatedBy: "Generated by Safety Tools Pro - Confined Space Checklist",
+                requiredField: "This field is required",
+                pdfGenerated: "PDF generated successfully",
+                formReset: "Form has been reset",
+                errorGeneratingPDF: "Error generating PDF. Please try again.",
+                exampleLoaded: "Example data loaded successfully",
+                totalItems: "Total Items",
+                compliantItems: "Compliant",
+                nonCompliantItems: "Required",
+                complianceRate: "Completion",
+                compliant: "COMPLIANT",
+                nonCompliant: "REQUIRED",
+                riskHigh: "High",
+                riskMedium: "Medium",
+                riskLow: "Low",
+                categoryAtmospheric: "Atmospheric Testing",
+                categoryIsolation: "Isolation & Lockout/Tagout",
+                categoryPPE: "Personal Protective Equipment",
+                categoryEmergency: "Emergency Preparedness",
+                categoryEntry: "Entry Procedures",
+                permitTitle: "CONFINED SPACE ENTRY PERMIT",
+                permitSubtitle: "PERMIT REQUIRED CONFINED SPACE - OSHA 29 CFR 1910.146",
+                permitNumber: "Permit Number:",
+                issuedDate: "Issued Date:",
+                expires: "Expires:",
+                status: "Status:",
+                statusPending: "PENDING",
+                statusApproved: "APPROVED",
+                statusRejected: "REJECTED"
+            },
+            hi: {
+                title: "कन्फाइंड स्पेस चेकलिस्ट जनरेटर",
+                subtitle: "व्यापक कन्फाइंड स्पेस एंट्री आकलन और परमिट सिस्टम",
+                siteLocation: "साइट/स्थान",
+                confinedSpaceId: "कन्फाइंड स्पेस आईडी/नाम",
+                workToBeDone: "किए जाने वाले कार्य",
+                entryDate: "प्रवेश तिथि",
+                entrySupervisor: "प्रवेश पर्यवेक्षक",
+                permitExpiry: "परमिट समाप्ति तिथि/समय",
+                confinedSpaceChecklist: "कन्फाइंड स्पेस एंट्री चेकलिस्ट",
+                additionalHazards: "अतिरिक्त खतरे और नियंत्रण",
+                entrantNames: "प्रवेशकर्ता के नाम",
+                attendantName: "अटेंडेंट का नाम",
+                entrySupervisorSign: "प्रवेश पर्यवेक्षक हस्ताक्षर",
+                safetyOfficerSign: "सुरक्षा अधिकारी हस्ताक्षर",
+                preview: "पूर्वावलोकन",
+                downloadPDF: "PDF डाउनलोड करें",
+                reset: "रीसेट",
+                backToForm: "फॉर्म पर वापस जाएं",
+                loadExample: "उदाहरण लोड करें",
+                confinedSpaceReport: "कन्फाइंड स्पेस एंट्री परमिट",
+                entryInfo: "प्रवेश जानकारी",
+                checklistResults: "चेकलिस्ट परिणाम",
+                personnelAuthorization: "कर्मियों और अधिकार",
+                generatedOn: "पर जनरेट किया गया",
+                generatedBy: "सेफ्टी टूल्स प्रो - कन्फाइंड स्पेस चेकलिस्ट द्वारा जनरेट किया गया",
+                requiredField: "यह फ़ील्ड आवश्यक है",
+                pdfGenerated: "PDF सफलतापूर्वक जनरेट किया गया",
+                formReset: "फॉर्म रीसेट कर दिया गया है",
+                errorGeneratingPDF: "PDF जनरेट करने में त्रुटि। कृपया पुनः प्रयास करें।",
+                exampleLoaded: "उदाहरण डेटा सफलतापूर्वक लोड किया गया",
+                totalItems: "कुल आइटम",
+                compliantItems: "अनुपालन",
+                nonCompliantItems: "आवश्यक",
+                complianceRate: "पूर्णता",
+                compliant: "अनुपालन",
+                nonCompliant: "आवश्यक",
+                riskHigh: "उच्च",
+                riskMedium: "मध्यम",
+                riskLow: "कम",
+                categoryAtmospheric: "वायुमंडलीय परीक्षण",
+                categoryIsolation: "अलगाव और लॉकआउट/टैगआउट",
+                categoryPPE: "व्यक्तिगत सुरक्षा उपकरण",
+                categoryEmergency: "आपातकालीन तैयारी",
+                categoryEntry: "प्रवेश प्रक्रियाएं",
+                permitTitle: "कन्फाइंड स्पेस एंट्री परमिट",
+                permitSubtitle: "परमिट आवश्यक कन्फाइंड स्पेस - OSHA 29 CFR 1910.146",
+                permitNumber: "परमिट नंबर:",
+                issuedDate: "जारी तिथि:",
+                expires: "समाप्त:",
+                status: "स्थिति:",
+                statusPending: "लंबित",
+                statusApproved: "अनुमोदित",
+                statusRejected: "अस्वीकृत"
+            }
+        };
+
+        // Checklist items data with risk levels
+        const checklistItems = {
+            "Atmospheric Testing": [
+                { id: "atmospheric_tested", text: "Atmosphere tested prior to entry", risk: "high" },
+                { id: "oxygen_levels", text: "Oxygen levels between 19.5% - 23.5%", risk: "high" },
+                { id: "combustible_gases", text: "Combustible gases less than 10% LEL", risk: "high" },
+                { id: "toxic_gases", text: "Toxic gases within safe exposure limits", risk: "high" },
+                { id: "continuous_monitoring", text: "Continuous atmospheric monitoring during entry", risk: "high" }
+            ],
+            "Isolation & Lockout/Tagout": [
+                { id: "energy_isolated", text: "All energy sources isolated and locked out", risk: "high" },
+                { id: "pipelines_blinded", text: "Pipelines blinded, disconnected, or blocked", risk: "high" },
+                { id: "mechanical_isolated", text: "Mechanical equipment locked out", risk: "high" },
+                { id: "isolation_verified", text: "Isolation verified by authorized person", risk: "medium" }
+            ],
+            "Personal Protective Equipment": [
+                { id: "ppe_appropriate", text: "Appropriate PPE selected for hazards", risk: "medium" },
+                { id: "harness_available", text: "Retrieval harness available and properly fitted", risk: "high" },
+                { id: "respiratory_protection", text: "Respiratory protection available if needed", risk: "high" },
+                { id: "communication_equipment", text: "Communication equipment tested", risk: "medium" }
+            ],
+            "Emergency Preparedness": [
+                { id: "attendant_assigned", text: "Attendant assigned and stationed outside", risk: "high" },
+                { id: "rescue_equipment", text: "Rescue equipment available and inspected", risk: "high" },
+                { id: "rescue_team", text: "Rescue team notified and on standby", risk: "high" },
+                { id: "emergency_procedures", text: "Emergency procedures reviewed with all personnel", risk: "medium" }
+            ],
+            "Entry Procedures": [
+                { id: "entry_team_briefed", text: "Entry team briefed on hazards and procedures", risk: "medium" },
+                { id: "ventilation_adequate", text: "Adequate ventilation provided", risk: "high" },
+                { id: "lighting_adequate", text: "Adequate lighting provided", risk: "medium" },
+                { id: "entry_log_maintained", text: "Entry log maintained for all personnel", risk: "medium" }
+            ]
+        };
+
+        // State management
+        let state = {
+            isHindi: false,
+            isDarkMode: false
+        };
+
+        // Initialize the application
+        function init() {
+            loadSettings();
+            setupEventListeners();
+            updateSummary();
+            
+            // Set default dates
+            const today = new Date();
+            const permitExpiry = new Date(today);
+            permitExpiry.setHours(today.getHours() + 8); // 8 hours from now
+            
+            document.getElementById('entryDate').valueAsDate = today;
+            document.getElementById('permitExpiry').valueAsDate = permitExpiry;
+            
+            // Update permit display
+            updatePermitDisplay();
+        }
+
+        // Load saved settings from localStorage
+        function loadSettings() {
+            const savedLanguage = localStorage.getItem('confinedSpaceLanguage');
+            const savedDarkMode = localStorage.getItem('confinedSpaceDarkMode');
+            
+            if (savedLanguage === 'hi') {
+                state.isHindi = true;
+                document.getElementById('translateBtn').querySelector('.lang-text').textContent = 'English';
+                updateLanguage();
+            }
+            
+            if (savedDarkMode === 'true') {
+                state.isDarkMode = true;
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeBtn').querySelector('.mode-text').textContent = 'Light Mode';
+            }
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            localStorage.setItem('confinedSpaceLanguage', state.isHindi ? 'hi' : 'en');
+            localStorage.setItem('confinedSpaceDarkMode', state.isDarkMode);
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mode and language toggles
+            document.getElementById('translateBtn').addEventListener('click', toggleLanguage);
+            document.getElementById('darkModeBtn').addEventListener('click', toggleDarkMode);
+            
+            // Main buttons
+            document.getElementById('previewBtn').addEventListener('click', showPreview);
+            document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+            document.getElementById('resetBtn').addEventListener('click', resetForm);
+            document.getElementById('loadExample').addEventListener('click', loadExampleData);
+            
+            // Preview buttons
+            document.getElementById('backToFormBtn').addEventListener('click', backToForm);
+            document.getElementById('downloadFromPreviewBtn').addEventListener('click', downloadPDF);
+            
+            // Form changes
+            document.addEventListener('change', function(e) {
+                if (e.target.classList.contains('checklist-checkbox')) {
+                    updateSummary();
+                    updatePermitDisplay();
+                }
+                
+                if (e.target.id === 'entryDate' || e.target.id === 'permitExpiry') {
+                    updatePermitDisplay();
+                }
+            });
+            
+            document.addEventListener('input', function(e) {
+                if (e.target.id === 'siteLocation' || e.target.id === 'confinedSpaceId') {
+                    updatePermitDisplay();
+                }
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+Enter to preview
+                if (e.ctrlKey && e.key === 'Enter') {
+                    e.preventDefault();
+                    showPreview();
+                }
+                
+                // Ctrl+D to download
+                if (e.ctrlKey && e.key === 'd') {
+                    e.preventDefault();
+                    downloadPDF();
+                }
+            });
+        }
+
+        // Show notification
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification';
+            
+            if (isError) {
+                notification.classList.add('error');
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Update permit display
+        function updatePermitDisplay() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Update permit details
+            document.getElementById('issuedDateDisplay').textContent = 
+                document.getElementById('entryDate').value || '-';
+            
+            document.getElementById('expiryDateDisplay').textContent = 
+                document.getElementById('permitExpiry').value ? 
+                new Date(document.getElementById('permitExpiry').value).toLocaleString() : '-';
+            
+            // Update permit status
+            const checkboxes = document.querySelectorAll('.checklist-checkbox');
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            const statusDisplay = document.getElementById('permitStatusDisplay');
+            
+            if (allChecked) {
+                statusDisplay.textContent = lang.statusApproved;
+                statusDisplay.className = 'status-badge status-compliant';
+            } else {
+                statusDisplay.textContent = lang.statusPending;
+                statusDisplay.className = 'status-badge status-noncompliant';
+            }
+        }
+
+        // Load example data
+        function loadExampleData() {
+            document.getElementById('siteLocation').value = 'Chemical Plant - Tank Farm Area';
+            document.getElementById('confinedSpaceId').value = 'TK-101 - Process Tank';
+            document.getElementById('workToBeDone').value = 'Internal inspection and sediment removal';
+            
+            // Set dates
+            const today = new Date();
+            const permitExpiry = new Date(today);
+            permitExpiry.setHours(today.getHours() + 6);
+            
+            document.getElementById('entryDate').valueAsDate = today;
+            document.getElementById('permitExpiry').valueAsDate = permitExpiry;
+            
+            document.getElementById('entrySupervisor').value = 'John Safety Supervisor';
+            
+            // Check critical safety items
+            document.getElementById('atmospheric_tested').checked = true;
+            document.getElementById('oxygen_levels').checked = true;
+            document.getElementById('combustible_gases').checked = true;
+            document.getElementById('energy_isolated').checked = true;
+            document.getElementById('pipelines_blinded').checked = true;
+            document.getElementById('harness_available').checked = true;
+            document.getElementById('attendant_assigned').checked = true;
+            document.getElementById('rescue_equipment').checked = true;
+            document.getElementById('ventilation_adequate').checked = true;
+            
+            document.getElementById('additionalHazards').value = 'Residual chemical vapors present - forced air ventilation required. Limited access/egress points.';
+            document.getElementById('entrantNames').value = 'Mike Johnson\nSarah Wilson\nDavid Brown';
+            document.getElementById('attendantName').value = 'Robert Attendant';
+            document.getElementById('entrySupervisorSign').value = 'John Safety Supervisor';
+            document.getElementById('safetyOfficerSign').value = 'Lisa Safety Officer';
+            
+            updateSummary();
+            updatePermitDisplay();
+            
+            const lang = state.isHindi ? translations.hi : translations.en;
+            showNotification(lang.exampleLoaded);
+        }
+
+        // Update calculation and summary
+        function updateSummary() {
+            const checkboxes = document.querySelectorAll('.checklist-checkbox');
+            let totalItems = checkboxes.length;
+            let compliantItems = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    compliantItems++;
+                }
+            });
+            
+            const nonCompliantItems = totalItems - compliantItems;
+            const complianceRate = totalItems > 0 ? Math.round((compliantItems / totalItems) * 100) : 0;
+            
+            // Update summary displays
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('compliantItems').textContent = compliantItems;
+            document.getElementById('nonCompliantItems').textContent = nonCompliantItems;
+            document.getElementById('complianceRate').textContent = complianceRate + '%';
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            state.isHindi = !state.isHindi;
+            const btn = document.getElementById('translateBtn');
+            btn.querySelector('.lang-text').textContent = state.isHindi ? 'English' : 'हिंदी';
+            
+            // Update all text content
+            updateLanguage();
+            saveSettings();
+        }
+
+        // Update all text content based on current language
+        function updateLanguage() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Update header
+            document.querySelector('h1').textContent = lang.title;
+            document.querySelector('header p').textContent = lang.subtitle;
+            
+            // Update form labels
+            document.querySelector('label[for="siteLocation"]').textContent = lang.siteLocation;
+            document.querySelector('label[for="confinedSpaceId"]').textContent = lang.confinedSpaceId;
+            document.querySelector('label[for="workToBeDone"]').textContent = lang.workToBeDone;
+            document.querySelector('label[for="entryDate"]').textContent = lang.entryDate;
+            document.querySelector('label[for="entrySupervisor"]').textContent = lang.entrySupervisor;
+            document.querySelector('label[for="permitExpiry"]').textContent = lang.permitExpiry;
+            document.querySelector('label[for="additionalHazards"]').textContent = lang.additionalHazards;
+            document.querySelector('label[for="entrantNames"]').textContent = lang.entrantNames;
+            document.querySelector('label[for="attendantName"]').textContent = lang.attendantName;
+            document.querySelector('label[for="entrySupervisorSign"]').textContent = lang.entrySupervisorSign;
+            document.querySelector('label[for="safetyOfficerSign"]').textContent = lang.safetyOfficerSign;
+            
+            // Update section headers
+            document.querySelectorAll('.form-section h2')[0].textContent = lang.entryInfo;
+            document.querySelectorAll('.form-section h2')[1].textContent = lang.confinedSpaceChecklist;
+            document.querySelectorAll('.form-section h2')[2].textContent = lang.personnelAuthorization;
+            
+            // Update buttons
+            document.getElementById('previewBtn').textContent = lang.preview;
+            document.getElementById('downloadBtn').textContent = lang.downloadPDF;
+            document.getElementById('resetBtn').textContent = lang.reset;
+            document.getElementById('backToFormBtn').textContent = lang.backToForm;
+            document.getElementById('downloadFromPreviewBtn').textContent = lang.downloadPDF;
+            document.getElementById('loadExample').textContent = lang.loadExample;
+            
+            // Update placeholders
+            document.getElementById('siteLocation').placeholder = lang.siteLocation;
+            document.getElementById('confinedSpaceId').placeholder = lang.confinedSpaceId;
+            document.getElementById('workToBeDone').placeholder = lang.workToBeDone;
+            document.getElementById('entrySupervisor').placeholder = lang.entrySupervisor;
+            document.getElementById('additionalHazards').placeholder = lang.additionalHazards;
+            document.getElementById('entrantNames').placeholder = lang.entrantNames;
+            document.getElementById('attendantName').placeholder = lang.attendantName;
+            document.getElementById('entrySupervisorSign').placeholder = lang.entrySupervisorSign;
+            document.getElementById('safetyOfficerSign').placeholder = lang.safetyOfficerSign;
+            
+            // Update category headers
+            const categories = document.querySelectorAll('.checklist-category h3');
+            if (categories.length >= 5) {
+                categories[0].innerHTML = `<span class="category-icon">🌬️</span> ${lang.categoryAtmospheric}`;
+                categories[1].innerHTML = `<span class="category-icon">🔄</span> ${lang.categoryIsolation}`;
+                categories[2].innerHTML = `<span class="category-icon">🦺</span> ${lang.categoryPPE}`;
+                categories[3].innerHTML = `<span class="category-icon">🚨</span> ${lang.categoryEmergency}`;
+                categories[4].innerHTML = `<span class="category-icon">📝</span> ${lang.categoryEntry}`;
+            }
+            
+            // Update risk level labels
+            document.querySelectorAll('.risk-level').forEach(element => {
+                if (element.classList.contains('risk-high')) {
+                    element.textContent = lang.riskHigh;
+                } else if (element.classList.contains('risk-medium')) {
+                    element.textContent = lang.riskMedium;
+                } else if (element.classList.contains('risk-low')) {
+                    element.textContent = lang.riskLow;
+                }
+            });
+            
+            // Update summary labels
+            document.querySelectorAll('.summary-item div:last-child')[0].textContent = lang.totalItems;
+            document.querySelectorAll('.summary-item div:last-child')[1].textContent = lang.compliantItems;
+            document.querySelectorAll('.summary-item div:last-child')[2].textContent = lang.nonCompliantItems;
+            document.querySelectorAll('.summary-item div:last-child')[3].textContent = lang.complianceRate;
+            
+            // Update permit section
+            const permitHeader = document.querySelector('.permit-header');
+            if (permitHeader) {
+                permitHeader.querySelector('h2').textContent = lang.permitTitle;
+                permitHeader.querySelector('p').textContent = lang.permitSubtitle;
+            }
+            
+            const permitDetails = document.querySelectorAll('.permit-detail strong');
+            if (permitDetails.length >= 4) {
+                permitDetails[0].textContent = lang.permitNumber;
+                permitDetails[1].textContent = lang.issuedDate;
+                permitDetails[2].textContent = lang.expires;
+                permitDetails[3].textContent = lang.status;
+            }
+            
+            updatePermitDisplay();
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.isDarkMode = !state.isDarkMode;
+            const btn = document.getElementById('darkModeBtn');
+            
+            if (state.isDarkMode) {
+                document.body.classList.add('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Light Mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Dark Mode';
+            }
+            
+            saveSettings();
+        }
+
+        // Show preview
+        function showPreview() {
+            // Validate required fields
+            if (!validateForm()) {
+                return;
+            }
+            
+            document.getElementById('formView').classList.add('hidden');
+            document.getElementById('previewView').classList.remove('hidden');
+            
+            generatePreviewContent();
+        }
+
+        // Validate form
+        function validateForm() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            let isValid = true;
+            
+            // Check required fields
+            const requiredFields = [
+                { id: 'siteLocation', name: lang.siteLocation },
+                { id: 'confinedSpaceId', name: lang.confinedSpaceId },
+                { id: 'workToBeDone', name: lang.workToBeDone },
+                { id: 'entryDate', name: lang.entryDate },
+                { id: 'entrySupervisor', name: lang.entrySupervisor },
+                { id: 'permitExpiry', name: lang.permitExpiry },
+                { id: 'entrantNames', name: lang.entrantNames },
+                { id: 'attendantName', name: lang.attendantName },
+                { id: 'entrySupervisorSign', name: lang.entrySupervisorSign }
+            ];
+            
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element.value.trim()) {
+                    isValid = false;
+                    element.style.borderColor = 'var(--danger-color)';
+                    showNotification(`${field.name} ${lang.requiredField}`, true);
+                } else {
+                    element.style.borderColor = '';
+                }
+            });
+            
+            return isValid;
+        }
+
+        // Back to form
+        function backToForm() {
+            document.getElementById('formView').classList.remove('hidden');
+            document.getElementById('previewView').classList.add('hidden');
+        }
+
+        // Generate preview content
+        function generatePreviewContent() {
+            const previewContent = document.getElementById('previewContent');
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Get form values
+            const siteLocation = document.getElementById('siteLocation').value || '—';
+            const confinedSpaceId = document.getElementById('confinedSpaceId').value || '—';
+            const workToBeDone = document.getElementById('workToBeDone').value || '—';
+            const entryDate = document.getElementById('entryDate').value || '—';
+            const entrySupervisor = document.getElementById('entrySupervisor').value || '—';
+            const permitExpiry = document.getElementById('permitExpiry').value || '—';
+            const additionalHazards = document.getElementById('additionalHazards').value || '—';
+            const entrantNames = document.getElementById('entrantNames').value || '—';
+            const attendantName = document.getElementById('attendantName').value || '—';
+            const entrySupervisorSign = document.getElementById('entrySupervisorSign').value || '—';
+            const safetyOfficerSign = document.getElementById('safetyOfficerSign').value || '—';
+            
+            // Get checklist results
+            const checklistResults = {};
+            Object.keys(checklistItems).forEach(category => {
+                checklistResults[category] = [];
+                checklistItems[category].forEach(item => {
+                    const checkbox = document.getElementById(item.id);
+                    checklistResults[category].push({
+                        text: item.text,
+                        compliant: checkbox ? checkbox.checked : false,
+                        risk: item.risk
+                    });
+                });
+            });
+            
+            // Calculate summary
+            const checkboxes = document.querySelectorAll('.checklist-checkbox');
+            let totalItems = checkboxes.length;
+            let compliantItems = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    compliantItems++;
+                }
+            });
+            
+            const nonCompliantItems = totalItems - compliantItems;
+            const complianceRate = totalItems > 0 ? Math.round((compliantItems / totalItems) * 100) : 0;
+            const allChecked = compliantItems === totalItems;
+            
+            // Build preview HTML
+            let html = `
+                <div class="permit-section">
+                    <div class="permit-header">
+                        <h2>${lang.permitTitle}</h2>
+                        <p>${lang.permitSubtitle}</p>
+                    </div>
+                    <div class="permit-details">
+                        <div class="permit-detail">
+                            <strong>${lang.permitNumber}</strong>
+                            <span>CS-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}</span>
+                        </div>
+                        <div class="permit-detail">
+                            <strong>${lang.issuedDate}</strong>
+                            <span>${entryDate}</span>
+                        </div>
+                        <div class="permit-detail">
+                            <strong>${lang.expires}</strong>
+                            <span>${permitExpiry ? new Date(permitExpiry).toLocaleString() : '-'}</span>
+                        </div>
+                        <div class="permit-detail">
+                            <strong>${lang.status}</strong>
+                            <span class="status-badge ${allChecked ? 'status-compliant' : 'status-noncompliant'}">${allChecked ? lang.statusApproved : lang.statusPending}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.entryInfo}</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.siteLocation}:</label>
+                            <p>${siteLocation}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.confinedSpaceId}:</label>
+                            <p>${confinedSpaceId}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.workToBeDone}:</label>
+                            <p>${workToBeDone}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.entrySupervisor}:</label>
+                            <p>${entrySupervisor}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count">${totalItems}</div>
+                        <div>${lang.totalItems}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${compliantItems}</div>
+                        <div>${lang.compliantItems}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${nonCompliantItems}</div>
+                        <div>${lang.nonCompliantItems}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${complianceRate}%</div>
+                        <div>${lang.complianceRate}</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.checklistResults}</h2>
+            `;
+            
+            // Add checklist results by category
+            Object.keys(checklistResults).forEach(category => {
+                const categoryTitle = lang[`category${category.replace(/\s+/g, '')}`] || category;
+                html += `
+                    <div class="checklist-category">
+                        <h3>${categoryTitle}</h3>
+                `;
+                
+                checklistResults[category].forEach(item => {
+                    const status = item.compliant ? lang.compliant : lang.nonCompliant;
+                    const statusClass = item.compliant ? 'status-compliant' : 'status-noncompliant';
+                    const riskClass = `risk-${item.risk}`;
+                    const riskText = lang[`risk${item.risk.charAt(0).toUpperCase() + item.risk.slice(1)}`];
+                    
+                    html += `
+                        <div class="checklist-item">
+                            <span class="status-badge ${statusClass}">${status}</span>
+                            <label>${item.text} <span class="risk-level ${riskClass}">${riskText}</span></label>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            });
+            
+            html += `
+                    <div class="form-group">
+                        <label>${lang.additionalHazards}:</label>
+                        <p>${additionalHazards}</p>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.personnelAuthorization}</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.entrantNames}:</label>
+                            <p>${entrantNames.replace(/\n/g, '<br>')}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.attendantName}:</label>
+                            <p>${attendantName}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.entrySupervisorSign}:</label>
+                            <p><strong>${entrySupervisorSign}</strong></p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.safetyOfficerSign}:</label>
+                            <p><strong>${safetyOfficerSign || '—'}</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            previewContent.innerHTML = html;
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            // Validate form first
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Show loading indicator
+            const originalText = document.querySelector('#downloadBtn').innerHTML;
+            document.querySelector('#downloadBtn').innerHTML = '<span class="loading"></span> Generating...';
+            document.querySelector('#downloadBtn').disabled = true;
+            
+            // Use html2canvas and jsPDF to generate PDF
+            generatePDF().then(() => {
+                // Restore button text
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+                
+                const lang = state.isHindi ? translations.hi : translations.en;
+                showNotification(lang.pdfGenerated);
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                const lang = state.isHindi ? translations.hi : translations.en;
+                showNotification(lang.errorGeneratingPDF, true);
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            });
+        }
+
+        // Generate PDF using html2canvas and jsPDF
+        async function generatePDF() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Create a temporary element for PDF generation
+            const pdfElement = document.createElement('div');
+            pdfElement.style.width = '210mm';
+            pdfElement.style.padding = '20px';
+            pdfElement.style.backgroundColor = 'white';
+            pdfElement.style.color = 'black';
+            pdfElement.style.fontFamily = 'Arial, sans-serif';
+            
+            // Get form values
+            const siteLocation = document.getElementById('siteLocation').value || '—';
+            const confinedSpaceId = document.getElementById('confinedSpaceId').value || '—';
+            const workToBeDone = document.getElementById('workToBeDone').value || '—';
+            const entryDate = document.getElementById('entryDate').value || '—';
+            const entrySupervisor = document.getElementById('entrySupervisor').value || '—';
+            const permitExpiry = document.getElementById('permitExpiry').value || '—';
+            const additionalHazards = document.getElementById('additionalHazards').value || '—';
+            const entrantNames = document.getElementById('entrantNames').value || '—';
+            const attendantName = document.getElementById('attendantName').value || '—';
+            const entrySupervisorSign = document.getElementById('entrySupervisorSign').value || '—';
+            const safetyOfficerSign = document.getElementById('safetyOfficerSign').value || '—';
+            
+            // Get checklist results
+            const checklistResults = {};
+            Object.keys(checklistItems).forEach(category => {
+                checklistResults[category] = [];
+                checklistItems[category].forEach(item => {
+                    const checkbox = document.getElementById(item.id);
+                    checklistResults[category].push({
+                        text: item.text,
+                        compliant: checkbox ? checkbox.checked : false,
+                        risk: item.risk
+                    });
+                });
+            });
+            
+            // Calculate summary
+            const checkboxes = document.querySelectorAll('.checklist-checkbox');
+            let totalItems = checkboxes.length;
+            let compliantItems = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    compliantItems++;
+                }
+            });
+            
+            const nonCompliantItems = totalItems - compliantItems;
+            const complianceRate = totalItems > 0 ? Math.round((compliantItems / totalItems) * 100) : 0;
+            const allChecked = compliantItems === totalItems;
+            
+            // Build PDF content
+            let html = `
+                <div style="border: 2px solid #8e44ad; border-radius: 8px; padding: 20px; margin-bottom: 20px; background: linear-gradient(135deg, #ecf0f1 0%, #f8f9fa 100%);">
+                    <div style="text-align: center; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #8e44ad;">
+                        <h1 style="color: #8e44ad; margin-bottom: 5px;">${lang.permitTitle}</h1>
+                        <p style="font-weight: bold;">${lang.permitSubtitle}</p>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <strong>${lang.permitNumber}</strong><br>
+                            CS-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}
+                        </div>
+                        <div>
+                            <strong>${lang.issuedDate}</strong><br>
+                            ${entryDate}
+                        </div>
+                        <div>
+                            <strong>${lang.expires}</strong><br>
+                            ${permitExpiry ? new Date(permitExpiry).toLocaleString() : '-'}
+                        </div>
+                        <div>
+                            <strong>${lang.status}</strong><br>
+                            <span style="background-color: ${allChecked ? '#27ae60' : '#e74c3c'}; color: white; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">
+                                ${allChecked ? lang.statusApproved : lang.statusPending}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; color: #8e44ad;">${lang.entryInfo}</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.siteLocation}:</strong> ${siteLocation}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.confinedSpaceId}:</strong> ${confinedSpaceId}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.workToBeDone}:</strong> ${workToBeDone}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.entrySupervisor}:</strong> ${entrySupervisor}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; background-color: #8e44ad; color: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${totalItems}</div>
+                        <div>${lang.totalItems}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${compliantItems}</div>
+                        <div>${lang.compliantItems}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${nonCompliantItems}</div>
+                        <div>${lang.nonCompliantItems}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${complianceRate}%</div>
+                        <div>${lang.complianceRate}</div>
+                    </div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; color: #8e44ad;">${lang.checklistResults}</h2>
+            `;
+            
+            // Add checklist results by category
+            Object.keys(checklistResults).forEach(category => {
+                const categoryTitle = lang[`category${category.replace(/\s+/g, '')}`] || category;
+                html += `
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #8e44ad; margin-bottom: 10px;">${categoryTitle}</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                `;
+                
+                checklistResults[category].forEach(item => {
+                    const status = item.compliant ? lang.compliant : lang.nonCompliant;
+                    const statusColor = item.compliant ? '#27ae60' : '#e74c3c';
+                    const riskColor = item.risk === 'high' ? '#e74c3c' : item.risk === 'medium' ? '#f39c12' : '#27ae60';
+                    const riskText = lang[`risk${item.risk.charAt(0).toUpperCase() + item.risk.slice(1)}`];
+                    
+                    html += `
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px; width: 100px;">
+                                <span style="background-color: ${statusColor}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px;">${status}</span>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 8px; width: 80px;">
+                                <span style="background-color: ${riskColor}; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px;">${riskText}</span>
+                            </td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">${item.text}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += `</table></div>`;
+            });
+            
+            html += `
+                    <div style="margin-bottom: 10px;"><strong>${lang.additionalHazards}:</strong></div>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 40px; border-radius: 4px;">${additionalHazards}</div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; color: #8e44ad;">${lang.personnelAuthorization}</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <strong>${lang.entrantNames}:</strong><br>
+                            <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px; white-space: pre-line;">${entrantNames}</div>
+                        </div>
+                        <div>
+                            <strong>${lang.attendantName}:</strong><br>
+                            <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px;">${attendantName}</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <strong>${lang.entrySupervisorSign}:</strong><br>
+                            <div style="border: 1px solid #ddd; padding: 10px; min-height: 40px; border-radius: 4px; font-weight: bold;">${entrySupervisorSign}</div>
+                        </div>
+                        <div>
+                            <strong>${lang.safetyOfficerSign}:</strong><br>
+                            <div style="border: 1px solid #ddd; padding: 10px; min-height: 40px; border-radius: 4px; font-weight: bold;">${safetyOfficerSign || '—'}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 20px; font-size: 12px; color: #666;">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            pdfElement.innerHTML = html;
+            document.body.appendChild(pdfElement);
+            
+            try {
+                // Use html2canvas to capture the content
+                const canvas = await html2canvas(pdfElement, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                });
+                
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Add image to PDF
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add new pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Download PDF
+                const fileName = `Confined_Space_Permit_${confinedSpaceId.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                throw error;
+            } finally {
+                // Clean up
+                document.body.removeChild(pdfElement);
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            if (confirm(state.isHindi ? 'क्या आप वाकई फॉर्म रीसेट करना चाहते हैं? सभी डेटा खो जाएगा।' : 'Are you sure you want to reset the form? All data will be lost.')) {
+                // Reset form fields
+                document.getElementById('siteLocation').value = '';
+                document.getElementById('confinedSpaceId').value = '';
+                document.getElementById('workToBeDone').value = '';
+                
+                // Set default dates
+                const today = new Date();
+                const permitExpiry = new Date(today);
+                permitExpiry.setHours(today.getHours() + 8);
+                
+                document.getElementById('entryDate').valueAsDate = today;
+                document.getElementById('permitExpiry').valueAsDate = permitExpiry;
+                
+                document.getElementById('entrySupervisor').value = '';
+                document.getElementById('additionalHazards').value = '';
+                document.getElementById('entrantNames').value = '';
+                document.getElementById('attendantName').value = '';
+                document.getElementById('entrySupervisorSign').value = '';
+                document.getElementById('safetyOfficerSign').value = '';
+                
+                // Reset all checkboxes
+                document.querySelectorAll('.checklist-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Update summary and permit display
+                updateSummary();
+                updatePermitDisplay();
+                
+                // If in preview, go back to form
+                if (!document.getElementById('previewView').classList.contains('hidden')) {
+                    backToForm();
+                }
+                
+                showNotification(lang.formReset);
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

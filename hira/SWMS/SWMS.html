@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWMS Maker - Safe Work Method Statement Generator | HSE Tools</title>
+    <meta name="description" content="Professional SWMS Maker for creating comprehensive Safe Work Method Statements. Generate, customize, and export SWMS documents for workplace safety compliance.">
+    <meta name="keywords" content="SWMS, safe work method statement, JSA, job safety analysis, workplace safety, risk assessment, HSE, safety procedures">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        :root {
+            --primary: #2c5aa0;
+            --primary-dark: #1e3d72;
+            --secondary: #4caf50;
+            --secondary-dark: #388e3c;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --info: #2196f3;
+            --light: #f5f7fa;
+            --dark: #333;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --bg-color: #f5f7fa;
+            --card-bg: white;
+            --text-color: #333;
+        }
+        
+        .dark-mode {
+            --bg-color: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --text-color: #f0f0f0;
+            --border: #444;
+            --light: #2d2d2d;
+            --gray: #aaa;
+        }
+        
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* Header - Auto Adjust */
+        header {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .logo-text h1 {
+            font-size: clamp(20px, 4vw, 28px);
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .logo-text p {
+            color: var(--gray);
+            font-size: clamp(12px, 2vw, 14px);
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        /* Buttons - Auto Adjust */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+        
+        .btn-success {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: var(--secondary-dark);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-back {
+            background: var(--gray);
+            color: white;
+        }
+        
+        /* Card Container - Auto Adjust Grid */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Form Elements - Auto Adjust */
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border 0.3s;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+        }
+        
+        /* Form Grid - Auto Adjust */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        /* Toggle Buttons */
+        .toggle-buttons {
+            display: flex;
+            gap: 10px;
+            margin-left: auto;
+        }
+        
+        .toggle-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Risk Matrix */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1px;
+            margin: 15px 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .risk-cell {
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .risk-low {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .risk-medium {
+            background-color: #ffc107;
+            color: black;
+        }
+        
+        .risk-high {
+            background-color: #ff9800;
+            color: black;
+        }
+        
+        .risk-very-high {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .risk-extreme {
+            background-color: #8b0000;
+            color: white;
+        }
+        
+        /* Steps Table */
+        .steps-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .steps-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .steps-table td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .steps-table input, .steps-table textarea, .steps-table select {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .steps-table textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        
+        .remove-btn {
+            color: var(--danger);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: color 0.3s;
+            padding: 5px;
+        }
+        
+        .remove-btn:hover {
+            color: #b71c1c;
+        }
+        
+        /* Tip Box */
+        .tip {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: var(--gray);
+            margin-top: 15px;
+            border-left: 4px solid var(--info);
+        }
+        
+        /* Footer Note */
+        .footer-note {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--gray);
+            text-align: center;
+            background: var(--card-bg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        /* Popup Preview - Auto Adjust */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+        
+        .popup-content {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: min(95%, 900px);
+            max-height: 90vh;
+            border-radius: 8px;
+            overflow-y: auto;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+        
+        .popup-close:hover {
+            color: var(--text-color);
+        }
+        
+        .popup-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        /* A4 Preview - Auto Adjust */
+        .a4-preview {
+            width: 100%;
+            max-width: 210mm;
+            min-height: 297mm;
+            padding: 15mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border: 1px solid #ccc;
+        }
+        
+        .a4-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .a4-header h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: clamp(20px, 4vw, 24px);
+        }
+        
+        .a4-date {
+            color: var(--gray);
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .a4-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #fafbfc;
+        }
+        
+        .a4-section h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            font-size: clamp(16px, 3vw, 18px);
+        }
+        
+        .a4-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .a4-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .a4-box h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .a4-box .value {
+            font-size: clamp(20px, 4vw, 24px);
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        /* Preview Tables - Auto Adjust */
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: clamp(10px, 2vw, 12px);
+            border: 1px solid var(--dark);
+        }
+        
+        .preview-table th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid var(--dark);
+            font-weight: 600;
+        }
+        
+        .preview-table td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid var(--dark);
+            vertical-align: top;
+        }
+        
+        .preview-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .project-info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            border: 1px solid var(--dark);
+            font-size: clamp(11px, 2vw, 13px);
+        }
+        
+        .project-info-table th, .project-info-table td {
+            padding: 10px;
+            border: 1px solid var(--dark);
+            text-align: left;
+        }
+        
+        .project-info-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            width: 30%;
+        }
+        
+        .project-info-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .preview-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .preview-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .preview-list li:before {
+            content: "•";
+            color: var(--secondary);
+            font-size: 20px;
+        }
+        
+        /* Loading indicator for PDF generation */
+        .loading-indicator {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .loading-indicator i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Mobile-First Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+                text-align: center;
+                flex-direction: column;
+            }
+            
+            .logo {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .header-actions {
+                justify-content: center;
+            }
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin: 0 auto;
+            }
+            
+            .a4-preview {
+                padding: 10mm;
+            }
+            
+            .popup-content {
+                padding: 20px;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .steps-table {
+                min-width: 600px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .popup-actions {
+                flex-direction: column;
+            }
+            
+            .a4-preview {
+                padding: 8mm;
+            }
+            
+            .preview-table, .project-info-table {
+                font-size: 10px;
+            }
+            
+            .preview-table th, .preview-table td,
+            .project-info-table th, .project-info-table td {
+                padding: 6px 4px;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .risk-matrix {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-indicator" id="loadingIndicator">
+        <i class="fas fa-spinner"></i>
+        <p>Generating PDF, please wait...</p>
+    </div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <div class="logo-text">
+                    <h1 data-en="SWMS Maker" data-hi="एसडब्ल्यूएमएस निर्माता">SWMS Maker</h1>
+                    <p data-en="Safe Work Method Statement Generator" data-hi="सुरक्षित कार्य विधि विवरण जनरेटर">Safe Work Method Statement Generator</p>
+                </div>
+            </div>
+            <div class="toggle-buttons">
+                <button class="toggle-btn" id="languageToggle">
+                    <i class="fas fa-language"></i> <span data-en="EN/HI" data-hi="अंग्रेजी/हिंदी">EN/HI</span>
+                </button>
+                <button class="toggle-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i> <span data-en="Dark/Light" data-hi="डार्क/लाइट">Dark/Light</span>
+                </button>
+            </div>
+        </header>
+        
+        <div class="card-container">
+            <!-- Project Details Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #e3f2fd; color: #1976d2;">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h2 class="card-title" data-en="Project / Job Details" data-hi="परियोजना / कार्य विवरण">Project / Job Details</h2>
+                </div>
+                <div class="form-group">
+                    <label for="projectName" data-en="Project / Job Name" data-hi="परियोजना / कार्य का नाम">Project / Job Name</label>
+                    <input type="text" id="projectName" placeholder="e.g., Electrical Installation at Site A" data-en-placeholder="e.g., Electrical Installation at Site A" data-hi-placeholder="उदा., साइट ए पर इलेक्ट्रिकल इंस्टालेशन">
+                </div>
+                <div class="form-group">
+                    <label for="location" data-en="Location" data-hi="स्थान">Location</label>
+                    <input type="text" id="location" placeholder="Site address or area" data-en-placeholder="Site address or area" data-hi-placeholder="साइट पता या क्षेत्र">
+                </div>
+                <div class="form-group">
+                    <label for="client" data-en="Client / Company" data-hi="क्लाइंट / कंपनी">Client / Company</label>
+                    <input type="text" id="client" placeholder="e.g., ABC Construction Ltd." data-en-placeholder="e.g., ABC Construction Ltd." data-hi-placeholder="उदा., एबीसी कंस्ट्रक्शन लिमिटेड">
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="swmsNumber" data-en="SWMS Number" data-hi="एसडब्ल्यूएमएस नंबर">SWMS Number</label>
+                        <input type="text" id="swmsNumber" value="SWMS-2024-001" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="version" data-en="Version" data-hi="संस्करण">Version</label>
+                        <input type="text" id="version" value="1.0" readonly>
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="datePrepared" data-en="Date Prepared" data-hi="तैयारी की तारीख">Date Prepared</label>
+                        <input type="date" id="datePrepared">
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewDate" data-en="Review Date" data-hi="समीक्षा तिथि">Review Date</label>
+                        <input type="date" id="reviewDate">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Work Team Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #e8f5e9; color: #388e3c;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h2 class="card-title" data-en="Work Team" data-hi="कार्य दल">Work Team</h2>
+                </div>
+                <div class="form-group">
+                    <label for="supervisor" data-en="Supervisor / Person in Charge" data-hi="पर्यवेक्षक / प्रभारी व्यक्ति">Supervisor / Person in Charge</label>
+                    <input type="text" id="supervisor" placeholder="Name of supervisor" data-en-placeholder="Name of supervisor" data-hi-placeholder="पर्यवेक्षक का नाम">
+                </div>
+                <div class="form-group">
+                    <label for="workTeam" data-en="Work Team Members" data-hi="कार्य दल सदस्य">Work Team Members</label>
+                    <textarea id="workTeam" rows="3" placeholder="List all team members involved in the work" data-en-placeholder="List all team members involved in the work" data-hi-placeholder="कार्य में शामिल सभी टीम सदस्यों की सूची बनाएं"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="competencies" data-en="Required Competencies" data-hi="आवश्यक क्षमताएं">Required Competencies</label>
+                    <textarea id="competencies" rows="3" placeholder="List required skills, training, licenses" data-en-placeholder="List required skills, training, licenses" data-hi-placeholder="आवश्यक कौशल, प्रशिक्षण, लाइसेंस सूचीबद्ध करें"></textarea>
+                </div>
+            </div>
+            
+            <!-- Risk Assessment Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #ffebee; color: #d32f2f;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2 class="card-title" data-en="Risk Assessment" data-hi="जोखिम मूल्यांकन">Risk Assessment</h2>
+                </div>
+                <div class="form-group">
+                    <label data-en="Risk Matrix" data-hi="जोखिम मैट्रिक्स">Risk Matrix</label>
+                    <div class="risk-matrix">
+                        <div class="risk-cell risk-extreme" data-en="Extreme" data-hi="अत्यधिक">Extreme</div>
+                        <div class="risk-cell risk-very-high" data-en="Very High" data-hi="बहुत उच्च">Very High</div>
+                        <div class="risk-cell risk-high" data-en="High" data-hi="उच्च">High</div>
+                        <div class="risk-cell risk-medium" data-en="Medium" data-hi="मध्यम">Medium</div>
+                        <div class="risk-cell risk-low" data-en="Low" data-hi="कम">Low</div>
+                    </div>
+                </div>
+                <div class="tip" data-en="Use the risk matrix to assess the risk level for each work step. Consider likelihood and consequence." data-hi="प्रत्येक कार्य चरण के लिए जोखिम स्तर का आकलन करने के लिए जोखिम मैट्रिक्स का उपयोग करें। संभावना और परिणाम पर विचार करें।">
+                    Use the risk matrix to assess the risk level for each work step. Consider likelihood and consequence.
+                </div>
+            </div>
+            
+            <!-- Work Steps Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #fff3e0; color: #f57c00;">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h2 class="card-title" data-en="Work Steps & Controls" data-hi="कार्य चरण और नियंत्रण">Work Steps & Controls</h2>
+                </div>
+                
+                <div class="workforce-container">
+                    <table class="steps-table">
+                        <thead>
+                            <tr>
+                                <th data-en="Step No." data-hi="चरण नं.">Step No.</th>
+                                <th data-en="Work Step / Task" data-hi="कार्य चरण / कार्य">Work Step / Task</th>
+                                <th data-en="Hazards" data-hi="खतरे">Hazards</th>
+                                <th data-en="Risk Level" data-hi="जोखिम स्तर">Risk Level</th>
+                                <th data-en="Control Measures" data-hi="नियंत्रण उपाय">Control Measures</th>
+                                <th data-en="Action" data-hi="कार्रवाई">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stepsTableBody">
+                            <tr>
+                                <td><input type="text" class="step-no" value="1" readonly></td>
+                                <td><textarea class="step-task" placeholder="Describe the work step" data-en-placeholder="Describe the work step" data-hi-placeholder="कार्य चरण का वर्णन करें"></textarea></td>
+                                <td><textarea class="step-hazards" placeholder="List potential hazards" data-en-placeholder="List potential hazards" data-hi-placeholder="संभावित खतरों की सूची बनाएं"></textarea></td>
+                                <td>
+                                    <select class="step-risk">
+                                        <option value="Low" data-en="Low" data-hi="कम">Low</option>
+                                        <option value="Medium" data-en="Medium" data-hi="मध्यम">Medium</option>
+                                        <option value="High" data-en="High" data-hi="उच्च">High</option>
+                                        <option value="Very High" data-en="Very High" data-hi="बहुत उच्च">Very High</option>
+                                        <option value="Extreme" data-en="Extreme" data-hi="अत्यधिक">Extreme</option>
+                                    </select>
+                                </td>
+                                <td><textarea class="step-controls" placeholder="Describe control measures" data-en-placeholder="Describe control measures" data-hi-placeholder="नियंत्रण उपायों का वर्णन करें"></textarea></td>
+                                <td><button class="remove-btn"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="btn btn-success" id="addStepBtn">
+                    <i class="fas fa-plus"></i> <span data-en="Add Step" data-hi="चरण जोड़ें">Add Step</span>
+                </button>
+                <div class="tip" data-en="Break down the work into sequential steps. For each step, identify hazards and specify control measures." data-hi="कार्य को क्रमिक चरणों में विभाजित करें। प्रत्येक चरण के लिए, खतरों की पहचान करें और नियंत्रण उपाय निर्दिष्ट करें।">
+                    Break down the work into sequential steps. For each step, identify hazards and specify control measures.
+                </div>
+            </div>
+            
+            <!-- Emergency Procedures Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #f3e5f5; color: #7b1fa2;">
+                        <i class="fas fa-first-aid"></i>
+                    </div>
+                    <h2 class="card-title" data-en="Emergency Procedures" data-hi="आपातकालीन प्रक्रियाएं">Emergency Procedures</h2>
+                </div>
+                <div class="form-group">
+                    <label for="emergencyContacts" data-en="Emergency Contacts" data-hi="आपातकालीन संपर्क">Emergency Contacts</label>
+                    <textarea id="emergencyContacts" rows="3" placeholder="List emergency contact numbers and first aid officers" data-en-placeholder="List emergency contact numbers and first aid officers" data-hi-placeholder="आपातकालीन संपर्क नंबर और प्राथमिक चिकित्सा अधिकारियों की सूची बनाएं"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="emergencyAssembly" data-en="Emergency Assembly Point" data-hi="आपातकालीन असेंबली प्वाइंट">Emergency Assembly Point</label>
+                    <input type="text" id="emergencyAssembly" placeholder="Location of assembly point" data-en-placeholder="Location of assembly point" data-hi-placeholder="असेंबली प्वाइंट का स्थान">
+                </div>
+                <div class="form-group">
+                    <label for="firstAid" data-en="First Aid Facilities" data-hi="प्राथमिक चिकित्सा सुविधाएं">First Aid Facilities</label>
+                    <textarea id="firstAid" rows="3" placeholder="Location of first aid kits and facilities" data-en-placeholder="Location of first aid kits and facilities" data-hi-placeholder="प्राथमिक चिकित्सा किट और सुविधाओं का स्थान"></textarea>
+                </div>
+            </div>
+            
+            <!-- Equipment & PPE Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #e1f5fe; color: #0288d1;">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h2 class="card-title" data-en="Equipment & PPE" data-hi="उपकरण और पीपीई">Equipment & PPE</h2>
+                </div>
+                <div class="form-group">
+                    <label for="equipment" data-en="Equipment Required" data-hi="आवश्यक उपकरण">Equipment Required</label>
+                    <textarea id="equipment" rows="3" placeholder="List all equipment, tools, and machinery" data-en-placeholder="List all equipment, tools, and machinery" data-hi-placeholder="सभी उपकरण, औजार और मशीनरी की सूची बनाएं"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ppe" data-en="PPE Required" data-hi="आवश्यक पीपीई">PPE Required</label>
+                    <textarea id="ppe" rows="3" placeholder="List all required personal protective equipment" data-en-placeholder="List all required personal protective equipment" data-hi-placeholder="सभी आवश्यक व्यक्तिगत सुरक्षा उपकरणों की सूची बनाएं"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inspections" data-en="Pre-Start Inspections" data-hi="प्री-स्टार्ट निरीक्षण">Pre-Start Inspections</label>
+                    <textarea id="inspections" rows="3" placeholder="List equipment that requires pre-start inspection" data-en-placeholder="List equipment that requires pre-start inspection" data-hi-placeholder="प्री-स्टार्ट निरीक्षण की आवश्यकता वाले उपकरणों की सूची बनाएं"></textarea>
+                </div>
+            </div>
+            
+            <!-- Signatures Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon" style="background: #fff8e1; color: #ffa000;">
+                        <i class="fas fa-signature"></i>
+                    </div>
+                    <h2 class="card-title" data-en="Signatures" data-hi="हस्ताक्षर">Signatures</h2>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="preparedBy" data-en="Prepared By" data-hi="द्वारा तैयार">Prepared By</label>
+                        <input type="text" id="preparedBy" placeholder="Name and signature" data-en-placeholder="Name and signature" data-hi-placeholder="नाम और हस्ताक्षर">
+                    </div>
+                    <div class="form-group">
+                        <label for="approvedBy" data-en="Approved By" data-hi="द्वारा अनुमोदित">Approved By</label>
+                        <input type="text" id="approvedBy" placeholder="Name and signature" data-en-placeholder="Name and signature" data-hi-placeholder="नाम और हस्ताक्षर">
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="date" data-en="Date" data-hi="तारीख">Date</label>
+                        <input type="date" id="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewDateSig" data-en="Review Date" data-hi="समीक्षा तिथि">Review Date</label>
+                        <input type="date" id="reviewDateSig">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Actions Card -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: #e1f5fe; color: #0288d1;">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h2 class="card-title" data-en="Actions" data-hi="कार्रवाइयाँ">Actions</h2>
+            </div>
+            <div class="form-grid">
+                <button class="btn btn-primary" id="previewBtn">
+                    <i class="fas fa-eye"></i> <span data-en="Preview" data-hi="पूर्वावलोकन">Preview</span>
+                </button>
+                <button class="btn btn-success" id="downloadBtn">
+                    <i class="fas fa-download"></i> <span data-en="Download PDF" data-hi="पीडीएफ डाउनलोड करें">Download PDF</span>
+                </button>
+                <button class="btn btn-danger" id="resetBtn">
+                    <i class="fas fa-redo"></i> <span data-en="Reset" data-hi="रीसेट">Reset</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="footer-note" data-en="This SWMS must be reviewed regularly and whenever there are changes to the work, work environment, or after an incident." data-hi="इस एसडब्ल्यूएमएस की नियमित रूप से समीक्षा की जानी चाहिए और जब भी कार्य, कार्य वातावरण में परिवर्तन हो, या किसी घटना के बाद।">
+            This SWMS must be reviewed regularly and whenever there are changes to the work, work environment, or after an incident.
+        </div>
+    </div>
+
+    <!-- Popup Preview -->
+    <div class="popup-overlay" id="previewPopup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <h1 data-en="Safe Work Method Statement" data-hi="सुरक्षित कार्य विधि विवरण">Safe Work Method Statement</h1>
+                <button class="popup-close" id="closePopup">&times;</button>
+            </div>
+            
+            <!-- A4 Preview Content -->
+            <div class="a4-preview" id="a4Preview">
+                <div class="a4-header">
+                    <h1 data-en="Safe Work Method Statement" data-hi="सुरक्षित कार्य विधि विवरण">Safe Work Method Statement</h1>
+                    <p data-en="Generated preview — review and export to PDF" data-hi="जनरेटेड प्रीव्यू — समीक्षा करें और पीडीएफ में निर्यात करें">Generated preview — review and export to PDF</p>
+                    <div class="a4-date" id="previewDate"></div>
+                </div>
+                
+                <div class="a4-section">
+                    <h2 data-en="Project Information" data-hi="परियोजना जानकारी">Project Information</h2>
+                    <table class="project-info-table">
+                        <tr>
+                            <th data-en="SWMS Number" data-hi="एसडब्ल्यूएमएस नंबर">SWMS Number</th>
+                            <td id="previewSwmsNumber">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Project / Job" data-hi="परियोजना / कार्य">Project / Job</th>
+                            <td id="previewProject">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Location" data-hi="स्थान">Location</th>
+                            <td id="previewLocation">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Client" data-hi="क्लाइंट">Client</th>
+                            <td id="previewClient">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Date Prepared" data-hi="तैयारी की तारीख">Date Prepared</th>
+                            <td id="previewDatePrepared">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Review Date" data-hi="समीक्षा तिथि">Review Date</th>
+                            <td id="previewReviewDate">--</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="a4-section">
+                    <h2 data-en="Work Team" data-hi="कार्य दल">Work Team</h2>
+                    <table class="project-info-table">
+                        <tr>
+                            <th data-en="Supervisor" data-hi="पर्यवेक्षक">Supervisor</th>
+                            <td id="previewSupervisor">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Work Team" data-hi="कार्य दल">Work Team</th>
+                            <td id="previewWorkTeam">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Competencies" data-hi="क्षमताएं">Competencies</th>
+                            <td id="previewCompetencies">--</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="a4-section">
+                    <h2 data-en="Work Steps & Controls" data-hi="कार्य चरण और नियंत्रण">Work Steps & Controls</h2>
+                    <table class="preview-table" id="previewStepsTable">
+                        <thead>
+                            <tr>
+                                <th data-en="Step" data-hi="चरण">Step</th>
+                                <th data-en="Work Step / Task" data-hi="कार्य चरण / कार्य">Work Step / Task</th>
+                                <th data-en="Hazards" data-hi="खतरे">Hazards</th>
+                                <th data-en="Risk Level" data-hi="जोखिम स्तर">Risk Level</th>
+                                <th data-en="Control Measures" data-hi="नियंत्रण उपाय">Control Measures</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="a4-section">
+                    <h2 data-en="Emergency Procedures" data-hi="आपातकालीन प्रक्रियाएं">Emergency Procedures</h2>
+                    <table class="project-info-table">
+                        <tr>
+                            <th data-en="Emergency Contacts" data-hi="आपातकालीन संपर्क">Emergency Contacts</th>
+                            <td id="previewEmergencyContacts">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Assembly Point" data-hi="असेंबली प्वाइंट">Assembly Point</th>
+                            <td id="previewAssemblyPoint">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="First Aid" data-hi="प्राथमिक चिकित्सा">First Aid</th>
+                            <td id="previewFirstAid">--</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="a4-section">
+                    <h2 data-en="Equipment & PPE" data-hi="उपकरण और पीपीई">Equipment & PPE</h2>
+                    <table class="project-info-table">
+                        <tr>
+                            <th data-en="Equipment" data-hi="उपकरण">Equipment</th>
+                            <td id="previewEquipment">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="PPE" data-hi="पीपीई">PPE</th>
+                            <td id="previewPpe">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Inspections" data-hi="निरीक्षण">Inspections</th>
+                            <td id="previewInspections">--</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="a4-section">
+                    <h2 data-en="Signatures" data-hi="हस्ताक्षर">Signatures</h2>
+                    <table class="project-info-table">
+                        <tr>
+                            <th data-en="Prepared By" data-hi="द्वारा तैयार">Prepared By</th>
+                            <td id="previewPreparedBy">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Approved By" data-hi="द्वारा अनुमोदित">Approved By</th>
+                            <td id="previewApprovedBy">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Date" data-hi="तारीख">Date</th>
+                            <td id="previewDateSig">--</td>
+                        </tr>
+                        <tr>
+                            <th data-en="Review Date" data-hi="समीक्षा तिथि">Review Date</th>
+                            <td id="previewReviewDateSig">--</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="popup-actions">
+                <button class="btn btn-success" id="downloadFromPopup">
+                    <i class="fas fa-download"></i> <span data-en="Download PDF" data-hi="पीडीएफ डाउनलोड करें">Download PDF</span>
+                </button>
+                <button class="btn btn-outline" id="closePopupBtn">
+                    <i class="fas fa-times"></i> <span data-en="Close" data-hi="बंद करें">Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Translation functionality
+        let currentLanguage = 'en'; // Default language
+        
+        // Language toggle functionality
+        document.getElementById('languageToggle').addEventListener('click', function() {
+            // Toggle between English and Hindi
+            currentLanguage = currentLanguage === 'en' ? 'hi' : 'en';
+            translatePage(currentLanguage);
+        });
+        
+        // Function to translate the entire page
+        function translatePage(language) {
+            // Update all elements with data-en and data-hi attributes
+            document.querySelectorAll('[data-en], [data-hi]').forEach(element => {
+                if (language === 'en') {
+                    // Set English text
+                    if (element.hasAttribute('data-en')) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            if (element.hasAttribute('data-en-placeholder')) {
+                                element.placeholder = element.getAttribute('data-en-placeholder');
+                            }
+                        } else if (element.tagName === 'OPTION') {
+                            element.textContent = element.getAttribute('data-en');
+                        } else {
+                            element.textContent = element.getAttribute('data-en');
+                        }
+                    }
+                } else {
+                    // Set Hindi text
+                    if (element.hasAttribute('data-hi')) {
+                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                            if (element.hasAttribute('data-hi-placeholder')) {
+                                element.placeholder = element.getAttribute('data-hi-placeholder');
+                            }
+                        } else if (element.tagName === 'OPTION') {
+                            element.textContent = element.getAttribute('data-hi');
+                        } else {
+                            element.textContent = element.getAttribute('data-hi');
+                        }
+                    }
+                }
+            });
+            
+            // Update the language toggle button text
+            const toggleBtn = document.getElementById('languageToggle');
+            const toggleText = toggleBtn.querySelector('span');
+            if (language === 'en') {
+                toggleText.textContent = 'EN/HI';
+            } else {
+                toggleText.textContent = 'अंग्रेजी/हिंदी';
+            }
+            
+            // Update preview if it's open
+            if (document.getElementById('previewPopup').style.display === 'flex') {
+                updatePreview();
+            }
+        }
+        
+        // Set current date for preview
+        document.getElementById('previewDate').textContent = new Date().toLocaleString();
+        
+        // Theme toggle functionality
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const icon = this.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                this.querySelector('span').textContent = currentLanguage === 'en' ? 'Light/Dark' : 'लाइट/डार्क';
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                this.querySelector('span').textContent = currentLanguage === 'en' ? 'Dark/Light' : 'डार्क/लाइट';
+            }
+        });
+        
+        // Add Step functionality
+        document.getElementById('addStepBtn').addEventListener('click', function() {
+            const tableBody = document.getElementById('stepsTableBody');
+            const newRow = document.createElement('tr');
+            const stepNumber = tableBody.children.length + 1;
+            
+            const placeholderText = currentLanguage === 'en' ? 
+                {task: 'Describe the work step', hazards: 'List potential hazards', controls: 'Describe control measures'} :
+                {task: 'कार्य चरण का वर्णन करें', hazards: 'संभावित खतरों की सूची बनाएं', controls: 'नियंत्रण उपायों का वर्णन करें'};
+            
+            newRow.innerHTML = `
+                <td><input type="text" class="step-no" value="${stepNumber}" readonly></td>
+                <td><textarea class="step-task" placeholder="${placeholderText.task}"></textarea></td>
+                <td><textarea class="step-hazards" placeholder="${placeholderText.hazards}"></textarea></td>
+                <td>
+                    <select class="step-risk">
+                        <option value="Low" data-en="Low" data-hi="कम">Low</option>
+                        <option value="Medium" data-en="Medium" data-hi="मध्यम">Medium</option>
+                        <option value="High" data-en="High" data-hi="उच्च">High</option>
+                        <option value="Very High" data-en="Very High" data-hi="बहुत उच्च">Very High</option>
+                        <option value="Extreme" data-en="Extreme" data-hi="अत्यधिक">Extreme</option>
+                    </select>
+                </td>
+                <td><textarea class="step-controls" placeholder="${placeholderText.controls}"></textarea></td>
+                <td><button class="remove-btn"><i class="fas fa-trash"></i></button></td>
+            `;
+            
+            tableBody.appendChild(newRow);
+            
+            // Add event listener to the new remove button
+            newRow.querySelector('.remove-btn').addEventListener('click', function() {
+                tableBody.removeChild(newRow);
+                // Update step numbers
+                updateStepNumbers();
+            });
+        });
+        
+        // Add event listeners to existing remove buttons
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const row = this.closest('tr');
+                row.parentNode.removeChild(row);
+                // Update step numbers
+                updateStepNumbers();
+            });
+        });
+        
+        // Function to update step numbers after deletion
+        function updateStepNumbers() {
+            const rows = document.querySelectorAll('#stepsTableBody tr');
+            rows.forEach((row, index) => {
+                row.querySelector('.step-no').value = index + 1;
+            });
+        }
+        
+        // Preview functionality
+        function updatePreview() {
+            // Update project details
+            document.getElementById('previewSwmsNumber').textContent = 
+                document.getElementById('swmsNumber').value || '--';
+            document.getElementById('previewProject').textContent = 
+                document.getElementById('projectName').value || '--';
+            document.getElementById('previewLocation').textContent = 
+                document.getElementById('location').value || '--';
+            document.getElementById('previewClient').textContent = 
+                document.getElementById('client').value || '--';
+            document.getElementById('previewDatePrepared').textContent = 
+                document.getElementById('datePrepared').value || '--';
+            document.getElementById('previewReviewDate').textContent = 
+                document.getElementById('reviewDate').value || '--';
+            
+            // Update work team
+            document.getElementById('previewSupervisor').textContent = 
+                document.getElementById('supervisor').value || '--';
+            document.getElementById('previewWorkTeam').textContent = 
+                document.getElementById('workTeam').value || '--';
+            document.getElementById('previewCompetencies').textContent = 
+                document.getElementById('competencies').value || '--';
+            
+            // Update steps table in preview
+            const previewTable = document.getElementById('previewStepsTable').getElementsByTagName('tbody')[0];
+            previewTable.innerHTML = '';
+            
+            const rows = document.querySelectorAll('#stepsTableBody tr');
+            rows.forEach(row => {
+                const stepNo = row.querySelector('.step-no').value || '--';
+                const task = row.querySelector('.step-task').value || '--';
+                const hazards = row.querySelector('.step-hazards').value || '--';
+                const risk = row.querySelector('.step-risk').value || '--';
+                const controls = row.querySelector('.step-controls').value || '--';
+                
+                const newRow = previewTable.insertRow();
+                newRow.innerHTML = `
+                    <td>${stepNo}</td>
+                    <td>${task}</td>
+                    <td>${hazards}</td>
+                    <td>${risk}</td>
+                    <td>${controls}</td>
+                `;
+            });
+            
+            // Update emergency procedures
+            document.getElementById('previewEmergencyContacts').textContent = 
+                document.getElementById('emergencyContacts').value || '--';
+            document.getElementById('previewAssemblyPoint').textContent = 
+                document.getElementById('emergencyAssembly').value || '--';
+            document.getElementById('previewFirstAid').textContent = 
+                document.getElementById('firstAid').value || '--';
+            
+            // Update equipment & PPE
+            document.getElementById('previewEquipment').textContent = 
+                document.getElementById('equipment').value || '--';
+            document.getElementById('previewPpe').textContent = 
+                document.getElementById('ppe').value || '--';
+            document.getElementById('previewInspections').textContent = 
+                document.getElementById('inspections').value || '--';
+            
+            // Update signatures
+            document.getElementById('previewPreparedBy').textContent = 
+                document.getElementById('preparedBy').value || '--';
+            document.getElementById('previewApprovedBy').textContent = 
+                document.getElementById('approvedBy').value || '--';
+            document.getElementById('previewDateSig').textContent = 
+                document.getElementById('date').value || '--';
+            document.getElementById('previewReviewDateSig').textContent = 
+                document.getElementById('reviewDateSig').value || '--';
+        }
+        
+        // Popup functionality
+        function openPopup() {
+            updatePreview();
+            document.getElementById('previewPopup').style.display = 'flex';
+        }
+        
+        function closePopup() {
+            document.getElementById('previewPopup').style.display = 'none';
+        }
+        
+        // Add event listeners for preview buttons
+        document.getElementById('previewBtn').addEventListener('click', openPopup);
+        
+        // Close popup events
+        document.getElementById('closePopup').addEventListener('click', closePopup);
+        document.getElementById('closePopupBtn').addEventListener('click', closePopup);
+        
+        // Close popup when clicking outside
+        document.getElementById('previewPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+        
+        // PDF Download functionality using html2canvas and jsPDF
+        function downloadPDF() {
+            showLoadingIndicator();
+            
+            updatePreview();
+            const element = document.getElementById('a4Preview');
+            
+            // Use html2canvas to convert the element to an image
+            html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                logging: false
+            }).then(canvas => {
+                // Convert canvas to image data
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                
+                // Create PDF using jsPDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Calculate dimensions to fit the image in A4
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                // Add first page
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add additional pages if content is longer than one page
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Save the PDF
+                pdf.save('safe-work-method-statement.pdf');
+                hideLoadingIndicator();
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                hideLoadingIndicator();
+                alert(currentLanguage === 'en' ? 
+                    'Error generating PDF. Please try again.' : 
+                    'पीडीएफ जनरेट करने में त्रुटि। कृपया पुनः प्रयास करें।');
+            });
+        }
+        
+        // Loading indicator functions
+        function showLoadingIndicator() {
+            document.getElementById('loadingIndicator').style.display = 'flex';
+        }
+        
+        function hideLoadingIndicator() {
+            document.getElementById('loadingIndicator').style.display = 'none';
+        }
+        
+        // Add event listeners for download buttons
+        document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+        document.getElementById('downloadFromPopup').addEventListener('click', downloadPDF);
+        
+        // Reset functionality
+        function resetForm() {
+            document.querySelectorAll('input, textarea, select').forEach(element => {
+                if (element.type !== 'button' && element.type !== 'submit' && 
+                    element.id !== 'swmsNumber' && element.id !== 'version') {
+                    if (element.type === 'checkbox') {
+                        element.checked = false;
+                    } else {
+                        element.value = '';
+                    }
+                }
+            });
+            
+            // Reset steps table to one row
+            const tableBody = document.getElementById('stepsTableBody');
+            const placeholderText = currentLanguage === 'en' ? 
+                {task: 'Describe the work step', hazards: 'List potential hazards', controls: 'Describe control measures'} :
+                {task: 'कार्य चरण का वर्णन करें', hazards: 'संभावित खतरों की सूची बनाएं', controls: 'नियंत्रण उपायों का वर्णन करें'};
+            
+            tableBody.innerHTML = `
+                <tr>
+                    <td><input type="text" class="step-no" value="1" readonly></td>
+                    <td><textarea class="step-task" placeholder="${placeholderText.task}"></textarea></td>
+                    <td><textarea class="step-hazards" placeholder="${placeholderText.hazards}"></textarea></td>
+                    <td>
+                        <select class="step-risk">
+                            <option value="Low" data-en="Low" data-hi="कम">Low</option>
+                            <option value="Medium" data-en="Medium" data-hi="मध्यम">Medium</option>
+                            <option value="High" data-en="High" data-hi="उच्च">High</option>
+                            <option value="Very High" data-en="Very High" data-hi="बहुत उच्च">Very High</option>
+                            <option value="Extreme" data-en="Extreme" data-hi="अत्यधिक">Extreme</option>
+                        </select>
+                    </td>
+                    <td><textarea class="step-controls" placeholder="${placeholderText.controls}"></textarea></td>
+                    <td><button class="remove-btn"><i class="fas fa-trash"></i></button></td>
+                </tr>
+            `;
+            
+            // Reattach event listener to the remove button
+            document.querySelector('#stepsTableBody .remove-btn').addEventListener('click', function() {
+                const row = this.closest('tr');
+                row.parentNode.removeChild(row);
+                updateStepNumbers();
+            });
+            
+            updatePreview();
+        }
+        
+        document.getElementById('resetBtn').addEventListener('click', resetForm);
+        
+        // Set current date as default for date fields
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];
+        document.getElementById('datePrepared').value = formattedDate;
+        document.getElementById('date').value = formattedDate;
+        
+        // Set review date to 30 days from now
+        const reviewDate = new Date();
+        reviewDate.setDate(today.getDate() + 30);
+        const formattedReviewDate = reviewDate.toISOString().split('T')[0];
+        document.getElementById('reviewDate').value = formattedReviewDate;
+        document.getElementById('reviewDateSig').value = formattedReviewDate;
+    </script>
+</body>
+</html>

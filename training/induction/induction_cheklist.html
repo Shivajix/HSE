@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Induction Checklist | Workplace Safety Orientation</title>
+    <meta name="description" content="Complete safety induction checklist for new employees and contractors. Document orientation topics, hazards, and emergency procedures.">
+    <meta name="keywords" content="safety induction, orientation checklist, workplace safety, employee onboarding, contractor safety">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3c4e;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f9fa;
+            --border-color: #ddd;
+        }
+
+        .dark-mode {
+            --primary-color: #34495e;
+            --secondary-color: #2980b9;
+            --success-color: #2ecc71;
+            --danger-color: #c0392b;
+            --warning-color: #e67e22;
+            --light-color: #2c3e50;
+            --dark-color: #1a252f;
+            --text-color: #ecf0f1;
+            --bg-color: #1e2a3a;
+            --card-bg: #2c3c4e;
+            --border-color: #34495e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-light {
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        .form-section {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .dynamic-list {
+            margin-top: 10px;
+        }
+
+        .list-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .list-item input {
+            flex: 1;
+        }
+
+        .remove-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .topic-category {
+            background-color: var(--bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .topic-category h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+        }
+
+        .topic-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 5px;
+        }
+
+        .topic-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .topic-item label {
+            margin-bottom: 0;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-count {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .preview-section {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .status-completed {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: var(--warning-color);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .header-controls {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .list-item {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Safety Induction Checklist</h1>
+                <p>Complete workplace safety orientation for new employees and contractors</p>
+            </div>
+            <div class="header-controls">
+                <button id="translateBtn" class="btn-light">
+                    <span class="lang-text">हिंदी</span>
+                </button>
+                <button id="darkModeBtn" class="btn-light">
+                    <span class="mode-text">Dark Mode</span>
+                </button>
+                <button id="previewBtn" class="btn-primary">Preview</button>
+                <button id="downloadBtn" class="btn-success">Download PDF</button>
+                <button id="resetBtn" class="btn-danger">Reset</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="formView">
+                <div class="form-section">
+                    <h2>Induction Details</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="projectSite">Project / Site</label>
+                            <input type="text" id="projectSite" placeholder="Enter project or site name">
+                        </div>
+                        <div class="form-group">
+                            <label for="language">Language</label>
+                            <select id="language">
+                                <option value="english" selected>English</option>
+                                <option value="hindi">Hindi</option>
+                                <option value="bilingual">Bilingual</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dateTime">Date & Time</label>
+                            <input type="datetime-local" id="dateTime" value="2025-11-01T17:21">
+                        </div>
+                        <div class="form-group">
+                            <label for="conductedBy">Conducted by</label>
+                            <input type="text" id="conductedBy" placeholder="Trainer name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Inductees Roster</h2>
+                    <div class="form-group">
+                        <label>Add inductees (name, designation, company)</label>
+                        <div class="dynamic-list" id="inducteesList">
+                            <div class="list-item">
+                                <input type="text" placeholder="Name">
+                                <input type="text" placeholder="Designation">
+                                <input type="text" placeholder="Company">
+                                <button class="remove-btn">×</button>
+                            </div>
+                        </div>
+                        <button class="add-btn" id="addInductee">Add Inductee</button>
+                    </div>
+                </div>
+
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count" id="topicsCount">0</div>
+                        <div>Topics Covered</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="inducteesCount">1</div>
+                        <div>Inductees</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Induction Topics</h2>
+                    <div class="topics-grid">
+                        <!-- Basic Site Information -->
+                        <div class="topic-category">
+                            <h3>Basic Site Information</h3>
+                            <div class="topic-item">
+                                <input type="checkbox" id="topic1" class="topic-checkbox">
+                                <label for="topic1">Site name & scope of work</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="topic2" class="topic-checkbox">
+                                <label for="topic2">Main business & overview</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="topic3" class="topic-checkbox">
+                                <label for="topic3">Housekeeping & accessibility</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="topic4" class="topic-checkbox">
+                                <label for="topic4">Work area & equipment overview</label>
+                            </div>
+                        </div>
+
+                        <!-- General Hazards -->
+                        <div class="topic-category">
+                            <h3>General Hazards at Work Area</h3>
+                            <div class="topic-item">
+                                <input type="checkbox" id="hazard1" class="topic-checkbox">
+                                <label for="hazard1">Safety management systems</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="hazard2" class="topic-checkbox">
+                                <label for="hazard2">Mobile equipment operations</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="hazard3" class="topic-checkbox">
+                                <label for="hazard3">Traffic control & flow</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="hazard4" class="topic-checkbox">
+                                <label for="hazard4">Confined space awareness</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="hazard5" class="topic-checkbox">
+                                <label for="hazard5">Mechanical hazards</label>
+                            </div>
+                        </div>
+
+                        <!-- PPE Requirements -->
+                        <div class="topic-category">
+                            <h3>PPE Requirements</h3>
+                            <div class="topic-item">
+                                <input type="checkbox" id="ppe1" class="topic-checkbox">
+                                <label for="ppe1">Head protection (helmets)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="ppe2" class="topic-checkbox">
+                                <label for="ppe2">Eye & face protection</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="ppe3" class="topic-checkbox">
+                                <label for="ppe3">Hearing protection</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="ppe4" class="topic-checkbox">
+                                <label for="ppe4">Respiratory protection</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="ppe5" class="topic-checkbox">
+                                <label for="ppe5">Hand & foot protection</label>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Information -->
+                        <div class="topic-category">
+                            <h3>Emergency Information</h3>
+                            <div class="topic-item">
+                                <input type="checkbox" id="emergency1" class="topic-checkbox">
+                                <label for="emergency1">Assembly points & evacuation</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="emergency2" class="topic-checkbox">
+                                <label for="emergency2">Alarm systems</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="emergency3" class="topic-checkbox">
+                                <label for="emergency3">First aid locations</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="emergency4" class="topic-checkbox">
+                                <label for="emergency4">Emergency contacts</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="emergency5" class="topic-checkbox">
+                                <label for="emergency5">Fire fighting equipment</label>
+                            </div>
+                        </div>
+
+                        <!-- Permits & Authorization -->
+                        <div class="topic-category">
+                            <h3>Permits & Authorization</h3>
+                            <div class="topic-item">
+                                <input type="checkbox" id="permit1" class="topic-checkbox">
+                                <label for="permit1">Hot work permits</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="permit2" class="topic-checkbox">
+                                <label for="permit2">Confined space entry</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="permit3" class="topic-checkbox">
+                                <label for="permit3">Work at height procedures</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="permit4" class="topic-checkbox">
+                                <label for="permit4">Electrical safety (LOTO)</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="permit5" class="topic-checkbox">
+                                <label for="permit5">Excavation permits</label>
+                            </div>
+                        </div>
+
+                        <!-- Site Tour Items -->
+                        <div class="topic-category">
+                            <h3>Site Tour Items</h3>
+                            <div class="topic-item">
+                                <input type="checkbox" id="tour1" class="topic-checkbox">
+                                <label for="tour1">Welfare facilities</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="tour2" class="topic-checkbox">
+                                <label for="tour2">Emergency exits & routes</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="tour3" class="topic-checkbox">
+                                <label for="tour3">Material storage areas</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="tour4" class="topic-checkbox">
+                                <label for="tour4">Restricted areas</label>
+                            </div>
+                            <div class="topic-item">
+                                <input type="checkbox" id="tour5" class="topic-checkbox">
+                                <label for="tour5">Vehicle & pedestrian routes</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Additional Notes</h2>
+                    <div class="form-group">
+                        <textarea id="additionalNotes" placeholder="Additional comments, restrictions, special briefings, etc."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="understandingConfirmed">
+                            Inductee confirms understanding of safety risks and compliance requirements
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="previewView" class="hidden">
+                <div class="preview-section">
+                    <h2>Safety Induction Checklist Preview</h2>
+                    <div class="header-controls">
+                        <button id="backToFormBtn" class="btn-primary">Back to Form</button>
+                        <button id="downloadFromPreviewBtn" class="btn-success">Download PDF</button>
+                    </div>
+                    <div id="previewContent"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Translation data
+        const translations = {
+            en: {
+                title: "Safety Induction Checklist",
+                subtitle: "Complete workplace safety orientation for new employees and contractors",
+                projectSite: "Project / Site",
+                language: "Language",
+                dateTime: "Date & Time",
+                conductedBy: "Conducted by",
+                inductees: "Inductees Roster",
+                addInductee: "Add Inductee",
+                name: "Name",
+                designation: "Designation",
+                company: "Company",
+                topicsCovered: "Topics Covered",
+                inductionTopics: "Induction Topics",
+                additionalNotes: "Additional Notes",
+                understandingConfirmed: "Inductee confirms understanding of safety risks and compliance requirements",
+                preview: "Preview",
+                downloadPDF: "Download PDF",
+                reset: "Reset",
+                backToForm: "Back to Form",
+                remove: "Remove",
+                safetyInductionReport: "Safety Induction Checklist Report",
+                inductionDetails: "Induction Details",
+                basicSiteInfo: "Basic Site Information",
+                generalHazards: "General Hazards at Work Area",
+                ppeRequirements: "PPE Requirements",
+                emergencyInfo: "Emergency Information",
+                permitsAuthorization: "Permits & Authorization",
+                siteTour: "Site Tour Items",
+                noInductees: "No inductees added",
+                completed: "Completed",
+                pending: "Pending",
+                generatedOn: "Generated on",
+                generatedBy: "Generated by The HSE Tools - Safety Induction Checklist"
+            },
+            hi: {
+                title: "सुरक्षा प्रेरण चेकलिस्ट",
+                subtitle: "नए कर्मचारियों और ठेकेदारों के लिए संपूर्ण कार्यस्थल सुरक्षा अभिविन्यास",
+                projectSite: "परियोजना / साइट",
+                language: "भाषा",
+                dateTime: "दिनांक और समय",
+                conductedBy: "द्वारा आयोजित",
+                inductees: "प्रेरित लोगों की सूची",
+                addInductee: "प्रेरित जोड़ें",
+                name: "नाम",
+                designation: "पदनाम",
+                company: "कंपनी",
+                topicsCovered: "विषय कवर किए गए",
+                inductionTopics: "प्रेरण विषय",
+                additionalNotes: "अतिरिक्त नोट्स",
+                understandingConfirmed: "प्रेरित सुरक्षा जोखिमों और अनुपालन आवश्यकताओं की समझ की पुष्टि करता है",
+                preview: "पूर्वावलोकन",
+                downloadPDF: "PDF डाउनलोड करें",
+                reset: "रीसेट",
+                backToForm: "फॉर्म पर वापस जाएं",
+                remove: "हटाएं",
+                safetyInductionReport: "सुरक्षा प्रेरण चेकलिस्ट रिपोर्ट",
+                inductionDetails: "प्रेरण विवरण",
+                basicSiteInfo: "मूल साइट जानकारी",
+                generalHazards: "कार्य क्षेत्र में सामान्य खतरे",
+                ppeRequirements: "पीपीई आवश्यकताएँ",
+                emergencyInfo: "आपातकालीन जानकारी",
+                permitsAuthorization: "परमिट और प्राधिकरण",
+                siteTour: "साइट टूर आइटम",
+                noInductees: "कोई प्रेरित जोड़ा नहीं गया",
+                completed: "पूरा हुआ",
+                pending: "लंबित",
+                generatedOn: "पर जनरेट किया गया",
+                generatedBy: "द एचएसई टूल्स - सुरक्षा प्रेरण चेकलिस्ट द्वारा जनरेट किया गया"
+            }
+        };
+
+        // State management
+        let state = {
+            isHindi: false,
+            isDarkMode: false
+        };
+
+        // Initialize the application
+        function init() {
+            setupEventListeners();
+            updateSummary();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mode and language toggles
+            document.getElementById('translateBtn').addEventListener('click', toggleLanguage);
+            document.getElementById('darkModeBtn').addEventListener('click', toggleDarkMode);
+            
+            // Main buttons
+            document.getElementById('previewBtn').addEventListener('click', showPreview);
+            document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+            document.getElementById('resetBtn').addEventListener('click', resetForm);
+            
+            // Preview buttons
+            document.getElementById('backToFormBtn').addEventListener('click', backToForm);
+            document.getElementById('downloadFromPreviewBtn').addEventListener('click', downloadPDF);
+            
+            // Dynamic list management
+            document.getElementById('addInductee').addEventListener('click', addInductee);
+            
+            // Topic checkboxes
+            document.addEventListener('change', function(e) {
+                if (e.target.classList.contains('topic-checkbox')) {
+                    updateSummary();
+                }
+            });
+            
+            // Delegated event listeners for dynamic elements
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-btn')) {
+                    e.target.closest('.list-item').remove();
+                    updateSummary();
+                }
+            });
+        }
+
+        // Add inductee row
+        function addInductee() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            const inducteesList = document.getElementById('inducteesList');
+            const newItem = document.createElement('div');
+            newItem.className = 'list-item';
+            newItem.innerHTML = `
+                <input type="text" placeholder="${lang.name}">
+                <input type="text" placeholder="${lang.designation}">
+                <input type="text" placeholder="${lang.company}">
+                <button class="remove-btn">×</button>
+            `;
+            inducteesList.appendChild(newItem);
+            updateSummary();
+        }
+
+        // Update summary counts
+        function updateSummary() {
+            // Count topics
+            const topicCheckboxes = document.querySelectorAll('.topic-checkbox');
+            const completedTopics = Array.from(topicCheckboxes).filter(cb => cb.checked).length;
+            document.getElementById('topicsCount').textContent = completedTopics;
+            
+            // Count inductees
+            const inducteeCount = document.querySelectorAll('#inducteesList .list-item').length;
+            document.getElementById('inducteesCount').textContent = inducteeCount;
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            state.isHindi = !state.isHindi;
+            const btn = document.getElementById('translateBtn');
+            btn.querySelector('.lang-text').textContent = state.isHindi ? 'English' : 'हिंदी';
+            
+            // Update all text content
+            updateLanguage();
+        }
+
+        // Update all text content based on current language
+        function updateLanguage() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Update header
+            document.querySelector('h1').textContent = lang.title;
+            document.querySelector('header p').textContent = lang.subtitle;
+            
+            // Update form labels
+            document.querySelector('label[for="projectSite"]').textContent = lang.projectSite;
+            document.querySelector('label[for="language"]').textContent = lang.language;
+            document.querySelector('label[for="dateTime"]').textContent = lang.dateTime;
+            document.querySelector('label[for="conductedBy"]').textContent = lang.conductedBy;
+            
+            // Update section headers
+            document.querySelectorAll('.form-section h2')[0].textContent = lang.inductionDetails;
+            document.querySelectorAll('.form-section h2')[1].textContent = lang.inductees;
+            document.querySelectorAll('.form-section h2')[2].textContent = lang.inductionTopics;
+            document.querySelectorAll('.form-section h2')[3].textContent = lang.additionalNotes;
+            
+            // Update buttons
+            document.getElementById('previewBtn').textContent = lang.preview;
+            document.getElementById('downloadBtn').textContent = lang.downloadPDF;
+            document.getElementById('resetBtn').textContent = lang.reset;
+            document.getElementById('backToFormBtn').textContent = lang.backToForm;
+            document.getElementById('downloadFromPreviewBtn').textContent = lang.downloadPDF;
+            document.getElementById('addInductee').textContent = lang.addInductee;
+            
+            // Update placeholders
+            document.getElementById('projectSite').placeholder = lang.projectSite;
+            document.getElementById('conductedBy').placeholder = lang.conductedBy;
+            document.getElementById('additionalNotes').placeholder = lang.additionalNotes;
+            
+            // Update dynamic elements
+            const inducteesLabel = document.querySelector('label[for="inducteesList"]');
+            if (inducteesLabel) inducteesLabel.textContent = lang.inductees;
+            
+            // Update inductee input placeholders
+            document.querySelectorAll('#inducteesList .list-item input').forEach((input, index) => {
+                if (index % 3 === 0) input.placeholder = lang.name;
+                else if (index % 3 === 1) input.placeholder = lang.designation;
+                else input.placeholder = lang.company;
+            });
+            
+            // Update topic category headers
+            document.querySelectorAll('.topic-category h3').forEach((header, index) => {
+                const categories = [
+                    lang.basicSiteInfo,
+                    lang.generalHazards,
+                    lang.ppeRequirements,
+                    lang.emergencyInfo,
+                    lang.permitsAuthorization,
+                    lang.siteTour
+                ];
+                if (categories[index]) {
+                    header.textContent = categories[index];
+                }
+            });
+            
+            // Update understanding confirmation
+            document.querySelector('label[for="understandingConfirmed"]').innerHTML = 
+                `<input type="checkbox" id="understandingConfirmed"> ${lang.understandingConfirmed}`;
+            
+            // Update summary labels
+            document.querySelectorAll('.summary-item div:last-child')[0].textContent = lang.topicsCovered;
+            document.querySelectorAll('.summary-item div:last-child')[1].textContent = lang.inductees;
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.isDarkMode = !state.isDarkMode;
+            const btn = document.getElementById('darkModeBtn');
+            
+            if (state.isDarkMode) {
+                document.body.classList.add('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Light Mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Dark Mode';
+            }
+        }
+
+        // Show preview
+        function showPreview() {
+            document.getElementById('formView').classList.add('hidden');
+            document.getElementById('previewView').classList.remove('hidden');
+            
+            generatePreviewContent();
+        }
+
+        // Back to form
+        function backToForm() {
+            document.getElementById('formView').classList.remove('hidden');
+            document.getElementById('previewView').classList.add('hidden');
+        }
+
+        // Generate preview content
+        function generatePreviewContent() {
+            const previewContent = document.getElementById('previewContent');
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Get form values
+            const projectSite = document.getElementById('projectSite').value || '—';
+            const language = document.getElementById('language').value || '—';
+            const dateTime = document.getElementById('dateTime').value || '—';
+            const conductedBy = document.getElementById('conductedBy').value || '—';
+            const additionalNotes = document.getElementById('additionalNotes').value || '—';
+            const understandingConfirmed = document.getElementById('understandingConfirmed').checked;
+            
+            // Get inductees
+            const inductees = [];
+            document.querySelectorAll('#inducteesList .list-item').forEach(item => {
+                const inputs = item.querySelectorAll('input');
+                if (inputs[0].value || inputs[1].value || inputs[2].value) {
+                    inductees.push({
+                        name: inputs[0].value || '—',
+                        designation: inputs[1].value || '—',
+                        company: inputs[2].value || '—'
+                    });
+                }
+            });
+            
+            // Get completed topics
+            const completedTopics = [];
+            document.querySelectorAll('.topic-checkbox:checked').forEach(checkbox => {
+                const label = checkbox.nextElementSibling;
+                if (label) {
+                    completedTopics.push(label.textContent);
+                }
+            });
+            
+            // Build preview HTML
+            let html = `
+                <div class="form-section">
+                    <h2>${lang.safetyInductionReport}</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.projectSite}:</label>
+                            <p>${projectSite}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.language}:</label>
+                            <p>${language}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.dateTime}:</label>
+                            <p>${formatDateTime(dateTime)}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.conductedBy}:</label>
+                            <p>${conductedBy}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count">${completedTopics.length}</div>
+                        <div>${lang.topicsCovered}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${inductees.length}</div>
+                        <div>${lang.inductees}</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.inductees}</h2>
+                    ${inductees.length > 0 ? `
+                        <table class="preview-table">
+                            <thead>
+                                <tr>
+                                    <th>${lang.name}</th>
+                                    <th>${lang.designation}</th>
+                                    <th>${lang.company}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${inductees.map(inductee => `
+                                    <tr>
+                                        <td>${inductee.name}</td>
+                                        <td>${inductee.designation}</td>
+                                        <td>${inductee.company}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    ` : `<p>${lang.noInductees}</p>`}
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.inductionTopics}</h2>
+                    <table class="preview-table">
+                        <thead>
+                            <tr>
+                                <th>Topic</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            // Add all topics with status
+            document.querySelectorAll('.topic-item').forEach(item => {
+                const checkbox = item.querySelector('.topic-checkbox');
+                const label = item.querySelector('label');
+                if (checkbox && label) {
+                    const status = checkbox.checked ? lang.completed : lang.pending;
+                    const statusClass = checkbox.checked ? 'status-completed' : 'status-pending';
+                    html += `
+                        <tr>
+                            <td>${label.textContent}</td>
+                            <td class="${statusClass}">${status}</td>
+                        </tr>
+                    `;
+                }
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.additionalNotes}</h2>
+                    <p>${additionalNotes}</p>
+                    <p><strong>Understanding Confirmed:</strong> ${understandingConfirmed ? 'Yes' : 'No'}</p>
+                </div>
+                
+                <div class="form-section">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            previewContent.innerHTML = html;
+        }
+
+        // Format date time for display
+        function formatDateTime(dateTimeString) {
+            if (!dateTimeString) return '—';
+            
+            const date = new Date(dateTimeString);
+            return date.toLocaleString();
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            // Show loading indicator
+            const originalText = document.querySelector('#downloadBtn').innerHTML;
+            document.querySelector('#downloadBtn').innerHTML = 'Generating PDF...';
+            document.querySelector('#downloadBtn').disabled = true;
+            
+            // Use html2canvas and jsPDF to generate PDF
+            generatePDF().then(() => {
+                // Restore button text
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            });
+        }
+
+        // Generate PDF using html2canvas and jsPDF
+        async function generatePDF() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Create a temporary element for PDF generation
+            const pdfElement = document.createElement('div');
+            pdfElement.style.width = '210mm';
+            pdfElement.style.padding = '20px';
+            pdfElement.style.backgroundColor = 'white';
+            pdfElement.style.color = 'black';
+            pdfElement.style.fontFamily = 'Arial, sans-serif';
+            
+            // Get form values
+            const projectSite = document.getElementById('projectSite').value || '—';
+            const language = document.getElementById('language').value || '—';
+            const dateTime = document.getElementById('dateTime').value || '—';
+            const conductedBy = document.getElementById('conductedBy').value || '—';
+            const additionalNotes = document.getElementById('additionalNotes').value || '—';
+            const understandingConfirmed = document.getElementById('understandingConfirmed').checked;
+            
+            // Get inductees
+            const inductees = [];
+            document.querySelectorAll('#inducteesList .list-item').forEach(item => {
+                const inputs = item.querySelectorAll('input');
+                if (inputs[0].value || inputs[1].value || inputs[2].value) {
+                    inductees.push({
+                        name: inputs[0].value || '—',
+                        designation: inputs[1].value || '—',
+                        company: inputs[2].value || '—'
+                    });
+                }
+            });
+            
+            // Get completed topics count
+            const completedTopics = document.querySelectorAll('.topic-checkbox:checked').length;
+            const totalTopics = document.querySelectorAll('.topic-checkbox').length;
+            
+            // Build PDF content
+            let html = `
+                <h1 style="text-align: center; color: #2c3e50; margin-bottom: 10px;">${lang.safetyInductionReport}</h1>
+                <p style="text-align: center; margin-bottom: 20px;">${lang.subtitle}</p>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.inductionDetails}</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.projectSite}:</strong> ${projectSite}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.language}:</strong> ${language}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.dateTime}:</strong> ${formatDateTime(dateTime)}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.conductedBy}:</strong> ${conductedBy}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; background-color: #2c3e50; color: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${completedTopics}/${totalTopics}</div>
+                        <div>${lang.topicsCovered}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${inductees.length}</div>
+                        <div>${lang.inductees}</div>
+                    </div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.inductees}</h2>
+                    ${inductees.length > 0 ? `
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #2c3e50; color: white;">
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.name}</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.designation}</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.company}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${inductees.map(inductee => `
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">${inductee.name}</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">${inductee.designation}</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">${inductee.company}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    ` : `<p>${lang.noInductees}</p>`}
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.inductionTopics}</h2>
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color: #2c3e50; color: white;">
+                                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Topic</th>
+                                <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            // Add all topics with status
+            document.querySelectorAll('.topic-item').forEach(item => {
+                const checkbox = item.querySelector('.topic-checkbox');
+                const label = item.querySelector('label');
+                if (checkbox && label) {
+                    const status = checkbox.checked ? lang.completed : lang.pending;
+                    const statusColor = checkbox.checked ? '#27ae60' : '#f39c12';
+                    html += `
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">${label.textContent}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px; color: ${statusColor}; font-weight: bold;">${status}</td>
+                        </tr>
+                    `;
+                }
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.additionalNotes}</h2>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px;">${additionalNotes}</div>
+                    <p style="margin-top: 10px;"><strong>Understanding Confirmed:</strong> ${understandingConfirmed ? 'Yes' : 'No'}</p>
+                </div>
+                
+                <div style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 20px; font-size: 12px; color: #666;">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            pdfElement.innerHTML = html;
+            document.body.appendChild(pdfElement);
+            
+            try {
+                // Use html2canvas to capture the content
+                const canvas = await html2canvas(pdfElement, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                });
+                
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Add image to PDF
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add new pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Download PDF
+                const fileName = `Safety_Induction_${projectSite.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+            } finally {
+                // Clean up
+                document.body.removeChild(pdfElement);
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                // Reset form fields
+                document.getElementById('projectSite').value = '';
+                document.getElementById('language').value = 'english';
+                document.getElementById('dateTime').value = '2025-11-01T17:21';
+                document.getElementById('conductedBy').value = '';
+                document.getElementById('additionalNotes').value = '';
+                document.getElementById('understandingConfirmed').checked = false;
+                
+                // Reset inductees
+                const inducteesList = document.getElementById('inducteesList');
+                inducteesList.innerHTML = `
+                    <div class="list-item">
+                        <input type="text" placeholder="${lang.name}">
+                        <input type="text" placeholder="${lang.designation}">
+                        <input type="text" placeholder="${lang.company}">
+                        <button class="remove-btn">×</button>
+                    </div>
+                `;
+                
+                // Reset topic checkboxes
+                document.querySelectorAll('.topic-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Update summary
+                updateSummary();
+                
+                // If in preview, go back to form
+                if (!document.getElementById('previewView').classList.contains('hidden')) {
+                    backToForm();
+                }
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

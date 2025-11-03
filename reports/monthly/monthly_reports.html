@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Safety Report Generator</title>
+    <meta name="description" content="Generate comprehensive monthly safety reports for construction and industrial sites">
+    <meta name="keywords" content="monthly safety report, HSE reporting, safety metrics, OSHA compliance">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --bg-color: #f5f7fa;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2d2d2d;
+            --border-color: #444;
+            --primary: #3498db;
+            --dark: #bdc3c7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 25px;
+            animation: slideUp 0.5s ease-out;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        tr:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .add-row-btn {
+            margin: 10px 0;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input {
+            width: auto;
+        }
+
+        .preview-section {
+            background: var(--bg-color);
+            border: 2px dashed var(--border-color);
+        }
+
+        .preview-content {
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .preview-table tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            border-left: 4px solid var(--secondary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        .kpi-label {
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .template-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .template-btn {
+            padding: 8px 15px;
+            background: var(--light);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .template-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .status-saved {
+            color: var(--success);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .preview-section-title {
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .control-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .language-selector, .theme-toggle {
+                position: static;
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="theme-toggle">
+                <button class="btn btn-info" id="themeToggle">
+                    <i class="fas fa-moon"></i> <span class="theme-text">Dark Mode</span>
+                </button>
+            </div>
+            <h1 class="title-text">Monthly Safety Report Generator</h1>
+            <p class="subtitle subtitle-text">Comprehensive monthly HSE reporting for construction and industrial sites</p>
+            <div class="language-selector">
+                <button class="btn btn-primary" id="translateBtn">
+                    <i class="fas fa-language"></i> <span class="translate-text">Translate to Hindi</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="control-buttons">
+            <button class="btn btn-primary" id="previewBtn">
+                <i class="fas fa-eye"></i> <span class="preview-text">Preview Report</span>
+            </button>
+            <button class="btn btn-success" id="downloadBtn">
+                <i class="fas fa-file-pdf"></i> <span class="download-text">Download PDF</span>
+            </button>
+            <button class="btn btn-warning" id="saveBtn">
+                <i class="fas fa-save"></i> <span class="save-text">Save Draft</span>
+            </button>
+            <button class="btn btn-danger" id="resetBtn">
+                <i class="fas fa-sync-alt"></i> <span class="reset-text">Reset Form</span>
+            </button>
+        </div>
+
+        <!-- Section 1: Report Inputs -->
+        <div class="section" id="reportInputs">
+            <h2 class="section-title"><i class="fas fa-clipboard-list"></i> <span class="inputs-text">Report Inputs</span></h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="siteName" class="site-text">Project / Site Name *</label>
+                    <input type="text" id="siteName" placeholder="e.g., ABC Refinery – Unit 3" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="clientName" class="client-text">Client / Company *</label>
+                    <input type="text" id="clientName" placeholder="Client company name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location" class="location-text">Location *</label>
+                    <input type="text" id="location" placeholder="e.g., Industrial Area, City" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reportingMonth" class="month-text">Reporting Month *</label>
+                    <input type="month" id="reportingMonth" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="preparedBy" class="prepared-text">Prepared By *</label>
+                    <input type="text" id="preparedBy" placeholder="Your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewedBy" class="reviewed-text">Reviewed By</label>
+                    <input type="text" id="reviewedBy" placeholder="Reviewer name">
+                </div>
+            </div>
+
+            <div class="template-buttons">
+                <button class="template-btn" id="constructionTemplate">Construction Template</button>
+                <button class="template-btn" id="refineryTemplate">Refinery Shutdown Template</button>
+                <button class="template-btn" id="manufacturingTemplate">Manufacturing Template</button>
+                <button class="template-btn" id="generalTemplate">General Template</button>
+            </div>
+        </div>
+
+        <!-- Section 2: Man-Hours & Summary -->
+        <div class="section" id="manHoursSection">
+            <h2 class="section-title"><i class="fas fa-chart-bar"></i> <span class="manhours-text">Man-Hours & Summary</span></h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="totalManHours" class="total-hours-text">Total Man-Hours (This Month) *</label>
+                    <input type="number" id="totalManHours" placeholder="e.g., 15000" min="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ytdManHours" class="ytd-hours-text">YTD Man-Hours (Before This Month)</label>
+                    <input type="number" id="ytdManHours" placeholder="e.g., 120000" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="recordableIncidents" class="recordable-text">Recordable Incidents (TRC: LTI+MTI+RWC+MTC)</label>
+                    <input type="number" id="recordableIncidents" placeholder="e.g., 2" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="lostTimeInjuries" class="lti-text">Lost Time Injuries (LTI)</label>
+                    <input type="number" id="lostTimeInjuries" placeholder="e.g., 1" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="daysLost" class="days-lost-text">Days Lost (This Month)</label>
+                    <input type="number" id="daysLost" placeholder="e.g., 5" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reportableSpills" class="spills-text">Reportable Spills / Env. Incidents</label>
+                    <input type="number" id="reportableSpills" placeholder="e.g., 0" min="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: HSE Activities -->
+        <div class="section" id="hseActivities">
+            <h2 class="section-title"><i class="fas fa-tasks"></i> <span class="activities-text">HSE Activities (Counts)</span></h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="trainingsConducted" class="trainings-text">Trainings Conducted</label>
+                    <input type="number" id="trainingsConducted" placeholder="e.g., 5" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="participantsTrained" class="participants-text">Participants Trained</label>
+                    <input type="number" id="participantsTrained" placeholder="e.g., 120" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="auditsInspections" class="audits-text">Audits / Inspections</label>
+                    <input type="number" id="auditsInspections" placeholder="e.g., 8" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="ptwsIssued" class="ptw-text">PTWs Issued</label>
+                    <input type="number" id="ptwsIssued" placeholder="e.g., 45" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="observationsStop" class="observations-text">Observations / STOP Cards</label>
+                    <input type="number" id="observationsStop" placeholder="e.g., 25" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="toolboxTalks" class="toolbox-text">Toolbox Talks (Count)</label>
+                    <input type="number" id="toolboxTalks" placeholder="e.g., 30" min="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Monthly Status of Manpower -->
+        <div class="section" id="manpowerStatus">
+            <h2 class="section-title"><i class="fas fa-users"></i> <span class="manpower-text">Monthly Status of Manpower</span></h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="manpowerAvg" class="manpower-avg-text">Manpower (Avg. Headcount) - This Month</label>
+                    <input type="number" id="manpowerAvg" placeholder="e.g., 75" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="manpowerCumulative" class="manpower-cumulative-text">Manpower - Cumulative</label>
+                    <input type="number" id="manpowerCumulative" placeholder="e.g., 650" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="totalManDays" class="man-days-text">Total Man-days (This Month)</label>
+                    <input type="number" id="totalManDays" placeholder="e.g., 1650" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="totalManDaysCumulative" class="man-days-cumulative-text">Total Man-days - Cumulative</label>
+                    <input type="number" id="totalManDaysCumulative" placeholder="e.g., 14300" min="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Monthly Accident Report -->
+        <div class="section" id="accidentReport">
+            <h2 class="section-title"><i class="fas fa-exclamation-triangle"></i> <span class="accident-text">Monthly Accident Report</span></h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="totalAccidents" class="total-accidents-text">1. Total Number of Accidents</label>
+                    <input type="number" id="totalAccidents" placeholder="e.g., 3" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reportableAccidents" class="reportable-accidents-text">a) Reportable Accidents</label>
+                    <input type="number" id="reportableAccidents" placeholder="e.g., 1" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="minorAccidents" class="minor-accidents-text">b) Minor Accidents</label>
+                    <input type="number" id="minorAccidents" placeholder="e.g., 1" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="firstAidCases" class="firstaid-text">c) First-aid cases</label>
+                    <input type="number" id="firstAidCases" placeholder="e.g., 1" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="nearMissIncidents" class="nearmiss-text">d) Near Miss Incidents</label>
+                    <input type="number" id="nearMissIncidents" placeholder="e.g., 5" min="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="manDaysLost" class="man-days-lost-text">2. Man-days lost due to accidents</label>
+                    <input type="number" id="manDaysLost" placeholder="e.g., 7" min="0">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: HSE Events & Logs -->
+        <div class="section" id="hseEvents">
+            <h2 class="section-title"><i class="fas fa-calendar-alt"></i> <span class="events-text">HSE Events & Logs</span></h2>
+            
+            <div class="form-group">
+                <label for="hseCommitteeMeeting" class="committee-text">HSE Committee Meeting (Date)</label>
+                <input type="date" id="hseCommitteeMeeting">
+            </div>
+            
+            <div class="form-group">
+                <label for="hseInductionTraining" class="induction-text">HSE Induction Training (Date & No. of Persons)</label>
+                <div class="form-grid">
+                    <input type="date" id="hseInductionDate">
+                    <input type="number" id="hseInductionPersons" placeholder="No. of Persons" min="0">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="toolbox-training-text">Toolbox Talk Training (Date, Topic & Participants)</label>
+                <div class="form-grid">
+                    <input type="date" id="toolboxTrainingDate">
+                    <input type="text" id="toolboxTrainingTopic" placeholder="Topic">
+                    <input type="number" id="toolboxTrainingParticipants" placeholder="Participants" min="0">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="hse-training-text">HSE Training (Date, Topic & Participants)</label>
+                <div class="form-grid">
+                    <input type="date" id="hseTrainingDate">
+                    <input type="text" id="hseTrainingTopic" placeholder="Topic">
+                    <input type="number" id="hseTrainingParticipants" placeholder="Participants" min="0">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="hse-meeting-text">HSE Meeting (MOM): Date & Discussion Points (Status)</label>
+                <div class="form-grid">
+                    <input type="date" id="hseMeetingDate">
+                    <input type="text" id="hseMeetingPoints" placeholder="Discussion Points">
+                    <select id="hseMeetingStatus">
+                        <option value="open">Open</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="hse-walk-text">HSE Walk (Date & With Whom)</label>
+                <div class="form-grid">
+                    <input type="date" id="hseWalkDate">
+                    <input type="text" id="hseWalkWith" placeholder="With (Whom)">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7: Highlights & Notes -->
+        <div class="section" id="highlightsNotes">
+            <h2 class="section-title"><i class="fas fa-star"></i> <span class="highlights-text">Highlights & Notes</span></h2>
+            
+            <div class="form-group">
+                <label for="keyHighlights" class="key-highlights-text">Key Highlights / Initiatives</label>
+                <textarea id="keyHighlights" placeholder="Describe key highlights and initiatives for the month"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="concernsActions" class="concerns-text">Concerns / Actions</label>
+                <textarea id="concernsActions" placeholder="Describe any concerns and planned actions"></textarea>
+            </div>
+        </div>
+
+        <!-- Section 8: Authorization -->
+        <div class="section" id="authorization">
+            <h2 class="section-title"><i class="fas fa-user-check"></i> <span class="auth-text">Authorization</span></h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="preparedByName" class="prepared-by-text">Prepared by (Name)</label>
+                    <input type="text" id="preparedByName" placeholder="Your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="reviewedByName" class="reviewed-by-text">Reviewed by (Name)</label>
+                    <input type="text" id="reviewedByName" placeholder="Reviewer name">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 9: Preview -->
+        <div class="section preview-section" id="previewSection">
+            <h2 class="section-title"><i class="fas fa-eye"></i> <span class="preview-text">Monthly Safety Report</span></h2>
+            
+            <div class="preview-content" id="previewContent">
+                <p class="preview-instruction-text">Generated preview — review and download</p>
+            </div>
+        </div>
+
+        <!-- Section 10: Action Buttons -->
+        <div class="actions">
+            <button class="btn btn-success" id="finalDownloadBtn">
+                <i class="fas fa-file-pdf"></i> <span class="download-text">Download PDF</span>
+            </button>
+            <button class="btn btn-danger" id="finalResetBtn">
+                <i class="fas fa-sync-alt"></i> <span class="clear-text">Clear All</span>
+            </button>
+            <span class="status-saved autosave-text">Auto-saved</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default month to current month
+            const today = new Date();
+            const currentMonth = today.toISOString().slice(0, 7);
+            document.getElementById('reportingMonth').value = currentMonth;
+            document.getElementById('preparedByName').value = document.getElementById('preparedBy').value;
+
+            // Update prepared by name when changed
+            document.getElementById('preparedBy').addEventListener('input', function() {
+                document.getElementById('preparedByName').value = this.value;
+            });
+
+            // Translation functionality
+            const translateBtn = document.getElementById('translateBtn');
+            let isHindi = false;
+            
+            const translations = {
+                en: {
+                    themeText: "Dark Mode",
+                    titleText: "Monthly Safety Report Generator",
+                    subtitleText: "Comprehensive monthly HSE reporting for construction and industrial sites",
+                    translateText: "Translate to Hindi",
+                    previewText: "Preview Report",
+                    downloadText: "Download PDF",
+                    saveText: "Save Draft",
+                    resetText: "Reset Form",
+                    inputsText: "Report Inputs",
+                    siteText: "Project / Site Name *",
+                    clientText: "Client / Company *",
+                    locationText: "Location *",
+                    monthText: "Reporting Month *",
+                    preparedText: "Prepared By *",
+                    reviewedText: "Reviewed By",
+                    manhoursText: "Man-Hours & Summary",
+                    totalHoursText: "Total Man-Hours (This Month) *",
+                    ytdHoursText: "YTD Man-Hours (Before This Month)",
+                    recordableText: "Recordable Incidents (TRC: LTI+MTI+RWC+MTC)",
+                    ltiText: "Lost Time Injuries (LTI)",
+                    daysLostText: "Days Lost (This Month)",
+                    spillsText: "Reportable Spills / Env. Incidents",
+                    activitiesText: "HSE Activities (Counts)",
+                    trainingsText: "Trainings Conducted",
+                    participantsText: "Participants Trained",
+                    auditsText: "Audits / Inspections",
+                    ptwText: "PTWs Issued",
+                    observationsText: "Observations / STOP Cards",
+                    toolboxText: "Toolbox Talks (Count)",
+                    manpowerText: "Monthly Status of Manpower",
+                    manpowerAvgText: "Manpower (Avg. Headcount) - This Month",
+                    manpowerCumulativeText: "Manpower - Cumulative",
+                    manDaysText: "Total Man-days (This Month)",
+                    manDaysCumulativeText: "Total Man-days - Cumulative",
+                    accidentText: "Monthly Accident Report",
+                    totalAccidentsText: "1. Total Number of Accidents",
+                    reportableAccidentsText: "a) Reportable Accidents",
+                    minorAccidentsText: "b) Minor Accidents",
+                    firstaidText: "c) First-aid cases",
+                    nearmissText: "d) Near Miss Incidents",
+                    manDaysLostText: "2. Man-days lost due to accidents",
+                    eventsText: "HSE Events & Logs",
+                    committeeText: "HSE Committee Meeting (Date)",
+                    inductionText: "HSE Induction Training (Date & No. of Persons)",
+                    toolboxTrainingText: "Toolbox Talk Training (Date, Topic & Participants)",
+                    hseTrainingText: "HSE Training (Date, Topic & Participants)",
+                    hseMeetingText: "HSE Meeting (MOM): Date & Discussion Points (Status)",
+                    hseWalkText: "HSE Walk (Date & With Whom)",
+                    highlightsText: "Highlights & Notes",
+                    keyHighlightsText: "Key Highlights / Initiatives",
+                    concernsText: "Concerns / Actions",
+                    authText: "Authorization",
+                    preparedByText: "Prepared by (Name)",
+                    reviewedByText: "Reviewed by (Name)",
+                    previewInstructionText: "Generated preview — review and download",
+                    clearText: "Clear All",
+                    autosaveText: "Auto-saved"
+                },
+                hi: {
+                    themeText: "डार्क मोड",
+                    titleText: "मासिक सुरक्षा रिपोर्ट जनरेटर",
+                    subtitleText: "निर्माण और औद्योगिक स्थलों के लिए व्यापक मासिक HSE रिपोर्टिंग",
+                    translateText: "अंग्रेजी में अनुवाद करें",
+                    previewText: "रिपोर्ट पूर्वावलोकन",
+                    downloadText: "PDF डाउनलोड करें",
+                    saveText: "ड्राफ्ट सहेजें",
+                    resetText: "फॉर्म रीसेट करें",
+                    inputsText: "रिपोर्ट इनपुट",
+                    siteText: "परियोजना / साइट का नाम *",
+                    clientText: "क्लाइंट / कंपनी *",
+                    locationText: "स्थान *",
+                    monthText: "रिपोर्टिंग माह *",
+                    preparedText: "द्वारा तैयार *",
+                    reviewedText: "द्वारा समीक्षित",
+                    manhoursText: "मैन-आवर और सारांश",
+                    totalHoursText: "कुल मैन-आवर (इस माह) *",
+                    ytdHoursText: "वाईटीडी मैन-आवर (इस माह से पहले)",
+                    recordableText: "रिकॉर्डेबल घटनाएं (TRC: LTI+MTI+RWC+MTC)",
+                    ltiText: "लॉस्ट टाइम इंजरी (LTI)",
+                    daysLostText: "खोए हुए दिन (इस माह)",
+                    spillsText: "रिपोर्टेबल स्पिल / पर्यावरणीय घटनाएं",
+                    activitiesText: "HSE गतिविधियाँ (गिनती)",
+                    trainingsText: "आयोजित प्रशिक्षण",
+                    participantsText: "प्रशिक्षित प्रतिभागी",
+                    auditsText: "ऑडिट / निरीक्षण",
+                    ptwText: "जारी PTW",
+                    observationsText: "अवलोकन / STOP कार्ड",
+                    toolboxText: "टूलबॉक्स टॉक (गिनती)",
+                    manpowerText: "कार्यबल की मासिक स्थिति",
+                    manpowerAvgText: "कार्यबल (औसत हेडकाउंट) - इस माह",
+                    manpowerCumulativeText: "कार्यबल - संचयी",
+                    manDaysText: "कुल मैन-डे (इस माह)",
+                    manDaysCumulativeText: "कुल मैन-डे - संचयी",
+                    accidentText: "मासिक दुर्घटना रिपोर्ट",
+                    totalAccidentsText: "1. दुर्घटनाओं की कुल संख्या",
+                    reportableAccidentsText: "क) रिपोर्टेबल दुर्घटनाएं",
+                    minorAccidentsText: "ख) मामूली दुर्घटनाएं",
+                    firstaidText: "ग) प्राथमिक उपचार के मामले",
+                    nearmissText: "घ) नियर मिस घटनाएं",
+                    manDaysLostText: "2. दुर्घटनाओं के कारण खोए हुए मैन-डे",
+                    eventsText: "HSE घटनाएं और लॉग",
+                    committeeText: "HSE समिति बैठक (तारीख)",
+                    inductionText: "HSE इंडक्शन प्रशिक्षण (तारीख और व्यक्तियों की संख्या)",
+                    toolboxTrainingText: "टूलबॉक्स टॉक प्रशिक्षण (तारीख, विषय और प्रतिभागी)",
+                    hseTrainingText: "HSE प्रशिक्षण (तारीख, विषय और प्रतिभागी)",
+                    hseMeetingText: "HSE बैठक (MOM): तारीख और चर्चा बिंदु (स्थिति)",
+                    hseWalkText: "HSE वॉक (तारीख और किसके साथ)",
+                    highlightsText: "मुख्य आकर्षण और नोट्स",
+                    keyHighlightsText: "मुख्य आकर्षण / पहल",
+                    concernsText: "चिंताएं / कार्रवाई",
+                    authText: "अधिकार",
+                    preparedByText: "द्वारा तैयार (नाम)",
+                    reviewedByText: "द्वारा समीक्षित (नाम)",
+                    previewInstructionText: "जनरेट किया गया पूर्वावलोकन — समीक्षा करें और डाउनलोड करें",
+                    clearText: "सभी साफ करें",
+                    autosaveText: "स्वचालित रूप से सहेजा गया"
+                }
+            };
+
+            translateBtn.addEventListener('click', function() {
+                isHindi = !isHindi;
+                const lang = isHindi ? 'hi' : 'en';
+                
+                // Update all text elements
+                document.querySelectorAll('[class$="-text"]').forEach(el => {
+                    const className = Array.from(el.classList).find(c => c.endsWith('-text'));
+                    if (className && translations[lang][className]) {
+                        el.textContent = translations[lang][className];
+                    }
+                });
+            });
+
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    document.querySelector('.theme-text').textContent = isHindi ? 'लाइट मोड' : 'Light Mode';
+                } else {
+                    document.querySelector('.theme-text').textContent = isHindi ? 'डार्क मोड' : 'Dark Mode';
+                }
+            });
+
+            // Template functionality
+            document.getElementById('constructionTemplate').addEventListener('click', function() {
+                loadTemplate('construction');
+            });
+
+            document.getElementById('refineryTemplate').addEventListener('click', function() {
+                loadTemplate('refinery');
+            });
+
+            document.getElementById('manufacturingTemplate').addEventListener('click', function() {
+                loadTemplate('manufacturing');
+            });
+
+            document.getElementById('generalTemplate').addEventListener('click', function() {
+                loadTemplate('general');
+            });
+
+            function loadTemplate(template) {
+                const templates = {
+                    construction: {
+                        siteName: 'ABC Construction Site - Phase 2',
+                        clientName: 'ABC Construction Co.',
+                        location: 'Industrial Zone, New Delhi',
+                        totalManHours: 18500,
+                        ytdManHours: 145000,
+                        recordableIncidents: 1,
+                        lostTimeInjuries: 0,
+                        daysLost: 0,
+                        reportableSpills: 0,
+                        trainingsConducted: 6,
+                        participantsTrained: 150,
+                        auditsInspections: 12,
+                        ptwsIssued: 65,
+                        observationsStop: 35,
+                        toolboxTalks: 40,
+                        manpowerAvg: 85,
+                        manpowerCumulative: 720,
+                        totalManDays: 1870,
+                        totalManDaysCumulative: 15800,
+                        totalAccidents: 2,
+                        reportableAccidents: 1,
+                        minorAccidents: 1,
+                        firstAidCases: 3,
+                        nearMissIncidents: 8,
+                        manDaysLost: 0,
+                        keyHighlights: 'Safety awareness campaign conducted. All workers received new PPE.',
+                        concernsActions: 'Need to improve scaffolding safety procedures.'
+                    },
+                    refinery: {
+                        siteName: 'XYZ Refinery - Shutdown Maintenance',
+                        clientName: 'XYZ Petroleum Ltd.',
+                        location: 'Refinery Complex, Mumbai',
+                        totalManHours: 24500,
+                        ytdManHours: 198000,
+                        recordableIncidents: 0,
+                        lostTimeInjuries: 0,
+                        daysLost: 0,
+                        reportableSpills: 0,
+                        trainingsConducted: 8,
+                        participantsTrained: 220,
+                        auditsInspections: 15,
+                        ptwsIssued: 120,
+                        observationsStop: 45,
+                        toolboxTalks: 55,
+                        manpowerAvg: 110,
+                        manpowerCumulative: 950,
+                        totalManDays: 2420,
+                        totalManDaysCumulative: 20100,
+                        totalAccidents: 0,
+                        reportableAccidents: 0,
+                        minorAccidents: 0,
+                        firstAidCases: 2,
+                        nearMissIncidents: 5,
+                        manDaysLost: 0,
+                        keyHighlights: 'Successful completion of shutdown without any recordable incidents.',
+                        concernsActions: 'Monitor contractor compliance with hot work procedures.'
+                    },
+                    manufacturing: {
+                        siteName: 'PQR Manufacturing Plant',
+                        clientName: 'PQR Industries',
+                        location: 'Industrial Estate, Chennai',
+                        totalManHours: 16500,
+                        ytdManHours: 132000,
+                        recordableIncidents: 1,
+                        lostTimeInjuries: 1,
+                        daysLost: 7,
+                        reportableSpills: 0,
+                        trainingsConducted: 4,
+                        participantsTrained: 95,
+                        auditsInspections: 8,
+                        ptwsIssued: 35,
+                        observationsStop: 22,
+                        toolboxTalks: 25,
+                        manpowerAvg: 75,
+                        manpowerCumulative: 680,
+                        totalManDays: 1625,
+                        totalManDaysCumulative: 14200,
+                        totalAccidents: 3,
+                        reportableAccidents: 1,
+                        minorAccidents: 2,
+                        firstAidCases: 4,
+                        nearMissIncidents: 6,
+                        manDaysLost: 7,
+                        keyHighlights: 'New machine guarding installed in production area.',
+                        concernsActions: 'Investigate root cause of LTI in packaging section.'
+                    },
+                    general: {
+                        siteName: 'General Industrial Site',
+                        clientName: 'Industrial Solutions Inc.',
+                        location: 'Business Park, Bangalore',
+                        totalManHours: 12000,
+                        ytdManHours: 98000,
+                        recordableIncidents: 0,
+                        lostTimeInjuries: 0,
+                        daysLost: 0,
+                        reportableSpills: 0,
+                        trainingsConducted: 3,
+                        participantsTrained: 75,
+                        auditsInspections: 6,
+                        ptwsIssued: 25,
+                        observationsStop: 18,
+                        toolboxTalks: 20,
+                        manpowerAvg: 55,
+                        manpowerCumulative: 520,
+                        totalManDays: 1150,
+                        totalManDaysCumulative: 10200,
+                        totalAccidents: 1,
+                        reportableAccidents: 0,
+                        minorAccidents: 1,
+                        firstAidCases: 2,
+                        nearMissIncidents: 4,
+                        manDaysLost: 0,
+                        keyHighlights: 'Safety performance meeting target for third consecutive month.',
+                        concernsActions: 'Continue focus on ergonomic improvements.'
+                    }
+                };
+
+                const data = templates[template];
+                for (const key in data) {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.value = data[key];
+                    }
+                }
+
+                // Set dates to current
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('hseCommitteeMeeting').value = today;
+                document.getElementById('hseInductionDate').value = today;
+                document.getElementById('toolboxTrainingDate').value = today;
+                document.getElementById('hseTrainingDate').value = today;
+                document.getElementById('hseMeetingDate').value = today;
+                document.getElementById('hseWalkDate').value = today;
+
+                alert(`${template.charAt(0).toUpperCase() + template.slice(1)} template loaded successfully!`);
+            }
+
+            // Preview functionality
+            document.getElementById('previewBtn').addEventListener('click', function() {
+                generatePreview();
+            });
+
+            function generatePreview() {
+                const previewContent = document.getElementById('previewContent');
+                
+                // Calculate KPIs
+                const totalManHours = parseInt(document.getElementById('totalManHours').value) || 0;
+                const ytdManHours = parseInt(document.getElementById('ytdManHours').value) || 0;
+                const recordableIncidents = parseInt(document.getElementById('recordableIncidents').value) || 0;
+                const lostTimeInjuries = parseInt(document.getElementById('lostTimeInjuries').value) || 0;
+                
+                // Calculate safety rates
+                const afr = totalManHours > 0 ? ((recordableIncidents / totalManHours) * 1000000).toFixed(2) : "0.00";
+                const fr = totalManHours > 0 ? ((lostTimeInjuries / totalManHours) * 1000000).toFixed(2) : "0.00";
+                const trir = totalManHours > 0 ? ((recordableIncidents / totalManHours) * 200000).toFixed(2) : "0.00";
+                const sr = totalManHours > 0 ? ((lostTimeInjuries / totalManHours) * 1000000).toFixed(2) : "0.00";
+                
+                let previewHTML = `
+                    <h2>Monthly Safety Report</h2>
+                    
+                    <div class="preview-section-title">Project Details</div>
+                    <table class="preview-table">
+                        <tr>
+                            <td><strong>Project / Site:</strong></td>
+                            <td>${document.getElementById('siteName').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Client:</strong></td>
+                            <td>${document.getElementById('clientName').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Location:</strong></td>
+                            <td>${document.getElementById('location').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reporting Month:</strong></td>
+                            <td>${document.getElementById('reportingMonth').value || 'Not specified'}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="preview-section-title">Key Performance Indicators</div>
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-label">MAN-HOURS (MONTH)</div>
+                            <div class="kpi-value">${totalManHours.toLocaleString()}</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">AFR (PER 1M)</div>
+                            <div class="kpi-value">${afr}</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">RECORDABLES (TRC)</div>
+                            <div class="kpi-value">${recordableIncidents}</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">FR (LTI PER 1M)</div>
+                            <div class="kpi-value">${fr}</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">TRIR (PER 200K)</div>
+                            <div class="kpi-value">${trir}</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-label">SR (SEVERITY PER 1M)</div>
+                            <div class="kpi-value">${sr}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section-title">HSE Activities (Counts)</div>
+                    <table class="preview-table">
+                        <thead>
+                            <tr>
+                                <th>Activity</th>
+                                <th>This Month</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Trainings Conducted</td>
+                                <td>${document.getElementById('trainingsConducted').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>Participants Trained</td>
+                                <td>${document.getElementById('participantsTrained').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>Audits / Inspections</td>
+                                <td>${document.getElementById('auditsInspections').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>PTWs Issued</td>
+                                <td>${document.getElementById('ptwsIssued').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>Observations / STOP Cards</td>
+                                <td>${document.getElementById('observationsStop').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>Toolbox Talks (Count)</td>
+                                <td>${document.getElementById('toolboxTalks').value || '0'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="preview-section-title">Monthly Status of Manpower</div>
+                    <table class="preview-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>This Month</th>
+                                <th>Cumulative</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Manpower (Avg.)</td>
+                                <td>${document.getElementById('manpowerAvg').value || '0'}</td>
+                                <td>${document.getElementById('manpowerCumulative').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Man-days</td>
+                                <td>${document.getElementById('totalManDays').value || '0'}</td>
+                                <td>${document.getElementById('totalManDaysCumulative').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Man-hours</td>
+                                <td>${totalManHours.toLocaleString()}</td>
+                                <td>${(totalManHours + ytdManHours).toLocaleString()}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="preview-section-title">Monthly Accident Report</div>
+                    <table class="preview-table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. Total Number of Accidents</td>
+                                <td>${document.getElementById('totalAccidents').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>a) Reportable Accidents</td>
+                                <td>${document.getElementById('reportableAccidents').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>b) Minor Accidents</td>
+                                <td>${document.getElementById('minorAccidents').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>c) First-aid cases</td>
+                                <td>${document.getElementById('firstAidCases').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>d) Near Miss Incidents</td>
+                                <td>${document.getElementById('nearMissIncidents').value || '0'}</td>
+                            </tr>
+                            <tr>
+                                <td>2. Man-days lost due to accidents</td>
+                                <td>${document.getElementById('manDaysLost').value || '0'}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="preview-section-title">HSE Events & Logs</div>
+                    <table class="preview-table">
+                        <tr>
+                            <td><strong>HSE Committee Meeting</strong></td>
+                            <td>Date: ${document.getElementById('hseCommitteeMeeting').value || 'Not scheduled'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HSE Induction Training</strong></td>
+                            <td>Date: ${document.getElementById('hseInductionDate').value || 'Not scheduled'}, Persons: ${document.getElementById('hseInductionPersons').value || '0'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Toolbox Talk Training</strong></td>
+                            <td>Date: ${document.getElementById('toolboxTrainingDate').value || 'Not scheduled'}, Topic: ${document.getElementById('toolboxTrainingTopic').value || 'Not specified'}, Participants: ${document.getElementById('toolboxTrainingParticipants').value || '0'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HSE Training</strong></td>
+                            <td>Date: ${document.getElementById('hseTrainingDate').value || 'Not scheduled'}, Topic: ${document.getElementById('hseTrainingTopic').value || 'Not specified'}, Participants: ${document.getElementById('hseTrainingParticipants').value || '0'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HSE Meeting (MOM)</strong></td>
+                            <td>Date: ${document.getElementById('hseMeetingDate').value || 'Not scheduled'}, Discussion Points: ${document.getElementById('hseMeetingPoints').value || 'Not specified'}, Status: ${document.getElementById('hseMeetingStatus').value || 'Open'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HSE Walks</strong></td>
+                            <td>Date: ${document.getElementById('hseWalkDate').value || 'Not scheduled'}, With: ${document.getElementById('hseWalkWith').value || 'Not specified'}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="preview-section-title">Highlights & Notes</div>
+                    <table class="preview-table">
+                        <tr>
+                            <td><strong>Key Highlights / Initiatives</strong></td>
+                            <td>${document.getElementById('keyHighlights').value || 'None recorded'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Concerns / Actions</strong></td>
+                            <td>${document.getElementById('concernsActions').value || 'None recorded'}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="preview-section-title">Authorization</div>
+                    <table class="preview-table">
+                        <tr>
+                            <td><strong>Prepared by</strong></td>
+                            <td>${document.getElementById('preparedByName').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Reviewed by</strong></td>
+                            <td>${document.getElementById('reviewedByName').value || 'Not specified'}</td>
+                        </tr>
+                    </table>
+                    
+                    <p><em>Generated on ${new Date().toLocaleString()} by Monthly Safety Report Generator</em></p>
+                `;
+                
+                previewContent.innerHTML = previewHTML;
+            }
+
+            // Save draft functionality
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                saveDraft();
+                alert(isHindi ? 'ड्राफ्ट सफलतापूर्वक सहेजा गया!' : 'Draft saved successfully!');
+            });
+
+            function saveDraft() {
+                const formData = {};
+                document.querySelectorAll('input, select, textarea').forEach(element => {
+                    if (element.type !== 'button' && element.type !== 'submit') {
+                        formData[element.id] = element.value;
+                    }
+                });
+                
+                localStorage.setItem('monthlySafetyReportDraft', JSON.stringify(formData));
+            }
+
+            // Reset functionality
+            document.getElementById('resetBtn').addEventListener('click', function() {
+                if (confirm(isHindi ? 'क्या आप वाकई फॉर्म रीसेट करना चाहते हैं? सभी डेटा खो जाएगा।' : 'Are you sure you want to reset the form? All data will be lost.')) {
+                    resetForm();
+                }
+            });
+
+            document.getElementById('finalResetBtn').addEventListener('click', function() {
+                if (confirm(isHindi ? 'क्या आप वाकई फॉर्म रीसेट करना चाहते हैं? सभी डेटा खो जाएगा।' : 'Are you sure you want to reset the form? All data will be lost.')) {
+                    resetForm();
+                }
+            });
+
+            function resetForm() {
+                document.querySelectorAll('input, textarea').forEach(element => {
+                    if (element.type !== 'button' && element.type !== 'submit') {
+                        element.value = '';
+                    }
+                });
+                
+                // Reset month to current
+                const today = new Date();
+                const currentMonth = today.toISOString().slice(0, 7);
+                document.getElementById('reportingMonth').value = currentMonth;
+                
+                document.getElementById('previewContent').innerHTML = '<p class="preview-instruction-text">Generated preview — review and download</p>';
+                
+                alert(isHindi ? 'फॉर्म सफलतापूर्वक रीसेट कर दिया गया है!' : 'Form has been reset successfully!');
+            }
+
+            // PDF download functionality
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                downloadPDF();
+            });
+
+            document.getElementById('finalDownloadBtn').addEventListener('click', function() {
+                downloadPDF();
+            });
+
+            function downloadPDF() {
+                const previewContent = document.getElementById('previewContent');
+                
+                if (previewContent.innerHTML.includes('Generated preview — review and download')) {
+                    alert(isHindi ? 'कृपया पहले रिपोर्ट का पूर्वावलोकन करें!' : 'Please preview the report first!');
+                    return;
+                }
+                
+                html2canvas(previewContent).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+                    
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                    
+                    pdf.save('monthly-safety-report.pdf');
+                });
+            }
+
+            // Auto-save every 30 seconds
+            setInterval(saveDraft, 30000);
+
+            // Load draft on page load if available
+            window.addEventListener('load', function() {
+                const draft = localStorage.getItem('monthlySafetyReportDraft');
+                if (draft) {
+                    const formData = JSON.parse(draft);
+                    for (const id in formData) {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.value = formData[id];
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

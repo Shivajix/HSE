@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturing Safety Checklist</title>
+    <meta name="description" content="Comprehensive manufacturing safety checklist for plant and facility inspections">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3c4e;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f9fa;
+            --border-color: #ddd;
+        }
+
+        .dark-mode {
+            --primary-color: #34495e;
+            --secondary-color: #2980b9;
+            --success-color: #2ecc71;
+            --danger-color: #c0392b;
+            --warning-color: #e67e22;
+            --light-color: #2c3e50;
+            --dark-color: #1a252f;
+            --text-color: #ecf0f1;
+            --bg-color: #1e2a3a;
+            --card-bg: #2c3c4e;
+            --border-color: #34495e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-light {
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        .form-section {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .checklist-section {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .section-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .checklist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .item-text {
+            flex: 1;
+        }
+
+        .item-controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-items {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .action-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: var(--bg-color);
+            border-radius: 4px;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .action-details {
+            flex: 1;
+        }
+
+        .action-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-count {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .preview-section {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .status-pass {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .status-na {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .status-action {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .checklist-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .item-controls {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .header-controls {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .section-controls {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Manufacturing Safety Checklist</h1>
+                <p>Comprehensive safety inspection for manufacturing facilities</p>
+            </div>
+            <div class="header-controls">
+                <button id="translateBtn" class="btn-light">
+                    <span class="lang-text">हिंदी</span>
+                </button>
+                <button id="darkModeBtn" class="btn-light">
+                    <span class="mode-text">Dark Mode</span>
+                </button>
+                <button id="previewBtn" class="btn-primary">Preview</button>
+                <button id="downloadBtn" class="btn-success">Download PDF</button>
+                <button id="resetBtn" class="btn-danger">Reset</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="formView">
+                <div class="form-section">
+                    <h2>Session Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="plantFacility">Plant / Facility</label>
+                            <input type="text" id="plantFacility" placeholder="Enter plant/facility name">
+                        </div>
+                        <div class="form-group">
+                            <label for="lineArea">Line / Area</label>
+                            <input type="text" id="lineArea" placeholder="Enter line/area">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dateTime">Date & Time</label>
+                            <input type="datetime-local" id="dateTime" value="2025-11-01T16:05">
+                        </div>
+                        <div class="form-group">
+                            <label for="conductedBy">Conducted by</label>
+                            <input type="text" id="conductedBy" placeholder="Inspector name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="shift">Shift</label>
+                            <select id="shift">
+                                <option value="General" selected>General</option>
+                                <option value="Morning">Morning</option>
+                                <option value="Afternoon">Afternoon</option>
+                                <option value="Night">Night</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Department / Company</label>
+                            <input type="text" id="department" placeholder="Enter department/company">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sessionNotes">Session Notes (context, permits, lot numbers, etc.)</label>
+                        <textarea id="sessionNotes" placeholder="Enter session notes"></textarea>
+                    </div>
+                </div>
+
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count" id="passCount">0</div>
+                        <div>Pass</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="naCount">0</div>
+                        <div>N/A</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="actionCount">0</div>
+                        <div>Needs Action</div>
+                    </div>
+                </div>
+
+                <!-- Checklist sections will be dynamically generated here -->
+                <div id="checklistSections"></div>
+
+                <div class="action-items">
+                    <h2>Action Items</h2>
+                    <div id="actionItemsList">
+                        <p>No actions recorded</p>
+                    </div>
+                    <button id="addActionBtn" class="btn-warning">Add Action</button>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="finalNotes">Final Notes</label>
+                        <textarea id="finalNotes" placeholder="Enter final notes"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="previewView" class="hidden">
+                <div class="preview-section">
+                    <h2>Checklist Preview</h2>
+                    <div class="header-controls">
+                        <button id="backToFormBtn" class="btn-primary">Back to Form</button>
+                        <button id="downloadFromPreviewBtn" class="btn-success">Download PDF</button>
+                    </div>
+                    <div id="previewContent"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Checklist data structure
+        const checklistData = [
+            {
+                title: "Machine Guarding",
+                markAll: true,
+                items: [
+                    "Fixed/adjustable guards installed and secured",
+                    "Interlocks functional; not bypassed or defeated",
+                    "Point-of-operation protection adequate",
+                    "Rotating parts (shafts/couplings) guarded"
+                ]
+            },
+            {
+                title: "Lockout / Tagout (LOTO)",
+                markAll: true,
+                items: [
+                    "Energy sources identified and documented",
+                    "Written LOTO procedures available/followed",
+                    "Locks/tags applied; group lock box when required",
+                    "Zero energy verified (try-out)"
+                ]
+            },
+            {
+                title: "Electrical Panels / Cables",
+                markAll: true,
+                items: [
+                    "Panels closed/labelled; required clearance maintained",
+                    "No exposed wiring; proper terminations / strain relief",
+                    "Portable tools tested (PAT) and in date",
+                    "Cables routed safely; RCCB/ELCB provided"
+                ]
+            },
+            {
+                title: "Pressure Systems",
+                markAll: true,
+                items: [
+                    "Relief valves present and inspection current",
+                    "Hoses/couplings good; whip checks fitted where required",
+                    "Gauges/regulators functional and within safe range",
+                    "No leaks; lines labelled (air/steam/gas)"
+                ]
+            },
+            {
+                title: "Material Handling",
+                markAll: true,
+                items: [
+                    "Slings/hooks/shackles inspected & tagged (SWL visible)",
+                    "Forklifts/stackers/cranes inspected; operator licensed",
+                    "Loads stable & within capacity; secured properly",
+                    "Aisles marked; spotters used where needed"
+                ]
+            },
+            {
+                title: "Housekeeping / Spills",
+                markAll: true,
+                items: [
+                    "Floors clean/dry; walkways clear of obstructions",
+                    "Spill kits available & stocked",
+                    "Waste segregated; bins not overflowing",
+                    "Oil drip trays/leak control in place"
+                ]
+            },
+            {
+                title: "Fire Safety",
+                markAll: true,
+                items: [
+                    "Extinguishers present, charged and inspected",
+                    "Access to extinguishers/hydrants/alarms kept clear",
+                    "Hot work permit & fire watch implemented where applicable",
+                    "Emergency exits illuminated and unobstructed"
+                ]
+            },
+            {
+                title: "Noise / Hearing Protection",
+                markAll: true,
+                items: [
+                    "Areas ≥85 dB(A) identified; signage displayed",
+                    "Hearing protection available and correctly worn",
+                    "Noise exposure monitored per plan",
+                    "Hearing protection maintained; spares available"
+                ]
+            },
+            {
+                title: "Chemical Storage (GHS / SDS)",
+                markAll: true,
+                items: [
+                    "Containers labelled per GHS; decanted containers labelled",
+                    "Compatible storage; segregation of acids/oxidizers/fuels",
+                    "SDS accessible and current",
+                    "Secondary containment provided; ventilation adequate"
+                ]
+            },
+            {
+                title: "PPE Compliance",
+                markAll: true,
+                items: [
+                    "Helmets, safety shoes & Hi-Vis worn as required",
+                    "Eye/face protection for grinding, cutting or splashes",
+                    "Hearing protection in designated areas",
+                    "Task-appropriate gloves/respirators; fit-testing where required"
+                ]
+            }
+        ];
+
+        // State management
+        let state = {
+            isHindi: false,
+            isDarkMode: false,
+            checklistStatus: {},
+            actionItems: []
+        };
+
+        // Initialize the application
+        function init() {
+            renderChecklistSections();
+            setupEventListeners();
+            updateSummary();
+        }
+
+        // Render checklist sections
+        function renderChecklistSections() {
+            const container = document.getElementById('checklistSections');
+            container.innerHTML = '';
+
+            checklistData.forEach((section, sectionIndex) => {
+                const sectionElement = document.createElement('div');
+                sectionElement.className = 'checklist-section';
+                
+                sectionElement.innerHTML = `
+                    <div class="section-header">
+                        <div class="section-title">${section.title}</div>
+                        ${section.markAll ? `
+                        <div class="section-controls">
+                            <button class="btn-success mark-all-pass" data-section="${sectionIndex}">Mark All Pass</button>
+                            <button class="btn-light mark-all-na" data-section="${sectionIndex}">Mark All N/A</button>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+
+                section.items.forEach((item, itemIndex) => {
+                    const itemId = `item-${sectionIndex}-${itemIndex}`;
+                    // Initialize state for this item
+                    if (!state.checklistStatus[itemId]) {
+                        state.checklistStatus[itemId] = 'unset';
+                    }
+
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'checklist-item';
+                    itemElement.innerHTML = `
+                        <div class="item-text">${item}</div>
+                        <div class="item-controls">
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="${itemId}-pass" name="${itemId}" value="pass">
+                                    <label for="${itemId}-pass">Pass</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="${itemId}-na" name="${itemId}" value="na">
+                                    <label for="${itemId}-na">N/A</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="${itemId}-action" name="${itemId}" value="action">
+                                    <label for="${itemId}-action">Needs Action</label>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    sectionElement.appendChild(itemElement);
+                });
+
+                container.appendChild(sectionElement);
+            });
+
+            // Set initial radio button states
+            updateRadioButtonsFromState();
+        }
+
+        // Update radio buttons based on state
+        function updateRadioButtonsFromState() {
+            for (const itemId in state.checklistStatus) {
+                const status = state.checklistStatus[itemId];
+                if (status !== 'unset') {
+                    const radio = document.querySelector(`input[name="${itemId}"][value="${status}"]`);
+                    if (radio) radio.checked = true;
+                }
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mode and language toggles
+            document.getElementById('translateBtn').addEventListener('click', toggleLanguage);
+            document.getElementById('darkModeBtn').addEventListener('click', toggleDarkMode);
+            
+            // Main buttons
+            document.getElementById('previewBtn').addEventListener('click', showPreview);
+            document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+            document.getElementById('resetBtn').addEventListener('click', resetForm);
+            
+            // Preview buttons
+            document.getElementById('backToFormBtn').addEventListener('click', backToForm);
+            document.getElementById('downloadFromPreviewBtn').addEventListener('click', downloadPDF);
+            
+            // Action items
+            document.getElementById('addActionBtn').addEventListener('click', addActionItem);
+            
+            // Mark all buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('mark-all-pass')) {
+                    const sectionIndex = e.target.dataset.section;
+                    markAllInSection(sectionIndex, 'pass');
+                }
+                
+                if (e.target.classList.contains('mark-all-na')) {
+                    const sectionIndex = e.target.dataset.section;
+                    markAllInSection(sectionIndex, 'na');
+                }
+            });
+            
+            // Radio button changes
+            document.addEventListener('change', function(e) {
+                if (e.target.type === 'radio') {
+                    const itemId = e.target.name;
+                    const value = e.target.value;
+                    state.checklistStatus[itemId] = value;
+                    updateSummary();
+                }
+            });
+        }
+
+        // Mark all items in a section
+        function markAllInSection(sectionIndex, status) {
+            checklistData[sectionIndex].items.forEach((item, itemIndex) => {
+                const itemId = `item-${sectionIndex}-${itemIndex}`;
+                state.checklistStatus[itemId] = status;
+                
+                // Update UI
+                const radio = document.querySelector(`input[name="${itemId}"][value="${status}"]`);
+                if (radio) radio.checked = true;
+            });
+            
+            updateSummary();
+        }
+
+        // Update summary counts
+        function updateSummary() {
+            let passCount = 0;
+            let naCount = 0;
+            let actionCount = 0;
+            
+            for (const itemId in state.checklistStatus) {
+                const status = state.checklistStatus[itemId];
+                if (status === 'pass') passCount++;
+                else if (status === 'na') naCount++;
+                else if (status === 'action') actionCount++;
+            }
+            
+            document.getElementById('passCount').textContent = passCount;
+            document.getElementById('naCount').textContent = naCount;
+            document.getElementById('actionCount').textContent = actionCount;
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            state.isHindi = !state.isHindi;
+            const btn = document.getElementById('translateBtn');
+            btn.querySelector('.lang-text').textContent = state.isHindi ? 'English' : 'हिंदी';
+            
+            // In a real implementation, we would translate all text content
+            // For this demo, we'll just show an alert
+            alert(state.isHindi ? 
+                'पेज हिंदी में अनुवादित किया जाएगा' : 
+                'Page will be translated to English');
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.isDarkMode = !state.isDarkMode;
+            const btn = document.getElementById('darkModeBtn');
+            
+            if (state.isDarkMode) {
+                document.body.classList.add('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Light Mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Dark Mode';
+            }
+        }
+
+        // Show preview
+        function showPreview() {
+            document.getElementById('formView').classList.add('hidden');
+            document.getElementById('previewView').classList.remove('hidden');
+            
+            generatePreviewContent();
+        }
+
+        // Back to form
+        function backToForm() {
+            document.getElementById('formView').classList.remove('hidden');
+            document.getElementById('previewView').classList.add('hidden');
+        }
+
+        // Generate preview content
+        function generatePreviewContent() {
+            const previewContent = document.getElementById('previewContent');
+            
+            // Get form values
+            const plantFacility = document.getElementById('plantFacility').value || '—';
+            const lineArea = document.getElementById('lineArea').value || '—';
+            const dateTime = document.getElementById('dateTime').value || '—';
+            const conductedBy = document.getElementById('conductedBy').value || '—';
+            const shift = document.getElementById('shift').value || '—';
+            const department = document.getElementById('department').value || '—';
+            const sessionNotes = document.getElementById('sessionNotes').value || '—';
+            const finalNotes = document.getElementById('finalNotes').value || '—';
+            
+            // Calculate summary
+            let passCount = 0;
+            let naCount = 0;
+            let actionCount = 0;
+            
+            for (const itemId in state.checklistStatus) {
+                const status = state.checklistStatus[itemId];
+                if (status === 'pass') passCount++;
+                else if (status === 'na') naCount++;
+                else if (status === 'action') actionCount++;
+            }
+            
+            // Build preview HTML
+            let html = `
+                <div class="form-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Plant / Facility:</label>
+                            <p>${plantFacility}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Date & Time:</label>
+                            <p>${formatDateTime(dateTime)}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Line / Area:</label>
+                            <p>${lineArea}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Shift:</label>
+                            <p>${shift}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Conducted by:</label>
+                            <p>${conductedBy}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Department / Company:</label>
+                            <p>${department}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Session Notes:</label>
+                        <p>${sessionNotes}</p>
+                    </div>
+                </div>
+                
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count">${passCount}</div>
+                        <div>Pass</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${naCount}</div>
+                        <div>N/A</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${actionCount}</div>
+                        <div>Needs Action</div>
+                    </div>
+                </div>
+                
+                <table class="preview-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Item</th>
+                            <th>Status</th>
+                            <th>Notes / Controls</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            // Add checklist items
+            checklistData.forEach((section, sectionIndex) => {
+                section.items.forEach((item, itemIndex) => {
+                    const itemId = `item-${sectionIndex}-${itemIndex}`;
+                    const status = state.checklistStatus[itemId] || 'unset';
+                    
+                    let statusText = '—';
+                    let statusClass = '';
+                    
+                    if (status === 'pass') {
+                        statusText = 'Pass';
+                        statusClass = 'status-pass';
+                    } else if (status === 'na') {
+                        statusText = 'N/A';
+                        statusClass = 'status-na';
+                    } else if (status === 'action') {
+                        statusText = 'Needs Action';
+                        statusClass = 'status-action';
+                    }
+                    
+                    html += `
+                        <tr>
+                            <td>${section.title}</td>
+                            <td>${item}</td>
+                            <td class="${statusClass}">${statusText}</td>
+                            <td>—</td>
+                        </tr>
+                    `;
+                });
+            });
+            
+            html += `
+                    </tbody>
+                </table>
+                
+                <div class="form-section">
+                    <div class="form-group">
+                        <label>Final Notes:</label>
+                        <p>${finalNotes}</p>
+                    </div>
+                </div>
+                
+                <div class="action-items">
+                    <h2>Action Items</h2>
+                    ${state.actionItems.length > 0 ? 
+                        state.actionItems.map(item => `
+                            <div class="action-item">
+                                <div class="action-details">
+                                    <strong>${item.action}</strong><br>
+                                    Owner: ${item.owner} | Due: ${item.dueDate} | Status: ${item.status}
+                                </div>
+                            </div>
+                        `).join('') : 
+                        '<p>No actions recorded</p>'
+                    }
+                </div>
+                
+                <div class="form-section">
+                    <p><em>Generated on ${new Date().toLocaleString()}</em></p>
+                    <p><em>Generated by The HSE Tools - Factory / Manufacturing Safety Checklist</em></p>
+                </div>
+            `;
+            
+            previewContent.innerHTML = html;
+        }
+
+        // Format date time for display
+        function formatDateTime(dateTimeString) {
+            if (!dateTimeString) return '—';
+            
+            const date = new Date(dateTimeString);
+            return date.toLocaleString();
+        }
+
+        // Add action item
+        function addActionItem() {
+            const action = prompt("Enter action required:");
+            if (!action) return;
+            
+            const owner = prompt("Enter owner:");
+            const dueDate = prompt("Enter due date (YYYY-MM-DD):");
+            const status = "Open";
+            
+            state.actionItems.push({
+                action,
+                owner: owner || "—",
+                dueDate: dueDate || "—",
+                status
+            });
+            
+            updateActionItemsDisplay();
+        }
+
+        // Update action items display
+        function updateActionItemsDisplay() {
+            const container = document.getElementById('actionItemsList');
+            
+            if (state.actionItems.length === 0) {
+                container.innerHTML = '<p>No actions recorded</p>';
+                return;
+            }
+            
+            let html = '';
+            state.actionItems.forEach((item, index) => {
+                html += `
+                    <div class="action-item">
+                        <div class="action-details">
+                            <strong>${item.action}</strong><br>
+                            Owner: ${item.owner} | Due: ${item.dueDate} | Status: ${item.status}
+                        </div>
+                        <div class="action-controls">
+                            <button class="btn-danger remove-action" data-index="${index}">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-action').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    state.actionItems.splice(index, 1);
+                    updateActionItemsDisplay();
+                });
+            });
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            // Show loading indicator
+            const originalText = document.querySelector('#downloadBtn').innerHTML;
+            document.querySelector('#downloadBtn').innerHTML = 'Generating PDF...';
+            document.querySelector('#downloadBtn').disabled = true;
+            
+            // Use html2canvas and jsPDF to generate PDF
+            generatePDF().then(() => {
+                // Restore button text
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            });
+        }
+
+        // Generate PDF using html2canvas and jsPDF
+        async function generatePDF() {
+            // Create a temporary element for PDF generation
+            const pdfElement = document.createElement('div');
+            pdfElement.style.width = '210mm';
+            pdfElement.style.padding = '20px';
+            pdfElement.style.backgroundColor = 'white';
+            pdfElement.style.color = 'black';
+            pdfElement.style.fontFamily = 'Arial, sans-serif';
+            
+            // Get form values
+            const plantFacility = document.getElementById('plantFacility').value || '—';
+            const lineArea = document.getElementById('lineArea').value || '—';
+            const dateTime = document.getElementById('dateTime').value || '—';
+            const conductedBy = document.getElementById('conductedBy').value || '—';
+            const shift = document.getElementById('shift').value || '—';
+            const department = document.getElementById('department').value || '—';
+            const sessionNotes = document.getElementById('sessionNotes').value || '—';
+            const finalNotes = document.getElementById('finalNotes').value || '—';
+            
+            // Calculate summary
+            let passCount = 0;
+            let naCount = 0;
+            let actionCount = 0;
+            
+            for (const itemId in state.checklistStatus) {
+                const status = state.checklistStatus[itemId];
+                if (status === 'pass') passCount++;
+                else if (status === 'na') naCount++;
+                else if (status === 'action') actionCount++;
+            }
+            
+            // Build PDF content
+            let html = `
+                <h1 style="text-align: center; color: #2c3e50; margin-bottom: 10px;">Manufacturing Safety Checklist</h1>
+                <p style="text-align: center; margin-bottom: 20px;">Comprehensive safety inspection for manufacturing facilities</p>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">Session Information</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>Plant / Facility:</strong> ${plantFacility}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>Date & Time:</strong> ${formatDateTime(dateTime)}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>Line / Area:</strong> ${lineArea}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>Shift:</strong> ${shift}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>Conducted by:</strong> ${conductedBy}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>Department / Company:</strong> ${department}</td>
+                        </tr>
+                    </table>
+                    <div style="margin-bottom: 10px;"><strong>Session Notes:</strong></div>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px;">${sessionNotes}</div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; background-color: #2c3e50; color: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${passCount}</div>
+                        <div>Pass</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${naCount}</div>
+                        <div>N/A</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${actionCount}</div>
+                        <div>Needs Action</div>
+                    </div>
+                </div>
+                
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                    <thead>
+                        <tr style="background-color: #2c3e50; color: white;">
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Category</th>
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Item</th>
+                            <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            // Add checklist items
+            checklistData.forEach((section, sectionIndex) => {
+                section.items.forEach((item, itemIndex) => {
+                    const itemId = `item-${sectionIndex}-${itemIndex}`;
+                    const status = state.checklistStatus[itemId] || 'unset';
+                    
+                    let statusText = '—';
+                    let statusColor = 'black';
+                    
+                    if (status === 'pass') {
+                        statusText = 'Pass';
+                        statusColor = '#27ae60';
+                    } else if (status === 'na') {
+                        statusText = 'N/A';
+                        statusColor = '#3498db';
+                    } else if (status === 'action') {
+                        statusText = 'Needs Action';
+                        statusColor = '#e74c3c';
+                    }
+                    
+                    html += `
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px;">${section.title}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">${item}</td>
+                            <td style="border: 1px solid #ddd; padding: 8px; color: ${statusColor}; font-weight: bold;">${statusText}</td>
+                        </tr>
+                    `;
+                });
+            });
+            
+            html += `
+                    </tbody>
+                </table>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">Final Notes</h2>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px;">${finalNotes}</div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">Action Items</h2>
+                    ${state.actionItems.length > 0 ? 
+                        state.actionItems.map(item => `
+                            <div style="border-left: 4px solid #f39c12; padding: 10px; margin-bottom: 10px; background-color: #f8f9fa;">
+                                <strong>${item.action}</strong><br>
+                                Owner: ${item.owner} | Due: ${item.dueDate} | Status: ${item.status}
+                            </div>
+                        `).join('') : 
+                        '<p>No actions recorded</p>'
+                    }
+                </div>
+                
+                <div style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 20px; font-size: 12px; color: #666;">
+                    <p><em>Generated on ${new Date().toLocaleString()}</em></p>
+                    <p><em>Generated by The HSE Tools - Factory / Manufacturing Safety Checklist</em></p>
+                </div>
+            `;
+            
+            pdfElement.innerHTML = html;
+            document.body.appendChild(pdfElement);
+            
+            try {
+                // Use html2canvas to capture the content
+                const canvas = await html2canvas(pdfElement, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                });
+                
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Add image to PDF
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add new pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Download PDF
+                const fileName = `Safety_Checklist_${plantFacility.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+            } finally {
+                // Clean up
+                document.body.removeChild(pdfElement);
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                // Reset form fields
+                document.getElementById('plantFacility').value = '';
+                document.getElementById('lineArea').value = '';
+                document.getElementById('dateTime').value = '2025-11-01T16:05';
+                document.getElementById('conductedBy').value = '';
+                document.getElementById('shift').value = 'General';
+                document.getElementById('department').value = '';
+                document.getElementById('sessionNotes').value = '';
+                document.getElementById('finalNotes').value = '';
+                
+                // Reset checklist status
+                state.checklistStatus = {};
+                renderChecklistSections();
+                
+                // Reset action items
+                state.actionItems = [];
+                updateActionItemsDisplay();
+                
+                // Update summary
+                updateSummary();
+                
+                // If in preview, go back to form
+                if (!document.getElementById('previewView').classList.contains('hidden')) {
+                    backToForm();
+                }
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

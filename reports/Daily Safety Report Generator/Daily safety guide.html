@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Daily Safety Report Generator - Create professional safety reports with templates, preview, and PDF export functionality.">
+    <meta name="keywords" content="daily safety report, HSE, safety generator, PDF report, workplace safety">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Daily Safety Report Generator - Complete Guide">
+    <meta property="og:description" content="Create professional daily safety reports with templates, preview, and PDF export functionality">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/daily-safety-report.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Daily Safety Report Generator - Complete Guide">
+    <meta name="twitter:description" content="Professional daily safety report generator">
+    
+    <title>Daily Safety Report Generator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Daily Safety Report Specific Styles */
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: var(--font-semibold);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .checklist-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .checklist-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .checklist-item:hover::before {
+            opacity: 0.5;
+        }
+
+        .checklist-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .checklist-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .checklist-item i {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        li:before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .highlight p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .example {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--info-color);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 0 10px 10px 0;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .example::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0 10px 10px 0;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--info-color), var(--primary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+        }
+
+        .example h4 {
+            color: var(--info-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .mistakes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .mistake-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--danger-color);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .mistake-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--danger-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mistake-item:hover::before {
+            opacity: 0.5;
+        }
+
+        .mistake-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .faq-item {
+            margin-bottom: 25px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+            color: var(--primary-color);
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .template-card {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .template-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .template-card:hover::before {
+            opacity: 0.5;
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .template-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .note-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--warning-color);
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 20px 0;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .note-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0 10px 10px 0;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--warning-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, var(--warning-color), var(--accent-color));
+            color: white;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Hindi text specific styles */
+        .hindi-text {
+            font-family: 'Segoe UI', 'Nirmala UI', 'Mangal', sans-serif;
+            line-height: 1.8;
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mistakes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .controls {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .content-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="footer\about.html"><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="hero-badge">
+                <i class="fas fa-certificate"></i> <span data-en="Complete HSE Reporting Solution" data-hi="संपूर्ण एचएसई रिपोर्टिंग समाधान">Complete HSE Reporting Solution</span>
+            </div>
+            <h1 data-en="Daily Safety Report Generator" data-hi="दैनिक सुरक्षा रिपोर्ट जनरेटर">Daily Safety Report Generator</h1>
+            <p data-en="Create professional daily safety reports with templates, preview, and PDF export functionality. Ensure compliance with HSE standards like OSHA, ISO 45001, and ILO guidelines." 
+               data-hi="टेम्पलेट्स, पूर्वावलोकन और पीडीएफ निर्यात कार्यक्षमता के साथ पेशेवर दैनिक सुरक्षा रिपोर्ट बनाएं। OSHA, ISO 45001, और ILO दिशानिर्देशों जैसे HSE मानकों के साथ अनुपालन सुनिश्चित करें।">
+                Create professional daily safety reports with templates, preview, and PDF export functionality. Ensure compliance with HSE standards like OSHA, ISO 45001, and ILO guidelines.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 25px;">
+                <button class="btn btn-outline" style="background: rgba(255,255,255,0.2); color: white; border-color: white;">
+                    <i class="fas fa-eye"></i> <span data-en="Preview Report" data-hi="रिपोर्ट पूर्वावलोकन">Preview Report</span>
+                </button>
+                <button class="btn btn-warning">
+                    <i class="fas fa-download"></i> <span data-en="Download PDF" data-hi="पीडीएफ डाउनलोड करें">Download PDF</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Stats Section -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">10min</span>
+                <span class="stat-label" data-en="Report Generation" data-hi="रिपोर्ट जनरेशन">Report Generation</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label" data-en="Compliance Ready" data-hi="अनुपालन तैयार">Compliance Ready</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label" data-en="Accessibility" data-hi="सुलभता">Accessibility</span>
+            </div>
+        </div>
+
+        <!-- What is Daily Safety Report -->
+        <div class="content-card">
+            <h2><i class="fas fa-clipboard-check"></i> <span data-en="What Is a Daily Safety Report?" data-hi="दैनिक सुरक्षा रिपोर्ट क्या है?">What Is a Daily Safety Report?</span></h2>
+            <p data-en="A Daily Safety Report (DSR) is one of the most critical frontline HSE tools. It provides management, supervisors, and safety officers with a clear snapshot of daily activities, workforce strength, hazards identified, incidents, and corrective actions taken." 
+               data-hi="एक दैनिक सुरक्षा रिपोर्ट (DSR) सबसे महत्वपूर्ण फ्रंटलाइन HSE उपकरणों में से एक है। यह प्रबंधन, पर्यवेक्षकों और सुरक्षा अधिकारियों को दैनिक गतिविधियों, कार्यबल की ताकत, पहचाने गए खतरों, घटनाओं और किए गए सुधारात्मक कार्यों की एक स्पष्ट तस्वीर प्रदान करती है।">
+                A Daily Safety Report (DSR) is one of the most critical frontline HSE tools. It provides management, supervisors, and safety officers with a clear snapshot of daily activities, workforce strength, hazards identified, incidents, and corrective actions taken.
+            </p>
+            
+            <div class="highlight">
+                <p data-en="By using a Daily Safety Report Generator, safety teams can quickly enter data, load a work template, validate required fields, preview the formatted report, and export a professional A4 PDF—ensuring consistency, traceability, and compliance with HSE standards." 
+                   data-hi="दैनिक सुरक्षा रिपोर्ट जनरेटर का उपयोग करके, सुरक्षा टीमें तेजी से डेटा दर्ज कर सकती हैं, एक कार्य टेम्पलेट लोड कर सकती हैं, आवश्यक फ़ील्ड्स को मान्य कर सकती हैं, स्वरूपित रिपोर्ट का पूर्वावलोकन कर सकती हैं और एक पेशेवर A4 पीडीएफ निर्यात कर सकती हैं—HSE मानकों के साथ स्थिरता, ट्रेसबिलिटी और अनुपालन सुनिश्चित करती हैं।">
+                    By using a Daily Safety Report Generator, safety teams can quickly enter data, load a work template, validate required fields, preview the formatted report, and export a professional A4 PDF—ensuring consistency, traceability, and compliance with HSE standards.
+                </p>
+            </div>
+            
+            <p data-en="A Daily Safety Report is a structured record capturing:" 
+               data-hi="एक दैनिक सुरक्षा रिपोर्ट एक संरचित रिकॉर्ड है जो कैप्चर करती है:">
+                A Daily Safety Report is a structured record capturing:
+            </p>
+            <ul data-en="
+                <li>Site / Project details - site name, location, date, time window, and weather</li>
+                <li>Headcount & categories - manpower numbers by role with auto-total</li>
+                <li>Permits issued - Hot Work, Work at Height, Confined Space, Electrical, Lifting, Excavation</li>
+                <li>Safety checks - PPE, fire extinguishers, first aid kit, emergency assembly area</li>
+                <li>Key activities - major operations performed during the shift</li>
+                <li>Observations & hazards - unsafe conditions/acts noted during walkthroughs</li>
+                <li>Incidents / near misses - factual record of events</li>
+                <li>Corrective / preventive actions - measures, owners, and target dates</li>
+                <li>Toolbox talk - topic, conducted by, participants, feedback</li>
+                <li>Prepared by - Safety Officer name, signature, and date</li>
+            " 
+            data-hi="
+                <li>साइट / परियोजना विवरण - साइट का नाम, स्थान, तारीख, समय विंडो और मौसम</li>
+                <li>हेडकाउंट और श्रेणियां - भूमिका के अनुसार जनशक्ति संख्या ऑटो-टोटल के साथ</li>
+                <li>जारी किए गए परमिट - हॉट वर्क, वर्क एट हाइट, कन्फाइंड स्पेस, इलेक्ट्रिकल, लिफ्टिंग, एक्सकेवेशन</li>
+                <li>सुरक्षा जांच - पीपीई, अग्निशामक यंत्र, प्राथमिक चिकित्सा किट, आपातकालीन असेंबली क्षेत्र</li>
+                <li>मुख्य गतिविधियां - शिफ्ट के दौरान की गई प्रमुख कार्यवाही</li>
+                <li>अवलोकन और खतरे - वॉकथ्रू के दौरान देखी गई असुरक्षित स्थितियां/कार्य</li>
+                <li>घटनाएं / नियर मिसेज - घटनाओं का तथ्यात्मक रिकॉर्ड</li>
+                <li>सुधारात्मक / निवारक कार्य - उपाय, मालिक और लक्ष्य तिथियां</li>
+                <li>टूलबॉक्स टॉक - विषय, संचालित द्वारा, प्रतिभागी, प्रतिक्रिया</li>
+                <li>तैयार किया गया - सुरक्षा अधिकारी का नाम, हस्ताक्षर और तारीख</li>
+            ">
+                <li>Site / Project details - site name, location, date, time window, and weather</li>
+                <li>Headcount & categories - manpower numbers by role with auto-total</li>
+                <li>Permits issued - Hot Work, Work at Height, Confined Space, Electrical, Lifting, Excavation</li>
+                <li>Safety checks - PPE, fire extinguishers, first aid kit, emergency assembly area</li>
+                <li>Key activities - major operations performed during the shift</li>
+                <li>Observations & hazards - unsafe conditions/acts noted during walkthroughs</li>
+                <li>Incidents / near misses - factual record of events</li>
+                <li>Corrective / preventive actions - measures, owners, and target dates</li>
+                <li>Toolbox talk - topic, conducted by, participants, feedback</li>
+                <li>Prepared by - Safety Officer name, signature, and date</li>
+            </ul>
+            
+            <div class="note-box">
+                <p><strong data-en="Note:" data-hi="नोट:">Note:</strong> <span data-en="A DSR is not a substitute for incident investigation or risk assessment but complements them by capturing daily leading and lagging indicators." 
+                   data-hi="एक DSR घटना जांच या जोखिम मूल्यांकन का विकल्प नहीं है बल्कि दैनिक लीडिंग और लैगिंग संकेतकों को कैप्चर करके उन्हें पूरक करता है।">
+                    A DSR is not a substitute for incident investigation or risk assessment but complements them by capturing daily leading and lagging indicators.
+                </span></p>
+            </div>
+        </div>
+
+        <!-- Key Components -->
+        <div class="content-card">
+            <h2><i class="fas fa-list-alt"></i> <span data-en="Key Components of a Daily Safety Report" data-hi="दैनिक सुरक्षा रिपोर्ट के प्रमुख घटक">Key Components of a Daily Safety Report</span></h2>
+            
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <h4><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="General Information" data-hi="सामान्य जानकारी">General Information</span></h4>
+                    <ul data-en="
+                        <li>Project/Site, Location</li>
+                        <li>Date, Time From/To</li>
+                        <li>Weather conditions</li>
+                        <li>All mapped to the top 'Inputs' section</li>
+                    " 
+                    data-hi="
+                        <li>परियोजना/साइट, स्थान</li>
+                        <li>तारीख, समय से/तक</li>
+                        <li>मौसम की स्थिति</li>
+                        <li>सभी शीर्ष 'इनपुट्स' अनुभाग पर मैप किए गए</li>
+                    ">
+                        <li>Project/Site, Location</li>
+                        <li>Date, Time From/To</li>
+                        <li>Weather conditions</li>
+                        <li>All mapped to the top "Inputs" section</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist-item">
+                    <h4><i class="fas fa-users"></i> <span data-en="Manpower & Hours" data-hi="जनशक्ति और घंटे">Manpower & Hours</span></h4>
+                    <ul data-en="
+                        <li>Role-wise counts with auto-total</li>
+                        <li>Workers, supervisors, engineers</li>
+                        <li>Safety personnel, drivers/operators</li>
+                        <li>Subcontractors, visitors</li>
+                    " 
+                    data-hi="
+                        <li>ऑटो-टोटल के साथ भूमिका-वार गिनती</li>
+                        <li>श्रमिक, पर्यवेक्षक, इंजीनियर</li>
+                        <li>सुरक्षा कर्मी, ड्राइवर/ऑपरेटर</li>
+                        <li>उपठेकेदार, आगंतुक</li>
+                    ">
+                        <li>Role-wise counts with auto-total</li>
+                        <li>Workers, supervisors, engineers</li>
+                        <li>Safety personnel, drivers/operators</li>
+                        <li>Subcontractors, visitors</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist-item">
+                    <h4><i class="fas fa-tasks"></i> <span data-en="Activities & Tasks" data-hi="गतिविधियां और कार्य">Activities & Tasks</span></h4>
+                    <ul data-en="
+                        <li>Major jobs performed during shift</li>
+                        <li>Hot work, lifting, scaffolding</li>
+                        <li>Electrical, confined space, excavation</li>
+                        <li>Use bullet points for clarity</li>
+                    " 
+                    data-hi="
+                        <li>शिफ्ट के दौरान किए गए प्रमुख कार्य</li>
+                        <li>हॉट वर्क, लिफ्टिंग, स्कैफोल्डिंग</li>
+                        <li>इलेक्ट्रिकल, कन्फाइंड स्पेस, एक्सकेवेशन</li>
+                        <li>स्पष्टता के लिए बुलेट पॉइंट्स का उपयोग करें</li>
+                    ">
+                        <li>Major jobs performed during shift</li>
+                        <li>Hot work, lifting, scaffolding</li>
+                        <li>Electrical, confined space, excavation</li>
+                        <li>Use bullet points for clarity</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist-item">
+                    <h4><i class="fas fa-exclamation-triangle"></i> <span data-en="Observations & Hazards" data-hi="अवलोकन और खतरे">Observations & Hazards</span></h4>
+                    <ul data-en="
+                        <li>Unsafe acts/conditions noted</li>
+                        <li>Multiline text for detailed descriptions</li>
+                        <li>Recorded during safety walkthroughs</li>
+                        <li>Include location and severity</li>
+                    " 
+                    data-hi="
+                        <li>देखे गए असुरक्षित कार्य/स्थितियां</li>
+                        <li>विस्तृत विवरणों के लिए मल्टीलाइन टेक्स्ट</li>
+                        <li>सुरक्षा वॉकथ्रू के दौरान रिकॉर्ड किया गया</li>
+                        <li>स्थान और गंभीरता शामिल करें</li>
+                    ">
+                        <li>Unsafe acts/conditions noted</li>
+                        <li>Multiline text for detailed descriptions</li>
+                        <li>Recorded during safety walkthroughs</li>
+                        <li>Include location and severity</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist-item">
+                    <h4><i class="fas fa-ambulance"></i> <span data-en="Incidents / Near Misses" data-hi="घटनाएं / नियर मिसेज">Incidents / Near Misses</span></h4>
+                    <ul data-en="
+                        <li>Clear, factual description of events</li>
+                        <li>Accept 'NIL' when applicable</li>
+                        <li>Include time, location, personnel involved</li>
+                        <li>Immediate actions taken</li>
+                    " 
+                    data-hi="
+                        <li>घटनाओं का स्पष्ट, तथ्यात्मक विवरण</li>
+                        <li>लागू होने पर 'NIL' स्वीकार करें</li>
+                        <li>समय, स्थान, शामिल कर्मियों को शामिल करें</li>
+                        <li>तुरंत किए गए कार्य</li>
+                    ">
+                        <li>Clear, factual description of events</li>
+                        <li>Accept "NIL" when applicable</li>
+                        <li>Include time, location, personnel involved</li>
+                        <li>Immediate actions taken</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist-item">
+                    <h4><i class="fas fa-clipboard-list"></i> <span data-en="Corrective & Preventive Actions" data-hi="सुधारात्मक और निवारक कार्य">Corrective & Preventive Actions</span></h4>
+                    <ul data-en="
+                        <li>Action + Responsible Person + Target Date</li>
+                        <li>Enter in the CAPA field</li>
+                        <li>Follow-up and verification steps</li>
+                        <li>Close-out when completed</li>
+                    " 
+                    data-hi="
+                        <li>कार्य + जिम्मेदार व्यक्ति + लक्ष्य तिथि</li>
+                        <li>CAPA फ़ील्ड में दर्ज करें</li>
+                        <li>फॉलो-अप और सत्यापन चरण</li>
+                        <li>पूरा होने पर बंद करें</li>
+                    ">
+                        <li>Action + Responsible Person + Target Date</li>
+                        <li>Enter in the CAPA field</li>
+                        <li>Follow-up and verification steps</li>
+                        <li>Close-out when completed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Use -->
+        <div class="content-card">
+            <h2><i class="fas fa-user-graduate"></i> <span data-en="How to Use the Daily Safety Report Generator" data-hi="दैनिक सुरक्षा रिपोर्ट जनरेटर का उपयोग कैसे करें">How to Use the Daily Safety Report Generator</span></h2>
+            <ol data-en="
+                <li><strong>Load a template (optional):</strong> Pick a scenario from template options and click Load Template to auto-fill the form.</li>
+                <li><strong>Fill in details:</strong> Site, Location, Date, Time From/To, Weather. Enter manpower counts—Total is calculated automatically.</li>
+                <li><strong>Add work details:</strong> Activities, Observations/Hazards, Incidents/NM (use NIL if none), and CAPA (include owner + due date).</li>
+                <li><strong>Permits & Safety checks:</strong> Enter permit counts/remarks and update the safety equipment/compliance statuses.</li>
+                <li><strong>Toolbox Talk:</strong> Add Topic, Conducted By, Participants, and Feedback.</li>
+                <li><strong>Prepared By:</strong> Fill Name, Signature text, Date.</li>
+                <li><strong>Choose sections to include:</strong> Use the 'Sections to include' checkboxes.</li>
+                <li><strong>Preview live updates:</strong> Click Preview to unlock the right panel. The formatted report updates automatically.</li>
+                <li><strong>Download PDF:</strong> Click Download PDF. A clean, vector-based A4 PDF is generated.</li>
+            " 
+            data-hi="
+                <li><strong>एक टेम्पलेट लोड करें (वैकल्पिक):</strong> टेम्पलेट विकल्पों से एक परिदृश्य चुनें और फॉर्म को ऑटो-फिल करने के लिए लोड टेम्पलेट पर क्लिक करें।</li>
+                <li><strong>विवरण भरें:</strong> साइट, स्थान, तारीख, समय से/तक, मौसम। जनशक्ति गिनती दर्ज करें—कुल स्वचालित रूप से गणना की जाती है।</li>
+                <li><strong>कार्य विवरण जोड़ें:</strong> गतिविधियां, अवलोकन/खतरे, घटनाएं/एनएम (यदि कोई नहीं है तो NIL का उपयोग करें), और CAPA (मालिक + नियत तिथि शामिल करें)।</li>
+                <li><strong>परमिट और सुरक्षा जांच:</strong> परमिट गिनती/टिप्पणियाँ दर्ज करें और सुरक्षा उपकरण/अनुपालन स्थिति अपडेट करें।</li>
+                <li><strong>टूलबॉक्स टॉक:</strong> विषय, संचालित द्वारा, प्रतिभागी और प्रतिक्रिया जोड़ें।</li>
+                <li><strong>तैयार किया गया:</strong> नाम, हस्ताक्षर पाठ, तारीख भरें।</li>
+                <li><strong>शामिल करने के लिए अनुभाग चुनें:</strong> 'शामिल करने के लिए अनुभाग' चेकबॉक्स का उपयोग करें।</li>
+                <li><strong>लाइव अपडेट का पूर्वावलोकन करें:</strong> पूर्वावलोकन अनलॉक करने के लिए पूर्वावलोकन पर क्लिक करें। स्वरूपित रिपोर्ट स्वचालित रूप से अपडेट होती है।</li>
+                <li><strong>पीडीएफ डाउनलोड करें:</strong> पीडीएफ डाउनलोड करें पर क्लिक करें। एक साफ, वेक्टर-आधारित A4 पीडीएफ जेनरेट होता है।</li>
+            ">
+                <li><strong>Load a template (optional):</strong> Pick a scenario from template options and click Load Template to auto-fill the form.</li>
+                <li><strong>Fill in details:</strong> Site, Location, Date, Time From/To, Weather. Enter manpower counts—Total is calculated automatically.</li>
+                <li><strong>Add work details:</strong> Activities, Observations/Hazards, Incidents/NM (use NIL if none), and CAPA (include owner + due date).</li>
+                <li><strong>Permits & Safety checks:</strong> Enter permit counts/remarks and update the safety equipment/compliance statuses.</li>
+                <li><strong>Toolbox Talk:</strong> Add Topic, Conducted By, Participants, and Feedback.</li>
+                <li><strong>Prepared By:</strong> Fill Name, Signature text, Date.</li>
+                <li><strong>Choose sections to include:</strong> Use the "Sections to include" checkboxes.</li>
+                <li><strong>Preview live updates:</strong> Click Preview to unlock the right panel. The formatted report updates automatically.</li>
+                <li><strong>Download PDF:</strong> Click Download PDF. A clean, vector-based A4 PDF is generated.</li>
+            </ol>
+            
+            <div class="highlight">
+                <p><strong data-en="Pro Tip:" data-hi="प्रो टिप:">Pro Tip:</strong> <span data-en="Keep entries short and bulleted so they render neatly in both preview and PDF (especially in KPI cards and paragraphs)." 
+                   data-hi="प्रविष्टियों को छोटा और बुलेटेड रखें ताकि वे पूर्वावलोकन और पीडीएफ दोनों में साफ-सुथरे दिखें (विशेष रूप से केपीआई कार्ड और पैराग्राफ में)।">
+                    Keep entries short and bulleted so they render neatly in both preview and PDF (especially in KPI cards and paragraphs).
+                </span></p>
+            </div>
+        </div>
+
+        <!-- Templates -->
+        <div class="content-card">
+            <h2><i class="fas fa-file-alt"></i> <span data-en="Available Report Templates" data-hi="उपलब्ध रिपोर्ट टेम्पलेट्स">Available Report Templates</span></h2>
+            <p data-en="Load pre-configured templates for common work scenarios to save time and ensure consistency:" 
+               data-hi="समय बचाने और स्थिरता सुनिश्चित करने के लिए सामान्य कार्य परिदृश्यों के लिए पूर्व-कॉन्फ़िगर टेम्पलेट्स लोड करें:">
+                Load pre-configured templates for common work scenarios to save time and ensure consistency:
+            </p>
+            
+            <div class="template-grid">
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h4 data-en="Hot Work" data-hi="हॉट वर्क">Hot Work</h4>
+                    <p data-en="Welding, cutting, grinding operations" data-hi="वेल्डिंग, कटिंग, ग्राइंडिंग ऑपरेशन">Welding, cutting, grinding operations</p>
+                </div>
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h4 data-en="Work at Height" data-hi="ऊंचाई पर कार्य">Work at Height</h4>
+                    <p data-en="Scaffolding, elevated work platforms" data-hi="स्कैफोल्डिंग, ऊंचे कार्य प्लेटफॉर्म">Scaffolding, elevated work platforms</p>
+                </div>
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                    </div>
+                    <h4 data-en="Confined Space" data-hi="सीमित स्थान">Confined Space</h4>
+                    <p data-en="Tanks, vessels, enclosed areas" data-hi="टैंक, पात्र, संलग्न क्षेत्र">Tanks, vessels, enclosed areas</p>
+                </div>
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4 data-en="Electrical Work" data-hi="इलेक्ट्रिकल कार्य">Electrical Work</h4>
+                    <p data-en="Installation, maintenance, testing" data-hi="स्थापना, रखरखाव, परीक्षण">Installation, maintenance, testing</p>
+                </div>
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fa-solid fa-person-digging"></i>
+                    </div>
+                    <h4 data-en="Excavation" data-hi="उत्खनन">Excavation</h4>
+                    <p data-en="Trenching, digging, earthworks" data-hi="ट्रेंचिंग, खुदाई, भूकरण">Trenching, digging, earthworks</p>
+                </div>
+                <div class="template-card">
+                    <div class="template-icon">
+                        <i class="fas fa-weight-hanging"></i>
+                    </div>
+                    <h4 data-en="Lifting Operations" data-hi="उत्थापन संचालन">Lifting Operations</h4>
+                    <p data-en="Cranes, hoists, rigging" data-hi="क्रेन, होइस्ट, रिगिंग">Cranes, hoists, rigging</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Examples -->
+        <div class="content-card">
+            <h2><i class="fas fa-building"></i> <span data-en="Example Usage for Daily Safety Report Generator" data-hi="दैनिक सुरक्षा रिपोर्ट जनरेटर के लिए उदाहरण उपयोग">Example Usage for Daily Safety Report Generator</span></h2>
+            
+            <div class="example">
+                <h4><i class="fas fa-industry"></i> <span data-en="Refinery Project" data-hi="रिफाइनरी परियोजना">Refinery Project</span></h4>
+                <ul data-en="
+                    <li><strong>Activity:</strong> Scaffolding erection at Bay-3; tagging after inspection.</li>
+                    <li><strong>Observation:</strong> Guardrails missing at 6 m platform; amber tag applied; access restricted.</li>
+                    <li><strong>Action:</strong> Installed mid-rails; re-inspected and switched to GREEN tag. Toolbox talk held on working at height.</li>
+                " 
+                data-hi="
+                    <li><strong>गतिविधि:</strong> बे-3 पर स्कैफोल्डिंग स्थापना; निरीक्षण के बाद टैगिंग।</li>
+                    <li><strong>अवलोकन:</strong> 6 मीटर प्लेटफॉर्म पर गार्डरेल गायब; एम्बर टैग लगाया गया; पहुंच प्रतिबंधित।</li>
+                    <li><strong>कार्रवाई:</strong> मिड-रेल स्थापित किए गए; पुन: निरीक्षण किया गया और GREEN टैग पर स्विच किया गया। ऊंचाई पर काम करने पर टूलबॉक्स टॉक आयोजित किया गया।</li>
+                ">
+                    <li><strong>Activity:</strong> Scaffolding erection at Bay-3; tagging after inspection.</li>
+                    <li><strong>Observation:</strong> Guardrails missing at 6 m platform; amber tag applied; access restricted.</li>
+                    <li><strong>Action:</strong> Installed mid-rails; re-inspected and switched to GREEN tag. Toolbox talk held on working at height.</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4><i class="fas fa-hard-hat"></i> <span data-en="Construction Site" data-hi="निर्माण स्थल">Construction Site</span></h4>
+                <ul data-en="
+                    <li><strong>Activity:</strong> Hot work at storage tank (cutting/welding).</li>
+                    <li><strong>Observation:</strong> Sparks contained with screens; fire watch deployed; extinguishers in place.</li>
+                    <li><strong>Action:</strong> Verified extinguisher readiness and extended fire watch 30 min post-work.</li>
+                " 
+                data-hi="
+                    <li><strong>गतिविधि:</strong> स्टोरेज टैंक पर हॉट वर्क (कटिंग/वेल्डिंग)।</li>
+                    <li><strong>अवलोकन:</strong> स्क्रीन के साथ स्पार्क्स नियंत्रित; फायर वॉच तैनात; अग्निशामक यंत्र मौजूद।</li>
+                    <li><strong>कार्रवाई:</strong> अग्निशामक यंत्र की तत्परता सत्यापित की और कार्य के बाद 30 मिनट तक फायर वॉच बढ़ाई।</li>
+                ">
+                    <li><strong>Activity:</strong> Hot work at storage tank (cutting/welding).</li>
+                    <li><strong>Observation:</strong> Sparks contained with screens; fire watch deployed; extinguishers in place.</li>
+                    <li><strong>Action:</strong> Verified extinguisher readiness and extended fire watch 30 min post-work.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Importance -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-circle"></i> <span data-en="Why Is a Daily Safety Report Important?" data-hi="दैनिक सुरक्षा रिपोर्ट क्यों महत्वपूर्ण है?">Why Is a Daily Safety Report Important?</span></h2>
+            <ul data-en="
+                <li>Ensures hazards are tracked and acted upon daily</li>
+                <li>Provides management with a real-time safety snapshot</li>
+                <li>Helps track leading (observations, actions) and lagging (incidents) indicators</li>
+                <li>Serves as documentary proof during audits, inspections, and legal reviews</li>
+                <li>Strengthens safety culture by involving all stakeholders in reporting</li>
+            " 
+            data-hi="
+                <li>सुनिश्चित करता है कि खतरों पर दैनिक आधार पर नज़र रखी जाए और कार्रवाई की जाए</li>
+                <li>प्रबंधन को रीयल-टाइम सुरक्षा स्नैपशॉट प्रदान करता है</li>
+                <li>लीडिंग (अवलोकन, कार्य) और लैगिंग (घटनाएं) संकेतकों को ट्रैक करने में मदद करता है</li>
+                <li>ऑडिट, निरीक्षण और कानूनी समीक्षा के दौरान दस्तावेजी प्रमाण के रूप में कार्य करता है</li>
+                <li>रिपोर्टिंग में सभी हितधारकों को शामिल करके सुरक्षा संस्कृति को मजबूत करता है</li>
+            ">
+                <li>Ensures hazards are tracked and acted upon daily</li>
+                <li>Provides management with a real-time safety snapshot</li>
+                <li>Helps track leading (observations, actions) and lagging (incidents) indicators</li>
+                <li>Serves as documentary proof during audits, inspections, and legal reviews</li>
+                <li>Strengthens safety culture by involving all stakeholders in reporting</li>
+            </ul>
+        </div>
+
+        <!-- Applications -->
+        <div class="content-card">
+            <h2><i class="fas fa-globe"></i> <span data-en="Real-World Applications" data-hi="वास्तविक दुनिया के अनुप्रयोग">Real-World Applications</span></h2>
+            <div class="checklist-grid">
+                <div class="checklist-item">
+                    <h4><i class="fas fa-hard-hat"></i> <span data-en="Construction Projects" data-hi="निर्माण परियोजनाएं">Construction Projects</span></h4>
+                    <p data-en="Track contractors, activities, daily safety status; capture permits like W@H, Lifting, Excavation." 
+                       data-hi="ठेकेदारों, गतिविधियों, दैनिक सुरक्षा स्थिति को ट्रैक करें; W@H, लिफ्टिंग, एक्सकेवेशन जैसे परमिट कैप्चर करें।">
+                        Track contractors, activities, daily safety status; capture permits like W@H, Lifting, Excavation.
+                    </p>
+                </div>
+                <div class="checklist-item">
+                    <h4><i class="fas fa-oil-well"></i> <span data-en="Oil & Gas Operations" data-hi="तेल और गैस संचालन">Oil & Gas Operations</span></h4>
+                    <p data-en="Document Hot Work, Confined Space, Electrical permits and compliance checks." 
+                       data-hi="हॉट वर्क, कन्फाइंड स्पेस, इलेक्ट्रिकल परमिट और अनुपालन जांच दस्तावेज करें।">
+                        Document Hot Work, Confined Space, Electrical permits and compliance checks.
+                    </p>
+                </div>
+                <div class="checklist-item">
+                    <h4><i class="fas fa-industry"></i> <span data-en="Factories & Plants" data-hi="फैक्ट्रियां और प्लांट">Factories & Plants</span></h4>
+                    <p data-en="Record routine hazards and CAPA; log toolbox talks and manpower strength." 
+                       data-hi="रूटीन खतरों और CAPA रिकॉर्ड करें; टूलबॉक्स टॉक और जनशक्ति ताकत लॉग करें।">
+                        Record routine hazards and CAPA; log toolbox talks and manpower strength.
+                    </p>
+                </div>
+                <div class="checklist-item">
+                    <h4><i class="fas fa-building"></i> <span data-en="Corporate Facilities" data-hi="कॉर्पोरेट सुविधाएं">Corporate Facilities</span></h4>
+                    <p data-en="Daily logs for housekeeping, fire safety, first aid readiness, and signage/barricades." 
+                       data-hi="हाउसकीपिंग, अग्नि सुरक्षा, प्राथमिक चिकित्सा तत्परता, और साइनेज/बैरिकेड्स के लिए दैनिक लॉग।">
+                        Daily logs for housekeeping, fire safety, first aid readiness, and signage/barricades.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mistakes -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-triangle"></i> <span data-en="Common Mistakes in Daily Safety Reporting" data-hi="दैनिक सुरक्षा रिपोर्टिंग में सामान्य गलतियाँ">Common Mistakes in Daily Safety Reporting</span></h2>
+            <div class="mistakes-grid">
+                <div class="mistake-item">
+                    <h4><i class="fas fa-copy"></i> <span data-en="Copy-Pasting Reports" data-hi="रिपोर्ट्स कॉपी-पेस्ट करना">Copy-Pasting Reports</span></h4>
+                    <p data-en="Copying old reports without updating activities/permits." 
+                       data-hi="गतिविधियों/परमिटों को अपडेट किए बिना पुरानी रिपोर्ट्स कॉपी करना।">
+                        Copying old reports without updating activities/permits.
+                    </p>
+                </div>
+                <div class="mistake-item">
+                    <h4><i class="fas fa-eye-slash"></i> <span data-en="Superficial Observations" data-hi="सतही अवलोकन">Superficial Observations</span></h4>
+                    <p data-en="Recording 'NIL' without genuine site observation." 
+                       data-hi="वास्तविक साइट अवलोकन के बिना 'NIL' रिकॉर्ड करना।">
+                        Recording "NIL" without genuine site observation.
+                    </p>
+                </div>
+                <div class="mistake-item">
+                    <h4><i class="fas fa-user-times"></i> <span data-en="Vague CAPA" data-hi="अस्पष्ट CAPA">Vague CAPA</span></h4>
+                    <p data-en="Corrective actions without owner or target date." 
+                       data-hi="मालिक या लक्ष्य तिथि के बिना सुधारात्मक कार्य।">
+                        Corrective actions without owner or target date.
+                    </p>
+                </div>
+                <div class="mistake-item">
+                    <h4><i class="fas fa-file-medical"></i> <span data-en="Cluttered Reports" data-hi="अव्यवस्थित रिपोर्ट्स">Cluttered Reports</span></h4>
+                    <p data-en="Not using section toggles—creating unfocused reports." 
+                       data-hi="अनुभाग टॉगल का उपयोग न करना—अकेंद्रित रिपोर्ट्स बनाना।">
+                        Not using section toggles—creating unfocused reports.
+                    </p>
+                </div>
+                <div class="mistake-item">
+                    <h4><i class="fas fa-check-circle"></i> <span data-en="Skipping Validation" data-hi="सत्यापन छोड़ना">Skipping Validation</span></h4>
+                    <p data-en="Ignoring preview validation errors before export." 
+                       data-hi="निर्यात से पहले पूर्वावलोकन सत्यापन त्रुटियों को अनदेखा करना।">
+                        Ignoring preview validation errors before export.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-card">
+            <h2><i class="fas fa-star"></i> <span data-en="Best Practices for Effective DSRs" data-hi="प्रभावी DSRs के लिए सर्वोत्तम प्रथाएं">Best Practices for Effective DSRs</span></h2>
+            <ul data-en="
+                <li>Keep entries factual and concise (bullets > long paragraphs)</li>
+                <li>Assign action owners and deadlines in CAPA</li>
+                <li>Use Templates to standardize wording for recurring work types</li>
+                <li>Toggle Sections to include for focused, shorter PDFs</li>
+                <li>Ensure every report is reviewed and signed (Prepared By block)</li>
+                <li>Feed manpower counts into weekly/monthly dashboards to compute FR/TRIR</li>
+            " 
+            data-hi="
+                <li>प्रविष्टियों को तथ्यात्मक और संक्षिप्त रखें (बुलेट्स > लंबे पैराग्राफ)</li>
+                <li>CAPA में कार्य मालिकों और समय सीमा निर्दिष्ट करें</li>
+                <li>आवर्ती कार्य प्रकारों के लिए शब्दावली मानकीकृत करने के लिए टेम्पलेट्स का उपयोग करें</li>
+                <li>केंद्रित, छोटी पीडीएफ के लिए शामिल करने के लिए अनुभाग टॉगल करें</li>
+                <li>सुनिश्चित करें कि प्रत्येक रिपोर्ट की समीक्षा की जाती है और हस्ताक्षर किए जाते हैं (तैयार किया गया ब्लॉक)</li>
+                <li>FR/TRIR की गणना करने के लिए जनशक्ति गिनती को साप्ताहिक/मासिक डैशबोर्ड में फीड करें</li>
+            ">
+                <li>Keep entries factual and concise (bullets > long paragraphs)</li>
+                <li>Assign action owners and deadlines in CAPA</li>
+                <li>Use Templates to standardize wording for recurring work types</li>
+                <li>Toggle Sections to include for focused, shorter PDFs</li>
+                <li>Ensure every report is reviewed and signed (Prepared By block)</li>
+                <li>Feed manpower counts into weekly/monthly dashboards to compute FR/TRIR</li>
+            </ul>
+        </div>
+
+        <!-- FAQ -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Frequently Asked Questions (FAQ)" data-hi="अक्सर पूछे जाने वाले प्रश्न (FAQ)">Frequently Asked Questions (FAQ)</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="How long should it take to prepare a DSR?" data-hi="DSR तैयार करने में कितना समय लगना चाहिए?">How long should it take to prepare a DSR?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="With the generator + templates, typically under 10 minutes." 
+                       data-hi="जनरेटर + टेम्पलेट्स के साथ, आमतौर पर 10 मिनट से कम।">
+                        With the generator + templates, typically under 10 minutes.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Who should fill out the DSR?" data-hi="DSR कौन भरना चाहिए?">Who should fill out the DSR?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Usually the HSE/Safety Officer, reviewed by the Supervisor/Manager." 
+                       data-hi="आमतौर पर HSE/सुरक्षा अधिकारी, पर्यवेक्षक/प्रबंधक द्वारा समीक्षा की जाती है।">
+                        Usually the HSE/Safety Officer, reviewed by the Supervisor/Manager.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can it replace incident reports?" data-hi="क्या यह घटना रिपोर्ट को प्रतिस्थापित कर सकता है?">Can it replace incident reports?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="No. It complements but does not replace full investigation forms." 
+                       data-hi="नहीं। यह पूरक है लेकिन पूर्ण जांच फॉर्मों को प्रतिस्थापित नहीं करता है।">
+                        No. It complements but does not replace full investigation forms.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Is it mandatory?" data-hi="क्या यह अनिवार्य है?">Is it mandatory?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Under frameworks like OSHA / ISO 45001, daily safety logs are a strong best practice and often contractually required." 
+                       data-hi="OSHA / ISO 45001 जैसे ढांचे के तहत, दैनिक सुरक्षा लॉग एक मजबूत सर्वोत्तम अभ्यास हैं और अक्सर अनुबंधित रूप से आवश्यक होते हैं।">
+                        Under frameworks like OSHA / ISO 45001, daily safety logs are a strong best practice and often contractually required.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Thoughts -->
+        <div class="content-card">
+            <h2><i class="fas fa-lightbulb"></i> <span data-en="Final Thoughts on Daily Safety Report Generator" data-hi="दैनिक सुरक्षा रिपोर्ट जनरेटर पर अंतिम विचार">Final Thoughts on Daily Safety Report Generator</span></h2>
+            <p data-en="The Daily Safety Report Generator is more than a form—it's your daily safety pulse check." 
+               data-hi="दैनिक सुरक्षा रिपोर्ट जनरेटर एक फॉर्म से अधिक है—यह आपकी दैनिक सुरक्षा पल्स चेक है।">
+                The Daily Safety Report Generator is more than a form—it's your daily safety pulse check.
+            </p>
+            
+            <p data-en="By using this tool, you can:" 
+               data-hi="इस टूल का उपयोग करके, आप यह कर सकते हैं:">
+                By using this tool, you can:
+            </p>
+            <ul data-en="
+                <li>Capture workforce, hazards, permits, and CAPA every day</li>
+                <li>Standardize reporting across sites and contractors via Templates</li>
+                <li>Export professional, shareable PDFs instantly</li>
+                <li>Strengthen compliance and a proactive safety culture</li>
+            " 
+            data-hi="
+                <li>हर दिन कार्यबल, खतरों, परमिटों और CAPA को कैप्चर करें</li>
+                <li>टेम्पलेट्स के माध्यम से साइटों और ठेकेदारों में रिपोर्टिंग मानकीकृत करें</li>
+                <li>तुरंत पेशेवर, साझा करने योग्य पीडीएफ निर्यात करें</li>
+                <li>अनुपालन और एक सक्रिय सुरक्षा संस्कृति को मजबूत करें</li>
+            ">
+                <li>Capture workforce, hazards, permits, and CAPA every day</li>
+                <li>Standardize reporting across sites and contractors via Templates</li>
+                <li>Export professional, shareable PDFs instantly</li>
+                <li>Strengthen compliance and a proactive safety culture</li>
+            </ul>
+            
+            <div class="highlight">
+                <p><strong data-en="Pro Tip:" data-hi="प्रो टिप:">Pro Tip:</strong> <span data-en="Use the Daily Safety Report alongside your HIRA, JSA, and PTW systems for a complete safety ecosystem. The code already includes template loading, section toggles, preview gating, and robust PDF export—just keep your entries clear and consistent." 
+                   data-hi="एक पूर्ण सुरक्षा पारिस्थितिकी तंत्र के लिए अपनी HIRA, JSA, और PTW प्रणालियों के साथ दैनिक सुरक्षा रिपोर्ट का उपयोग करें। कोड में पहले से ही टेम्पलेट लोडिंग, अनुभाग टॉगल, पूर्वावलोकन गेटिंग, और मजबूत पीडीएफ निर्यात शामिल है—बस अपनी प्रविष्टियों को स्पष्ट और सुसंगत रखें।">
+                    Use the Daily Safety Report alongside your HIRA, JSA, and PTW systems for a complete safety ecosystem. The code already includes template loading, section toggles, preview gating, and robust PDF export—just keep your entries clear and consistent.
+                </span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

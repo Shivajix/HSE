@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Safety Analysis Generator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --purple: #9b59b6;
+            --pink: #e84393;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 15px;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 1s ease;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: var(--gray);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Guide Content Section */
+        .guide-content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .section-title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 25px;
+            color: var(--primary);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .content-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.4s ease;
+            border-left: 5px solid var(--secondary);
+            animation: fadeIn 1s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background: white;
+        }
+        
+        .content-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .content-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .content-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+        
+        /* Main Guide Grid */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px 20px;
+            transition: all 0.4s ease;
+            animation: slideUp 1s ease;
+            position: relative;
+            overflow: hidden;
+            scroll-margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--success));
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.3;
+        }
+        
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-content p {
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step {
+            margin-bottom: 15px;
+            padding-left: 45px;
+            position: relative;
+        }
+        
+        .step:before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--secondary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        
+        .example-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+            animation: fadeIn 1s ease;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        
+        .example-title i {
+            margin-right: 8px;
+            color: var(--success);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            animation: fadeIn 1s ease;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .faq-item {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .faq-question i {
+            margin-right: 8px;
+            color: var(--info);
+        }
+        
+        .mistake-item, .practice-item, .application-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .mistake-item {
+            background: #fff5f5;
+            border-left: 3px solid var(--danger);
+        }
+        
+        .practice-item {
+            background: #f0f9ff;
+            border-left: 3px solid var(--success);
+        }
+        
+        .application-item {
+            background: #f8f9fa;
+            border-left: 3px solid var(--warning);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .badge-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .badge-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            animation: fadeIn 1s ease;
+        }
+        
+        .jsa-generator {
+            background: white;
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            animation: slideUp 1s ease;
+        }
+        
+        .generator-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--secondary), var(--info));
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .result-box {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px dashed var(--secondary);
+            display: none;
+            animation: slideUp 1s ease;
+        }
+        
+        .icon-1 { background: linear-gradient(45deg, var(--success), #2ecc71); }
+        .icon-2 { background: linear-gradient(45deg, var(--info), #3498db); }
+        .icon-3 { background: linear-gradient(45deg, var(--warning), #f39c12); }
+        .icon-4 { background: linear-gradient(45deg, var(--purple), #9b59b6); }
+        .icon-5 { background: linear-gradient(45deg, var(--danger), #e74c3c); }
+        .icon-6 { background: linear-gradient(45deg, var(--pink), #e84393); }
+        
+        /* Mobile First Styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .guide-grid, .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .card, .guide-content-section {
+                padding: 20px 15px;
+            }
+            
+            .card-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .card-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .section-title {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .section-title i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            th, td {
+                padding: 8px 6px;
+            }
+        }
+        
+        /* Desktop Styles */
+        @media (min-width: 769px) {
+            .btn {
+                width: auto;
+            }
+            
+            .card-header {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .card-icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+            
+            .section-title {
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .section-title i {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+        
+        /* Large Desktop Styles */
+        @media (min-width: 1200px) {
+            .guide-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .content-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1s; }
+        
+        .content-item:nth-child(1) { animation-delay: 0.1s; }
+        .content-item:nth-child(2) { animation-delay: 0.2s; }
+        .content-item:nth-child(3) { animation-delay: 0.3s; }
+        .content-item:nth-child(4) { animation-delay: 0.4s; }
+        .content-item:nth-child(5) { animation-delay: 0.5s; }
+        .content-item:nth-child(6) { animation-delay: 0.6s; }
+        .content-item:nth-child(7) { animation-delay: 0.7s; }
+        .content-item:nth-child(8) { animation-delay: 0.8s; }
+        .content-item:nth-child(9) { animation-delay: 0.9s; }
+        .content-item:nth-child(10) { animation-delay: 1s; }
+        
+        .active-section {
+            animation: highlight 1s ease;
+            box-shadow: 0 0 0 3px var(--secondary);
+        }
+        
+        @keyframes highlight {
+            0% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(52, 152, 219, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(52, 152, 219, 0); }
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--secondary);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background: var(--primary);
+        }
+        
+        /* Mobile Navigation Improvements */
+        @media (max-width: 480px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-content {
+                font-size: 0.95rem;
+            }
+            
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) {
+            .content-item:hover,
+            .card:hover,
+            .btn:hover {
+                transform: none;
+            }
+            
+            .content-item:active,
+            .card:active {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Job Safety Analysis - Complete Guide</h1>
+            <p class="subtitle">Your comprehensive resource for Job Safety Analysis (JSA). Learn how to systematically identify job hazards, assess risks, and implement effective controls to protect workers.</p>
+        </header>
+        <script type="text/javascript">
+	atOptions = {
+		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
+		'format' : 'iframe',
+		'height' : 250,
+		'width' : 300,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+        <!-- Guide Content Section -->
+        <div class="guide-content-section">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Guide Content Overview
+            </h2>
+            <p style="text-align: center; margin-bottom: 25px; font-size: 1.1rem; color: var(--gray);">
+                Click on any topic below to jump directly to that section
+            </p>
+            
+            <div class="content-grid">
+                <div class="content-item" data-target="what-is-jsa">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="content-title">What Is a JSA Generator?</h3>
+                    <p class="content-desc">Understand the fundamentals of Job Safety Analysis and how a JSA Generator simplifies the process of creating comprehensive safety assessments.</p>
+                </div>
+                
+                <div class="content-item" data-target="key-components">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h3 class="content-title">Key Components of a JSA Generator</h3>
+                    <p class="content-desc">Learn about the essential elements that make up an effective JSA Generator tool.</p>
+                </div>
+                
+                <div class="content-item" data-target="how-to-use">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="content-title">How to Use the JSA Generator</h3>
+                    <p class="content-desc">Step-by-step instructions for using our interactive JSA Generator tool effectively.</p>
+                </div>
+                
+                <div class="content-item" data-target="example-usage">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="content-title">Example Usage</h3>
+                    <p class="content-desc">Real-world examples of JSA applications across different industries and job tasks.</p>
+                </div>
+                
+                <div class="content-item" data-target="importance">
+                    <div class="content-icon icon-5">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="content-title">Why Is a JSA Important?</h3>
+                    <p class="content-desc">Discover the critical benefits and legal requirements of implementing JSA in your workplace.</p>
+                </div>
+                
+                <div class="content-item" data-target="applications">
+                    <div class="content-icon icon-6">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="content-title">Where JSAs Shine</h3>
+                    <p class="content-desc">Explore the specific situations and industries where JSA provides the most value.</p>
+                </div>
+                
+                <div class="content-item" data-target="common-mistakes">
+                    <div class="content-icon icon-1">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3 class="content-title">Common Mistakes in JSA Preparation</h3>
+                    <p class="content-desc">Avoid these common pitfalls that can undermine your JSA process and effectiveness.</p>
+                </div>
+                
+                <div class="content-item" data-target="best-practices">
+                    <div class="content-icon icon-2">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="content-title">Best Practices for Effective JSA</h3>
+                    <p class="content-desc">Learn proven strategies for creating comprehensive and effective job safety analyses.</p>
+                </div>
+                
+                <div class="content-item" data-target="faq">
+                    <div class="content-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="content-title">FAQ</h3>
+                    <p class="content-desc">Get answers to frequently asked questions about JSA implementation and best practices.</p>
+                </div>
+                
+                <div class="content-item" data-target="final-thoughts">
+                    <div class="content-icon icon-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="content-title">Final Thoughts</h3>
+                    <p class="content-desc">Key takeaways and recommendations for successful JSA implementation in your organization.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Guide Sections -->
+        <div class="guide-grid">
+            <!-- What Is JSA Card -->
+            <div class="card" id="what-is-jsa">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="card-title">What Is a Job Safety Analysis Generator?</h2>
+                </div>
+                <div class="card-content">
+                    <p>A Job Safety Analysis (JSA) Generator is a systematic tool used to identify potential hazards associated with specific job tasks and determine the best controls to protect workers from those hazards.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>JSA Definition:</strong> A proactive safety management approach that breaks down jobs into individual steps, identifies potential hazards for each step, and establishes control measures to eliminate or reduce risks.</p>
+                    </div>
+                    
+                    <p>The JSA process involves examining job tasks in detail to identify physical, chemical, biological, ergonomic, and psychosocial hazards before work begins.</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Job Breakdown</h3>
+                            <p>Systematic division of a job into its basic steps or tasks</p>
+                        </div>
+                        <div class="step">
+                            <h3>Hazard Identification</h3>
+                            <p>Identification of potential hazards associated with each job step</p>
+                        </div>
+                        <div class="step">
+                            <h3>Control Development</h3>
+                            <p>Establishment of preventive measures and controls for identified hazards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Key Components Card -->
+            <div class="card" id="key-components">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Key Components of a JSA Generator</h2>
+                </div>
+                <div class="card-content">
+                    <p>A comprehensive JSA Generator consists of several key components that work together to create effective safety assessments:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Job Meta Information</h3>
+                            <p>Basic details about the job including title, location, department, and personnel involved.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Templates & Prefilled Steps</h3>
+                            <p>Pre-built templates for common job tasks that can be customized to save time and ensure consistency.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Job Steps Table</h3>
+                            <p>Structured format for breaking down jobs into steps, identifying hazards, and specifying controls.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Export & Records Management</h3>
+                            <p>Capability to export JSAs in various formats and maintain records for compliance and review.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-table"></i> Sample JSA Structure</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Job Step</th>
+                                    <th>Potential Hazards</th>
+                                    <th>Control Measures</th>
+                                    <th>Responsible Person</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Setup equipment</td>
+                                    <td>Pinch points, electrical hazards</td>
+                                    <td>Lockout/tagout, proper PPE</td>
+                                    <td>Lead technician</td>
+                                </tr>
+                                <tr>
+                                    <td>Perform task</td>
+                                    <td>Chemical exposure, falling objects</td>
+                                    <td>Ventilation, hard hat area</td>
+                                    <td>Operator</td>
+                                </tr>
+                                <tr>
+                                    <td>Cleanup</td>
+                                    <td>Slip hazards, chemical residue</td>
+                                    <td>Proper disposal, area signage</td>
+                                    <td>All crew members</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How to Use Card -->
+            <div class="card" id="how-to-use">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">How to Use the JSA Generator</h2>
+                </div>
+                <div class="card-content">
+                    <p>Our JSA Generator simplifies the job safety analysis process by providing a structured framework to identify hazards, assess risks, and determine control measures.</p>
+                    
+                    <div class="jsa-generator">
+                        <h3 class="generator-title">Interactive JSA Generator</h3>
+                        
+                        <div class="form-group">
+                            <label for="jobTitle">Job Title</label>
+                            <input type="text" id="jobTitle" placeholder="Enter job title">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobLocation">Job Location</label>
+                            <input type="text" id="jobLocation" placeholder="Enter job location">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobDescription">Job Description</label>
+                            <textarea id="jobDescription" rows="3" placeholder="Describe the job in detail"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="jobTemplate">Select Template (Optional)</label>
+                            <select id="jobTemplate">
+                                <option value="">No Template - Start Fresh</option>
+                                <option value="construction">Construction Tasks</option>
+                                <option value="maintenance">Equipment Maintenance</option>
+                                <option value="chemical">Chemical Handling</option>
+                                <option value="height">Working at Height</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" id="generateJsa">
+                            <i class="fas fa-bolt"></i> Generate JSA Framework
+                        </button>
+                        
+                        <div class="result-box" id="jsaResult">
+                            <h3>JSA Framework Generated</h3>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <h3><i class="fas fa-list-ol"></i> Step-by-Step JSA Process</h3>
+                        <ol>
+                            <li><strong>Select the Job:</strong> Choose a job to analyze, prioritizing high-risk or non-routine tasks</li>
+                            <li><strong>Break Down the Job:</strong> Divide the job into basic steps in sequential order</li>
+                            <li><strong>Identify Hazards:</strong> For each step, identify potential hazards and accident causes</li>
+                            <li><strong>Develop Controls:</strong> Determine preventive measures to eliminate or reduce hazards</li>
+                            <li><strong>Implement Controls:</strong> Put the controls in place and train workers</li>
+                            <li><strong>Review and Update:</strong> Regularly review the JSA and update as conditions change</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Example Usage Card -->
+            <div class="card" id="example-usage">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Example Usage</h2>
+                </div>
+                <div class="card-content">
+                    <p>Here are practical examples of how JSA is applied in different workplace scenarios:</p>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-hard-hat"></i> Construction Example - Concrete Pouring</div>
+                        <p><strong>Job Steps:</strong> Site preparation → Formwork setup → Reinforcement placement → Concrete pouring → Finishing</p>
+                        <p><strong>Key Hazards:</strong> Falls from height, heavy equipment operation, chemical exposure, musculoskeletal injuries</p>
+                        <p><strong>Control Measures:</strong> Fall protection systems, equipment operator training, PPE, proper lifting techniques</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-flask"></i> Laboratory Example - Chemical Handling</div>
+                        <p><strong>Job Steps:</strong> Chemical selection → Transport → Measurement → Mixing → Disposal</p>
+                        <p><strong>Key Hazards:</strong> Chemical exposure, fire/explosion, reactivity, spills</p>
+                        <p><strong>Control Measures:</strong> Fume hoods, proper labeling, spill kits, emergency showers, PPE</p>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title"><i class="fas fa-industry"></i> Manufacturing Example - Machine Operation</div>
+                        <p><strong>Job Steps:</strong> Machine inspection → Setup → Operation → Cleaning → Maintenance</p>
+                        <p><strong>Key Hazards:</strong> Machine entanglement, electrical hazards, noise, repetitive motion</p>
+                        <p><strong>Control Measures:</strong> Machine guards, lockout/tagout, hearing protection, ergonomic adjustments</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Importance Card -->
+            <div class="card" id="importance">
+                <div class="card-header">
+                    <div class="card-icon icon-5">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Why Is a JSA Important?</h2>
+                </div>
+                <div class="card-content">
+                    <p>Job Safety Analysis is a fundamental component of any effective safety management system. Its importance extends across multiple dimensions:</p>
+                    
+                    <div class="steps">
+                        <div class="step">
+                            <h3>Accident Prevention</h3>
+                            <p>Identifies potential hazards before they cause injuries, illnesses, or property damage.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Regulatory Compliance</h3>
+                            <p>Helps meet OSHA and other regulatory requirements for hazard assessment and control.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Worker Training</h3>
+                            <p>Provides a structured framework for training workers on safe job procedures.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Incident Investigation</h3>
+                            <p>Serves as a reference point when investigating workplace incidents and near-misses.</p>
+                        </div>
+                        
+                        <div class="step">
+                            <h3>Continuous Improvement</h3>
+                            <p>Creates a foundation for ongoing safety improvement through regular review and updates.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Did You Know?</strong> Organizations that implement systematic JSA processes typically experience 40-60% reduction in workplace incidents and significant improvements in safety culture.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Applications Card -->
+            <div class="card" id="applications">
+                <div class="card-header">
+                    <div class="card-icon icon-6">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Where JSAs Shine</h2>
+                </div>
+                <div class="card-content">
+                    <p>JSA is particularly valuable in specific situations and industries where systematic hazard identification is critical:</p>
+                    
+                    <div class="application-item">
+                        <h3>High-Risk Industries</h3>
+                        <p>Construction, manufacturing, oil and gas, mining, and chemical processing where hazards are numerous and consequences severe.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Non-Routine Tasks</h3>
+                        <p>Infrequent or unusual jobs where workers may be unfamiliar with potential hazards and proper procedures.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>New Processes or Equipment</h3>
+                        <p>When introducing new technology, equipment, or processes to identify unfamiliar hazards.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Incident-Prone Tasks</h3>
+                        <p>Jobs with a history of accidents or near-misses to prevent recurrence and improve safety.</p>
+                    </div>
+                    
+                    <div class="application-item">
+                        <h3>Contractor Management</h3>
+                        <p>When working with contractors to ensure they understand site-specific hazards and controls.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Common Mistakes Card -->
+            <div class="card" id="common-mistakes">
+                <div class="card-header">
+                    <div class="card-icon icon-1">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Common Mistakes in JSA Preparation</h2>
+                </div>
+                <div class="card-content">
+                    <p>Avoid these common pitfalls to ensure your JSA process is effective and reliable:</p>
+                    
+                    <div class="mistake-item">
+                        <h3>Overly Generic Analysis</h3>
+                        <p>Creating JSAs that are too broad and don't address specific job-site conditions or variations.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Lack of Worker Involvement</h3>
+                        <p>Not including frontline workers who have practical knowledge of the job and its hazards.</p>
+                        <span class="badge badge-danger">Critical</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Inadequate Hazard Identification</h3>
+                        <p>Failing to identify all potential hazards, especially those that are less obvious or only present under specific conditions.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Poor Control Selection</h3>
+                        <p>Relying too heavily on administrative controls or PPE instead of elimination or engineering controls.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3>Failure to Update</h3>
+                        <p>Treating JSA as a one-time activity rather than an ongoing process that needs regular review.</p>
+                        <span class="badge badge-warning">Important</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Best Practices Card -->
+            <div class="card" id="best-practices">
+                <div class="card-header">
+                    <div class="card-icon icon-2">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h2 class="card-title">Best Practices for Effective JSA</h2>
+                </div>
+                <div class="card-content">
+                    <p>Follow these best practices to maximize the effectiveness of your JSA process:</p>
+                    
+                    <div class="practice-item">
+                        <h3>Involve the Right People</h3>
+                        <p>Include experienced workers, supervisors, safety professionals, and maintenance personnel in the JSA development.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Observe the Actual Job</h3>
+                        <p>Conduct the JSA while observing the job being performed in its normal work environment.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Review Accident History</h3>
+                        <p>Examine previous incidents, near-misses, and injury reports related to the job or similar tasks.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Use the Hierarchy of Controls</h3>
+                        <p>Prioritize elimination and engineering controls over administrative controls and PPE.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Keep it Simple and Clear</h3>
+                        <p>Use clear, concise language that workers can easily understand and follow.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Train Workers Thoroughly</h3>
+                        <p>Ensure all workers performing the job are trained on the JSA and understand the controls.</p>
+                    </div>
+                    
+                    <div class="practice-item">
+                        <h3>Review and Update Regularly</h3>
+                        <p>Schedule periodic reviews, especially when processes change or after incidents occur.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Card -->
+            <div class="card" id="faq">
+                <div class="card-header">
+                    <div class="card-icon icon-3">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2 class="card-title">Frequently Asked Questions (FAQ)</h2>
+                </div>
+                <div class="card-content">
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> When should a JSA be conducted?</div>
+                        <p>A JSA should be conducted for all jobs, with priority given to high-risk tasks, non-routine jobs, tasks with a history of incidents, and when introducing new processes or equipment.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Who should be involved in creating a JSA?</div>
+                        <p>The JSA team should include the employees who perform the job, their supervisor, safety professionals, and maintenance personnel when equipment is involved.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How detailed should a JSA be?</div>
+                        <p>A JSA should break the job down into steps that are small enough to identify specific hazards but not so small that the analysis becomes overly complex and time-consuming.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> How often should JSAs be reviewed?</div>
+                        <p>JSAs should be reviewed at least annually, or whenever there are changes to the job, equipment, materials, or work environment, or after an incident occurs.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> What's the difference between JSA and JHA?</div>
+                        <p>JSA (Job Safety Analysis) and JHA (Job Hazard Analysis) are often used interchangeably, though some organizations use JHA to refer to a more comprehensive analysis that includes health hazards.</p>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question"><i class="fas fa-question"></i> Can a JSA eliminate all workplace risks?</div>
+                        <p>No, a JSA cannot eliminate all risks, but it can help reduce them to an acceptable level. The goal is to manage risks effectively through systematic identification and control.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Thoughts Card -->
+            <div class="card" id="final-thoughts">
+                <div class="card-header">
+                    <div class="card-icon icon-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h2 class="card-title">Final Thoughts</h2>
+                </div>
+                <div class="card-content">
+                    <p>Job Safety Analysis is not just a regulatory requirement—it's a fundamental business practice that protects your most valuable asset: your people. A well-implemented JSA process creates a safer work environment, reduces costs, improves productivity, and demonstrates your organization's commitment to safety.</p>
+                    
+                    <p>Remember that JSA is an ongoing process, not a one-time activity. As your workplace evolves, so should your understanding and management of job-related risks. Regular review and continuous improvement will ensure your JSAs remain effective and relevant.</p>
+                    
+                    <div class="conclusion">
+                        <h3>Start Your JSA Journey Today</h3>
+                        <p>Use our JSA Generator to begin identifying and assessing risks in your workplace tasks. The process may seem complex at first, but with practice and the right tools, it will become an integral part of your safety management system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const contentItems = document.querySelectorAll('.content-item');
+            
+            contentItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        // Add highlight animation
+                        targetElement.classList.add('active-section');
+                        
+                        // Scroll to the target element
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Remove highlight after animation
+                        setTimeout(() => {
+                            targetElement.classList.remove('active-section');
+                        }, 2000);
+                    }
+                });
+            });
+            
+            // JSA Generator functionality
+            const generateBtn = document.getElementById('generateJsa');
+            const resultBox = document.getElementById('jsaResult');
+            const resultContent = document.getElementById('resultContent');
+            
+            generateBtn.addEventListener('click', function() {
+                const jobTitle = document.getElementById('jobTitle').value;
+                const jobLocation = document.getElementById('jobLocation').value;
+                const jobDescription = document.getElementById('jobDescription').value;
+                const jobTemplate = document.getElementById('jobTemplate').value;
+                
+                if (!jobTitle || !jobLocation || !jobDescription) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                // Generate template-based content
+                let templateContent = '';
+                if (jobTemplate === 'construction') {
+                    templateContent = `
+                        <div class="highlight-box">
+                            <h4>Construction Template Applied</h4>
+                            <p>Common construction hazards have been pre-identified. Please review and customize for your specific task.</p>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Job Step</th>
+                                    <th>Potential Hazards</th>
+                                    <th>Control Measures</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Site Preparation</td>
+                                    <td>Uneven ground, overhead utilities, weather conditions</td>
+                                    <td>Site inspection, utility location, weather monitoring</td>
+                                </tr>
+                                <tr>
+                                    <td>Equipment Setup</td>
+                                    <td>Pinch points, electrical hazards, unstable surfaces</td>
+                                    <td>Lockout/tagout, stable foundations, PPE</td>
+                                </tr>
+                                <tr>
+                                    <td>Task Execution</td>
+                                    <td>Falls, struck-by, caught-between, electrical contact</td>
+                                    <td>Fall protection, barricades, equipment guards</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+                } else if (jobTemplate === 'maintenance') {
+                    templateContent = `
+                        <div class="highlight-box">
+                            <h4>Equipment Maintenance Template Applied</h4>
+                            <p>Common maintenance hazards have been pre-identified. Please review and customize for your specific equipment.</p>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Job Step</th>
+                                    <th>Potential Hazards</th>
+                                    <th>Control Measures</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Equipment Isolation</td>
+                                    <td>Unexpected startup, electrical energy, stored energy</td>
+                                    <td>Lockout/tagout, energy isolation, verification</td>
+                                </tr>
+                                <tr>
+                                    <td>Disassembly</td>
+                                    <td>Sharp edges, heavy components, chemical exposure</td>
+                                    <td>Cut-resistant gloves, lifting equipment, ventilation</td>
+                                </tr>
+                                <tr>
+                                    <td>Repair/Replacement</td>
+                                    <td>Tool misuse, component failure, confined spaces</td>
+                                    <td>Proper tools, inspection, confined space procedures</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+                } else {
+                    templateContent = `
+                        <div class="highlight-box">
+                            <h4>Custom JSA Framework</h4>
+                            <p>Use the structure below to develop your job safety analysis. Break down the job into steps and identify hazards and controls for each.</p>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Job Step</th>
+                                    <th>Potential Hazards</th>
+                                    <th>Control Measures</th>
+                                    <th>Responsible Person</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Step 1</td>
+                                    <td>Identify hazards for this step</td>
+                                    <td>Specify control measures</td>
+                                    <td>Assign responsible person</td>
+                                </tr>
+                                <tr>
+                                    <td>Step 2</td>
+                                    <td>Identify hazards for this step</td>
+                                    <td>Specify control measures</td>
+                                    <td>Assign responsible person</td>
+                                </tr>
+                                <tr>
+                                    <td>Step 3</td>
+                                    <td>Identify hazards for this step</td>
+                                    <td>Specify control measures</td>
+                                    <td>Assign responsible person</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+                }
+                
+                resultContent.innerHTML = `
+                    <h4>JSA for: ${jobTitle}</h4>
+                    <p><strong>Location:</strong> ${jobLocation}</p>
+                    <p><strong>Description:</strong> ${jobDescription}</p>
+                    ${templateContent}
+                    <div class="highlight-box">
+                        <h4>Next Steps</h4>
+                        <ol>
+                            <li>Review and customize the JSA framework for your specific task</li>
+                            <li>Involve workers who perform the job in the hazard identification process</li>
+                            <li>Ensure all control measures are practical and effective</li>
+                            <li>Train all workers on the completed JSA before starting the job</li>
+                            <li>Document the JSA and keep it accessible at the worksite</li>
+                        </ol>
+                    </div>
+                `;
+                
+                resultBox.style.display = 'block';
+            });
+            
+            // Back to top functionality
+            const backToTopBtn = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            });
+            
+            backToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

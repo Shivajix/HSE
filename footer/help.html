@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Support - HSE Tools | Free Safety Calculators & Templates</title>
+    <meta name="description" content="Get help and support for HSE Tools. Tutorials, FAQs, and troubleshooting guides for all our safety calculators and tools.">
+    <meta name="keywords" content="HSE tools help, safety calculator support, HSE tool tutorials, troubleshooting HSE tools">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Help & Support - HSE Tools">
+    <meta property="og:description" content="Get help and support for HSE Tools with tutorials and FAQs">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/help.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Help & Support - HSE Tools">
+    <meta name="twitter:description" content="Help and support for HSE Tools">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Help Section Styles */
+        .help-section {
+            margin-bottom: 30px;
+        }
+
+        .help-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .help-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .help-section li {
+            margin-bottom: 8px;
+        }
+
+        .step-guide {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--info-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: var(--font-bold);
+        }
+
+        /* Tool Categories */
+        .tool-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tool-category {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tool-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .tool-category:hover::before {
+            opacity: 1;
+        }
+
+        .tool-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .tool-category i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .quick-action {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+
+        .quick-action::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .quick-action:hover::before {
+            opacity: 1;
+        }
+
+        .quick-action:hover {
+            transform: translateY(-3px);
+        }
+
+        .quick-action i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+
+            .tool-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="https://hsetools.vercel.app" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html" class="active"><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="footer\about.html"><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-en="Help & Support" data-hi="सहायता और समर्थन">Help & Support</h1>
+            <p data-en="Get the most out of HSE Tools with our comprehensive help resources" data-hi="हमारे व्यापक सहायता संसाधनों के साथ एचएसई टूल्स का अधिकतम लाभ उठाएं">Get the most out of HSE Tools with our comprehensive help resources</p>
+        </div>
+    </section>
+
+    <!-- Help Content -->
+    <div class="container">
+        <!-- Quick Start Guide -->
+        <div class="content-card">
+            <h2><i class="fas fa-rocket"></i> <span data-en="Quick Start Guide" data-hi="त्वरित प्रारंभ गाइड">Quick Start Guide</span></h2>
+            <p data-en="Follow these simple steps to get started with HSE Tools:" 
+               data-hi="एचएसई टूल्स के साथ शुरुआत करने के लिए इन सरल चरणों का पालन करें:">
+                Follow these simple steps to get started with HSE Tools:
+            </p>
+            
+            <div class="step-guide">
+                <p><span class="step-number">1</span> <strong data-en="Choose Your Tool" data-hi="अपना टूल चुनें">Choose Your Tool</strong> - <span data-en="Select from calculators, risk assessment, or reporting tools" data-hi="कैलकुलेटर, जोखिम मूल्यांकन, या रिपोर्टिंग टूल्स में से चुनें">Select from calculators, risk assessment, or reporting tools</span></p>
+            </div>
+            
+            <div class="step-guide">
+                <p><span class="step-number">2</span> <strong data-en="Enter Your Data" data-hi="अपना डेटा दर्ज करें">Enter Your Data</strong> - <span data-en="Input your safety metrics, risk factors, or project details" data-hi="अपने सुरक्षा मेट्रिक्स, जोखिम कारक, या परियोजना विवरण दर्ज करें">Input your safety metrics, risk factors, or project details</span></p>
+            </div>
+            
+            <div class="step-guide">
+                <p><span class="step-number">3</span> <strong data-en="Generate Results" data-hi="परिणाम जनरेट करें">Generate Results</strong> - <span data-en="Get instant calculations, risk ratings, or professional reports" data-hi="तत्काल गणना, जोखिम रेटिंग, या पेशेवर रिपोर्ट प्राप्त करें">Get instant calculations, risk ratings, or professional reports</span></p>
+            </div>
+            
+            <div class="step-guide">
+                <p><span class="step-number">4</span> <strong data-en="Export & Share" data-hi="निर्यात और साझा करें">Export & Share</strong> - <span data-en="Download PDF reports for audits or client presentations" data-hi="ऑडिट या क्लाइंट प्रस्तुतियों के लिए PDF रिपोर्ट डाउनलोड करें">Download PDF reports for audits or client presentations</span></p>
+            </div>
+        </div>
+
+        <!-- Tool Categories -->
+        <div class="content-card">
+            <h2><i class="fas fa-tools"></i> <span data-en="Tool Categories" data-hi="टूल श्रेणियां">Tool Categories</span></h2>
+            <p data-en="Explore our comprehensive suite of HSE tools:" 
+               data-hi="हमारे एचएसई टूल्स के व्यापक सूट का अन्वेषण करें:">
+                Explore our comprehensive suite of HSE tools:
+            </p>
+            
+            <div class="tool-categories">
+                <div class="tool-category">
+                    <i class="fas fa-calculator"></i>
+                    <h3 data-en="Calculators & KPIs" data-hi="कैलकुलेटर और केपीआई">Calculators & KPIs</h3>
+                    <p data-en="TRIR, AFR, LTI, Frequency Rate, Severity Rate calculators" 
+                       data-hi="टीआरआईआर, एएफआर, एलटीआई, फ्रीक्वेंसी रेट, सेवेरिटी रेट कैलकुलेटर">
+                        TRIR, AFR, LTI, Frequency Rate, Severity Rate calculators
+                    </p>
+                </div>
+                
+                <div class="tool-category">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h3 data-en="Risk Assessment" data-hi="जोखिम मूल्यांकन">Risk Assessment</h3>
+                    <p data-en="HIRA, JSA, Risk Matrix, PTW generators" 
+                       data-hi="एचआईआरए, जेएसए, रिस्क मैट्रिक्स, पीटीडब्ल्यू जेनरेटर">
+                        HIRA, JSA, Risk Matrix, PTW generators
+                    </p>
+                </div>
+                
+                <div class="tool-category">
+                    <i class="fas fa-file-alt"></i>
+                    <h3 data-en="Reports & Documentation" data-hi="रिपोर्ट और दस्तावेज़">Reports & Documentation</h3>
+                    <p data-en="Daily, weekly, monthly safety reports and incident documentation" 
+                       data-hi="दैनिक, साप्ताहिक, मासिक सुरक्षा रिपोर्ट और घटना दस्तावेज़ीकरण">
+                        Daily, weekly, monthly safety reports and incident documentation
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Issues -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-triangle"></i> <span data-en="Common Issues & Solutions" data-hi="सामान्य समस्याएं और समाधान">Common Issues & Solutions</span></h2>
+            
+            <div class="help-section">
+                <h3><i class="fas fa-download"></i> <span data-en="PDF Export Problems" data-hi="PDF निर्यात समस्याएं">PDF Export Problems</span></h3>
+                <p data-en="If you're having trouble exporting PDFs:" 
+                   data-hi="यदि आपको PDF निर्यात करने में परेशानी हो रही है:">
+                    If you're having trouble exporting PDFs:
+                </p>
+                <ul>
+                    <li data-en="Ensure your browser is updated to the latest version" 
+                        data-hi="सुनिश्चित करें कि आपका ब्राउज़र नवीनतम संस्करण में अपडेटेड है">Ensure your browser is updated to the latest version</li>
+                    <li data-en="Check if pop-ups are blocked for the site" 
+                        data-hi="जांचें कि क्या साइट के लिए पॉप-अप ब्लॉक हैं">Check if pop-ups are blocked for the site</li>
+                    <li data-en="Try using Chrome, Firefox, or Edge browsers" 
+                        data-hi="क्रोम, फायरफॉक्स, या एज ब्राउज़र का उपयोग करने का प्रयास करें">Try using Chrome, Firefox, or Edge browsers</li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3><i class="fas fa-calculator"></i> <span data-en="Calculation Errors" data-hi="गणना त्रुटियां">Calculation Errors</span></h3>
+                <p data-en="If calculations seem incorrect:" 
+                   data-hi="यदि गणना गलत लगती है:">
+                    If calculations seem incorrect:
+                </p>
+                <ul>
+                    <li data-en="Verify all input fields are filled correctly" 
+                        data-hi="सत्यापित करें कि सभी इनपुट फ़ील्ड सही ढंग से भरे गए हैं">Verify all input fields are filled correctly</li>
+                    <li data-en="Check units and formatting of numbers" 
+                        data-hi="संख्या की इकाइयों और फ़ॉर्मेटिंग की जांच करें">Check units and formatting of numbers</li>
+                    <li data-en="Refresh the page and try again" 
+                        data-hi="पृष्ठ रीफ्रेश करें और फिर से प्रयास करें">Refresh the page and try again</li>
+                </ul>
+            </div>
+
+            <div class="help-section">
+                <h3><i class="fas fa-save"></i> <span data-en="Data Not Saving" data-hi="डेटा सेव नहीं हो रहा">Data Not Saving</span></h3>
+                <p data-en="If your data disappears between sessions:" 
+                   data-hi="यदि आपका डेटा सत्रों के बीच गायब हो जाता है:">
+                    If your data disappears between sessions:
+                </p>
+                <ul>
+                    <li data-en="Data is stored locally in your browser" 
+                        data-hi="डेटा आपके ब्राउज़र में स्थानीय रूप से संग्रहीत होता है">Data is stored locally in your browser</li>
+                    <li data-en="Clearing browser cache will delete your data" 
+                        data-hi="ब्राउज़र कैश साफ करने से आपका डेटा हट जाएगा">Clearing browser cache will delete your data</li>
+                    <li data-en="Export important data as PDF before clearing cache" 
+                        data-hi="कैश साफ करने से पहले महत्वपूर्ण डेटा को PDF के रूप में निर्यात करें">Export important data as PDF before clearing cache</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="content-card">
+            <h2><i class="fas fa-bolt"></i> <span data-en="Quick Actions" data-hi="त्वरित कार्य">Quick Actions</span></h2>
+            <p data-en="Get instant help with these quick actions:" 
+               data-hi="इन त्वरित कार्यों के साथ तत्काल सहायता प्राप्त करें:">
+                Get instant help with these quick actions:
+            </p>
+            
+            <div class="quick-actions">
+                <a href="contact.html" class="quick-action">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
+                    <h3 data-en="Contact Support" data-hi="समर्थन से संपर्क करें">Contact Support</h3>
+                    <p data-en="Get personalized help" data-hi="व्यक्तिगत सहायता प्राप्त करें">Get personalized help</p>
+                </a>
+                
+                <a href="index.html" class="quick-action">
+                    <i class="fas fa-compass"></i>
+                    <h3 data-en="Browse Tools" data-hi="टूल्स ब्राउज़ करें">Browse Tools</h3>
+                    <p data-en="Explore all available tools" data-hi="सभी उपलब्ध टूल्स देखें">Explore all available tools</p>
+                </a>
+                
+                <a href="privacy.html" class="quick-action">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                    <h3 data-en="Privacy Info" data-hi="गोपनीयता जानकारी">Privacy Info</h3>
+                    <p data-en="Learn about data protection" data-hi="डेटा संरक्षण के बारे में जानें">Learn about data protection</p>
+                </a>
+                
+                <a href="footer\about.html" class="quick-action">
+                    <i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i>
+                    <h3 data-en="About Us" data-hi="हमारे बारे में">About Us</h3>
+                    <p data-en="Learn about HSE Tools" data-hi="एचएसई टूल्स के बारे में जानें">Learn about HSE Tools</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Frequently Asked Questions" data-hi="अक्सर पूछे जाने वाले प्रश्न">Frequently Asked Questions</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Are HSE Tools really free to use?" data-hi="क्या एचएसई टूल्स वास्तव में मुफ्त हैं?">Are HSE Tools really free to use?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes, all our basic HSE tools are completely free with no hidden costs. We believe in making safety tools accessible to everyone." 
+                       data-hi="हां, हमारे सभी बुनियादी एचएसई टूल्स बिना किसी छुपी लागत के पूरी तरह से मुफ्त हैं। हम सुरक्षा टूल्स को सभी के लिए सुलभ बनाने में विश्वास करते हैं।">
+                        Yes, all our basic HSE tools are completely free with no hidden costs. We believe in making safety tools accessible to everyone.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Do I need to create an account?" data-hi="क्या मुझे एक खाता बनाने की आवश्यकता है?">Do I need to create an account?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="No account required! All tools work immediately without any registration. Your data stays locally in your browser." 
+                       data-hi="कोई खाता आवश्यक नहीं! सभी टूल्स बिना किसी पंजीकरण के तुरंत काम करते हैं। आपका डेटा आपके ब्राउज़र में स्थानीय रूप से रहता है।">
+                        No account required! All tools work immediately without any registration. Your data stays locally in your browser.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can I use these tools for commercial purposes?" data-hi="क्या मैं इन टूल्स का उपयोग वाणिज्यिक उद्देश्यों के लिए कर सकता हूं?">Can I use these tools for commercial purposes?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes, you can use our tools for both personal and commercial projects. The generated reports are professional and audit-ready." 
+                       data-hi="हां, आप हमारे टूल्स का उपयोग व्यक्तिगत और वाणिज्यिक दोनों परियोजनाओं के लिए कर सकते हैं। जनरेट की गई रिपोर्टें पेशेवर और ऑडिट-तैयार हैं।">
+                        Yes, you can use our tools for both personal and commercial projects. The generated reports are professional and audit-ready.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="How often are new tools added?" data-hi="नए टूल्स कितनी बार जोड़े जाते हैं?">How often are new tools added?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="We regularly update and add new tools based on user feedback and industry requirements. Check back frequently for new features!" 
+                       data-hi="हम नियमित रूप से उपयोगकर्ता प्रतिक्रिया और उद्योग आवश्यकताओं के आधार पर नए टूल्स अपडेट और जोड़ते हैं। नई सुविधाओं के लिए बार-बार वापस जांचें!">
+                        We regularly update and add new tools based on user feedback and industry requirements. Check back frequently for new features!
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="What browsers are supported?" data-hi="कौन से ब्राउज़र समर्थित हैं?">What browsers are supported?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="HSE Tools work on all modern browsers including Chrome, Firefox, Safari, and Edge. For best experience, use the latest browser versions." 
+                       data-hi="एचएसई टूल्स सभी आधुनिक ब्राउज़रों पर काम करते हैं जिनमें क्रोम, फायरफॉक्स, सफारी और एज शामिल हैं। सर्वोत्तम अनुभव के लिए, नवीनतम ब्राउज़र संस्करणों का उपयोग करें।">
+                        HSE Tools work on all modern browsers including Chrome, Firefox, Safari, and Edge. For best experience, use the latest browser versions.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Support -->
+        <div class="content-card">
+            <h2><i class="fas fa-headset"></i> <span data-en="Still Need Help?" data-hi="अभी भी सहायता चाहिए?">Still Need Help?</span></h2>
+            <p data-en="Our support team is here to assist you with any questions or issues:" 
+               data-hi="हमारी सहायता टीम किसी भी प्रश्न या समस्या में आपकी सहायता के लिए यहाँ है:">
+                Our support team is here to assist you with any questions or issues:
+            </p>
+            
+            <div class="help-section">
+                <h3><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Email Support" data-hi="ईमेल समर्थन">Email Support</span></h3>
+                <p data-en="For detailed technical support and specific tool questions:" 
+                   data-hi="विस्तृत तकनीकी सहायता और विशिष्ट टूल प्रश्नों के लिए:">
+                    For detailed technical support and specific tool questions:
+                </p>
+                <p><strong>Email:</strong> bholusahani2@gmail.com</p>
+                <p data-en="Response time: 24-48 hours" 
+                   data-hi="प्रतिक्रिया समय: 24-48 घंटे">Response time: 24-48 hours</p>
+            </div>
+
+            <div class="help-section">
+                <h3><i class="fas fa-lightbulb"></i> <span data-en="Feature Requests" data-hi="फीचर अनुरोध">Feature Requests</span></h3>
+                <p data-en="Have an idea for a new tool or feature? We'd love to hear from you!" 
+                   data-hi="किसी नए टूल या फीचर का विचार है? हम आपसे सुनना पसंद करेंगे!">
+                    Have an idea for a new tool or feature? We'd love to hear from you!
+                </p>
+                <p data-en="Email us with your suggestions at bholusahani2@gmail.com" 
+                   data-hi="अपने सुझाव हमें bholusahani2@gmail.com पर ईमेल करें">
+                    Email us with your suggestions at bholusahani2@gmail.com
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

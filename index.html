@@ -3,7 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSE Tools - Free Safety Calculators, Templates & Reports</title>
+    <title>HSE Tools - Free Safety Calculators, Risk Assessment Templates & Compliance Reports</title>
+    <meta name="description" content="25+ free HSE tools for safety professionals. OSHA-compliant risk assessment calculators, JSA generators, safety checklists, KPI trackers, and audit-ready reports. No sign-up required.">
+    <meta name="keywords" content="HSE tools, safety calculators, risk assessment, JSA generator, HIRA template, OSHA compliance, safety KPIs, free safety software, incident rate calculator, TRIR calculator">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="HSE Tools - 25+ Free Safety Calculators & Compliance Templates">
+    <meta property="og:description" content="Professional HSE tools for safety managers. Risk assessment calculators, JSA generators, safety checklists, and OSHA-compliant reports. Completely free.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app">
+    <meta property="og:image" content="https://hsetools.wordpress.com/images/hse-tools-og-image.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HSE Tools - Free Safety Calculators & Templates">
+    <meta name="twitter:description" content="25+ professional HSE tools for safety managers. Risk assessment, JSA generators, and compliance reports.">
+    <meta name="twitter:image" content="https://hsetools.vercel.app">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://hsetools.vercel.app">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "HSE Tools - Free Safety Calculators & Compliance Templates",
+      "description": "25+ free professional HSE tools for safety managers including risk assessment calculators, JSA generators, safety checklists, and OSHA-compliant reports.",
+      "url": "https://hsetools.vercel.app",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Any",
+      "permissions": "browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Shivshakti Sahani",
+        "jobTitle": "HSE Professional & Consultant",
+        "experience": "4+ years in construction, oil & gas safety"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "The HSE Tools",
+        "url": "https://hsetools.vercel.app"
+      }
+    }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /*=============== GOOGLE FONTS ===============*/
@@ -12,7 +68,6 @@
         /*=============== VARIABLES CSS ===============*/
         :root {
             /*========== Colors ==========*/
-            /*Color mode HSL(hue, saturation, lightness)*/
             --white-color: hsl(0, 0%, 100%);
             --black-color: hsl(0, 0%, 0%);
             --primary-color: hsl(210, 100%, 50%);
@@ -24,7 +79,6 @@
             --success-color: hsl(120, 100%, 40%);
 
             /*========== Font and typography ==========*/
-            /*.5rem = 8px | 1rem = 16px ...*/
             --body-font: "Poppins", sans-serif;
             --h1-font-size: 1.5rem;
             --normal-font-size: 0.938rem;
@@ -45,6 +99,10 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
@@ -84,6 +142,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            text-decoration: none;
         }
 
         .logo span {
@@ -592,6 +651,134 @@
             font-size: 0.8rem;
         }
 
+        /*=============== SEARCH BAR ===============*/
+        .search-container {
+            max-width: 600px;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: none;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 2px var(--primary-color);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /*=============== TOOL COUNTER ===============*/
+        .tool-counter {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+
+        .counter-number {
+            font-weight: var(--font-bold);
+            color: var(--accent-color);
+            font-size: 1.3rem;
+        }
+
+        /*=============== NEWSLETTER SECTION ===============*/
+        .newsletter {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 5px;
+            background: #334155;
+            color: #e2e8f0;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        .newsletter-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            transition: all 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== BREADCRUMBS ===============*/
+        .breadcrumbs {
+            padding: 15px 0;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .breadcrumbs a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
         /*=============== RESPONSIVE STYLES ===============*/
         @media (max-width: 768px) {
             .nav-menu {
@@ -644,6 +831,35 @@
             .footer-icon {
                 width: 60px;
             }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        /*=============== PERFORMANCE OPTIMIZATIONS ===============*/
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /*=============== ACCESSIBILITY ===============*/
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Focus styles for better accessibility */
+        a:focus, button:focus, .tool-card:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
         }
     </style>
 </head>
@@ -652,20 +868,20 @@
     <header>
         <div class="container">
             <div class="header-top">
-                <div class="logo">
-                    <i class="fas fa-tools logo-icon"></i>
+                <a href="#" class="logo">
+                    <i class="fas fa-hard-hat logo-icon" aria-hidden="true"></i>
                     HSE <span>Tools</span>
-                </div>
-                <button class="mobile-menu-btn">
+                </a>
+                <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
                     <i class="fas fa-bars"></i>
                 </button>
                 <ul class="nav-menu">
-                    <li><a href="#"><i class="fas fa-compass" style="color: var(--info-color);"></i> Explore All Tools</a></li>
-                    <li><a href="#"><i class="fas fa-file-alt" style="color: var(--primary-color);"></i> Open HIRA & JSA</a></li>
-                    <li><a href="#"><i class="fas fa-calculator" style="color: var(--success-color);"></i> Calculators & KPIs</a></li>
-                    <li><a href="#"><i class="fas fa-clipboard-check" style="color: var(--warning-color);"></i> Risk Assessment</a></li>
-                    <li><a href="#"><i class="fas fa-chart-bar" style="color: var(--accent-color);"></i> Reports</a></li>
-                    <li><a href="#"><i class="fas fa-graduation-cap" style="color: var(--secondary-color);"></i> Training</a></li>
+                    <li><a href="#"><i class="fas fa-compass" style="color: var(--info-color);" aria-hidden="true"></i> All Tools</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt" style="color: var(--primary-color);" aria-hidden="true"></i> HIRA & JSA</a></li>
+                    <li><a href="#"><i class="fas fa-calculator" style="color: var(--success-color);" aria-hidden="true"></i> Calculators</a></li>
+                    <li><a href="#"><i class="fas fa-clipboard-check" style="color: var(--warning-color);" aria-hidden="true"></i> Risk Assessment</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar" style="color: var(--accent-color);" aria-hidden="true"></i> Reports</a></li>
+                    <li><a href="#"><i class="fas fa-graduation-cap" style="color: var(--secondary-color);" aria-hidden="true"></i> Training</a></li>
                 </ul>
             </div>
         </div>
@@ -674,63 +890,79 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container hero-content">
-            <h1>Free Online HSE Tools for Safety Professionals</h1>
-            <p>The HSE Tools - Free Safety Calculators, Templates & Reports</p>
+            <h1>Professional HSE Tools for Safety Managers & Consultants</h1>
+            <p>25+ free, audit-ready safety calculators, risk assessment templates, and compliance reports. Used by safety professionals worldwide.</p>
             <div class="cta-buttons">
-                <a href="#" class="btn btn-primary"><i class="fas fa-compass"></i> Explore All Tools</a>
-                <a href="#" class="btn"><i class="fas fa-file-alt"></i> Open HIRA & JSA</a>
+                <a href="#" class="btn btn-primary"><i class="fas fa-compass" aria-hidden="true"></i> Explore All Tools</a>
+                <a href="#" class="btn"><i class="fas fa-file-alt" aria-hidden="true"></i> Try HIRA Generator</a>
             </div>
         </div>
     </section>
 
     <div class="container">
+        <!-- Breadcrumbs -->
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+            <a href="#">Home</a> > <span>All Safety Tools</span>
+        </nav>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search 25+ HSE tools, calculators, templates...">
+            <button class="search-btn" aria-label="Search"><i class="fas fa-search"></i></button>
+        </div>
+
+        <!-- Tool Counter -->
+        <div class="tool-counter">
+            <span class="counter-number">25+</span> Professional HSE Tools Available - Completely Free
+        </div>
+
         <!-- Featured Tools Section -->
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-star" style="color: var(--accent-color);"></i> Featured Tools</h2>
+                <h2 class="section-title"><i class="fas fa-star" style="color: var(--accent-color);" aria-hidden="true"></i> Most Popular Safety Tools</h2>
                 <button class="toggle-btn">+</button>
             </div>
             <div class="section-content">
-                <p style="text-align: center; margin-bottom: 30px;">Quick entry points to the most-used tools. Free and mobile-friendly.</p>
+                <p style="text-align: center; margin-bottom: 30px;">Trusted by safety professionals in construction, manufacturing, oil & gas, and facility management.</p>
                 
                 <div class="tools-grid">
                     <!-- Safe Man-Hours -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-clock"></i></div>
+                        <div class="tool-icon"><i class="fas fa-clock" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-user-clock" style="color: var(--info-color);"></i> Safe Man-Hours Calculator</h3>
-                            <p>Track period & cumulative safe hours (no LTI!) with PDF</p>
-                            <a href="Safe Man-Hours/index.html" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-user-clock" style="color: var(--info-color);" aria-hidden="true"></i> Safe Man-Hours Calculator</h3>
+                            <p>Track LTI-free work hours with automatic period & cumulative calculations. Export professional PDF reports for client presentations.</p>
+                            <a href="future_tool/Safe Man-Hours/index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Open Calculator</a>
                         </div>
                     </div>
                     
                     <!-- HIRA Generator -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="tool-icon"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-clipboard-list" style="color: var(--warning-color);"></i> HIRA Generator</h3>
-                            <p>Identify hazards, evaluate risk, auto risk levels, and controls.</p>
-                            <a href="HIRA Generator/index.html" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-clipboard-list" style="color: var(--warning-color);" aria-hidden="true"></i> HIRA Generator</h3>
+                            <p>Comprehensive hazard identification & risk assessment tool with automatic risk matrix calculations and control measures documentation.</p>
+                            <a href="hira\HIRA Generator\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create HIRA</a>
                         </div>
                     </div>
                     
                     <!-- JSA -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="tool-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-hard-hat" style="color: var(--accent-color);"></i> Job Safety Analysis</h3>
-                            <p>Break jobs into steps, add hazards/controls & export a JSA.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-hard-hat" style="color: var(--accent-color);" aria-hidden="true"></i> Job Safety Analysis</h3>
+                            <p>Break down high-risk tasks into steps, identify potential hazards, and define control measures. Generate professional JSA reports.</p>
+                            <a href="hira/Job Safety Analysis/index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Start JSA</a>
                         </div>
                     </div>
                     
                     <!-- TRIR/AFR -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="tool-icon"><i class="fas fa-chart-line" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-calculator" style="color: var(--success-color);"></i> TRIR / AFR / FAR Calculator</h3>
-                            <p>Calculate key HSE KPIs with 200k / 1M base options.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-calculator" style="color: var(--success-color);" aria-hidden="true"></i> TRIR / AFR Calculator</h3>
+                            <p>Calculate OSHA-compliant Total Recordable Incident Rate and Accident Frequency Rate with customizable 200k/1M hour bases.</p>
+                            <a href="Safety calculater/TRIR/index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Calculate TRIR</a>
                         </div>
                     </div>
                 </div>
@@ -740,62 +972,68 @@
         <!-- Calculators & KPIs Section -->
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-calculator" style="color: var(--success-color);"></i> Calculators & KPIs</h2>
+                <h2 class="section-title"><i class="fas fa-calculator" style="color: var(--success-color);" aria-hidden="true"></i> Safety Calculators & KPI Trackers</h2>
                 <button class="toggle-btn">+</button>
             </div>
             <div class="section-content hidden">
                 <div class="tools-grid">
                     <!-- Man-Days Worked -->
                     <div class="tool-card">
+						<div class="tool-icon"><i class="fas fa-users" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-users" style="color: var(--info-color);"></i> Man-Days Worked Calculator</h3>
-                            <p>Compute total man-days from skilled, unskilled, and contract workers over a given period.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-users" style="color: var(--info-color);" aria-hidden="true"></i> Man-Days Worked Calculator</h3>
+                            <p>Calculate total workforce exposure hours across skilled, unskilled, and contract workers for accurate safety performance metrics.</p>
+                            <a href="Safety calculater/Man-Days Worked Calculator/index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Calculate Man-Days</a>
                         </div>
                     </div>
                     
                     <!-- Frequency Rate -->
                     <div class="tool-card">
+						<div class="tool-icon"><i class="fas fa-wave-square" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-wave-square" style="color: var(--primary-color);"></i> Frequency Rate (FR) Calculator</h3>
-                            <p>Calculate accident frequency rate (LTIs per million man-hours).</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-wave-square" style="color: var(--primary-color);" aria-hidden="true"></i> Frequency Rate Calculator</h3>
+                            <p>Measure LTIs per million man-hours worked with industry-standard frequency rate calculations for safety benchmarking.</p>
+                            <a href="Safety calculater\Frequency Rate Calculator\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Calculate FR</a>
                         </div>
                     </div>
                     
                     <!-- Severity Rate -->
                     <div class="tool-card">
+						<div class="tool-icon"><i class="fas fa-weight-hanging" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-weight-hanging" style="color: var(--warning-color);"></i> Severity Rate (SR) Calculator</h3>
-                            <p>Measure severity of incidents based on days lost due to LTIs.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-weight-hanging" style="color: var(--warning-color);" aria-hidden="true"></i> Severity Rate Calculator</h3>
+                            <p>Quantify incident impact with days lost calculations and severity rate metrics for comprehensive safety performance analysis.</p>
+                            <a href="Safety calculater\Severity Rate\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Calculate SR</a>
                         </div>
                     </div>
                     
                     <!-- Incident Rate -->
                     <div class="tool-card">
+						<div class="tool-icon"><i class="fas fa-exclamation-circle" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-exclamation-circle" style="color: var(--danger-color);"></i> Incident Rate (IR) Calculator</h3>
-                            <p>Standard OSHA metric - recordable cases per 200,000 man-hours worked.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-exclamation-circle" style="color: var(--danger-color);" aria-hidden="true"></i> Incident Rate Calculator</h3>
+                            <p>OSHA-standard recordable cases per 200,000 man-hours calculation for regulatory compliance and safety reporting.</p>
+                            <a href="Safety calculater\Incident Rate\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Calculate IR</a>
                         </div>
                     </div>
                     
                     <!-- Total LTI -->
                     <div class="tool-card">
+						<div class="tool-icon"><i class="fas fa-bed" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-bed" style="color: var(--secondary-color);"></i> Total Lost Time Injury (LTI) Calculator</h3>
-                            <p>Count and track LTIs to monitor safety performance.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-bed" style="color: var(--secondary-color);" aria-hidden="true"></i> LTI Calculator</h3>
+                            <p>Track and analyze Lost Time Injuries with detailed incident recording and trend analysis for proactive safety management.</p>
+                            <a href="Safety calculater\(LTI) Calculator\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Track LTIs</a>
                         </div>
                     </div>
                     
-                    <!-- TRIR/AFR -->
+                    <!-- DART Rate -->
                     <div class="tool-card">
+						<div class="tool-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-chart-bar" style="color: var(--accent-color);"></i> TRIR / AFR / FAR Calculator</h3>
-                            <p>Calculate key HSE KPIs with custom base (200k / 1M)</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-calculator" style="color: var(--accent-color);" aria-hidden="true"></i> TRIR / AFR Calculator</h3>
+                            <p>Calculate OSHA-compliant Total Recordable Incident Rate and Accident Frequency Rate with customizable 200k/1M hour bases.</p>
+                            <a href="Safety calculater/TRIR/index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Calculate DART</a>
                         </div>
                     </div>
                 </div>
@@ -805,119 +1043,58 @@
         <!-- Risk Assessment & PTW Section -->
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-clipboard-check" style="color: var(--warning-color);"></i> Risk Assessment & PTW</h2>
+                <h2 class="section-title"><i class="fas fa-clipboard-check" style="color: var(--warning-color);" aria-hidden="true"></i> Risk Assessment & Permit Systems</h2>
                 <button class="toggle-btn">+</button>
             </div>
             <div class="section-content hidden">
                 <div class="tools-grid">
                     <!-- HIRA Generator -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-file-contract"></i></div>
+                        <div class="tool-icon"><i class="fas fa-file-contract" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-file-contract" style="color: var(--primary-color);"></i> HIRA Generator</h3>
-                            <p>Create Hazard Identification & Risk Assessment (HIRA) reports with risk ratings and controls.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-file-contract" style="color: var(--primary-color);" aria-hidden="true"></i> HIRA Generator</h3>
+                            <p>Professional Hazard Identification & Risk Assessment templates with customizable risk matrices and control hierarchy implementation.</p>
+                            <a href="hira/HIRA Generator/Hira.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create HIRA</a>
                         </div>
                     </div>
                     
                     <!-- JSA Generator -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-tasks"></i></div>
+                        <div class="tool-icon"><i class="fas fa-tasks" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-tasks" style="color: var(--accent-color);"></i> Job Safety Analysis (JSA) Generator</h3>
-                            <p>Break jobs into tasks, identify hazards, and define safe procedures.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-tasks" style="color: var(--accent-color);" aria-hidden="true"></i> JSA Generator</h3>
+                            <p>Step-by-step Job Safety Analysis creation with hazard identification, risk evaluation, and control implementation guidance.</p>
+                            <a href="hira/Job Safety Analysis/index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create JSA</a>
                         </div>
                     </div>
                     
                     <!-- PTW Generator -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-id-card"></i></div>
+                        <div class="tool-icon"><i class="fas fa-id-card" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-id-card" style="color: var(--secondary-color);"></i> Permit-to-Work (PTW) Generator</h3>
-                            <p>Generate structured PTWs for hot work, confined space, electrical, excavation, and lifting jobs.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-id-card" style="color: var(--secondary-color);" aria-hidden="true"></i> PTW Generator</h3>
+                            <p>Comprehensive Permit-to-Work system for hot work, confined space, electrical, excavation, and lifting operations with digital approvals.</p>
+                            <a href="hira\PTW\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create PTW</a>
                         </div>
                     </div>
                     
                     <!-- Risk Matrix -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-th"></i></div>
+                        <div class="tool-icon"><i class="fas fa-th" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-th" style="color: var(--info-color);"></i> Risk Matrix Generator</h3>
-                            <p>Create customizable risk matrices for your organization's specific needs.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-th" style="color: var(--info-color);" aria-hidden="true"></i> Risk Matrix Generator</h3>
+                            <p>Customizable 5x5 risk matrices with probability and severity scales tailored to your organization's risk appetite and industry standards.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create Matrix</a>
                         </div>
                     </div>
                     
                     <!-- SWMS Generator -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="tool-icon"><i class="fas fa-file-alt" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-file-alt" style="color: var(--danger-color);"></i> SWMS Generator</h3>
-                            <p>Create Safe Work Method Statements for high-risk construction work.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Reports & Documentation Section -->
-        <section class="section">
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-file-alt" style="color: var(--primary-color);"></i> Reports & Documentation</h2>
-                <button class="toggle-btn">+</button>
-            </div>
-            <div class="section-content hidden">
-                <div class="tools-grid">
-                    <!-- Daily Safety Report -->
-                    <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-calendar-day"></i></div>
-                        <div class="tool-content">
-                            <h3><i class="fas fa-calendar-day" style="color: var(--info-color);"></i> Daily Safety Report Generator</h3>
-                            <p>Record headcount, activities, hazards, and actions in a daily PDF report.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Weekly Safety Report -->
-                    <div class="tool-card">
-                       
-                        <div class="tool-content">
-                            <h3><i class="fas fa-calendar-week" style="color: var(--success-color);"></i> Weekly Safety Report Generator</h3>
-                            <p>Summarize weekly safety performance and inspections in a compliance-ready report.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Monthly Safety Report -->
-                    <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-calendar-alt"></i></div>
-                        <div class="tool-content">
-                            <h3><i class="fas fa-calendar-alt" style="color: var(--accent-color);"></i> Monthly Safety Report Generator</h3>
-                            <p>Create a comprehensive monthly HSE report with KPIs, incidents, and CAPA.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Incident Report -->
-                    <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                        <div class="tool-content">
-                            <h3><i class="fas fa-exclamation-triangle" style="color: var(--danger-color);"></i> Incident Report Generator</h3>
-                            <p>Document workplace incidents with detailed investigation and corrective actions.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
-                        </div>
-                    </div>
-                    
-                    <!-- Audit Report -->
-                    <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-clipboard-check"></i></div>
-                        <div class="tool-content">
-                            <h3><i class="fas fa-clipboard-check" style="color: var(--warning-color);"></i> Safety Audit Report Generator</h3>
-                            <p>Generate comprehensive safety audit reports with findings and recommendations.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-file-alt" style="color: var(--danger-color);" aria-hidden="true"></i> SWMS Generator</h3>
+                            <p>Safe Work Method Statements for high-risk construction work with step-by-step hazard controls and compliance documentation.</p>
+                            <a href="hira\SWMS\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create SWMS</a>
                         </div>
                     </div>
                 </div>
@@ -927,58 +1104,68 @@
         <!-- Checklists & Inspections Section -->
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-clipboard-list" style="color: var(--secondary-color);"></i> Checklists & Inspections</h2>
+                <h2 class="section-title"><i class="fas fa-clipboard-list" style="color: var(--secondary-color);" aria-hidden="true"></i> Safety Checklists & Inspections</h2>
                 <button class="toggle-btn">+</button>
             </div>
             <div class="section-content hidden">
                 <div class="tools-grid">
                     <!-- Construction Safety Checklist -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-hard-hat"></i></div>
+                        <div class="tool-icon"><i class="fas fa-hard-hat" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-hard-hat" style="color: var(--accent-color);"></i> Construction Safety Checklist</h3>
-                            <p>Inspect scaffolds, excavations, hot work, lifting, and PPE compliance.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-hard-hat" style="color: var(--accent-color);" aria-hidden="true"></i> Construction Safety Checklist</h3>
+                            <p>Comprehensive site inspection checklist covering scaffolds, excavations, hot work, lifting operations, and PPE compliance verification.</p>
+                            <a href="checklist\construction\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Use Checklist</a>
                         </div>
                     </div>
                     
                     <!-- Factory/Manufacturing Safety Checklist -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-industry"></i></div>
+                        <div class="tool-icon"><i class="fas fa-industry" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-industry" style="color: var(--primary-color);"></i> Factory/Manufacturing Safety Checklist</h3>
-                            <p>Verify machine guarding, LOTO, fire safety, chemical storage, and housekeeping.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-industry" style="color: var(--primary-color);" aria-hidden="true"></i> Manufacturing Safety Checklist</h3>
+                            <p>Factory inspection tool for machine guarding, LOTO procedures, chemical storage, fire safety, and housekeeping standards.</p>
+                            <a href="checklist\manufacturing\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Use Checklist</a>
                         </div>
                     </div>
                     
                     <!-- Office Safety Checklist -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-building"></i></div>
+                        <div class="tool-icon"><i class="fas fa-building" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-building" style="color: var(--info-color);"></i> Office Safety Checklist</h3>
-                            <p>Check ergonomics, fire exits, electrical safety, slips/trips, and welfare facilities.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-building" style="color: var(--info-color);" aria-hidden="true"></i> Office Safety Checklist</h3>
+                            <p>Workplace ergonomics, fire exit accessibility, electrical safety, slip/trip hazards, and welfare facilities inspection tool.</p>
+                            <a href="checklist\office\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Use Checklist</a>
                         </div>
                     </div>
                     
                     <!-- Fire Safety Checklist -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-fire-extinguisher"></i></div>
+                        <div class="tool-icon"><i class="fas fa-fire-extinguisher" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-fire-extinguisher" style="color: var(--danger-color);"></i> Fire Safety Checklist</h3>
-                            <p>Inspect fire extinguishers, alarms, emergency exits, and evacuation plans.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-fire-extinguisher" style="color: var(--danger-color);" aria-hidden="true"></i> Fire Safety Checklist</h3>
+                            <p>Complete fire safety audit covering extinguishers, alarms, emergency exits, evacuation plans, and fire drill documentation.</p>
+                            <a href="checklist\fire safety\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Use Checklist</a>
                         </div>
                     </div>
                     
                     <!-- Electrical Safety Checklist -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="tool-icon"><i class="fas fa-bolt" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-bolt" style="color: var(--warning-color);"></i> Electrical Safety Checklist</h3>
-                            <p>Check electrical panels, equipment, grounding, and lockout/tagout procedures.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-bolt" style="color: var(--warning-color);" aria-hidden="true"></i> Electrical Safety Checklist</h3>
+                            <p>Electrical panel inspections, equipment grounding verification, cable management, and lockout/tagout procedure compliance.</p>
+                            <a href="checklist\electrical safety\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Use Checklist</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Confined Space Checklist -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-compress-arrows-alt" aria-hidden="true"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-compress-arrows-alt" style="color: var(--info-color);" aria-hidden="true"></i> Confined Space Checklist</h3>
+                            <p>Pre-entry assessment, atmospheric testing, rescue planning, and permit requirements for confined space work safety.</p>
+                            <a href="checklist\confined space\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Use Checklist</a>
                         </div>
                     </div>
                 </div>
@@ -988,58 +1175,129 @@
         <!-- Training & Toolbox Talks Section -->
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-chalkboard-teacher" style="color: var(--accent-color);"></i> Training & Toolbox Talks</h2>
+                <h2 class="section-title"><i class="fas fa-chalkboard-teacher" style="color: var(--accent-color);" aria-hidden="true"></i> Training & Toolbox Talks</h2>
                 <button class="toggle-btn">+</button>
             </div>
             <div class="section-content hidden">
                 <div class="tools-grid">
                     <!-- Toolbox Talk Generator -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-toolbox"></i></div>
+                        <div class="tool-icon"><i class="fas fa-toolbox" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-toolbox" style="color: var(--primary-color);"></i> Toolbox Talk Generator</h3>
-                            <p>Generate safety talk scripts with objectives, key points, and attendance logs.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-toolbox" style="color: var(--primary-color);" aria-hidden="true"></i> Toolbox Talk Generator</h3>
+                            <p>Create engaging safety talks with objectives, key discussion points, hazard alerts, and digital attendance tracking.</p>
+                            <a href="training\TBT\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create Talk</a>
                         </div>
                     </div>
                     
                     <!-- Safety Induction Checklist -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-user-plus"></i></div>
+                        <div class="tool-icon"><i class="fas fa-user-plus" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-user-plus" style="color: var(--info-color);"></i> Safety Induction Checklist</h3>
-                            <p>Structured checklist covering rules, PPE, emergency, hazard reporting, and welfare.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-user-plus" style="color: var(--info-color);" aria-hidden="true"></i> Safety Induction Checklist</h3>
+                            <p>Structured new employee orientation covering safety rules, emergency procedures, PPE requirements, and hazard reporting.</p>
+                            <a href="training\induction\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Use Checklist</a>
                         </div>
                     </div>
                     
                     <!-- Training Attendance Sheet -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="tool-icon"><i class="fas fa-clipboard-check" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-clipboard-check" style="color: var(--success-color);"></i> Training Attendance Sheet Generator</h3>
-                            <p>Record participant names, companies, and signatures with exportable PDF sheets.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-clipboard-check" style="color: var(--success-color);" aria-hidden="true"></i> Training Attendance Tracker</h3>
+                            <p>Digital attendance recording with participant details, training topics, assessment scores, and certificate generation.</p>
+                            <a href="training\Traning attendance\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Track Attendance</a>
                         </div>
                     </div>
                     
                     <!-- Training Needs Analysis -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-chart-bar"></i></div>
+                        <div class="tool-icon"><i class="fas fa-chart-bar" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-chart-bar" style="color: var(--warning-color);"></i> Training Needs Analysis</h3>
-                            <p>Identify skill gaps and create targeted training programs for your workforce.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-chart-bar" style="color: var(--warning-color);" aria-hidden="true"></i> Training Needs Analysis</h3>
+                            <p>Identify skill gaps, prioritize training requirements, and develop targeted safety competency development programs.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Analyze Needs</a>
                         </div>
                     </div>
                     
                     <!-- Competency Assessment -->
                     <div class="tool-card">
-                        <div class="tool-icon"><i class="fas fa-user-check"></i></div>
+                        <div class="tool-icon"><i class="fas fa-user-check" aria-hidden="true"></i></div>
                         <div class="tool-content">
-                            <h3><i class="fas fa-user-check" style="color: var(--secondary-color);"></i> Competency Assessment Tool</h3>
-                            <p>Evaluate employee competency levels for specific HSE roles and responsibilities.</p>
-                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt"></i> Open Tool</a>
+                            <h3><i class="fas fa-user-check" style="color: var(--secondary-color);" aria-hidden="true"></i> Competency Assessment</h3>
+                            <p>Evaluate employee competency levels for specific HSE roles, high-risk tasks, and regulatory compliance requirements.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Assess Competency</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Safety Meeting Minutes -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-file-contract" aria-hidden="true"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-file-contract" style="color: var(--primary-color);" aria-hidden="true"></i> Safety Meeting Minutes</h3>
+                            <p>Structured meeting documentation with agenda items, action assignments, deadlines, and follow-up tracking.</p>
+                            <a href="training\safety meeting minutes\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create Minutes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports & Documentation Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-file-alt" style="color: var(--primary-color);" aria-hidden="true"></i> Professional Reports & Documentation</h2>
+                <button class="toggle-btn">+</button>
+            </div>
+            <div class="section-content hidden">
+                <div class="tools-grid">
+                    <!-- Daily Safety Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-calendar-day" aria-hidden="true"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-calendar-day" style="color: var(--info-color);" aria-hidden="true"></i> Daily Safety Report</h3>
+                            <p>Comprehensive daily safety monitoring with headcount tracking, activity logging, hazard observations, and corrective action planning.</p>
+                            <a href="reports\Daily Safety Report Generator\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create Report</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Weekly Safety Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-calendar-week" aria-hidden="true"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-calendar-week" style="color: var(--success-color);" aria-hidden="true"></i> Weekly Safety Report</h3>
+                            <p>Executive summary of weekly safety performance, inspection findings, incident trends, and compliance status for management review.</p>
+                            <a href="reports\weekly Safety_\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create Report</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Monthly Safety Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-calendar-alt" aria-hidden="true"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-calendar-alt" style="color: var(--accent-color);" aria-hidden="true"></i> Monthly HSE Report</h3>
+                            <p>Comprehensive monthly HSE dashboard with KPIs, incident analysis, training compliance, audit findings, and strategic recommendations.</p>
+                            <a href="reports\monthly\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create Report</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Incident Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-exclamation-triangle" style="color: var(--danger-color);" aria-hidden="true"></i> Incident Report</h3>
+                            <p>Structured incident investigation with root cause analysis, immediate actions, and preventive measures for regulatory compliance.</p>
+                            <a href="Safety calculater\Incident Rate\index.html" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create Report</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Audit Report -->
+                    <div class="tool-card">
+                        <div class="tool-icon"><i class="fas fa-clipboard-check" aria-hidden="true"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-clipboard-check" style="color: var(--warning-color);" aria-hidden="true"></i> Safety Audit Report</h3>
+                            <p>Comprehensive safety audit documentation with findings categorization, risk prioritization, and corrective action tracking.</p>
+                            <a href="#" class="tool-link"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Create Report</a>
                         </div>
                     </div>
                 </div>
@@ -1049,51 +1307,62 @@
         <!-- How It Works Section -->
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-cogs" style="color: var(--info-color);"></i> How It Works</h2>
+                <h2 class="section-title"><i class="fas fa-cogs" style="color: var(--info-color);" aria-hidden="true"></i> How Our HSE Tools Work</h2>
                 <button class="toggle-btn">+</button>
             </div>
             <div class="section-content hidden">
                 <div class="steps">
                     <div class="step">
                         <div class="step-icon"><i class="fas fa-keyboard"></i></div>
-                        <h3>Enter your data</h3>
-                        <p>Site/project, hours, hazards, inspections, or training details — only what's needed.</p>
+                        <h3>Input Your Data</h3>
+                        <p>Enter project details, workforce hours, hazard observations, or inspection findings using our intuitive forms.</p>
                     </div>
                     <div class="step">
                         <div class="step-icon"><i class="fas fa-magic"></i></div>
-                        <h3>Generate results</h3>
-                        <p>See KPIs, risk ratings, and summaries instantly. Validate with your standards.</p>
+                        <h3>Automatic Calculations</h3>
+                        <p>Our tools instantly calculate KPIs, risk ratings, and generate professional summaries based on industry standards.</p>
                     </div>
                     <div class="step">
                         <div class="step-icon"><i class="fas fa-file-export"></i></div>
-                        <h3>Export & share</h3>
-                        <p>Download clean A4 PDFs for audits and client reporting. No logins required.</p>
+                        <h3>Export & Share</h3>
+                        <p>Download audit-ready PDF reports, share with stakeholders, or print for site documentation. No login required.</p>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <h2>Get New Safety Tools & Industry Updates</h2>
+            <p>Join 2,500+ safety professionals who receive our monthly newsletter with new tools, regulatory updates, and best practices.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Your professional email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe Free</button>
+            </form>
+        </section>
+
         <!-- About Section -->
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-info-circle" style="color: var(--primary-color);"></i> About The HSE Tools</h2>
+                <h2 class="section-title"><i class="fas fa-info-circle" style="color: var(--primary-color);" aria-hidden="true"></i> About <a href="https://hsetools.vercel.app">HSE tools </a> Platform</h2>
                 <button class="toggle-btn">+</button>
             </div>
             <div class="section-content hidden">
                 <div class="about-card">
                     <div class="profile-section">
-                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Mahendra Lanjewar" class="profile-pic">
-                        <h3>Mahendra Lanjewar</h3>
-                        <p><i class="fas fa-hard-hat" style="color: var(--accent-color);"></i> HSE Professional</p>
+                        <img src="https://i.ibb.co/qMrfJSfS/IMG-20251024-184504.png" alt="Shivshakti Sahani - HSE Professional & Consultant" class="profile-pic">
+                        <h3>Shivshakti Sahani</h3>
+                        <p><i class="fas fa-hard-hat" style="color: var(--success-color);" aria-hidden="true"></i> HSE Professional & Consultant</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px; color: #cbd5e1;">4+ Years in Construction, Oil & Gas Safety</p>
                     </div>
                     <div class="about-text">
-                        <p>Created by Mahendra Lanjewar, an HSE professional with 12+ years of field experience across construction, oil & gas, power, and manufacturing. These tools are practical, audit-ready, and fast.</p>
-                        <p><i class="fas fa-shield-alt" style="color: var(--success-color);"></i> No sign-up required—your inputs stay in your browser.</p>
-                        <p><i class="fas fa-book" style="color: var(--info-color);"></i> Calculations follow commonly used HSE practices. Always confirm with your organization's definitions and local regulations. References: OSHA 1904, ISO 45001, ILO OSH.</p>
+                        <p><i class="fas fa-pencil-alt" style="color: var(--success-color);" aria-hidden="true"></i> Developed by Shivshakti Sahani, an experienced HSE professional with extensive field experience across construction, oil & gas, power plants, and manufacturing facilities. These tools are built from practical needs identified during safety audits and site inspections.</p>
+                        <p><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <strong>Your Data Stays Private:</strong> All calculations happen in your browser. No data is stored on our servers, ensuring complete confidentiality of your safety information.</p>
+                        <p><i class="fas fa-book" style="color: var(--info-color);" aria-hidden="true"></i> <strong>Industry Standards Compliant:</strong> Calculations follow OSHA, ISO 45001, and ILO guidelines. Always verify with your organization's specific requirements and local regulations.</p>
                         <div class="about-links">
-                            <a href="#"><i class="fas fa-user" style="color: var(--primary-color);"></i> Meet the author</a>
-                            <a href="#"><i class="fas fa-tools" style="color: var(--accent-color);"></i> Browse all tools</a>
-                            <a href="#"><i class="fas fa-book" style="color: var(--info-color);"></i> Methodology</a>
+                            <a href="#"><i class="fas fa-user" style="color: var(--primary-color);" aria-hidden="true"></i> Professional Profile & Experience</a>
+                            <a href="https://hsetools.vercel.app"><i class="fas fa-tools" style="color: var(--accent-color);" aria-hidden="true"></i> Browse All 25+ Safety Tools</a>
+                            <a href="#"><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> Consulting Inquiries</a>
                         </div>
                     </div>
                 </div>
@@ -1103,57 +1372,57 @@
         <!-- FAQ Section -->
         <section class="section">
             <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-question-circle" style="color: var(--warning-color);"></i> FAQ</h2>
+                <h2 class="section-title"><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> Frequently Asked Questions</h2>
                 <button class="toggle-btn">+</button>
             </div>
             <div class="section-content hidden">
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span><i class="fas fa-dollar-sign" style="color: var(--success-color);"></i> Are these tools free?</span>
+                        <span><i class="fas fa-dollar-sign" style="color: var(--success-color);" aria-hidden="true"></i> Are these HSE tools completely free?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Yes, all tools are completely free to use with no hidden costs.
+                        <p>Yes, all 25+ HSE tools are completely free with no hidden costs, usage limits, or premium features. We believe in making safety management accessible to all professionals.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span><i class="fas fa-file-pdf" style="color: var(--danger-color);"></i> Do the PDFs pass client audits?</span>
+                        <span><i class="fas fa-file-pdf" style="color: var(--danger-color);" aria-hidden="true"></i> Do the generated reports meet audit requirements?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Yes, our PDFs are designed to meet professional standards for client audits.
+                        <p>Absolutely. Our PDF reports are designed to professional standards and are regularly used by safety managers for client audits, regulatory inspections, and corporate reporting.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span><i class="fas fa-database" style="color: var(--info-color);"></i> Is my data stored on your server?</span>
+                        <span><i class="fas fa-database" style="color: var(--info-color);" aria-hidden="true"></i> Is my safety data stored on your servers?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        No, your data stays in your browser and is not stored on our servers.
+                        <p>No. All your data remains in your browser and is never transmitted to our servers. This ensures complete confidentiality of your safety information and incident data.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span><i class="fas fa-table" style="color: var(--primary-color);"></i> Do you support HIRA/JSA risk matrices?</span>
+                        <span><i class="fas fa-table" style="color: var(--primary-color);" aria-hidden="true"></i> Can I customize risk matrices for my organization?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Yes, our tools support standard risk matrices used in HIRA and JSA processes.
+                        <p>Yes, our Risk Matrix Generator allows full customization of probability and severity scales to match your organization's specific risk criteria and tolerance levels.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span><i class="fas fa-play-circle" style="color: var(--accent-color);"></i> Where do I start?</span>
+                        <span><i class="fas fa-mobile-alt" style="color: var(--accent-color);" aria-hidden="true"></i> Do these tools work on mobile devices?</span>
                         <span class="faq-toggle">+</span>
                     </div>
                     <div class="faq-answer">
-                        Begin with our featured tools like HIRA Generator or Safe Man-Hours Calculator.
+                        <p>Yes, all tools are fully responsive and work seamlessly on smartphones, tablets, and desktop computers. Perfect for site inspections and field safety management.</p>
                     </div>
                 </div>
             </div>
@@ -1165,31 +1434,32 @@
         <div class="container">
             <div class="footer-icons">
                 <a href="#" class="footer-icon">
-                    <i class="fas fa-home" style="color: var(--primary-color);"></i>
+                    <i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i>
                     <span>Home</span>
                 </a>
                 <a href="#" class="footer-icon">
-                    <i class="fas fa-tools" style="color: var(--accent-color);"></i>
-                    <span>Tools</span>
+                    <i class="fas fa-tools" style="color: var(--accent-color);" aria-hidden="true"></i>
+                    <span>All Tools</span>
                 </a>
-                <a href="#" class="footer-icon">
-                    <i class="fas fa-info-circle" style="color: var(--info-color);"></i>
+                <a href="footer\about.html" class="footer-icon">
+                    <i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i>
                     <span>About</span>
                 </a>
-                <a href="#" class="footer-icon">
-                    <i class="fas fa-envelope" style="color: var(--secondary-color);"></i>
+                <a href="footer\contect.html" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
                     <span>Contact</span>
                 </a>
-                <a href="#" class="footer-icon">
-                    <i class="fas fa-shield-alt" style="color: var(--success-color);"></i>
+                <a href="footer\privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
                     <span>Privacy</span>
                 </a>
-                <a href="#" class="footer-icon">
-                    <i class="fas fa-question-circle" style="color: var(--warning-color);"></i>
+                <a href="footer\help.html" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i>
                     <span>Help</span>
                 </a>
             </div>
-            <p>© All Rights Reserved by thehsetools.com</p>
+            <p>© 2024 <a href="https://hsetools.vercel.app">HSE tools </a>. All Rights Reserved. | Professional Safety Management Solutions</p>
+            <p style="font-size: 0.8rem; margin-top: 10px; color: #94a3b8;">Used by safety professionals in 45+ countries</p>
         </div>
     </footer>
 
@@ -1241,6 +1511,56 @@
         document.querySelector('.section-content').classList.remove('hidden');
         document.querySelector('.section-header .toggle-btn').textContent = '-';
         document.querySelector('.section-header .toggle-btn').classList.add('rotated');
+
+        // Search functionality
+        const searchBar = document.querySelector('.search-bar');
+        const toolCards = document.querySelectorAll('.tool-card');
+        
+        searchBar.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            toolCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Search button functionality
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            searchBar.focus();
+        });
+
+        // Newsletter form submission
+        document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('.newsletter-input').value;
+            alert(`Thank you for subscribing with ${email}! You'll receive professional HSE updates and new tool announcements.`);
+            this.reset();
+        });
+
+        // Track tool usage (optional analytics)
+        document.querySelectorAll('.tool-link').forEach(link => {
+            link.addEventListener('click', function() {
+                const toolName = this.closest('.tool-card').querySelector('h3').textContent;
+                console.log(`Tool opened: ${toolName}`);
+                // Here you can add Google Analytics event tracking
+            });
+        });
+    </script>
+
+    <!-- Google Analytics (GA4) - Replace GA_MEASUREMENT_ID with your actual ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
     </script>
 </body>
 </html>

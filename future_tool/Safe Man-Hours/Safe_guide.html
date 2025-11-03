@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Man Hours Calculator - Complete Guide | HSE Tools</title>
+    <meta name="description" content="Complete guide to Safe Man Hours calculation. Learn formulas, examples, importance and best practices for HSE safety metrics.">
+    <meta name="keywords" content="safe man hours calculator, HSE tools, safety metrics, lost time injury, LTI, occupational safety">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Safe Man Hours Calculator - Complete Guide | HSE Tools">
+    <meta property="og:description" content="Complete guide to Safe Man Hours with formulas, examples, and best practices for HSE safety metrics.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/safe-man-hours.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Safe Man Hours Calculator - Complete Guide">
+    <meta name="twitter:description" content="Complete guide to Safe Man Hours calculation">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Content Styles */
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example-box h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border: 2px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.2rem;
+        }
+
+        /* How to Use Section */
+        .how-to-use-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-bold);
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-en="Safe Man Hours Calculator - Complete Guide" data-hi="सुरक्षित मैन घंटे कैलकुलेटर - संपूर्ण गाइड">Safe Man Hours Calculator - Complete Guide</h1>
+            <p data-en="Calculate and track your safety performance metrics" data-hi="अपने सुरक्षा प्रदर्शन मेट्रिक्स की गणना और ट्रैक करें">Calculate and track your safety performance metrics</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Introduction -->
+        <div class="content-card">
+            <h2><i class="fas fa-hard-hat"></i> <span data-en="Safe Man Hours Calculator - Complete Guide" data-hi="सुरक्षित मैन घंटे कैलकुलेटर - संपूर्ण गाइड">Safe Man Hours Calculator - Complete Guide</span></h2>
+            <p data-en="In the world of occupational health and safety (HSE), measuring performance is critical. Companies want to know not just how productive their workforce is, but also how safely that work is being done. One of the most widely used measures is Safe Man Hours—the total number of hours worked without any Lost Time Injury (LTI)." 
+               data-hi="व्यावसायिक स्वास्थ्य और सुरक्षा (HSE) की दुनिया में, प्रदर्शन मापन महत्वपूर्ण है। कंपनियां न केवल यह जानना चाहती हैं कि उनका कार्यबल कितना उत्पादक है, बल्कि यह भी कि वह कार्य कितनी सुरक्षित रूप से किया जा रहा है। सबसे व्यापक रूप से उपयोग किए जाने वाले मापों में से एक है सुरक्षित मैन घंटे - बिना किसी लॉस्ट टाइम इंजरी (LTI) के काम किए गए कुल घंटे।">
+                In the world of occupational health and safety (HSE), measuring performance is critical. Companies want to know not just how productive their workforce is, but also how safely that work is being done. One of the most widely used measures is Safe Man Hours—the total number of hours worked without any Lost Time Injury (LTI).
+            </p>
+            <p data-en="This article explains everything you need to know about Safe Man Hours: the definition, formulas, importance, examples, and how to use our free calculator." 
+               data-hi="यह लेख सुरक्षित मैन घंटे के बारे में आपको वह सब कुछ बताता है जो आपको जानना आवश्यक है: परिभाषा, सूत्र, महत्व, उदाहरण, और हमारे मुफ्त कैलकुलेटर का उपयोग कैसे करें।">
+                This article explains everything you need to know about Safe Man Hours: the definition, formulas, importance, examples, and how to use our free calculator.
+            </p>
+        </div>
+
+        <!-- How to Use Calculator Section -->
+        <div class="content-card">
+            <h2><i class="fas fa-user-check"></i> <span data-en="How to Use the Safe Man Hours Calculator" data-hi="सुरक्षित मैन घंटे कैलकुलेटर का उपयोग कैसे करें">How to Use the Safe Man Hours Calculator</span></h2>
+            
+            <div class="how-to-use-section">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4 data-en="Enter Total Man-Hours (This Period)" data-hi="कुल मैन-घंटे दर्ज करें (इस अवधि)">Enter Total Man-Hours (This Period)</h4>
+                        <p data-en="Add up hours for all employees/contractors for the reporting period." 
+                           data-hi="रिपोर्टिंग अवधि के लिए सभी कर्मचारियों/ठेकेदारों के घंटे जोड़ें।">
+                            Add up hours for all employees/contractors for the reporting period.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4 data-en="Enter LTIs" data-hi="LTI दर्ज करें">Enter LTIs</h4>
+                        <p data-en="Enter 0 if no Lost Time Injuries occurred; if one or more LTIs occurred, safe hours reset to zero." 
+                           data-hi="यदि कोई लॉस्ट टाइम इंजरी नहीं हुई तो 0 दर्ज करें; यदि एक या अधिक LTI हुए, तो सुरक्षित घंटे शून्य पर रीसेट हो जाते हैं।">
+                            Enter 0 if no Lost Time Injuries occurred; if one or more LTIs occurred, safe hours reset to zero.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4 data-en="Add Previous Safe Hours (optional)" data-hi="पिछले सुरक्षित घंटे जोड़ें (वैकल्पिक)">Add Previous Safe Hours (optional)</h4>
+                        <p data-en="Paste the last cumulative safe hours total if you track it." 
+                           data-hi="यदि आप इसे ट्रैक करते हैं तो अंतिम संचयी सुरक्षित घंटे का कुल योग पेस्ट करें।">
+                            Paste the last cumulative safe hours total if you track it.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4 data-en="Click Calculate" data-hi="गणना करें पर क्लिक करें">Click Calculate</h4>
+                        <p data-en="The tool displays This Period's Safe Hours and Cumulative Safe Hours." 
+                           data-hi="टूल इस अवधि के सुरक्षित घंटे और संचयी सुरक्षित घंटे प्रदर्शित करता है।">
+                            The tool displays This Period's Safe Hours and Cumulative Safe Hours.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4 data-en="(Optional) Download the report" data-hi="(वैकल्पिक) रिपोर्ट डाउनलोड करें">(Optional) Download the report</h4>
+                        <p data-en="Save a PDF/CSV for records and client reports." 
+                           data-hi="रिकॉर्ड और क्लाइंट रिपोर्ट के लिए PDF/CSV सहेजें।">
+                            Save a PDF/CSV for records and client reports.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What Are Safe Man Hours -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle"></i> <span data-en="What Are Safe Man Hours?" data-hi="सुरक्षित मैन घंटे क्या हैं?">What Are Safe Man Hours?</span></h2>
+            <p data-en="Safe Man Hours represent the number of working hours completed by employees without any incident that results in lost time." 
+               data-hi="सुरक्षित मैन घंटे कर्मचारियों द्वारा पूरे किए गए कार्य घंटों की संख्या का प्रतिनिधित्व करते हैं, बिना किसी ऐसी घटना के जिसके परिणामस्वरूप समय की हानि होती है।">
+                Safe Man Hours represent the number of working hours completed by employees without any incident that results in lost time.
+            </p>
+            
+            <div class="content-section">
+                <h3><i class="fas fa-check-circle"></i> <span data-en="If no LTIs occur" data-hi="यदि कोई LTI नहीं होता है">If no LTIs occur</span></h3>
+                <p data-en="Hours are added to the cumulative safe man hours." 
+                   data-hi="घंटे संचयी सुरक्षित मैन घंटों में जोड़े जाते हैं।">
+                    Hours are added to the cumulative safe man hours.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h3><i class="fas fa-exclamation-triangle"></i> <span data-en="If an LTI occurs" data-hi="यदि कोई LTI होता है">If an LTI occurs</span></h3>
+                <p data-en="Safe hours reset back to zero, and counting begins again." 
+                   data-hi="सुरक्षित घंटे शून्य पर वापस रीसेट हो जाते हैं, और गिनती फिर से शुरू होती है।">
+                    Safe hours reset back to zero, and counting begins again.
+                </p>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Example" data-hi="उदाहरण">Example</h4>
+                <p data-en="If 100 workers each work 8 hours a day without any lost time injuries, the site achieves 800 safe man hours for that day." 
+                   data-hi="यदि 100 कर्मचारी प्रत्येक 8 घंटे प्रतिदिन काम करते हैं बिना किसी लॉस्ट टाइम इंजरी के, तो साइट उस दिन के लिए 800 सुरक्षित मैन घंटे प्राप्त करती है।">
+                    If 100 workers each work 8 hours a day without any lost time injuries, the site achieves 800 safe man hours for that day.
+                </p>
+            </div>
+
+            <p data-en="Safe man hours are often announced in toolbox talks, safety meetings, project boards, and client reports as a way of celebrating progress and reinforcing safety culture." 
+               data-hi="सुरक्षित मैन घंटे अक्सर टूलबॉक्स टॉक, सुरक्षा बैठकों, प्रोजेक्ट बोर्ड और क्लाइंट रिपोर्ट में प्रगति का जश्न मनाने और सुरक्षा संस्कृति को मजबूत करने के तरीके के रूप में घोषित किए जाते हैं।">
+                Safe man hours are often announced in toolbox talks, safety meetings, project boards, and client reports as a way of celebrating progress and reinforcing safety culture.
+            </p>
+        </div>
+
+        <!-- Formula Section -->
+        <div class="content-card">
+            <h2><i class="fas fa-square-root-alt"></i> <span data-en="Formula for Safe Man Hours" data-hi="सुरक्षित मैन घंटे का सूत्र">Formula for Safe Man Hours</span></h2>
+            
+            <div class="formula-box">
+                Safe Man Hours = Number of Employees × Hours Worked per Employee
+            </div>
+            
+            <p data-en="If there are no LTIs, this value is added to the previous safe hours." 
+               data-hi="यदि कोई LTI नहीं हैं, तो यह मान पिछले सुरक्षित घंटों में जोड़ा जाता है।">
+                If there are no LTIs, this value is added to the previous safe hours.
+            </p>
+            <p data-en="If there is an LTI, the safe hours reset to zero." 
+               data-hi="यदि कोई LTI है, तो सुरक्षित घंटे शून्य पर रीसेट हो जाते हैं।">
+                If there is an LTI, the safe hours reset to zero.
+            </p>
+        </div>
+
+        <!-- Example Calculations -->
+        <div class="content-card">
+            <h2><i class="fas fa-calculator"></i> <span data-en="Example Calculations for Safe Man Hours Calculator" data-hi="सुरक्षित मैन घंटे कैलकुलेटर के लिए उदाहरण गणनाएं">Example Calculations for Safe Man Hours Calculator</span></h2>
+            
+            <div class="example-box">
+                <h4 data-en="Example 1 - No LTI Case" data-hi="उदाहरण 1 - कोई LTI मामला नहीं">Example 1 - No LTI Case</h4>
+                <ul>
+                    <li data-en="Man-Hours: 12,000" data-hi="मैन-घंटे: 12,000">Man-Hours: 12,000</li>
+                    <li data-en="LTIs: 0" data-hi="LTI: 0">LTIs: 0</li>
+                    <li data-en="Previous Safe Hours: 88,000" data-hi="पिछले सुरक्षित घंटे: 88,000">Previous Safe Hours: 88,000</li>
+                </ul>
+                <p data-en="This Period's Safe Hours = 12,000" data-hi="इस अवधि के सुरक्षित घंटे = 12,000">This Period's Safe Hours = 12,000</p>
+                <p data-en="Cumulative Safe Hours = 100,000" data-hi="संचयी सुरक्षित घंटे = 100,000">Cumulative Safe Hours = 100,000</p>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Example 2 - With LTI Case" data-hi="उदाहरण 2 - LTI के साथ मामला">Example 2 - With LTI Case</h4>
+                <ul>
+                    <li data-en="Man-Hours: 15,000" data-hi="मैन-घंटे: 15,000">Man-Hours: 15,000</li>
+                    <li data-en="LTIs: 2" data-hi="LTI: 2">LTIs: 2</li>
+                    <li data-en="Previous Safe Hours: 100,000" data-hi="पिछले सुरक्षित घंटे: 100,000">Previous Safe Hours: 100,000</li>
+                </ul>
+                <p data-en="This Period's Safe Hours = 0" data-hi="इस अवधि के सुरक्षित घंटे = 0">This Period's Safe Hours = 0</p>
+                <p data-en="Cumulative Safe Hours = 100,000" data-hi="संचयी सुरक्षित घंटे = 100,000">Cumulative Safe Hours = 100,000</p>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Example 3 - Restarting After an LTI" data-hi="उदाहरण 3 - LTI के बाद पुनः आरंभ">Example 3 - Restarting After an LTI</h4>
+                <ul>
+                    <li data-en="Man-Hours: 20,000" data-hi="मैन-घंटे: 20,000">Man-Hours: 20,000</li>
+                    <li data-en="LTIs: 0" data-hi="LTI: 0">LTIs: 0</li>
+                    <li data-en="Previous Safe Hours: 0" data-hi="पिछले सुरक्षित घंटे: 0">Previous Safe Hours: 0</li>
+                </ul>
+                <p data-en="This Period's Safe Hours = 20,000" data-hi="इस अवधि के सुरक्षित घंटे = 20,000">This Period's Safe Hours = 20,000</p>
+                <p data-en="Cumulative Safe Hours = 20,000" data-hi="संचयी सुरक्षित घंटे = 20,000">Cumulative Safe Hours = 20,000</p>
+            </div>
+        </div>
+
+        <!-- Importance Section -->
+        <div class="content-card">
+            <h2><i class="fas fa-chart-line"></i> <span data-en="Why Are Safe Man Hours Important?" data-hi="सुरक्षित मैन घंटे क्यों महत्वपूर्ण हैं?">Why Are Safe Man Hours Important?</span></h2>
+            <p data-en="Tracking safe man hours is more than just a calculation—it reflects the safety culture of an organization." 
+               data-hi="सुरक्षित मैन घंटों को ट्रैक करना केवल एक गणना से अधिक है - यह एक संगठन की सुरक्षा संस्कृति को दर्शाता है।">
+                Tracking safe man hours is more than just a calculation—it reflects the safety culture of an organization.
+            </p>
+            
+            <div class="content-section">
+                <h3><i class="fas fa-chart-bar"></i> <span data-en="Performance Indicator" data-hi="प्रदर्शन संकेतक">Performance Indicator</span></h3>
+                <p data-en="Shows how long a site has worked without injury." 
+                   data-hi="दर्शाता है कि एक साइट कितने समय से बिना चोट के काम कर रही है।">
+                    Shows how long a site has worked without injury.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h3><i class="fas fa-users"></i> <span data-en="Employee Motivation" data-hi="कर्मचारी प्रेरणा">Employee Motivation</span></h3>
+                <p data-en="Workers are proud to achieve milestones like '1 Million Safe Hours'." 
+                   data-hi="कर्मचारी '1 मिलियन सुरक्षित घंटे' जैसे माइलस्टोन हासिल करने पर गर्व महसूस करते हैं।">
+                    Workers are proud to achieve milestones like "1 Million Safe Hours".
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h3><i class="fas fa-file-contract"></i> <span data-en="Client & Regulatory Reporting" data-hi="क्लाइंट और नियामक रिपोर्टिंग">Client & Regulatory Reporting</span></h3>
+                <p data-en="Demonstrates compliance and safety excellence in tenders, audits, and reports." 
+                   data-hi="टेंडर, ऑडिट और रिपोर्ट में अनुपालन और सुरक्षा उत्कृष्टता प्रदर्शित करता है।">
+                    Demonstrates compliance and safety excellence in tenders, audits, and reports.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h3><i class="fas fa-balance-scale"></i> <span data-en="Benchmarking" data-hi="बेंचमार्किंग">Benchmarking</span></h3>
+                <p data-en="Helps companies compare safety performance across sites or projects." 
+                   data-hi="कंपनियों को साइटों या परियोजनाओं में सुरक्षा प्रदर्शन की तुलना करने में मदद करता है।">
+                    Helps companies compare safety performance across sites or projects.
+                </p>
+            </div>
+        </div>
+
+        <!-- Real-World Examples -->
+        <div class="content-card">
+            <h2><i class="fas fa-industry"></i> <span data-en="Real-World Examples" data-hi="वास्तविक दुनिया के उदाहरण">Real-World Examples</span></h2>
+            
+            <div class="example-box">
+                <h4 data-en="Construction Site Example" data-hi="निर्माण स्थल उदाहरण">Construction Site Example</h4>
+                <p data-en="200 workers on a metro project working 10 hours/day for 30 days." 
+                   data-hi="एक मेट्रो परियोजना पर 200 कर्मचारी 10 घंटे/दिन, 30 दिनों तक काम करते हैं।">
+                    200 workers on a metro project working 10 hours/day for 30 days.
+                </p>
+                <p data-en="Total man-hours = 200 x 10 x 30 = 60,000 Safe Man Hours (if no LTI occurs)." 
+                   data-hi="कुल मैन-घंटे = 200 x 10 x 30 = 60,000 सुरक्षित मैन घंटे (यदि कोई LTI नहीं होता है)।">
+                    Total man-hours = 200 x 10 x 30 = 60,000 Safe Man Hours (if no LTI occurs).
+                </p>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Manufacturing Plant Example" data-hi="विनिर्माण संयंत्र उदाहरण">Manufacturing Plant Example</h4>
+                <p data-en="150 workers on 8-hour shifts for 25 days." 
+                   data-hi="150 कर्मचारी 8-घंटे की शिफ्ट में 25 दिनों तक काम करते हैं।">
+                    150 workers on 8-hour shifts for 25 days.
+                </p>
+                <p data-en="Total man-hours = 150 x 8 x 25 = 30,000 Safe Man Hours." 
+                   data-hi="कुल मैन-घंटे = 150 x 8 x 25 = 30,000 सुरक्षित मैन घंटे।">
+                    Total man-hours = 150 x 8 x 25 = 30,000 Safe Man Hours.
+                </p>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Oil & Gas Industry Example" data-hi="तेल और गैस उद्योग उदाहरण">Oil & Gas Industry Example</h4>
+                <p data-en="500 workers x 12 hours/day x 365 days = 2,190,000 Safe Man Hours in a year (if no LTI)." 
+                   data-hi="500 कर्मचारी x 12 घंटे/दिन x 365 दिन = एक वर्ष में 2,190,000 सुरक्षित मैन घंटे (यदि कोई LTI नहीं)।">
+                    500 workers x 12 hours/day x 365 days = 2,190,000 Safe Man Hours in a year (if no LTI).
+                </p>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-triangle"></i> <span data-en="Common Mistakes in Tracking Safe Hours" data-hi="सुरक्षित घंटे ट्रैक करने में सामान्य गलतियाँ">Common Mistakes in Tracking Safe Hours</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Forgetting to include contractors' hours." 
+                        data-hi="ठेकेदारों के घंटे शामिल करना भूल जाना।">Forgetting to include contractors' hours.</li>
+                    <li data-en="Misreporting overtime hours." 
+                        data-hi="ओवरटाइम घंटों की गलत रिपोर्टिंग।">Misreporting overtime hours.</li>
+                    <li data-en="Not resetting after an LTI." 
+                        data-hi="LTI के बाद रीसेट न करना।">Not resetting after an LTI.</li>
+                    <li data-en="Rounding off hours without accurate records." 
+                        data-hi="सटीक रिकॉर्ड के बिना घंटों को गोल करना।">Rounding off hours without accurate records.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <p data-en="Always keep proper attendance, timesheets, and incident logs to ensure accuracy." 
+                   data-hi="सटीकता सुनिश्चित करने के लिए हमेशा उचित उपस्थिति, टाइमशीट और घटना लॉग रखें।">
+                    Always keep proper attendance, timesheets, and incident logs to ensure accuracy.
+                </p>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-card">
+            <h2><i class="fas fa-trophy"></i> <span data-en="Best Practices for Achieving High Safe Man Hours" data-hi="उच्च सुरक्षित मैन घंटे प्राप्त करने के लिए सर्वोत्तम प्रथाएं">Best Practices for Achieving High Safe Man Hours</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Conduct daily toolbox talks." 
+                        data-hi="दैनिक टूलबॉक्स टॉक आयोजित करें।">Conduct daily toolbox talks.</li>
+                    <li data-en="Enforce Permit-to-Work (PTW) systems." 
+                        data-hi="पर्मिट-टू-वर्क (PTW) सिस्टम लागू करें।">Enforce Permit-to-Work (PTW) systems.</li>
+                    <li data-en="Carry out regular safety inspections." 
+                        data-hi="नियमित सुरक्षा निरीक्षण करें।">Carry out regular safety inspections.</li>
+                    <li data-en="Ensure proper training & inductions for new employees." 
+                        data-hi="नए कर्मचारियों के लिए उचित प्रशिक्षण और इंडक्शन सुनिश्चित करें।">Ensure proper training & inductions for new employees.</li>
+                    <li data-en="Promote a 'Stop Work Authority' culture where anyone can halt unsafe work." 
+                        data-hi="'स्टॉप वर्क अथॉरिटी' संस्कृति को बढ़ावा दें जहां कोई भी असुरक्षित काम रोक सकता है।">Promote a "Stop Work Authority" culture where anyone can halt unsafe work.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle"></i> <span data-en="Frequently Asked Questions (FAQ)" data-hi="अक्सर पूछे जाने वाले प्रश्न (FAQ)">Frequently Asked Questions (FAQ)</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="What happens to safe man hours after a minor first-aid case?" data-hi="मामूली फर्स्ट-एड केस के बाद सुरक्षित मैन घंटों का क्या होता है?">What happens to safe man hours after a minor first-aid case?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="First-aid cases do not affect safe man hours because they do not cause lost time." 
+                       data-hi="फर्स्ट-एड केस सुरक्षित मैन घंटों को प्रभावित नहीं करते हैं क्योंकि वे समय की हानि नहीं करते हैं।">
+                        First-aid cases do not affect safe man hours because they do not cause lost time.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Are safe man hours the same as total man-hours?" data-hi="क्या सुरक्षित मैन घंटे कुल मैन-घंटे के समान हैं?">Are safe man hours the same as total man-hours?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="No. Safe man hours exclude any period when an LTI occurs." 
+                       data-hi="नहीं। सुरक्षित मैन घंटे किसी भी अवधि को बाहर करते हैं जब कोई LTI होता है।">
+                        No. Safe man hours exclude any period when an LTI occurs.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can safe man hours be used in tenders?" data-hi="क्या सुरक्षित मैन घंटे टेंडर में इस्तेमाल किए जा सकते हैं?">Can safe man hours be used in tenders?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes—companies often showcase safe man hours in bids, client reports and milestone boards." 
+                       data-hi="हाँ - कंपनियाँ अक्सर बोली, क्लाइंट रिपोर्ट और माइलस्टोन बोर्ड में सुरक्षित मैन घंटे प्रदर्शित करती हैं।">
+                        Yes—companies often showcase safe man hours in bids, client reports and milestone boards.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Does an LTI reset the counter?" data-hi="क्या LTI काउंटर रीसेट कर देता है?">Does an LTI reset the counter?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes. After an LTI, safe hours reset to zero and counting restarts from the next working day." 
+                       data-hi="हाँ। LTI के बाद, सुरक्षित घंटे शून्य पर रीसेट हो जाते हैं और गिनती अगले कार्य दिवस से फिर से शुरू होती है।">
+                        Yes. After an LTI, safe hours reset to zero and counting restarts from the next working day.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Should overtime and contractor hours be included?" data-hi="क्या ओवरटाइम और ठेकेदार के घंटे शामिल किए जाने चाहिए?">Should overtime and contractor hours be included?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes. Include actual hours worked by employees and in-scope contractors, including overtime, for accuracy." 
+                       data-hi="हाँ। सटीकता के लिए कर्मचारियों और स्कोप में आने वाले ठेकेदारों द्वारा काम किए गए वास्तविक घंटे, ओवरटाइम सहित शामिल करें।">
+                        Yes. Include actual hours worked by employees and in-scope contractors, including overtime, for accuracy.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Thoughts -->
+        <div class="content-card">
+            <h2><i class="fas fa-lightbulb"></i> <span data-en="Final Thoughts on Safe Man Hours Calculator" data-hi="सुरक्षित मैन घंटे कैलकुलेटर पर अंतिम विचार">Final Thoughts on Safe Man Hours Calculator</span></h2>
+            <p data-en="Safe Man Hours are a simple but powerful metric to demonstrate your organization's commitment to safety." 
+               data-hi="सुरक्षित मैन घंटे आपके संगठन की सुरक्षा के प्रति प्रतिबद्धता प्रदर्शित करने के लिए एक सरल लेकिन शक्तिशाली मेट्रिक हैं।">
+                Safe Man Hours are a simple but powerful metric to demonstrate your organization's commitment to safety.
+            </p>
+            
+            <p data-en="With our calculator and best practices, you can:" 
+               data-hi="हमारे कैलकुलेटर और सर्वोत्तम प्रथाओं के साथ, आप कर सकते हैं:">
+                With our calculator and best practices, you can:
+            </p>
+            
+            <ul>
+                <li data-en="Track performance easily." 
+                    data-hi="प्रदर्शन को आसानी से ट्रैक करें।">Track performance easily.</li>
+                <li data-en="Celebrate milestones." 
+                    data-hi="माइलस्टोन मनाएं।">Celebrate milestones.</li>
+                <li data-en="Motivate employees." 
+                    data-hi="कर्मचारियों को प्रेरित करें।">Motivate employees.</li>
+                <li data-en="Impress clients and auditors." 
+                    data-hi="क्लाइंट और ऑडिटर को प्रभावित करें।">Impress clients and auditors.</li>
+            </ul>
+
+            <div class="highlight-box">
+                <h3 data-en="Pro Tip" data-hi="प्रो टिप">Pro Tip</h3>
+                <p data-en="Don't just stop at Safe Man Hours. Use our other HSE tools like FR Calculator, TRIR Calculator, and HIRA Generator to build a complete HSE KPI Dashboard." 
+                   data-hi="सिर्फ सुरक्षित मैन घंटे पर ही न रुकें। एक संपूर्ण HSE KPI डैशबोर्ड बनाने के लिए हमारे अन्य HSE टूल्स जैसे FR कैलकुलेटर, TRIR कैलकुलेटर, और HIRA जनरेटर का उपयोग करें।">
+                    Don't just stop at Safe Man Hours. Use our other HSE tools like FR Calculator, TRIR Calculator, and HIRA Generator to build a complete HSE KPI Dashboard.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

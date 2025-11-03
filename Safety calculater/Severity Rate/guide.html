@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Severity Rate Calculator - Complete Guide | HSE Tools</title>
+    <meta name="description" content="Complete guide to Severity Rate Calculator - Learn how to calculate injury severity rates for safety performance measurement and OSHA compliance.">
+    <meta name="keywords" content="severity rate calculator, OSHA, safety metrics, HSE tools, injury severity, lost work days, safety performance">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Severity Rate Calculator - Complete Guide | HSE Tools">
+    <meta property="og:description" content="Learn how to calculate injury severity rates for safety performance measurement and OSHA compliance">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hsetools.vercel.app/severity-rate-guide.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Severity Rate Calculator - Complete Guide">
+    <meta name="twitter:description" content="Complete guide to Severity Rate calculation methods">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Severity Rate Calculator - Complete Guide",
+      "description": "Complete guide to Severity Rate calculation methods for safety performance measurement",
+      "author": {
+        "@type": "Person",
+        "name": "Shivshakti Sahani"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "HSE Tools",
+        "url": "https://hsetools.vercel.app"
+      },
+      "datePublished": "2024-12-01",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hsetools.vercel.app/severity-rate-guide.html"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Content Styles */
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--warning-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--info-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid var(--bg-tertiary);
+            text-align: center;
+        }
+
+        .formula {
+            font-size: 1.5rem;
+            font-weight: var(--font-bold);
+            color: var(--accent-color);
+            margin: 15px 0;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Example Box */
+        .example-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid var(--bg-tertiary);
+        }
+
+        .example-title {
+            color: var(--accent-color);
+            font-weight: var(--font-semibold);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="https://hsetools.vercel.app" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="footer/about.html"><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-en="Severity Rate Calculator - Complete Guide" data-hi="सेवेरिटी रेट कैलकुलेटर - संपूर्ण गाइड">Severity Rate Calculator - Complete Guide</h1>
+            <p data-en="Measure injury severity and lost work days for safety performance" data-hi="सुरक्षा प्रदर्शन के लिए चोट की गंभीरता और काम के खोए हुए दिनों को मापें">Measure injury severity and lost work days for safety performance</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Introduction -->
+        <div class="content-card">
+            <h2><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="What is Severity Rate?" data-hi="सेवेरिटी रेट क्या है?">What is Severity Rate?</span></h2>
+            <p data-en="The Severity Rate Calculator measures the average number of days lost per recordable injury, providing insight into the seriousness of workplace injuries and their impact on operations." 
+               data-hi="सेवेरिटी रेट कैलकुलेटर प्रति रिकॉर्डेबल चोट में खोए गए दिनों की औसत संख्या को मापता है, जो कार्यस्थल की चोटों की गंभीरता और संचालन पर उनके प्रभाव में अंतर्दृष्टि प्रदान करता है।">
+                The Severity Rate Calculator measures the average number of days lost per recordable injury, providing insight into the seriousness of workplace injuries and their impact on operations.
+            </p>
+            
+            <div class="highlight-box">
+                <h3><i class="fas fa-lightbulb" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Key Metric" data-hi="मुख्य मीट्रिक">Key Metric</span></h3>
+                <p data-en="Severity Rate represents the average severity of injuries in terms of lost work days, complementing Frequency Rate to provide a complete safety performance picture." 
+                   data-hi="सेवेरिटी रेट खोए हुए काम के दिनों के संदर्भ में चोटों की औसत गंभीरता का प्रतिनिधित्व करता है, जो एक संपूर्ण सुरक्षा प्रदर्शन चित्र प्रदान करने के लिए फ्रीक्वेंसी रेट को पूरक करता है।">
+                    Severity Rate represents the average severity of injuries in terms of lost work days, complementing Frequency Rate to provide a complete safety performance picture.
+                </p>
+            </div>
+        </div>
+
+        <!-- Calculation Methods -->
+        <div class="content-card">
+            <h2><i class="fas fa-calculator" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Calculation Methods" data-hi="गणना विधियाँ">Calculation Methods</span></h2>
+            
+            <div class="content-section">
+                <p data-en="There are two primary standards for calculating Severity Rate:" 
+                   data-hi="सेवेरिटी रेट की गणना के लिए दो प्राथमिक मानक हैं:">
+                    There are two primary standards for calculating Severity Rate:
+                </p>
+                
+                <div class="formula-box">
+                    <h3><i class="fas fa-flag-usa" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="OSHA Method (USA Standard)" data-hi="OSHA विधि (USA मानक)">OSHA Method (USA Standard)</span></h3>
+                    <p data-en="Per 200,000 hours worked" 
+                       data-hi="प्रति 200,000 काम के घंटे">Per 200,000 hours worked</p>
+                    <div class="formula">
+                        SR = (Total Lost Work Days × 200,000) / Total Hours Worked
+                    </div>
+                </div>
+                
+                <div class="formula-box">
+                    <h3><i class="fas fa-globe" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="International Method (ISO Standard)" data-hi="अंतर्राष्ट्रीय विधि (ISO मानक)">International Method (ISO Standard)</span></h3>
+                    <p data-en="Per 1,000,000 hours worked" 
+                       data-hi="प्रति 1,000,000 काम के घंटे">Per 1,000,000 hours worked</p>
+                    <div class="formula">
+                        SR = (Total Lost Work Days × 1,000,000) / Total Hours Worked
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formula Explanation -->
+        <div class="content-card">
+            <h2><i class="fas fa-square-root-alt" style="color: var(--accent-color);" aria-hidden="true"></i> <span data-en="Formula Components" data-hi="फॉर्मूला घटक">Formula Components</span></h2>
+            
+            <div class="content-section">
+                <h3><i class="fas fa-calendar-times" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Lost Work Days" data-hi="खोए हुए काम के दिन">Lost Work Days</span></h3>
+                <p data-en="Days away from work due to work-related injury or illness, including:" 
+                   data-hi="काम से संबंधित चोट या बीमारी के कारण काम से दूर के दिन, जिनमें शामिल हैं:">
+                    Days away from work due to work-related injury or illness, including:
+                </p>
+                <ul>
+                    <li data-en="Calendar days employees are unable to work" 
+                        data-hi="कैलेंडर दिन जब कर्मचारी काम करने में असमर्थ होते हैं">Calendar days employees are unable to work</li>
+                    <li data-en="Days of restricted work or job transfer" 
+                        data-hi="प्रतिबंधित काम या नौकरी स्थानांतरण के दिन">Days of restricted work or job transfer</li>
+                    <li data-en="Permanent disabilities or fatalities" 
+                        data-hi="स्थायी विकलांगता या मौत">Permanent disabilities or fatalities</li>
+                </ul>
+                
+                <h3><i class="fas fa-clock" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="Total Hours Worked" data-hi="कुल काम के घंटे">Total Hours Worked</span></h3>
+                <p data-en="The sum of all hours worked by all employees during the period being measured." 
+                   data-hi="मापी जा रही अवधि के दौरान सभी कर्मचारियों द्वारा काम किए गए सभी घंटों का योग।">
+                    The sum of all hours worked by all employees during the period being measured.
+                </p>
+            </div>
+        </div>
+
+        <!-- How to Use -->
+        <div class="content-card">
+            <h2><i class="fas fa-play-circle" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="How to Use the Severity Rate Calculator" data-hi="सेवेरिटी रेट कैलकुलेटर का उपयोग कैसे करें">How to Use the Severity Rate Calculator</span></h2>
+            
+            <div class="content-section">
+                <ol>
+                    <li data-en="Select calculation method - OSHA (200,000 hours) or International (1,000,000 hours)" 
+                        data-hi="गणना विधि चुनें - OSHA (200,000 घंटे) या अंतर्राष्ट्रीय (1,000,000 घंटे)">Select calculation method - OSHA (200,000 hours) or International (1,000,000 hours)</li>
+                    <li data-en="Enter total lost work days during the measurement period" 
+                        data-hi="माप अवधि के दौरान कुल खोए हुए काम के दिन दर्ज करें">Enter total lost work days during the measurement period</li>
+                    <li data-en="Enter total hours worked by all employees during the same period" 
+                        data-hi="समान अवधि के दौरान सभी कर्मचारियों द्वारा काम किए गए कुल घंटे दर्ज करें">Enter total hours worked by all employees during the same period</li>
+                    <li data-en="The calculator automatically computes the severity rate" 
+                        data-hi="कैलकुलेटर स्वचालित रूप से सेवेरिटी रेट की गणना करता है">The calculator automatically computes the severity rate</li>
+                    <li data-en="Analyze results to identify severity trends and areas for improvement" 
+                        data-hi="परिणामों का विश्लेषण करें ताकि गंभीरता के रुझानों और सुधार के क्षेत्रों की पहचान की जा सके">Analyze results to identify severity trends and areas for improvement</li>
+                </ol>
+            </div>
+
+            <div class="info-box">
+                <p data-en="Our free calculator allows you to calculate using both OSHA (US standard) and International (ISO) methods for comprehensive safety performance analysis." 
+                   data-hi="हमारा मुफ्त कैलकुलेटर आपको व्यापक सुरक्षा प्रदर्शन विश्लेषण के लिए OSHA (US मानक) और अंतर्राष्ट्रीय (ISO) दोनों विधियों का उपयोग करके गणना करने की अनुमति देता है।">
+                    Our free calculator allows you to calculate using both OSHA (US standard) and International (ISO) methods for comprehensive safety performance analysis.
+                </p>
+            </div>
+        </div>
+
+        <!-- Examples -->
+        <div class="content-card">
+            <h2><i class="fas fa-list-alt" style="color: var(--accent-color);" aria-hidden="true"></i> <span data-en="Example Calculations" data-hi="उदाहरण गणनाएँ">Example Calculations</span></h2>
+            
+            <div class="example-box">
+                <div class="example-title">
+                    <i class="fas fa-hard-hat"></i>
+                    <span data-en="Example 1 - Construction Project:" data-hi="उदाहरण 1 - निर्माण परियोजना:">Example 1 - Construction Project:</span>
+                </div>
+                <ul>
+                    <li data-en="Total Lost Work Days: 45" 
+                        data-hi="कुल खोए हुए काम के दिन: 45">Total Lost Work Days: 45</li>
+                    <li data-en="Total Hours Worked: 250,000" 
+                        data-hi="कुल काम के घंटे: 250,000">Total Hours Worked: 250,000</li>
+                    <li data-en="OSHA Method: SR = (45 × 200,000) / 250,000 = 36.0" 
+                        data-hi="OSHA विधि: SR = (45 × 200,000) / 250,000 = 36.0">OSHA Method: SR = (45 × 200,000) / 250,000 = 36.0</li>
+                    <li data-en="International Method: SR = (45 × 1,000,000) / 250,000 = 180.0" 
+                        data-hi="अंतर्राष्ट्रीय विधि: SR = (45 × 1,000,000) / 250,000 = 180.0">International Method: SR = (45 × 1,000,000) / 250,000 = 180.0</li>
+                </ul>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">
+                    <i class="fas fa-industry"></i>
+                    <span data-en="Example 2 - Manufacturing Plant:" data-hi="उदाहरण 2 - विनिर्माण संयंत्र:">Example 2 - Manufacturing Plant:</span>
+                </div>
+                <ul>
+                    <li data-en="Total Lost Work Days: 12" 
+                        data-hi="कुल खोए हुए काम के दिन: 12">Total Lost Work Days: 12</li>
+                    <li data-en="Total Hours Worked: 180,000" 
+                        data-hi="कुल काम के घंटे: 180,000">Total Hours Worked: 180,000</li>
+                    <li data-en="OSHA Method: SR = (12 × 200,000) / 180,000 = 13.3" 
+                        data-hi="OSHA विधि: SR = (12 × 200,000) / 180,000 = 13.3">OSHA Method: SR = (12 × 200,000) / 180,000 = 13.3</li>
+                    <li data-en="International Method: SR = (12 × 1,000,000) / 180,000 = 66.7" 
+                        data-hi="अंतर्राष्ट्रीय विधि: SR = (12 × 1,000,000) / 180,000 = 66.7">International Method: SR = (12 × 1,000,000) / 180,000 = 66.7</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">
+                    <i class="fas fa-oil-well"></i>
+                    <span data-en="Example 3 - Oil & Gas Operation:" data-hi="उदाहरण 3 - तेल और गैस संचालन:">Example 3 - Oil & Gas Operation:</span>
+                </div>
+                <ul>
+                    <li data-en="Total Lost Work Days: 8" 
+                        data-hi="कुल खोए हुए काम के दिन: 8">Total Lost Work Days: 8</li>
+                    <li data-en="Total Hours Worked: 120,000" 
+                        data-hi="कुल काम के घंटे: 120,000">Total Hours Worked: 120,000</li>
+                    <li data-en="OSHA Method: SR = (8 × 200,000) / 120,000 = 13.3" 
+                        data-hi="OSHA विधि: SR = (8 × 200,000) / 120,000 = 13.3">OSHA Method: SR = (8 × 200,000) / 120,000 = 13.3</li>
+                    <li data-en="International Method: SR = (8 × 1,000,000) / 120,000 = 66.7" 
+                        data-hi="अंतर्राष्ट्रीय विधि: SR = (8 × 1,000,000) / 120,000 = 66.7">International Method: SR = (8 × 1,000,000) / 120,000 = 66.7</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Importance -->
+        <div class="content-card">
+            <h2><i class="fas fa-chart-line" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Why Is Severity Rate Important?" data-hi="सेवेरिटी रेट क्यों महत्वपूर्ण है?">Why Is Severity Rate Important?</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="✓ Measures impact of injuries beyond just frequency" 
+                        data-hi="✓ केवल आवृत्ति से परे चोटों के प्रभाव को मापता है">✓ Measures impact of injuries beyond just frequency</li>
+                    <li data-en="✓ Identifies high-severity hazards requiring immediate attention" 
+                        data-hi="✓ तत्काल ध्यान देने की आवश्यकता वाले उच्च-गंभीरता वाले खतरों की पहचान करता है">✓ Identifies high-severity hazards requiring immediate attention</li>
+                    <li data-en="✓ Tracks effectiveness of safety interventions" 
+                        data-hi="✓ सुरक्षा हस्तक्षेपों की प्रभावशीलता को ट्रैक करता है">✓ Tracks effectiveness of safety interventions</li>
+                    <li data-en="✓ Meets regulatory reporting requirements (OSHA, ISO standards)" 
+                        data-hi="✓ नियामक रिपोर्टिंग आवश्यकताओं को पूरा करता है (OSHA, ISO मानक)">✓ Meets regulatory reporting requirements (OSHA, ISO standards)</li>
+                    <li data-en="✓ Helps allocate safety resources effectively" 
+                        data-hi="✓ सुरक्षा संसाधनों को प्रभावी ढंग से आवंटित करने में मदद करता है">✓ Helps allocate safety resources effectively</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Industry Benchmarks -->
+        <div class="content-card">
+            <h2><i class="fas fa-trophy" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Industry Benchmarks" data-hi="उद्योग बेंचमार्क">Industry Benchmarks</span></h2>
+            
+            <div class="content-section">
+                <h3><i class="fas fa-hard-hat" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Construction Industry" data-hi="निर्माण उद्योग">Construction Industry</span></h3>
+                <ul>
+                    <li data-en="Excellent: SR < 20 (OSHA)" 
+                        data-hi="उत्कृष्ट: SR < 20 (OSHA)">Excellent: SR < 20 (OSHA)</li>
+                    <li data-en="Average: SR 20 - 50 (OSHA)" 
+                        data-hi="औसत: SR 20 - 50 (OSHA)">Average: SR 20 - 50 (OSHA)</li>
+                    <li data-en="Needs Improvement: SR > 50 (OSHA)" 
+                        data-hi="सुधार की आवश्यकता: SR > 50 (OSHA)">Needs Improvement: SR > 50 (OSHA)</li>
+                </ul>
+                
+                <h3><i class="fas fa-industry" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Manufacturing Industry" data-hi="विनिर्माण उद्योग">Manufacturing Industry</span></h3>
+                <ul>
+                    <li data-en="Excellent: SR < 15 (OSHA)" 
+                        data-hi="उत्कृष्ट: SR < 15 (OSHA)">Excellent: SR < 15 (OSHA)</li>
+                    <li data-en="Average: SR 15 - 40 (OSHA)" 
+                        data-hi="औसत: SR 15 - 40 (OSHA)">Average: SR 15 - 40 (OSHA)</li>
+                    <li data-en="Needs Improvement: SR > 40 (OSHA)" 
+                        data-hi="सुधार की आवश्यकता: SR > 40 (OSHA)">Needs Improvement: SR > 40 (OSHA)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="content-card">
+            <h2><i class="fas fa-times-circle" style="color: var(--danger-color);" aria-hidden="true"></i> <span data-en="Common Mistakes in Calculating Severity Rate" data-hi="सेवेरिटी रेट गणना में सामान्य गलतियाँ">Common Mistakes in Calculating Severity Rate</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="X Incorrectly counting lost work days" 
+                        data-hi="X गलत तरीके से खोए हुए काम के दिनों की गिनती करना">X Incorrectly counting lost work days</li>
+                    <li data-en="X Not including restricted work days" 
+                        data-hi="X प्रतिबंधित काम के दिनों को शामिल नहीं करना">X Not including restricted work days</li>
+                    <li data-en="X Using inconsistent calculation methods" 
+                        data-hi="X असंगत गणना विधियों का उपयोग करना">X Using inconsistent calculation methods</li>
+                    <li data-en="X Not tracking all recordable injuries" 
+                        data-hi="X सभी रिकॉर्डेबल चोटों को ट्रैक नहीं करना">X Not tracking all recordable injuries</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-card">
+            <h2><i class="fas fa-check-circle" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Best Practices to Reduce Severity Rate" data-hi="सेवेरिटी रेट कम करने के लिए सर्वोत्तम अभ्यास">Best Practices to Reduce Severity Rate</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="✓ Implement robust incident investigation procedures" 
+                        data-hi="✓ मजबूत घटना जांच प्रक्रियाएं लागू करें">✓ Implement robust incident investigation procedures</li>
+                    <li data-en="✓ Focus on high-severity risk controls" 
+                        data-hi="✓ उच्च-गंभीरता वाले जोखिम नियंत्रणों पर ध्यान केंद्रित करें">✓ Focus on high-severity risk controls</li>
+                    <li data-en="✓ Provide comprehensive safety training" 
+                        data-hi="✓ व्यापक सुरक्षा प्रशिक्षण प्रदान करें">✓ Provide comprehensive safety training</li>
+                    <li data-en="✓ Implement early return-to-work programs" 
+                        data-hi="✓ शीघ्र काम पर लौटने के कार्यक्रम लागू करें">✓ Implement early return-to-work programs</li>
+                    <li data-en="✓ Conduct regular safety audits and inspections" 
+                        data-hi="✓ नियमित सुरक्षा ऑडिट और निरीक्षण करें">✓ Conduct regular safety audits and inspections</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Frequently Asked Questions" data-hi="अक्सर पूछे जाने वाले प्रश्न">Frequently Asked Questions</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="What's the difference between Severity Rate and Frequency Rate?" data-hi="सेवेरिटी रेट और फ्रीक्वेंसी रेट में क्या अंतर है?">What's the difference between Severity Rate and Frequency Rate?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Frequency Rate measures how often injuries occur, while Severity Rate measures how serious they are in terms of lost work days. Both metrics are needed for a complete safety performance picture." 
+                       data-hi="फ्रीक्वेंसी रेट मापता है कि चोटें कितनी बार होती हैं, जबकि सेवेरिटी रेट मापता है कि वे खोए हुए काम के दिनों के संदर्भ में कितनी गंभीर हैं। एक संपूर्ण सुरक्षा प्रदर्शन चित्र के लिए दोनों मीट्रिक की आवश्यकता होती है।">
+                        Frequency Rate measures how often injuries occur, while Severity Rate measures how serious they are in terms of lost work days. Both metrics are needed for a complete safety performance picture.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="How are restricted work days counted in Severity Rate?" data-hi="सेवेरिटी रेट में प्रतिबंधित काम के दिनों की गिनती कैसे की जाती है?">How are restricted work days counted in Severity Rate?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Restricted work days are counted as full lost work days in Severity Rate calculations. If an employee can't perform their regular job duties but can do restricted work, those days are included in the total." 
+                       data-hi="प्रतिबंधित काम के दिनों को सेवेरिटी रेट गणना में पूर्ण खोए हुए काम के दिनों के रूप में गिना जाता है। यदि कोई कर्मचारी अपने नियमित काम के कर्तव्यों को पूरा नहीं कर सकता है लेकिन प्रतिबंधित काम कर सकता है, तो उन दिनों को कुल में शामिल किया जाता है।">
+                        Restricted work days are counted as full lost work days in Severity Rate calculations. If an employee can't perform their regular job duties but can do restricted work, those days are included in the total.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Which calculation method should I use - OSHA or International?" data-hi="मुझे किस गणना विधि का उपयोग करना चाहिए - OSHA या अंतर्राष्ट्रीय?">Which calculation method should I use - OSHA or International?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Use the OSHA method if you're in the United States or need to comply with US regulations. Use the International method for global operations or ISO compliance. Be consistent with your chosen method for accurate trend analysis." 
+                       data-hi="OSHA विधि का उपयोग करें यदि आप संयुक्त राज्य अमेरिका में हैं या US विनियमों का पालन करने की आवश्यकता है। वैश्विक संचालन या ISO अनुपालन के लिए अंतर्राष्ट्रीय विधि का उपयोग करें। सटीक ट्रेंड विश्लेषण के लिए अपनी चुनी हुई विधि के साथ सुसंगत रहें।">
+                        Use the OSHA method if you're in the United States or need to comply with US regulations. Use the International method for global operations or ISO compliance. Be consistent with your chosen method for accurate trend analysis.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Thoughts -->
+        <div class="content-card">
+            <h2><i class="fas fa-brain" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="Final Thoughts on Severity Rate Calculator" data-hi="सेवेरिटी रेट कैलकुलेटर पर अंतिम विचार">Final Thoughts on Severity Rate Calculator</span></h2>
+            
+            <div class="content-section">
+                <p data-en="The Severity Rate Calculator provides crucial insights into the impact of workplace injuries beyond just their frequency. By tracking severity trends, organizations can focus their safety efforts on preventing the most serious incidents." 
+                   data-hi="सेवेरिटी रेट कैलकुलेटर कार्यस्थल की चोटों के प्रभाव के बारे में केवल उनकी आवृत्ति से परे महत्वपूर्ण अंतर्दृष्टि प्रदान करता है। गंभीरता के रुझानों को ट्रैक करके, संगठन सबसे गंभीर घटनाओं को रोकने पर अपने सुरक्षा प्रयासों को केंद्रित कर सकते हैं।">
+                    The Severity Rate Calculator provides crucial insights into the impact of workplace injuries beyond just their frequency. By tracking severity trends, organizations can focus their safety efforts on preventing the most serious incidents.
+                </p>
+                
+                <div class="highlight-box">
+                    <p data-en="By using our Severity Rate Calculator, you can establish safety benchmarks, conduct quality assessments, and present objective data to stakeholders and auditors for comprehensive safety performance evaluation." 
+                       data-hi="हमारे सेवेरिटी रेट कैलकुलेटर का उपयोग करके, आप सुरक्षा बेंचमार्क स्थापित कर सकते हैं, गुणवत्ता मूल्यांकन कर सकते हैं, और व्यापक सुरक्षा प्रदर्शन मूल्यांकन के लिए हितधारकों और ऑडिटरों को वस्तुनिष्ठ डेटा प्रस्तुत कर सकते हैं।">
+                        By using our Severity Rate Calculator, you can establish safety benchmarks, conduct quality assessments, and present objective data to stakeholders and auditors for comprehensive safety performance evaluation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

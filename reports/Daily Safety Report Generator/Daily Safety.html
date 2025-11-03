@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Safety Report Generator</title>
+    <meta name="description" content="Generate comprehensive daily safety reports for construction and industrial sites">
+    <meta name="keywords" content="safety report, construction safety, daily report, risk assessment">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --bg-color: #f5f7fa;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2d2d2d;
+            --border-color: #444;
+            --primary: #3498db;
+            --dark: #bdc3c7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 25px;
+            animation: slideUp 0.5s ease-out;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        tr:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input {
+            width: auto;
+        }
+
+        .preview-section {
+            background: var(--bg-color);
+            border: 2px dashed var(--border-color);
+        }
+
+        .preview-content {
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .preview-table tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .control-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .language-selector, .theme-toggle {
+                position: static;
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="theme-toggle">
+                <button class="btn btn-info" id="themeToggle">
+                    <i class="fas fa-moon"></i> Dark Mode
+                </button>
+            </div>
+            <h1>Daily Safety Report Generator</h1>
+            <p class="subtitle">Comprehensive safety reporting for construction and industrial sites</p>
+            <div class="language-selector">
+                <select id="languageSelect" class="btn">
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="control-buttons">
+            <button class="btn btn-primary" id="saveBtn">
+                <i class="fas fa-save"></i> Save Draft
+            </button>
+            <button class="btn btn-success" id="loadBtn">
+                <i class="fas fa-folder-open"></i> Load Draft
+            </button>
+            <button class="btn btn-warning" id="clearBtn">
+                <i class="fas fa-broom"></i> Clear Form
+            </button>
+        </div>
+
+        <!-- Section 1: Project Details -->
+        <div class="section" id="projectDetails">
+            <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Project Details</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="siteName">Site / Project Name *</label>
+                    <input type="text" id="siteName" placeholder="e.g., ABC Refinery – Unit 3" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reportDate">Date *</label>
+                    <input type="date" id="reportDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="workActivities">Work Activities Ongoing *</label>
+                    <textarea id="workActivities" placeholder="Describe ongoing work activities" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location *</label>
+                    <input type="text" id="location" placeholder="e.g., Tank Farm – Bay 2" required>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Manpower Details -->
+        <div class="section" id="manpowerDetails">
+            <h2 class="section-title"><i class="fas fa-users"></i> Manpower Details</h2>
+            
+            <div class="table-container">
+                <table id="manpowerTable">
+                    <thead>
+                        <tr>
+                            <th>Trade / Category</th>
+                            <th>No. of Workers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Workers</td>
+                            <td><input type="number" id="workersCount" min="0" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Supervisors</td>
+                            <td><input type="number" id="supervisorsCount" min="0" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Engineers</td>
+                            <td><input type="number" id="engineersCount" min="0" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Safety Officers</td>
+                            <td><input type="number" id="safetyOfficersCount" min="0" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Drivers / Operators</td>
+                            <td><input type="number" id="driversCount" min="0" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Subcontractors</td>
+                            <td><input type="number" id="subcontractorsCount" min="0" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td>Visitors</td>
+                            <td><input type="number" id="visitorsCount" min="0" value="0"></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total</strong></td>
+                            <td><strong id="totalManpower">0</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section 3: Safety Observations -->
+        <div class="section" id="safetyObservations">
+            <h2 class="section-title"><i class="fas fa-binoculars"></i> Safety Observations & Hazards</h2>
+            
+            <div class="form-group">
+                <label for="observations">Observations / Hazards *</label>
+                <textarea id="observations" placeholder="Record any safety observations or identified hazards" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="incidents">Incidents / Near Misses</label>
+                <textarea id="incidents" placeholder="Record any incidents or near misses"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="correctiveActions">Corrective / Preventive Actions</label>
+                <textarea id="correctiveActions" placeholder="Describe corrective or preventive actions taken"></textarea>
+            </div>
+        </div>
+
+        <!-- Section 4: Permits Issued -->
+        <div class="section" id="permitsSection">
+            <h2 class="section-title"><i class="fas fa-file-signature"></i> Permits Issued Today</h2>
+            
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="hotWorkPermit">
+                    <label for="hotWorkPermit">Hot Work Permit</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="heightPermit">
+                    <label for="heightPermit">Work at Height Permit</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="confinedSpacePermit">
+                    <label for="confinedSpacePermit">Confined Space Permit</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="electricalPermit">
+                    <label for="electricalPermit">Electrical Work Permit</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="liftingPermit">
+                    <label for="liftingPermit">Lifting Permit</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="excavationPermit">
+                    <label for="excavationPermit">Excavation Permit</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="otherPermits">Other Permits / Notes</label>
+                <textarea id="otherPermits" placeholder="Any other permits or notes"></textarea>
+            </div>
+        </div>
+
+        <!-- Section 5: Safety Equipment -->
+        <div class="section" id="safetyEquipment">
+            <h2 class="section-title"><i class="fas fa-hard-hat"></i> Safety Equipment & Compliance</h2>
+            
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="firstAidKit">
+                    <label for="firstAidKit">First Aid Kit Available & Stocked</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="fireExtinguishers">
+                    <label for="fireExtinguishers">Fire Extinguishers Available</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="emergencyAssembly">
+                    <label for="emergencyAssembly">Emergency Assembly Area Marked</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="signageBarricades">
+                    <label for="signageBarricades">Signage & Barricades in Place</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6: Toolbox Talk -->
+        <div class="section" id="toolboxTalk">
+            <h2 class="section-title"><i class="fas fa-toolbox"></i> Toolbox Talk Conducted</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="toolboxTopic">Topic</label>
+                    <input type="text" id="toolboxTopic" placeholder="Topic discussed">
+                </div>
+                
+                <div class="form-group">
+                    <label for="toolboxConductedBy">Conducted By</label>
+                    <input type="text" id="toolboxConductedBy" placeholder="Name of conductor">
+                </div>
+                
+                <div class="form-group">
+                    <label for="toolboxParticipants">Number of Participants</label>
+                    <input type="number" id="toolboxParticipants" min="0" value="0">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="toolboxRemarks">Feedback / Remarks</label>
+                <textarea id="toolboxRemarks" placeholder="Any feedback or remarks from the toolbox talk"></textarea>
+            </div>
+        </div>
+
+        <!-- Section 7: Prepared By -->
+        <div class="section" id="preparedBy">
+            <h2 class="section-title"><i class="fas fa-user-check"></i> Prepared By</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="preparedByName">Safety Officer Name *</label>
+                    <input type="text" id="preparedByName" placeholder="Your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="preparedBySignature">Signature</label>
+                    <input type="text" id="preparedBySignature" placeholder="Digital signature">
+                </div>
+                
+                <div class="form-group">
+                    <label for="preparedByDate">Date</label>
+                    <input type="date" id="preparedByDate">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8: Preview -->
+        <div class="section preview-section" id="previewSection">
+            <h2 class="section-title"><i class="fas fa-eye"></i> Report Preview</h2>
+            
+            <div class="preview-content" id="previewContent">
+                <div id="previewProjectDetails">
+                    <h3>Project Details</h3>
+                    <p><strong>Site/Project:</strong> <span id="previewSiteName">Not specified</span></p>
+                    <p><strong>Date:</strong> <span id="previewDate">Not specified</span></p>
+                    <p><strong>Work Activities:</strong> <span id="previewWorkActivities">Not specified</span></p>
+                    <p><strong>Location:</strong> <span id="previewLocation">Not specified</span></p>
+                </div>
+                
+                <div id="previewManpower" style="margin-top: 20px;">
+                    <h3>Manpower Details</h3>
+                    <div class="table-container">
+                        <table class="preview-table">
+                            <thead>
+                                <tr>
+                                    <th>Trade / Category</th>
+                                    <th>No. of Workers</th>
+                                </tr>
+                            </thead>
+                            <tbody id="previewManpowerBody">
+                                <!-- Preview rows will be added dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div id="previewSafetyObservations" style="margin-top: 20px;">
+                    <h3>Safety Observations & Hazards</h3>
+                    <p><strong>Observations/Hazards:</strong> <span id="previewObservations">None recorded</span></p>
+                    <p><strong>Incidents/Near Misses:</strong> <span id="previewIncidents">None recorded</span></p>
+                    <p><strong>Corrective Actions:</strong> <span id="previewCorrectiveActions">None recorded</span></p>
+                </div>
+                
+                <div id="previewPermits" style="margin-top: 20px;">
+                    <h3>Permits Issued Today</h3>
+                    <p id="previewPermitsList">No permits issued</p>
+                </div>
+                
+                <div id="previewEquipment" style="margin-top: 20px;">
+                    <h3>Safety Equipment Status</h3>
+                    <p id="previewEquipmentList">No equipment status recorded</p>
+                </div>
+                
+                <div id="previewToolbox" style="margin-top: 20px;">
+                    <h3>Toolbox Talk</h3>
+                    <p><strong>Topic:</strong> <span id="previewToolboxTopic">Not conducted</span></p>
+                    <p><strong>Conducted By:</strong> <span id="previewToolboxConductor">Not specified</span></p>
+                    <p><strong>Participants:</strong> <span id="previewToolboxParticipants">0</span></p>
+                    <p><strong>Remarks:</strong> <span id="previewToolboxRemarks">None</span></p>
+                </div>
+                
+                <div id="previewPreparedBy" style="margin-top: 20px;">
+                    <h3>Prepared By</h3>
+                    <p><strong>Name:</strong> <span id="previewPreparedByName">Not specified</span></p>
+                    <p><strong>Signature:</strong> <span id="previewPreparedBySignature">Not provided</span></p>
+                    <p><strong>Date:</strong> <span id="previewPreparedByDate">Not specified</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 9: Action Buttons -->
+        <div class="actions">
+            <button class="btn btn-success" id="downloadBtn">
+                <i class="fas fa-file-pdf"></i> Download PDF Report
+            </button>
+            <button class="btn btn-primary" id="printBtn">
+                <i class="fas fa-print"></i> Print Report
+            </button>
+            <button class="btn btn-info" id="goToRiskBtn">
+                <i class="fas fa-share"></i> Go to Risk Assessment
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reportDate').value = today;
+            document.getElementById('preparedByDate').value = today;
+
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+                } else {
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> Dark Mode';
+                }
+            });
+
+            // Language Translation
+            const languageSelect = document.getElementById('languageSelect');
+            languageSelect.addEventListener('change', function() {
+                // In a real implementation, you would load translation strings
+                alert('Language changed to: ' + this.options[this.selectedIndex].text);
+                // For a real implementation, you would use a translation library
+                // and update all text content on the page
+            });
+
+            // Calculate total manpower
+            const manpowerInputs = document.querySelectorAll('#manpowerTable input[type="number"]');
+            manpowerInputs.forEach(input => {
+                input.addEventListener('input', updateTotalManpower);
+            });
+
+            function updateTotalManpower() {
+                let total = 0;
+                manpowerInputs.forEach(input => {
+                    total += parseInt(input.value) || 0;
+                });
+                document.getElementById('totalManpower').textContent = total;
+                updatePreview();
+            }
+
+            // Update preview in real-time
+            const formInputs = document.querySelectorAll('input, textarea, select');
+            formInputs.forEach(input => {
+                input.addEventListener('input', updatePreview);
+                input.addEventListener('change', updatePreview);
+            });
+
+            // Save Draft
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                const formData = collectFormData();
+                localStorage.setItem('safetyReportDraft', JSON.stringify(formData));
+                alert('Draft saved successfully!');
+            });
+
+            // Load Draft
+            document.getElementById('loadBtn').addEventListener('click', function() {
+                const draft = localStorage.getItem('safetyReportDraft');
+                if (draft) {
+                    const formData = JSON.parse(draft);
+                    loadFormData(formData);
+                    alert('Draft loaded successfully!');
+                } else {
+                    alert('No saved draft found!');
+                }
+            });
+
+            // Clear Form
+            document.getElementById('clearBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to clear all form data?')) {
+                    document.querySelectorAll('input, textarea').forEach(element => {
+                        if (element.type !== 'button' && element.type !== 'submit') {
+                            element.value = '';
+                        }
+                    });
+                    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                    document.querySelectorAll('input[type="number"]').forEach(input => {
+                        input.value = '0';
+                    });
+                    updatePreview();
+                    alert('Form cleared!');
+                }
+            });
+
+            // Print Report
+            document.getElementById('printBtn').addEventListener('click', function() {
+                window.print();
+            });
+
+            // Go to Risk Assessment
+            document.getElementById('goToRiskBtn').addEventListener('click', function() {
+                alert('Redirecting to Risk Assessment Dashboard...');
+                // In a real implementation, this would navigate to the risk assessment page
+                // window.location.href = 'risk-assessment.html';
+            });
+
+            // Download PDF
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                const previewContent = document.getElementById('previewContent');
+                
+                html2canvas(previewContent).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+                    
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                    
+                    pdf.save('daily-safety-report.pdf');
+                });
+            });
+
+            // Collect form data
+            function collectFormData() {
+                const formData = {};
+                formInputs.forEach(input => {
+                    if (input.type === 'checkbox') {
+                        formData[input.id] = input.checked;
+                    } else {
+                        formData[input.id] = input.value;
+                    }
+                });
+                return formData;
+            }
+
+            // Load form data
+            function loadFormData(formData) {
+                for (const id in formData) {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            element.checked = formData[id];
+                        } else {
+                            element.value = formData[id];
+                        }
+                    }
+                }
+                updateTotalManpower();
+                updatePreview();
+            }
+
+            // Update preview
+            function updatePreview() {
+                // Project Details
+                document.getElementById('previewSiteName').textContent = 
+                    document.getElementById('siteName').value || 'Not specified';
+                document.getElementById('previewDate').textContent = 
+                    document.getElementById('reportDate').value || 'Not specified';
+                document.getElementById('previewWorkActivities').textContent = 
+                    document.getElementById('workActivities').value || 'Not specified';
+                document.getElementById('previewLocation').textContent = 
+                    document.getElementById('location').value || 'Not specified';
+
+                // Manpower Details
+                const manpowerRows = [
+                    { trade: 'Workers', count: document.getElementById('workersCount').value },
+                    { trade: 'Supervisors', count: document.getElementById('supervisorsCount').value },
+                    { trade: 'Engineers', count: document.getElementById('engineersCount').value },
+                    { trade: 'Safety Officers', count: document.getElementById('safetyOfficersCount').value },
+                    { trade: 'Drivers / Operators', count: document.getElementById('driversCount').value },
+                    { trade: 'Subcontractors', count: document.getElementById('subcontractorsCount').value },
+                    { trade: 'Visitors', count: document.getElementById('visitorsCount').value },
+                    { trade: 'Total', count: document.getElementById('totalManpower').textContent }
+                ];
+
+                let manpowerHTML = '';
+                manpowerRows.forEach(row => {
+                    manpowerHTML += `<tr><td>${row.trade}</td><td>${row.count}</td></tr>`;
+                });
+                document.getElementById('previewManpowerBody').innerHTML = manpowerHTML;
+
+                // Safety Observations
+                document.getElementById('previewObservations').textContent = 
+                    document.getElementById('observations').value || 'None recorded';
+                document.getElementById('previewIncidents').textContent = 
+                    document.getElementById('incidents').value || 'None recorded';
+                document.getElementById('previewCorrectiveActions').textContent = 
+                    document.getElementById('correctiveActions').value || 'None recorded';
+
+                // Permits
+                const permitCheckboxes = [
+                    { id: 'hotWorkPermit', name: 'Hot Work Permit' },
+                    { id: 'heightPermit', name: 'Work at Height Permit' },
+                    { id: 'confinedSpacePermit', name: 'Confined Space Permit' },
+                    { id: 'electricalPermit', name: 'Electrical Work Permit' },
+                    { id: 'liftingPermit', name: 'Lifting Permit' },
+                    { id: 'excavationPermit', name: 'Excavation Permit' }
+                ];
+
+                const selectedPermits = permitCheckboxes
+                    .filter(permit => document.getElementById(permit.id).checked)
+                    .map(permit => permit.name);
+
+                const otherPermits = document.getElementById('otherPermits').value;
+                if (otherPermits) {
+                    selectedPermits.push(otherPermits);
+                }
+
+                document.getElementById('previewPermitsList').textContent = 
+                    selectedPermits.length > 0 ? selectedPermits.join(', ') : 'No permits issued';
+
+                // Safety Equipment
+                const equipmentCheckboxes = [
+                    { id: 'firstAidKit', name: 'First Aid Kit Available & Stocked' },
+                    { id: 'fireExtinguishers', name: 'Fire Extinguishers Available' },
+                    { id: 'emergencyAssembly', name: 'Emergency Assembly Area Marked' },
+                    { id: 'signageBarricades', name: 'Signage & Barricades in Place' }
+                ];
+
+                const selectedEquipment = equipmentCheckboxes
+                    .filter(equipment => document.getElementById(equipment.id).checked)
+                    .map(equipment => equipment.name);
+
+                document.getElementById('previewEquipmentList').textContent = 
+                    selectedEquipment.length > 0 ? selectedEquipment.join(', ') : 'No equipment status recorded';
+
+                // Toolbox Talk
+                document.getElementById('previewToolboxTopic').textContent = 
+                    document.getElementById('toolboxTopic').value || 'Not conducted';
+                document.getElementById('previewToolboxConductor').textContent = 
+                    document.getElementById('toolboxConductedBy').value || 'Not specified';
+                document.getElementById('previewToolboxParticipants').textContent = 
+                    document.getElementById('toolboxParticipants').value || '0';
+                document.getElementById('previewToolboxRemarks').textContent = 
+                    document.getElementById('toolboxRemarks').value || 'None';
+
+                // Prepared By
+                document.getElementById('previewPreparedByName').textContent = 
+                    document.getElementById('preparedByName').value || 'Not specified';
+                document.getElementById('previewPreparedBySignature').textContent = 
+                    document.getElementById('preparedBySignature').value || 'Not provided';
+                document.getElementById('previewPreparedByDate').textContent = 
+                    document.getElementById('preparedByDate').value || 'Not specified';
+            }
+
+            // Initialize preview
+            updatePreview();
+            updateTotalManpower();
+        });
+    </script>
+</body>
+</html>

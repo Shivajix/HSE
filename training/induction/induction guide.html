@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete guide to Safety Induction Checklist - ensure workplace safety compliance with OSHA, ISO 45001 standards">
+    <meta name="keywords" content="safety induction, checklist, OSHA, ISO 45001, workplace safety, HSE training">
+    <meta name="author" content="Safety Management System">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Safety Induction Checklist - Complete Guide">
+    <meta property="og:description" content="Ensure workplace safety compliance with OSHA, ISO 45001 standards">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/safety-induction.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Safety Induction Checklist - Complete Guide">
+    <meta name="twitter:description" content="Ensure workplace safety compliance with OSHA, ISO 45001 standards">
+    
+    <title>Safety Induction Checklist - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            direction: ltr;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle - Always Visible */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            display: flex !important; /* Force display */
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Safety Induction Specific Styles */
+        .highlight {
+            background-color: rgba(96, 165, 250, 0.1);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .example {
+            background-color: rgba(248, 113, 113, 0.1);
+            border-left: 4px solid var(--danger-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip {
+            background-color: rgba(230, 126, 34, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .note {
+            background-color: rgba(241, 196, 15, 0.1);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .checklist {
+            list-style-type: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .warning-list {
+            list-style-type: none;
+            margin-left: 0;
+        }
+
+        .warning-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .warning-list li:before {
+            content: "✗";
+            color: var(--danger-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .component-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .component-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .component-item:hover::before {
+            opacity: 0.5;
+        }
+
+        .component-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .component-item i {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, var(--warning-color), var(--accent-color));
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Step Number Styles */
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Module Grid Styles */
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .module-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .module-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Fixed FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border: 1px solid var(--bg-tertiary);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            color: var(--primary-color);
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border-top: 1px solid transparent;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 1000px;
+            border-top: 1px solid var(--bg-tertiary);
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+            font-weight: bold;
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: var(--font-semibold);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-secondary {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Hindi text specific styles */
+        .hindi-text {
+            font-family: 'Segoe UI', 'Nirmala UI', 'Mangal', sans-serif;
+            line-height: 1.8;
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            /* Language toggle always visible on mobile */
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                z-index: var(--z-fixed);
+                display: flex !important;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Ensure language toggle is always visible on desktop */
+        @media (min-width: 769px) {
+            .lang-toggle {
+                display: flex !important;
+                position: fixed;
+                top: 20px;
+                right: 80px;
+                z-index: var(--z-fixed);
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .controls {
+                display: none;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .content-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle - Always Visible -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="footer\about.html"><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-en="Safety Induction Checklist - Complete Guide" data-hi="सुरक्षा इंडक्शन चेकलिस्ट - संपूर्ण मार्गदर्शिका">Safety Induction Checklist - Complete Guide</h1>
+            <p data-en="Ensure workplace safety compliance with OSHA, ISO 45001 standards" data-hi="OSHA, ISO 45001 मानकों के साथ कार्यस्थल सुरक्षा अनुपालन सुनिश्चित करें">Ensure workplace safety compliance with OSHA, ISO 45001 standards</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <div class="container">
+        <!-- What is Safety Induction Checklist -->
+        <div class="content-card">
+            <h2><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="What Is a Safety Induction Checklist?" data-hi="सुरक्षा इंडक्शन चेकलिस्ट क्या है?">What Is a Safety Induction Checklist?</span></h2>
+            <p data-en="Every new worker stepping onto a site or into a facility faces unfamiliar hazards. From PPE requirements to emergency protocols, proper induction ensures they are fully aware of workplace risks before beginning work. A Safety Induction Checklist acts as a structured guide to introduce employees, contractors, and visitors to essential safety rules, procedures, and expectations." 
+               data-hi="साइट या सुविधा पर कदम रखने वाला हर नया कर्मचारी अपरिचित खतरों का सामना करता है। PPE आवश्यकताओं से लेकर आपातकालीन प्रोटोकॉल तक, उचित इंडक्शन सुनिश्चित करता है कि वे काम शुरू करने से पहले कार्यस्थल के जोखिमों से पूरी तरह अवगत हैं। एक सुरक्षा इंडक्शन चेकलिस्ट कर्मचारियों, ठेकेदारों और आगंतुकों को आवश्यक सुरक्षा नियमों, प्रक्रियाओं और अपेक्षाओं से परिचित कराने के लिए एक संरचित मार्गदर्शिका के रूप में कार्य करती है।">
+                Every new worker stepping onto a site or into a facility faces unfamiliar hazards. From PPE requirements to emergency protocols, proper induction ensures they are fully aware of workplace risks before beginning work. A Safety Induction Checklist acts as a structured guide to introduce employees, contractors, and visitors to essential safety rules, procedures, and expectations.
+            </p>
+            
+            <p data-en="This not only prevents accidents but also ensures compliance with legal requirements under OSHA, ISO 45001, ILO, and national safety laws." 
+               data-hi="यह न केवल दुर्घटनाओं को रोकता है बल्कि OSHA, ISO 45001, ILO और राष्ट्रीय सुरक्षा कानूनों के तहत कानूनी आवश्यकताओं का अनुपालन भी सुनिश्चित करता है।">
+                This not only prevents accidents but also ensures compliance with legal requirements under OSHA, ISO 45001, ILO, and national safety laws.
+            </p>
+            
+            <div class="highlight">
+                <h3 data-en="Safety Induction Checklist Definition" data-hi="सुरक्षा इंडक्शन चेकलिस्ट परिभाषा">Safety Induction Checklist Definition</h3>
+                <p data-en="A Safety Induction Checklist is a structured document used by safety officers, supervisors, or HR departments to confirm that all key safety topics have been covered during induction training." 
+                   data-hi="एक सुरक्षा इंडक्शन चेकलिस्ट एक संरचित दस्तावेज है जिसका उपयोग सुरक्षा अधिकारियों, पर्यवेक्षकों या एचआर विभागों द्वारा यह पुष्टि करने के लिए किया जाता है कि इंडक्शन प्रशिक्षण के दौरान सभी प्रमुख सुरक्षा विषयों को कवर किया गया है।">
+                    A Safety Induction Checklist is a structured document used by safety officers, supervisors, or HR departments to confirm that all key safety topics have been covered during induction training.
+                </p>
+                <p data-en="It typically includes:" data-hi="इसमें आम तौर पर शामिल हैं:">It typically includes:</p>
+                <ul class="checklist">
+                    <li data-en="General site rules and responsibilities." data-hi="सामान्य साइट नियम और जिम्मेदारियां।">General site rules and responsibilities.</li>
+                    <li data-en="PPE usage and mandatory requirements." data-hi="PPE उपयोग और अनिवार्य आवश्यकताएं।">PPE usage and mandatory requirements.</li>
+                    <li data-en="Emergency procedures and first aid arrangements." data-hi="आपातकालीन प्रक्रियाएं और प्राथमिक चिकित्सा व्यवस्था।">Emergency procedures and first aid arrangements.</li>
+                    <li data-en="Key hazard awareness (working at height, hot work, lifting, electricity, confined space)." data-hi="प्रमुख खतरा जागरूकता (ऊंचाई पर काम, हॉट वर्क, लिफ्टिंग, बिजली, कन्फाइंड स्पेस)।">Key hazard awareness (working at height, hot work, lifting, electricity, confined space).</li>
+                    <li data-en="Security, welfare, and environmental requirements." data-hi="सुरक्षा, कल्याण और पर्यावरणीय आवश्यकताएं।">Security, welfare, and environmental requirements.</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <h3 data-en="Note:" data-hi="नोट:">Note:</h3>
+                <p data-en="The checklist records the induction process but does not replace detailed risk assessments (HIRA, JSA)." 
+                   data-hi="चेकलिस्ट इंडक्शन प्रक्रिया को रिकॉर्ड करती है लेकिन विस्तृत जोखिम मूल्यांकन (HIRA, JSA) को प्रतिस्थापित नहीं करती है।">
+                    The checklist records the induction process but does not replace detailed risk assessments (HIRA, JSA).
+                </p>
+            </div>
+        </div>
+
+        <!-- Key Components -->
+        <div class="content-card">
+            <h2><i class="fas fa-cogs"></i> <span data-en="Key Components of a Safety Induction Checklist" data-hi="सुरक्षा इंडक्शन चेकलिस्ट के प्रमुख घटक">Key Components of a Safety Induction Checklist</span></h2>
+            <p data-en="A comprehensive induction checklist should cover the following modules:" data-hi="एक व्यापक इंडक्शन चेकलिस्ट में निम्नलिखित मॉड्यूल शामिल होने चाहिए:">A comprehensive induction checklist should cover the following modules:</p>
+            
+            <div class="module-grid">
+                <div class="module-item">
+                    <h3 data-en="General Information" data-hi="सामान्य जानकारी">General Information</h3>
+                    <p data-en="Name, company, role, start date, supervisor." 
+                       data-hi="नाम, कंपनी, भूमिका, प्रारंभ तिथि, पर्यवेक्षक।">
+                        Name, company, role, start date, supervisor.
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="Site Rules & Access" data-hi="साइट नियम और पहुंच">Site Rules & Access</h3>
+                    <p data-en="Entry/exit, restricted areas, ID badges." 
+                       data-hi="प्रवेश/निकास, प्रतिबंधित क्षेत्र, आईडी बैज।">
+                        Entry/exit, restricted areas, ID badges.
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="PPE Requirements" data-hi="PPE आवश्यकताएं">PPE Requirements</h3>
+                    <p data-en="Hard hat, gloves, safety shoes, goggles, harness (as required)." 
+                       data-hi="हार्ड हेट, दस्ताने, सुरक्षा जूते, गोगल्स, हार्नेस (आवश्यकतानुसार)।">
+                        Hard hat, gloves, safety shoes, goggles, harness (as required).
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="Emergency Preparedness" data-hi="आपातकालीन तैयारी">Emergency Preparedness</h3>
+                    <p data-en="Evacuation routes, muster points, alarms, fire extinguishers." 
+                       data-hi="निकासी मार्ग, असेंबली पॉइंट, अलार्म, अग्निशामक।">
+                        Evacuation routes, muster points, alarms, fire extinguishers.
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="First Aid & Incident Reporting" data-hi="प्राथमिक चिकित्सा और घटना रिपोर्टिंग">First Aid & Incident Reporting</h3>
+                    <p data-en="Location of first aid, incident reporting procedures." 
+                       data-hi="प्राथमिक चिकित्सा का स्थान, घटना रिपोर्टिंग प्रक्रियाएं।">
+                        Location of first aid, incident reporting procedures.
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="Work Hazards Overview" data-hi="कार्य खतरा अवलोकन">Work Hazards Overview</h3>
+                    <p data-en="Work at Height basics, Lifting & Rigging, Electrical/LOTO, Confined Space Awareness, Hot Work & Fire Safety." 
+                       data-hi="ऊंचाई पर काम की मूल बातें, लिफ्टिंग और रिगिंग, इलेक्ट्रिकल/LOTO, कन्फाइंड स्पेस जागरूकता, हॉट वर्क और अग्नि सुरक्षा।">
+                        Work at Height basics, Lifting & Rigging, Electrical/LOTO, Confined Space Awareness, Hot Work & Fire Safety.
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="Housekeeping & Waste" data-hi="हाउसकीपिंग और कचरा">Housekeeping & Waste</h3>
+                    <p data-en="Keeping site clean, spill management, waste disposal." 
+                       data-hi="साइट को साफ रखना, स्पिल प्रबंधन, कचरा निपटान।">
+                        Keeping site clean, spill management, waste disposal.
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="Environmental & Security" data-hi="पर्यावरण और सुरक्षा">Environmental & Security</h3>
+                    <p data-en="Noise, dust, emissions, site security procedures." 
+                       data-hi="शोर, धूल, उत्सर्जन, साइट सुरक्षा प्रक्रियाएं।">
+                        Noise, dust, emissions, site security procedures.
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="Welfare Facilities" data-hi="कल्याण सुविधाएं">Welfare Facilities</h3>
+                    <p data-en="Restrooms, drinking water, cafeteria, rest areas." 
+                       data-hi="शौचालय, पीने का पानी, कैफेटेरिया, आराम क्षेत्र।">
+                        Restrooms, drinking water, cafeteria, rest areas.
+                    </p>
+                </div>
+                <div class="module-item">
+                    <h3 data-en="Acknowledgment & Sign-Off" data-hi="पावती और साइन-ऑफ">Acknowledgment & Sign-Off</h3>
+                    <p data-en="Worker and supervisor signatures." 
+                       data-hi="कर्मचारी और पर्यवेक्षक के हस्ताक्षर।">
+                        Worker and supervisor signatures.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Use -->
+        <div class="content-card">
+            <h2><i class="fas fa-sync-alt"></i> <span data-en="How to Use the Safety Induction Checklist" data-hi="सुरक्षा इंडक्शन चेकलिस्ट का उपयोग कैसे करें">How to Use the Safety Induction Checklist</span></h2>
+            
+            <div class="highlight">
+                <h3><span class="step-number">1</span><span data-en="Fill in Details" data-hi="विवरण भरें">Fill in Details</span></h3>
+                <p data-en="Worker's name, company, role, induction date, trainer's name." 
+                   data-hi="कर्मचारी का नाम, कंपनी, भूमिका, इंडक्शन तिथि, प्रशिक्षक का नाम।">
+                    Worker's name, company, role, induction date, trainer's name.
+                </p>
+            </div>
+            
+            <div class="highlight">
+                <h3><span class="step-number">2</span><span data-en="Cover Each Module" data-hi="प्रत्येक मॉड्यूल कवर करें">Cover Each Module</span></h3>
+                <p data-en="Supervisor explains each safety topic." 
+                   data-hi="पर्यवेक्षक प्रत्येक सुरक्षा विषय की व्याख्या करता है।">
+                    Supervisor explains each safety topic.
+                </p>
+            </div>
+            
+            <div class="highlight">
+                <h3><span class="step-number">3</span><span data-en="Mark Completion" data-hi="पूर्णता चिह्नित करें">Mark Completion</span></h3>
+                <p data-en="Tick ✓ Completed or ✗ Pending." 
+                   data-hi="✓ पूर्ण या ✗ लंबित टिक करें।">
+                    Tick ✓ Completed or ✗ Pending.
+                </p>
+            </div>
+            
+            <div class="highlight">
+                <h3><span class="step-number">4</span><span data-en="Add Notes" data-hi="नोट्स जोड़ें">Add Notes</span></h3>
+                <p data-en="Trainer records hazards discussed, special requirements, or additional instructions." 
+                   data-hi="प्रशिक्षक चर्चा किए गए खतरों, विशेष आवश्यकताओं या अतिरिक्त निर्देशों को रिकॉर्ड करता है।">
+                    Trainer records hazards discussed, special requirements, or additional instructions.
+                </p>
+            </div>
+            
+            <div class="highlight">
+                <h3><span class="step-number">5</span><span data-en="Sign-Off" data-hi="साइन-ऑफ">Sign-Off</span></h3>
+                <p data-en="Worker acknowledges understanding, supervisor confirms completion." 
+                   data-hi="कर्मचारी समझ की पुष्टि करता है, पर्यवेक्षक पूर्णता की पुष्टि करता है।">
+                    Worker acknowledges understanding, supervisor confirms completion.
+                </p>
+            </div>
+            
+            <div class="highlight">
+                <h3><span class="step-number">6</span><span data-en="Store Records" data-hi="रिकॉर्ड संग्रहीत करें">Store Records</span></h3>
+                <p data-en="Keep a digital/PDF copy for audits and compliance." 
+                   data-hi="ऑडिट और अनुपालन के लिए डिजिटल/PDF प्रति रखें।">
+                    Keep a digital/PDF copy for audits and compliance.
+                </p>
+            </div>
+            
+            <div class="tip">
+                <h3 data-en="Pro Tip:" data-hi="प्रो टिप:">Pro Tip:</h3>
+                <p data-en="Use digital induction checklists with auto-PDF export for efficiency and proof of compliance." 
+                   data-hi="दक्षता और अनुपालन के प्रमाण के लिए ऑटो-PDF एक्सपोर्ट के साथ डिजिटल इंडक्शन चेकलिस्ट का उपयोग करें।">
+                    Use digital induction checklists with auto-PDF export for efficiency and proof of compliance.
+                </p>
+            </div>
+        </div>
+
+        <!-- Example Usage -->
+        <div class="content-card">
+            <h2><i class="fas fa-chart-bar"></i> <span data-en="Example Usage" data-hi="उदाहरण उपयोग">Example Usage</span></h2>
+            
+            <div class="example">
+                <h3 data-en="Example 1 - Construction Site" data-hi="उदाहरण 1 - निर्माण स्थल">Example 1 - Construction Site</h3>
+                <p data-en="Findings: Workers unfamiliar with evacuation siren." 
+                   data-hi="निष्कर्ष: कर्मचारी निकासी सायरन से अपरिचित।">
+                    <strong>Findings:</strong> Workers unfamiliar with evacuation siren.
+                </p>
+                <p data-en="Action: Conducted live evacuation drill before work began." 
+                   data-hi="कार्रवाई: काम शुरू होने से पहले लाइव निकासी ड्रिल आयोजित की।">
+                    <strong>Action:</strong> Conducted live evacuation drill before work began.
+                </p>
+            </div>
+            
+            <div class="example">
+                <h3 data-en="Example 2 - Factory Induction" data-hi="उदाहरण 2 - फैक्टरी इंडक्शन">Example 2 - Factory Induction</h3>
+                <p data-en="Findings: PPE compliance low, workers unaware of MSDS for chemicals." 
+                   data-hi="निष्कर्ष: PPE अनुपालन कम, कर्मचारी रसायनों के लिए MSDS से अनजान।">
+                    <strong>Findings:</strong> PPE compliance low, workers unaware of MSDS for chemicals.
+                </p>
+                <p data-en="Action: Provided PPE kits, conducted chemical handling training." 
+                   data-hi="कार्रवाई: PPE किट प्रदान की, रासायनिक हैंडलिंग प्रशिक्षण आयोजित किया।">
+                    <strong>Action:</strong> Provided PPE kits, conducted chemical handling training.
+                </p>
+            </div>
+            
+            <div class="example">
+                <h3 data-en="Example 3 - Office/Corporate Induction" data-hi="उदाहरण 3 - ऑफिस/कॉर्पोरेट इंडक्शन">Example 3 - Office/Corporate Induction</h3>
+                <p data-en="Findings: New staff unaware of emergency exits and AED locations." 
+                   data-hi="निष्कर्ष: नए स्टाफ आपातकालीन निकास और AED स्थानों से अनजान।">
+                    <strong>Findings:</strong> New staff unaware of emergency exits and AED locations.
+                </p>
+                <p data-en="Action: Orientation tour conducted, AED signage improved." 
+                   data-hi="कार्रवाई: ओरिएंटेशन टूर आयोजित किया, AED साइनेज में सुधार किया।">
+                    <strong>Action:</strong> Orientation tour conducted, AED signage improved.
+                </p>
+            </div>
+        </div>
+
+        <!-- Importance -->
+        <div class="content-card">
+            <h2><i class="fas fa-check-circle"></i> <span data-en="Why Is a Safety Induction Checklist Important?" data-hi="सुरक्षा इंडक्शन चेकलिस्ट क्यों महत्वपूर्ण है?">Why Is a Safety Induction Checklist Important?</span></h2>
+            
+            <ul class="checklist">
+                <li data-en="Ensures all new workers understand workplace hazards." data-hi="सुनिश्चित करता है कि सभी नए कर्मचारी कार्यस्थल के खतरों को समझते हैं।">Ensures all new workers understand workplace hazards.</li>
+                <li data-en="Meets compliance with OSHA, ILO, and ISO standards." data-hi="OSHA, ILO, और ISO मानकों के साथ अनुपालन को पूरा करता है।">Meets compliance with OSHA, ILO, and ISO standards.</li>
+                <li data-en="Reduces risk of accidents from lack of awareness." data-hi="जागरूकता की कमी से दुर्घटनाओं के जोखिम को कम करता है।">Reduces risk of accidents from lack of awareness.</li>
+                <li data-en="Improves worker confidence and safety culture." data-hi="कर्मचारी आत्मविश्वास और सुरक्षा संस्कृति में सुधार करता है।">Improves worker confidence and safety culture.</li>
+                <li data-en="Provides documented proof during audits or inspections." data-hi="ऑडिट या निरीक्षण के दौरान दस्तावेजी प्रमाण प्रदान करता है।">Provides documented proof during audits or inspections.</li>
+            </ul>
+        </div>
+
+        <!-- Real-World Applications -->
+        <div class="content-card">
+            <h2><i class="fas fa-industry"></i> <span data-en="Real-World Applications" data-hi="वास्तविक दुनिया के अनुप्रयोग">Real-World Applications</span></h2>
+            
+            <div class="components-grid">
+                <div class="component-item">
+                    <i class="fas fa-hard-hat"></i>
+                    <h3 data-en="Construction Projects" data-hi="निर्माण परियोजनाएं">Construction Projects</h3>
+                    <p data-en="New contractors inducted before site entry." 
+                       data-hi="साइट प्रवेश से पहले नए ठेकेदारों का इंडक्शन।">
+                        New contractors inducted before site entry.
+                    </p>
+                </div>
+                <div class="component-item">
+                    <i class="fas fa-industry"></i>
+                    <h3 data-en="Factories & Plants" data-hi="फैक्ट्रियां और प्लांट">Factories & Plants</h3>
+                    <p data-en="Induction before shift starts for new employees." 
+                       data-hi="नए कर्मचारियों के लिए शिफ्ट शुरू होने से पहले इंडक्शन।">
+                        Induction before shift starts for new employees.
+                    </p>
+                </div>
+                <div class="component-item">
+                    <i class="fas fa-building"></i>
+                    <h3 data-en="Offices & Corporates" data-hi="ऑफिस और कॉर्पोरेट">Offices & Corporates</h3>
+                    <p data-en="Fire safety, emergency, and welfare induction." 
+                       data-hi="अग्नि सुरक्षा, आपातकालीन और कल्याण इंडक्शन।">
+                        Fire safety, emergency, and welfare induction.
+                    </p>
+                </div>
+                <div class="component-item">
+                    <i class="fas fa-oil-well"></i>
+                    <h3 data-en="Oil & Gas / High-Risk Industries" data-hi="तेल और गैस / उच्च-जोखिम उद्योग">Oil & Gas / High-Risk Industries</h3>
+                    <p data-en="Mandatory induction before site access." 
+                       data-hi="साइट एक्सेस से पहले अनिवार्य इंडक्शन।">
+                        Mandatory induction before site access.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-triangle"></i> <span data-en="Common Mistakes in Induction Training" data-hi="इंडक्शन प्रशिक्षण में सामान्य गलतियां">Common Mistakes in Induction Training</span></h2>
+            
+            <ul class="warning-list">
+                <li data-en="Rushing the induction to 'save time.'" data-hi="इंडक्शन को 'समय बचाने' के लिए जल्दबाजी करना।">Rushing the induction to 'save time.'</li>
+                <li data-en="Treating checklist as paperwork only (not interactive)." data-hi="चेकलिस्ट को केवल कागजी कार्यवाही के रूप में मानना (इंटरएक्टिव नहीं)।">Treating checklist as paperwork only (not interactive).</li>
+                <li data-en="Using the same checklist for all sites without customization." data-hi="अनुकूलन के बिना सभी साइटों के लिए एक ही चेकलिस्ट का उपयोग करना।">Using the same checklist for all sites without customization.</li>
+                <li data-en="Failing to include sign-off and record-keeping." data-hi="साइन-ऑफ और रिकॉर्ड-कीपिंग शामिल करने में विफल।">Failing to include sign-off and record-keeping.</li>
+            </ul>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-card">
+            <h2><i class="fas fa-lightbulb"></i> <span data-en="Best Practices for Effective Induction Checklists" data-hi="प्रभावी इंडक्शन चेकलिस्ट के लिए सर्वोत्तम अभ्यास">Best Practices for Effective Induction Checklists</span></h2>
+            
+            <ul class="checklist">
+                <li data-en="Customize checklist to suit site-specific risks." data-hi="साइट-विशिष्ट जोखिमों के अनुरूप चेकलिस्ट अनुकूलित करें।">Customize checklist to suit site-specific risks.</li>
+                <li data-en="Include both theory (rules) and practical (tours, demos)." data-hi="सिद्धांत (नियम) और व्यावहारिक (टूर, डेमो) दोनों शामिल करें।">Include both theory (rules) and practical (tours, demos).</li>
+                <li data-en="Make induction interactive with Q&A." data-hi="प्रश्नोत्तर के साथ इंडक्शन को इंटरएक्टिव बनाएं।">Make induction interactive with Q&A.</li>
+                <li data-en="Assign responsibility for follow-ups." data-hi="फॉलो-अप के लिए जिम्मेदारी निर्दिष्ट करें।">Assign responsibility for follow-ups.</li>
+                <li data-en="Review and update checklists regularly." data-hi="चेकलिस्ट को नियमित रूप से समीक्षा और अद्यतन करें।">Review and update checklists regularly.</li>
+            </ul>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Frequently Asked Questions (FAQ)" data-hi="अक्सर पूछे जाने वाले प्रश्न (FAQ)">Frequently Asked Questions (FAQ)</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Q1: How long should safety induction take?" data-hi="प्र1: सुरक्षा इंडक्शन कितने समय तक चलना चाहिए?">Q1: How long should safety induction take?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Typically 1-2 hours depending on site complexity." 
+                       data-hi="आमतौर पर साइट की जटिलता के आधार पर 1-2 घंटे।">
+                        Typically 1-2 hours depending on site complexity.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Q2: Who conducts safety induction?" data-hi="प्र2: सुरक्षा इंडक्शन कौन आयोजित करता है?">Q2: Who conducts safety induction?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Safety officers, supervisors, or HSE trainers." 
+                       data-hi="सुरक्षा अधिकारी, पर्यवेक्षक, या HSE प्रशिक्षक।">
+                        Safety officers, supervisors, or HSE trainers.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Q3: Is induction mandatory for short-term contractors?" data-hi="प्र3: क्या अल्पकालिक ठेकेदारों के लिए इंडक्शन अनिवार्य है?">Q3: Is induction mandatory for short-term contractors?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes, even visitors and temporary staff must undergo induction." 
+                       data-hi="हां, यहां तक कि आगंतुकों और अस्थायी स्टाफ को भी इंडक्शन से गुजरना चाहिए।">
+                        Yes, even visitors and temporary staff must undergo induction.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Q4: Can induction be done online?" data-hi="प्र4: क्या इंडक्शन ऑनलाइन किया जा सकता है?">Q4: Can induction be done online?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes, but site-specific hazards must be covered in person." 
+                       data-hi="हां, लेकिन साइट-विशिष्ट खतरों को व्यक्तिगत रूप से कवर किया जाना चाहिए।">
+                        Yes, but site-specific hazards must be covered in person.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Thoughts -->
+        <div class="content-card">
+            <h2><i class="fas fa-flag-checkered"></i> <span data-en="Final Thoughts" data-hi="अंतिम विचार">Final Thoughts</span></h2>
+            <p data-en="A Safety Induction Checklist is not just a form—it is a safety gateway. It ensures that every individual on site is aware, prepared, and accountable." 
+               data-hi="एक सुरक्षा इंडक्शन चेकलिस्ट केवल एक फॉर्म नहीं है—यह एक सुरक्षा गेटवे है। यह सुनिश्चित करता है कि साइट पर प्रत्येक व्यक्ति जागरूक, तैयार और जवाबदेह है।">
+                A Safety Induction Checklist is not just a form—it is a safety gateway. It ensures that every individual on site is aware, prepared, and accountable.
+            </p>
+            
+            <p data-en="By using our Safety Induction Checklist Tool, you can:" data-hi="हमारे सुरक्षा इंडक्शन चेकलिस्ट टूल का उपयोग करके, आप कर सकते हैं:">By using our Safety Induction Checklist Tool, you can:</p>
+            
+            <ul class="checklist">
+                <li data-en="Conduct structured inductions." data-hi="संरचित इंडक्शन आयोजित करें।">Conduct structured inductions.</li>
+                <li data-en="Capture sign-offs and confirmations." data-hi="साइन-ऑफ और पुष्टियां कैप्चर करें।">Capture sign-offs and confirmations.</li>
+                <li data-en="Export auto-PDF induction records." data-hi="ऑटो-पीडीएफ इंडक्शन रिकॉर्ड निर्यात करें।">Export auto-PDF induction records.</li>
+                <li data-en="Stay compliant with OSHA/ISO/ILO requirements." data-hi="OSHA/ISO/ILO आवश्यकताओं के साथ अनुपालन बनाए रखें।">Stay compliant with OSHA/ISO/ILO requirements.</li>
+            </ul>
+            
+            <div class="tip">
+                <h3 data-en="Pro Tip:" data-hi="प्रो टिप:">Pro Tip:</h3>
+                <p data-en="Always integrate induction with HIRA, JSA, and PTW systems for a complete safety management framework." 
+                   data-hi="पूर्ण सुरक्षा प्रबंधन ढांचे के लिए इंडक्शन को हमेशा HIRA, JSA, और PTW सिस्टम के साथ एकीकृत करें।">
+                    Always integrate induction with HIRA, JSA, and PTW systems for a complete safety management framework.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Fixed FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                    if (otherAnswer !== answer) {
+                        otherAnswer.classList.remove('open');
+                        otherAnswer.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
+                        otherAnswer.previousElementSibling.querySelector('.faq-toggle').classList.remove('rotated');
+                    }
+                });
+                
+                // Toggle current FAQ item
+                answer.classList.toggle('open');
+                if (answer.classList.contains('open')) {
+                    toggle.textContent = '-';
+                    toggle.classList.add('rotated');
+                } else {
+                    toggle.textContent = '+';
+                    toggle.classList.remove('rotated');
+                }
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Ensure language toggle is always visible
+        document.addEventListener('DOMContentLoaded', function() {
+            const langToggle = document.getElementById('langToggle');
+            if (langToggle) {
+                langToggle.style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>

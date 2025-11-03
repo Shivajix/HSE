@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete guide to creating monthly safety reports - track KPIs, incidents, training, audits and CAPA status">
+    <meta name="keywords" content="safety report, monthly safety, EHS, OSHA, ISO 45001, TRIR, safety KPIs">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Monthly Safety Report Generator - Complete Guide">
+    <meta property="og:description" content="Complete guide to creating monthly safety reports - track KPIs, incidents, training, audits and CAPA status">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/monthly-safety-report.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Monthly Safety Report Generator">
+    <meta name="twitter:description" content="Complete guide to creating monthly safety reports">
+    
+    <title>Monthly Safety Report Generator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #1e40af;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: var(--font-semibold);
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--white-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--white-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #d97706;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Checklist Grid */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .checklist-item {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .checklist-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .checklist-item:hover::before {
+            opacity: 1;
+        }
+
+        .checklist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(96, 165, 250, 0.4);
+        }
+
+        .tool-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+            color: var(--white-color);
+        }
+
+        .tool-content {
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: var(--font-semibold);
+        }
+
+        .tool-content p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            font-size: var(--normal-font-size);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        [data-theme="light"] tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        /* Example Applications */
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .example-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--info-color);
+            transition: all 0.3s ease;
+        }
+
+        .example-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mistakes Grid */
+        .mistakes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .mistake-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--danger-color);
+            transition: all 0.3s ease;
+        }
+
+        .mistake-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mistakes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+        }
+
+        /* Additional styles for Monthly Safety Report page */
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            flex-shrink: 0;
+        }
+
+        .note {
+            background-color: rgba(241, 196, 15, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #f1c40f;
+        }
+
+        .tip {
+            background-color: rgba(231, 76, 60, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .example {
+            background-color: rgba(46, 204, 113, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .feature-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="footer\about.html"><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="hero-badge">
+                <i class="fas fa-certificate"></i> <span data-en="Complete Safety Reporting Solution" data-hi="पूर्ण सुरक्षा रिपोर्टिंग समाधान">Complete Safety Reporting Solution</span>
+            </div>
+            <h1 data-en="Monthly Safety Report Generator" data-hi="मासिक सुरक्षा रिपोर्ट जनरेटर">Monthly Safety Report Generator</h1>
+            <p data-en="Complete guide to creating monthly safety reports - track KPIs, incidents, training, audits and CAPA status" 
+               data-hi="मासिक सुरक्षा रिपोर्ट बनाने के लिए संपूर्ण मार्गदर्शिका - KPI, घटनाओं, प्रशिक्षण, ऑडिट और CAPA स्थिति को ट्रैक करें">
+                Complete guide to creating monthly safety reports - track KPIs, incidents, training, audits and CAPA status
+            </p>
+            <button class="btn btn-primary">
+                <i class="fas fa-download"></i>
+                <span data-en="Download Template" data-hi="टेम्पलेट डाउनलोड करें">Download Template</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats Section -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">95%</span>
+                <span class="stat-label" data-en="Time Saved" data-hi="समय बचाया">Time Saved</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">500+</span>
+                <span class="stat-label" data-en="Reports Generated" data-hi="रिपोर्ट जनरेट की गई">Reports Generated</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label" data-en="Support Available" data-hi="सहायता उपलब्ध">Support Available</span>
+            </div>
+        </div>
+
+        <!-- What Is a Monthly Safety Report? -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-clipboard-check"></i> <span data-en="What Is a Monthly Safety Report?" data-hi="मासिक सुरक्षा रिपोर्ट क्या है?">What Is a Monthly Safety Report?</span></h2>
+                <p data-en="A Monthly Safety Report is a structured document summarizing safety activities, performance indicators, and compliance updates for a given month." 
+                   data-hi="मासिक सुरक्षा रिपोर्ट एक संरचित दस्तावेज है जो किसी दिए गए महीने के लिए सुरक्षा गतिविधियों, प्रदर्शन संकेतकों और अनुपालन अपडेट को सारांशित करता है।">
+                    A Monthly Safety Report is a structured document summarizing safety activities, performance indicators, and compliance updates for a given month.
+                </p>
+                
+                <p data-en="It typically covers:" data-hi="यह आम तौर पर शामिल करता है:">It typically covers:</p>
+                <ul>
+                    <li data-en="Work Hours & Manpower — Total hours worked across sites/projects." data-hi="काम के घंटे और जनशक्ति — साइटों/परियोजनाओं में कुल काम किए गए घंटे।">Work Hours & Manpower — Total hours worked across sites/projects.</li>
+                    <li data-en="Incident Breakdown — TRC, LT Lost Days, Near Misses, First Aid, Fatalities." data-hi="घटना विवरण — TRC, LT खोए दिन, नियर मिस, फर्स्ट एड, मौतें।">Incident Breakdown — TRC, LT Lost Days, Near Misses, First Aid, Fatalities.</li>
+                    <li data-en="KPIs — TRIR, AFR, ASR, FAR (calculated as per standard denominators)." data-hi="KPI — TRIR, AFR, ASR, FAR (मानक हर के अनुसार गणना की गई)।">KPIs — TRIR, AFR, ASR, FAR (calculated as per standard denominators).</li>
+                    <li data-en="Top 5 Risks — Emerging or recurring high-risk categories." data-hi="शीर्ष 5 जोखिम — उभरते या आवर्ती उच्च-जोखिम वर्ग।">Top 5 Risks — Emerging or recurring high-risk categories.</li>
+                    <li data-en="Training Conducted — Toolbox talks, inductions, drills." data-hi="आयोजित प्रशिक्षण — टूलबॉक्स टॉक, इंडक्शन, ड्रिल।">Training Conducted — Toolbox talks, inductions, drills.</li>
+                    <li data-en="Audits & Findings — Safety audits, inspections, and results." data-hi="ऑडिट और निष्कर्ष — सुरक्षा ऑडिट, निरीक्षण और परिणाम।">Audits & Findings — Safety audits, inspections, and results.</li>
+                    <li data-en="CAPA (Corrective & Preventive Actions) — Status of open, closed, and overdue actions." data-hi="CAPA (सुधारात्मक और निवारक कार्रवाई) — खुले, बंद और ओवरड्यू कार्यों की स्थिति।">CAPA (Corrective & Preventive Actions) — Status of open, closed, and overdue actions.</li>
+                    <li data-en="Highlights — Achievements, milestones, or safety campaigns." data-hi="हाइलाइट्स — उपलब्धियां, मील के पत्थर, या सुरक्षा अभियान।">Highlights — Achievements, milestones, or safety campaigns.</li>
+                </ul>
+                
+                <div class="note">
+                    <h4 data-en="Note:" data-hi="नोट:">Note:</h4>
+                    <p data-en="Monthly reports provide summarized data and trends but do not replace detailed incident investigation reports or JSA/HIRA records." 
+                       data-hi="मासिक रिपोर्टें सारांशित डेटा और रुझान प्रदान करती हैं लेकिन विस्तृत घटना जांच रिपोर्ट या JSA/HIRA रिकॉर्ड को प्रतिस्थापित नहीं करती हैं।">
+                        Monthly reports provide summarized data and trends but do not replace detailed incident investigation reports or JSA/HIRA records.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Components -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-list-alt"></i> <span data-en="Key Components of a Monthly Safety Report Generator" data-hi="मासिक सुरक्षा रिपोर्ट जनरेटर के प्रमुख घटक">Key Components of a Monthly Safety Report Generator</span></h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">📅</div>
+                        <div>
+                            <h4 data-en="General Data" data-hi="सामान्य डेटा">General Data</h4>
+                            <p data-en="Month, year, and total hours worked." data-hi="महीना, वर्ष और कुल काम किए गए घंटे।">Month, year, and total hours worked.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⚠️</div>
+                        <div>
+                            <h4 data-en="Incident Data" data-hi="घटना डेटा">Incident Data</h4>
+                            <p data-en="TRC, LTI, Lost Days, First Aid, Near Misses, Fatalities." data-hi="TRC, LTI, खोए दिन, फर्स्ट एड, नियर मिस, मौतें।">TRC, LTI, Lost Days, First Aid, Near Misses, Fatalities.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">📈</div>
+                        <div>
+                            <h4 data-en="KPIs & Calculations" data-hi="KPI और गणना">KPIs & Calculations</h4>
+                            <p data-en="TRIR, AFR, ASR, FAR (using standard bases like 200,000 or 1,000,000 hours)." data-hi="TRIR, AFR, ASR, FAR (200,000 या 1,000,000 घंटे जैसे मानक आधारों का उपयोग करके)।">TRIR, AFR, ASR, FAR (using standard bases like 200,000 or 1,000,000 hours).</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔺</div>
+                        <div>
+                            <h4 data-en="Top 5 Risks" data-hi="शीर्ष 5 जोखिम">Top 5 Risks</h4>
+                            <p data-en="Priority risks identified during the month." data-hi="महीने के दौरान पहचाने गए प्राथमिकता वाले जोखिम।">Priority risks identified during the month.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">👨‍🏫</div>
+                        <div>
+                            <h4 data-en="Training Records" data-hi="प्रशिक्षण रिकॉर्ड">Training Records</h4>
+                            <p data-en="Safety inductions, toolbox talks, specialized trainings, and emergency drills." data-hi="सुरक्षा इंडक्शन, टूलबॉक्स टॉक, विशेष प्रशिक्षण और आपातकालीन ड्रिल।">Safety inductions, toolbox talks, specialized trainings, and emergency drills.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🔍</div>
+                        <div>
+                            <h4 data-en="Audits & Inspections" data-hi="ऑडिट और निरीक्षण">Audits & Inspections</h4>
+                            <p data-en="Number of audits, key findings, and closure rates." data-hi="ऑडिट की संख्या, प्रमुख निष्कर्ष और समापन दर।">Number of audits, key findings, and closure rates.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✅</div>
+                        <div>
+                            <h4 data-en="CAPA Summary" data-hi="CAPA सारांश">CAPA Summary</h4>
+                            <p data-en="Open, closed, overdue actions with progress details." data-hi="प्रगति विवरण के साथ खुले, बंद, ओवरड्यू कार्य।">Open, closed, overdue actions with progress details.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⭐</div>
+                        <div>
+                            <h4 data-en="Highlights & Notes" data-hi="हाइलाइट्स और नोट्स">Highlights & Notes</h4>
+                            <p data-en="Safety milestones, zero-injury records, campaigns." data-hi="सुरक्षा मील के पत्थर, शून्य-चोट रिकॉर्ड, अभियान।">Safety milestones, zero-injury records, campaigns.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Use -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-user-graduate"></i> <span data-en="How to Use the Monthly Safety Report Generator" data-hi="मासिक सुरक्षा रिपोर्ट जनरेटर का उपयोग कैसे करें">How to Use the Monthly Safety Report Generator</span></h2>
+                
+                <div class="highlight-box">
+                    <h4><span class="step-number">1</span><span data-en="Fill Inputs" data-hi="इनपुट भरें">Fill Inputs</span></h4>
+                    <p data-en="Enter month, hours worked, and incident breakdown." data-hi="महीना, काम किए गए घंटे और घटना विवरण दर्ज करें।">Enter month, hours worked, and incident breakdown.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4><span class="step-number">2</span><span data-en="Auto-Calculate KPIs" data-hi="KPI स्वचालित गणना">Auto-Calculate KPIs</span></h4>
+                    <p data-en="Tick 'Auto-calc KPIs' to generate TRIR, AFR, ASR, FAR instantly." data-hi="TRIR, AFR, ASR, FAR को तुरंत उत्पन्न करने के लिए 'Auto-calc KPIs' टिक करें।">Tick "Auto-calc KPIs" to generate TRIR, AFR, ASR, FAR instantly.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4><span class="step-number">3</span><span data-en="Enter Training, Risks, and CAPA" data-hi="प्रशिक्षण, जोखिम और CAPA दर्ज करें">Enter Training, Risks, and CAPA</span></h4>
+                    <p data-en="Record qualitative and quantitative safety progress." data-hi="गुणात्मक और मात्रात्मक सुरक्षा प्रगति रिकॉर्ड करें।">Record qualitative and quantitative safety progress.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4><span class="step-number">4</span><span data-en="Generate Preview" data-hi="पूर्वावलोकन उत्पन्न करें">Generate Preview</span></h4>
+                    <p data-en="Report formats into A4-friendly cards & tables." data-hi="रिपोर्ट A4-अनुकूल कार्ड और तालिकाओं में स्वरूपित होती है।">Report formats into A4-friendly cards & tables.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4><span class="step-number">5</span><span data-en="Export PDF" data-hi="PDF निर्यात करें">Export PDF</span></h4>
+                    <p data-en="Click Download PDF to save or share with clients/auditors." data-hi="ग्राहकों/ऑडिटर के साथ सहेजने या साझा करने के लिए Download PDF पर क्लिक करें।">Click Download PDF to save or share with clients/auditors.</p>
+                </div>
+                
+                <div class="tip">
+                    <h4 data-en="Pro Tip:" data-hi="प्रो टिप:">Pro Tip:</h4>
+                    <p data-en="Customize rate bases (TRIR base, AFR base, etc.) to match your company or client's calculation standards." 
+                       data-hi="अपनी कंपनी या ग्राहक की गणना मानकों से मेल खाने के लिए दर आधार (TRIR आधार, AFR आधार, आदि) अनुकूलित करें।">
+                        Customize rate bases (TRIR base, AFR base, etc.) to match your company or client's calculation standards.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Example Usage -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-building"></i> <span data-en="Example Usage" data-hi="उदाहरण उपयोग">Example Usage</span></h2>
+                
+                <div class="example">
+                    <h4 data-en="Example 1 — Construction Project" data-hi="उदाहरण 1 — निर्माण परियोजना">Example 1 — Construction Project</h4>
+                    <p data-en="Hours Worked: 24,000" data-hi="काम किए गए घंटे: 24,000">Hours Worked: 24,000</p>
+                    <p data-en="Incidents: 2 TRC (1 FA, 1 NM)" data-hi="घटनाएं: 2 TRC (1 FA, 1 NM)">Incidents: 2 TRC (1 FA, 1 NM)</p>
+                    <p data-en="TRIR: 1.67" data-hi="TRIR: 1.67">TRIR: 1.67</p>
+                    <p data-en="Action: Conducted targeted training on working at height." data-hi="कार्रवाई: ऊंचाई पर काम करने पर लक्षित प्रशिक्षण आयोजित किया।">Action: Conducted targeted training on working at height.</p>
+                </div>
+                
+                <div class="example">
+                    <h4 data-en="Example 2 - Factory Plant" data-hi="उदाहरण 2 - फैक्टरी प्लांट">Example 2 - Factory Plant</h4>
+                    <p data-en="Hours Worked: 18,240" data-hi="काम किए गए घंटे: 18,240">Hours Worked: 18,240</p>
+                    <p data-en="Incidents: 0 LT 0 FA, 3 NM" data-hi="घटनाएं: 0 LT 0 FA, 3 NM">Incidents: 0 LT 0 FA, 3 NM</p>
+                    <p data-en="ASR: 0.00 (safe month)" data-hi="ASR: 0.00 (सुरक्षित महीना)">ASR: 0.00 (safe month)</p>
+                    <p data-en="Action: Reinforced hazard reporting campaign." data-hi="कार्रवाई: खतरा रिपोर्टिंग अभियान को मजबूत किया।">Action: Reinforced hazard reporting campaign.</p>
+                </div>
+                
+                <div class="example">
+                    <h4 data-en="Example 3 — Oil & Gas Project" data-hi="उदाहरण 3 — तेल और गैस परियोजना">Example 3 — Oil & Gas Project</h4>
+                    <p data-en="Hours Worked: 42,000" data-hi="काम किए गए घंटे: 42,000">Hours Worked: 42,000</p>
+                    <p data-en="Incidents: 1 LTI (5 days lost), 1 FA" data-hi="घटनाएं: 1 LTI (5 दिन खोए), 1 FA">Incidents: 1 LTI (5 days lost), 1 FA</p>
+                    <p data-en="AFR: 0.24" data-hi="AFR: 0.24">AFR: 0.24</p>
+                    <p data-en="Action: Enhanced lifting safety training & CAPA monitoring." data-hi="कार्रवाई: लिफ्टिंग सुरक्षा प्रशिक्षण और CAPA निगरानी बढ़ाई।">Action: Enhanced lifting safety training & CAPA monitoring.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Is a Monthly Safety Report Important? -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-exclamation-circle"></i> <span data-en="Why Is a Monthly Safety Report Important?" data-hi="मासिक सुरक्षा रिपोर्ट क्यों महत्वपूर्ण है?">Why Is a Monthly Safety Report Important?</span></h2>
+                
+                <ul>
+                    <li data-en="Consolidates safety performance into a single monthly snapshot." data-hi="सुरक्षा प्रदर्शन को एक मासिक स्नैपशॉट में समेकित करता है।">Consolidates safety performance into a single monthly snapshot.</li>
+                    <li data-en="Ensures compliance with OSHA/ISO/ILO reporting standards." data-hi="OSHA/ISO/ILO रिपोर्टिंग मानकों के साथ अनुपालन सुनिश्चित करता है।">Ensures compliance with OSHA/ISO/ILO reporting standards.</li>
+                    <li data-en="Helps track trends and leading indicators." data-hi="रुझान और अग्रणी संकेतकों को ट्रैक करने में मदद करता है।">Helps track trends and leading indicators.</li>
+                    <li data-en="Supports management reviews and contractor evaluations." data-hi="प्रबंधन समीक्षा और ठेकेदार मूल्यांकन का समर्थन करता है।">Supports management reviews and contractor evaluations.</li>
+                    <li data-en="Provides documented proof for clients, regulators, and audits." data-hi="ग्राहकों, नियामकों और ऑडिट के लिए दस्तावेजी प्रमाण प्रदान करता है।">Provides documented proof for clients, regulators, and audits.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Real-World Applications -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-industry"></i> <span data-en="Real-World Applications" data-hi="वास्तविक दुनिया के अनुप्रयोग">Real-World Applications</span></h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🏗️</div>
+                        <div>
+                            <h4 data-en="Construction Projects" data-hi="निर्माण परियोजनाएं">Construction Projects</h4>
+                            <p data-en="Monthly safety summary for client submission." data-hi="ग्राहक जमा के लिए मासिक सुरक्षा सारांश।">Monthly safety summary for client submission.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏭</div>
+                        <div>
+                            <h4 data-en="Factories & Plants" data-hi="फैक्ट्रियां और प्लांट">Factories & Plants</h4>
+                            <p data-en="Reporting to corporate EHS dashboards." data-hi="कॉर्पोरेट EHS डैशबोर्ड को रिपोर्टिंग।">Reporting to corporate EHS dashboards.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">⛽</div>
+                        <div>
+                            <h4 data-en="Oil & Gas / Energy" data-hi="तेल और गैस / ऊर्जा">Oil & Gas / Energy</h4>
+                            <p data-en="Client-mandated KPI-based safety performance reports." data-hi="ग्राहक-अनिवार्य KPI-आधारित सुरक्षा प्रदर्शन रिपोर्ट।">Client-mandated KPI-based safety performance reports.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">🏢</div>
+                        <div>
+                            <h4 data-en="Corporate Safety" data-hi="कॉर्पोरेट सुरक्षा">Corporate Safety</h4>
+                            <p data-en="Consolidated reporting for multiple business units." data-hi="कई व्यावसायिक इकाइयों के लिए समेकित रिपोर्टिंग।">Consolidated reporting for multiple business units.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Mistakes -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-exclamation-triangle"></i> <span data-en="Common Mistakes in Monthly Safety Reports" data-hi="मासिक सुरक्षा रिपोर्ट में सामान्य गलतियां">Common Mistakes in Monthly Safety Reports</span></h2>
+                
+                <div class="mistakes-grid">
+                    <div class="mistake-item">
+                        <h3><i class="fas fa-times-circle"></i> <span data-en="Incorrect Denominators" data-hi="गलत हर">Incorrect Denominators</span></h3>
+                        <p data-en="Entering incorrect denominators for TRIR/AFR calculations." data-hi="TRIR/AFR गणना के लिए गलत हर दर्ज करना।">Entering incorrect denominators for TRIR/AFR calculations.</p>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3><i class="fas fa-users"></i> <span data-en="Missing Hours" data-hi="गुम घंटे">Missing Hours</span></h3>
+                        <p data-en="Failing to capture all hours (contractor + subcontractor)." data-hi="सभी घंटे (ठेकेदार + उपठेकेदार) कैप्चर करने में विफल।">Failing to capture all hours (contractor + subcontractor).</p>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3><i class="fas fa-user-shield"></i> <span data-en="Paperwork Exercise" data-hi="कागजी कार्यवाही">Paperwork Exercise</span></h3>
+                        <p data-en="Treating it as a paperwork exercise instead of a performance tool." data-hi="इसे प्रदर्शन उपकरण के बजाय कागजी कार्यवाही के रूप में मानना।">Treating it as a paperwork exercise instead of a performance tool.</p>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3><i class="fas fa-sync"></i> <span data-en="Missing CAPA Progress" data-hi="गुम CAPA प्रगति">Missing CAPA Progress</span></h3>
+                        <p data-en="Missing CAPA progress, leading to repeated findings." data-hi="CAPA प्रगति गुम होना, जिससे दोहराए गए निष्कर्ष सामने आते हैं।">Missing CAPA progress, leading to repeated findings.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Practices -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-star"></i> <span data-en="Best Practices for Effective Reports" data-hi="प्रभावी रिपोर्टों के लिए सर्वोत्तम अभ्यास">Best Practices for Effective Reports</span></h2>
+                
+                <ul>
+                    <li data-en="Always validate hours & denominator bases." data-hi="हमेशा घंटे और हर आधारों को मान्य करें।">Always validate hours & denominator bases.</li>
+                    <li data-en="Use graphs and tables for better communication." data-hi="बेहतर संचार के लिए ग्राफ और तालिकाओं का उपयोग करें।">Use graphs and tables for better communication.</li>
+                    <li data-en="Highlight both lagging (incidents) and leading indicators (training, audits)." data-hi="लैगिंग (घटनाओं) और लीडिंग दोनों संकेतकों (प्रशिक्षण, ऑडिट) पर प्रकाश डालें।">Highlight both lagging (incidents) and leading indicators (training, audits).</li>
+                    <li data-en="Include short analysis of trends and preventive actions." data-hi="रुझानों और निवारक कार्यों का संक्षिप्त विश्लेषण शामिल करें।">Include short analysis of trends and preventive actions.</li>
+                    <li data-en="Ensure timely submission to clients and leadership." data-hi="ग्राहकों और नेतृत्व को समय पर जमा करना सुनिश्चित करें।">Ensure timely submission to clients and leadership.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Frequently Asked Questions" data-hi="अक्सर पूछे जाने वाले प्रश्न">Frequently Asked Questions</span></h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Q1: What denominator should I use for TRIR?" data-hi="Q1: TRIR के लिए मुझे किस हर का उपयोग करना चाहिए?">Q1: What denominator should I use for TRIR?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="— Commonly 200,000 (as per OSHA), but confirm with client/company standard." data-hi="— आमतौर पर 200,000 (OSHA के अनुसार), लेकिन ग्राहक/कंपनी मानक के साथ पुष्टि करें।">— Commonly 200,000 (as per OSHA), but confirm with client/company standard.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Q2: Should contractors' hours be included?" data-hi="Q2: क्या ठेकेदारों के घंटे शामिल होने चाहिए?">Q2: Should contractors' hours be included?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="— Yes, if they are part of the project workforce." data-hi="— हां, अगर वे परियोजना कार्यबल का हिस्सा हैं।">— Yes, if they are part of the project workforce.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Q3: Can KPIs be auto-calculated?" data-hi="Q3: क्या KPI स्वचालित रूप से गणना की जा सकती हैं?">Q3: Can KPIs be auto-calculated?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="— Yes, if incident breakdown and hours are provided." data-hi="— हां, अगर घटना विवरण और घंटे प्रदान किए जाते हैं।">— Yes, if incident breakdown and hours are provided.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Q4: How long should the report be?" data-hi="Q4: रिपोर्ट कितनी लंबी होनी चाहिए?">Q4: How long should the report be?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="— Typically 2-3 pages, concise yet comprehensive." data-hi="— आमतौर पर 2-3 पृष्ठ, संक्षिप्त लेकिन व्यापक।">— Typically 2-3 pages, concise yet comprehensive.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Thoughts -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-lightbulb"></i> <span data-en="Final Thoughts" data-hi="अंतिम विचार">Final Thoughts</span></h2>
+                <p data-en="The Monthly Safety Report is not just compliance—it's a leadership tool to monitor performance, drive accountability, and build a proactive safety culture." 
+                   data-hi="मासिक सुरक्षा रिपोर्ट केवल अनुपालन नहीं है—यह प्रदर्शन की निगरानी करने, जवाबदेही चलाने और एक सक्रिय सुरक्षा संस्कृति बनाने के लिए एक नेतृत्व उपकरण है।">
+                    The Monthly Safety Report is not just compliance—it's a leadership tool to monitor performance, drive accountability, and build a proactive safety culture.
+                </p>
+                
+                <p data-en="With our Monthly Safety Report Generator, you can:" data-hi="हमारे मासिक सुरक्षा रिपोर्ट जनरेटर के साथ, आप कर सकते हैं:">With our Monthly Safety Report Generator, you can:</p>
+                <ul>
+                    <li data-en="Auto-calculate KPIs (TRIR, AFR, ASR, FAR)." data-hi="KPI स्वचालित गणना (TRIR, AFR, ASR, FAR)।">Auto-calculate KPIs (TRIR, AFR, ASR, FAR).</li>
+                    <li data-en="Summarize risks, training, audits, and CAPA." data-hi="जोखिम, प्रशिक्षण, ऑडिट और CAPA सारांशित करें।">Summarize risks, training, audits, and CAPA.</li>
+                    <li data-en="Export clean A4-ready PDFs." data-hi="स्वच्छ A4-तैयार PDF निर्यात करें।">Export clean A4-ready PDFs.</li>
+                    <li data-en="Standardize reporting across projects & sites." data-hi="परियोजनाओं और साइटों में रिपोर्टिंग मानकीकृत करें।">Standardize reporting across projects & sites.</li>
+                </ul>
+                
+                <div class="tip">
+                    <h4 data-en="Pro Tip:" data-hi="प्रो टिप:">Pro Tip:</h4>
+                    <p data-en="Integrate with Daily Safety Reports, JSA, HIRA, and PTW systems for a full digital safety management ecosystem." 
+                       data-hi="पूर्ण डिजिटल सुरक्षा प्रबंधन पारिस्थितिकी तंत्र के लिए दैनिक सुरक्षा रिपोर्ट, JSA, HIRA और PTW सिस्टम के साथ एकीकृत करें।">
+                        Integrate with Daily Safety Reports, JSA, HIRA, and PTW systems for a full digital safety management ecosystem.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2025 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

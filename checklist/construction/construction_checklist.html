@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Safety Checklist</title>
+    <meta name="description" content="Comprehensive construction safety checklist for site inspections and audits">
+    <meta name="keywords" content="construction safety, safety checklist, site inspection, OSHA compliance">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #17a2b8;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --bg-color: #f5f7fa;
+            --text-color: #2c3e50;
+            --card-bg: #ffffff;
+            --border-color: #ddd;
+        }
+
+        .dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --card-bg: #2d2d2d;
+            --border-color: #444;
+            --primary: #3498db;
+            --dark: #bdc3c7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        .subtitle {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .btn i {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 25px;
+            animation: slideUp 0.5s ease-out;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        tr:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        .add-row-btn {
+            margin: 10px 0;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .status-btn {
+            padding: 6px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .status-ok {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-na {
+            background: var(--info);
+            color: white;
+        }
+
+        .status-issue {
+            background: var(--danger);
+            color: white;
+        }
+
+        .status-btn.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 2px var(--border-color);
+            border: 2px solid white;
+        }
+
+        .preview-section {
+            background: var(--bg-color);
+            border: 2px dashed var(--border-color);
+        }
+
+        .preview-content {
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .preview-table tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .summary-cards {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .summary-card {
+            flex: 1;
+            min-width: 120px;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .summary-ok {
+            background-color: #d4edda;
+            color: #155724;
+            border-left: 5px solid #28a745;
+        }
+
+        .summary-na {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border-left: 5px solid #17a2b8;
+        }
+
+        .summary-issue {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #dc3545;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .status-saved {
+            color: var(--success);
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .preview-section-title {
+            font-size: 1.2rem;
+            margin: 20px 0 10px 0;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-ok-indicator {
+            background-color: var(--success);
+        }
+
+        .status-na-indicator {
+            background-color: var(--info);
+        }
+
+        .status-issue-indicator {
+            background-color: var(--danger);
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .control-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .language-selector, .theme-toggle {
+                position: static;
+                margin-bottom: 10px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .summary-cards {
+                flex-direction: column;
+            }
+
+            .status-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="theme-toggle">
+                <button class="btn btn-info" id="themeToggle">
+                    <i class="fas fa-moon"></i> <span class="theme-text">Dark Mode</span>
+                </button>
+            </div>
+            <h1 class="title-text">Construction Safety Checklist</h1>
+            <p class="subtitle subtitle-text">Fill the form, preview, and export to PDF</p>
+            <div class="language-selector">
+                <button class="btn btn-primary" id="translateBtn">
+                    <i class="fas fa-language"></i> <span class="translate-text">Translate to Hindi</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="control-buttons">
+            <button class="btn btn-primary" id="previewBtn">
+                <i class="fas fa-eye"></i> <span class="preview-text">Preview</span>
+            </button>
+            <button class="btn btn-success" id="downloadBtn">
+                <i class="fas fa-file-pdf"></i> <span class="download-text">Download PDF</span>
+            </button>
+            <button class="btn btn-warning" id="saveBtn">
+                <i class="fas fa-save"></i> <span class="save-text">Save Draft</span>
+            </button>
+            <button class="btn btn-danger" id="resetBtn">
+                <i class="fas fa-sync-alt"></i> <span class="reset-text">Reset Form</span>
+            </button>
+        </div>
+
+        <!-- Section 1: Checklist Inputs -->
+        <div class="section" id="checklistInputs">
+            <h2 class="section-title"><i class="fas fa-clipboard-check"></i> <span class="inputs-text">Checklist Inputs</span></h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="siteName" class="site-text">Project / Site *</label>
+                    <input type="text" id="siteName" placeholder="e.g., ABC Construction Site" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location" class="location-text">Location / Area (optional)</label>
+                    <input type="text" id="location" placeholder="e.g., Foundation Work Area">
+                </div>
+                
+                <div class="form-group">
+                    <label for="conductedBy" class="conducted-text">Conducted by *</label>
+                    <input type="text" id="conductedBy" placeholder="Your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="companyTrade" class="company-text">Company / Trade</label>
+                    <input type="text" id="companyTrade" placeholder="e.g., ABC Construction Co.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dateTime" class="datetime-text">Date & Time *</label>
+                    <input type="datetime-local" id="dateTime" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="weather" class="weather-text">Weather</label>
+                    <select id="weather">
+                        <option value="">Select weather condition</option>
+                        <option value="sunny">Sunny</option>
+                        <option value="cloudy">Cloudy</option>
+                        <option value="rainy">Rainy</option>
+                        <option value="windy">Windy</option>
+                        <option value="hot">Hot</option>
+                        <option value="cold">Cold</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="sessionNotes" class="notes-text">Notes (session context, permits, etc.)</label>
+                <textarea id="sessionNotes" placeholder="Enter any relevant notes about this inspection session"></textarea>
+            </div>
+        </div>
+
+        <!-- Section 2: Checklist Items -->
+        <div class="section" id="checklistItems">
+            <h2 class="section-title"><i class="fas fa-list-check"></i> <span class="items-text">Checklist Items</span></h2>
+            
+            <div class="table-container">
+                <table id="checklistTable">
+                    <thead>
+                        <tr>
+                            <th class="category-text">Category</th>
+                            <th class="item-text">Item</th>
+                            <th class="status-text">Status</th>
+                            <th class="remarks-text">Remarks / Controls</th>
+                            <th class="actions-text">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="checklistTableBody">
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <button class="btn btn-primary add-row-btn" id="addChecklistRow">
+                <i class="fas fa-plus"></i> <span class="add-row-text">Add Checklist Item</span>
+            </button>
+        </div>
+
+        <!-- Section 3: Action Items -->
+        <div class="section" id="actionItems">
+            <h2 class="section-title"><i class="fas fa-tasks"></i> <span class="actions-text">Action Items (for any "Issue" rows)</span></h2>
+            
+            <div class="table-container">
+                <table id="actionTable">
+                    <thead>
+                        <tr>
+                            <th class="action-text">Action / Control Required</th>
+                            <th class="owner-text">Owner</th>
+                            <th class="due-date-text">Due Date</th>
+                            <th class="status-text">Status</th>
+                            <th class="actions-text">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="actionTableBody">
+                        <!-- Rows will be added dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <button class="btn btn-primary add-row-btn" id="addActionRow">
+                <i class="fas fa-plus"></i> <span class="add-row-text">Add Action Item</span>
+            </button>
+        </div>
+
+        <!-- Section 4: Final Notes -->
+        <div class="section" id="finalNotes">
+            <h2 class="section-title"><i class="fas fa-sticky-note"></i> <span class="final-notes-text">Final Notes</span></h2>
+            
+            <div class="form-group">
+                <textarea id="finalNotesText" placeholder="Enter any final notes or observations"></textarea>
+            </div>
+        </div>
+
+        <!-- Section 5: Preview -->
+        <div class="section preview-section" id="previewSection">
+            <h2 class="section-title"><i class="fas fa-eye"></i> <span class="preview-text">Construction Safety Checklist — Report</span></h2>
+            
+            <div class="preview-content" id="previewContent">
+                <p class="preview-instruction-text">Generated preview — review and export to PDF</p>
+            </div>
+        </div>
+
+        <!-- Section 6: Action Buttons -->
+        <div class="actions">
+            <button class="btn btn-success" id="finalDownloadBtn">
+                <i class="fas fa-file-pdf"></i> <span class="download-text">Download PDF</span>
+            </button>
+            <button class="btn btn-danger" id="finalResetBtn">
+                <i class="fas fa-sync-alt"></i> <span class="clear-text">Clear All</span>
+            </button>
+            <span class="status-saved autosave-text">Auto-saved</span>
+        </div>
+    </div>
+
+    <script>
+        // Global variable to track if preview has been generated
+        let isPreviewGenerated = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default date and time
+            const now = new Date();
+            const timezoneOffset = now.getTimezoneOffset() * 60000;
+            const localISOTime = new Date(now - timezoneOffset).toISOString().slice(0, 16);
+            document.getElementById('dateTime').value = localISOTime;
+
+            // Translation functionality
+            const translateBtn = document.getElementById('translateBtn');
+            let isHindi = false;
+            
+            const translations = {
+                en: {
+                    themeText: "Dark Mode",
+                    titleText: "Construction Safety Checklist",
+                    subtitleText: "Fill the form, preview, and export to PDF",
+                    translateText: "Translate to Hindi",
+                    previewText: "Preview",
+                    downloadText: "Download PDF",
+                    saveText: "Save Draft",
+                    resetText: "Reset Form",
+                    inputsText: "Checklist Inputs",
+                    siteText: "Project / Site *",
+                    locationText: "Location / Area (optional)",
+                    conductedText: "Conducted by *",
+                    companyText: "Company / Trade",
+                    datetimeText: "Date & Time *",
+                    weatherText: "Weather",
+                    notesText: "Notes (session context, permits, etc.)",
+                    itemsText: "Checklist Items",
+                    categoryText: "Category",
+                    itemText: "Item",
+                    statusText: "Status",
+                    remarksText: "Remarks / Controls",
+                    actionsText: "Actions",
+                    addRowText: "Add Checklist Item",
+                    actionText: "Action / Control Required",
+                    ownerText: "Owner",
+                    dueDateText: "Due Date",
+                    finalNotesText: "Final Notes",
+                    previewInstructionText: "Generated preview — review and export to PDF",
+                    clearText: "Clear All",
+                    autosaveText: "Auto-saved",
+                    okText: "OK",
+                    naText: "N/A",
+                    issueText: "Issue",
+                    removeText: "Remove"
+                },
+                hi: {
+                    themeText: "डार्क मोड",
+                    titleText: "निर्माण सुरक्षा चेकलिस्ट",
+                    subtitleText: "फॉर्म भरें, पूर्वावलोकन करें और PDF में निर्यात करें",
+                    translateText: "अंग्रेजी में अनुवाद करें",
+                    previewText: "पूर्वावलोकन",
+                    downloadText: "PDF डाउनलोड करें",
+                    saveText: "ड्राफ्ट सहेजें",
+                    resetText: "फॉर्म रीसेट करें",
+                    inputsText: "चेकलिस्ट इनपुट",
+                    siteText: "परियोजना / साइट *",
+                    locationText: "स्थान / क्षेत्र (वैकल्पिक)",
+                    conductedText: "द्वारा आयोजित *",
+                    companyText: "कंपनी / व्यापार",
+                    datetimeText: "तारीख और समय *",
+                    weatherText: "मौसम",
+                    notesText: "नोट्स (सत्र संदर्भ, परमिट, आदि)",
+                    itemsText: "चेकलिस्ट आइटम",
+                    categoryText: "श्रेणी",
+                    itemText: "आइटम",
+                    statusText: "स्थिति",
+                    remarksText: "टिप्पणियाँ / नियंत्रण",
+                    actionsText: "कार्रवाई",
+                    addRowText: "चेकलिस्ट आइटम जोड़ें",
+                    actionText: "आवश्यक कार्रवाई / नियंत्रण",
+                    ownerText: "मालिक",
+                    dueDateText: "नियत तारीख",
+                    finalNotesText: "अंतिम नोट्स",
+                    previewInstructionText: "जनरेट किया गया पूर्वावलोकन — समीक्षा करें और PDF में निर्यात करें",
+                    clearText: "सभी साफ करें",
+                    autosaveText: "स्वचालित रूप से सहेजा गया",
+                    okText: "ठीक",
+                    naText: "लागू नहीं",
+                    issueText: "समस्या",
+                    removeText: "हटाएं"
+                }
+            };
+
+            translateBtn.addEventListener('click', function() {
+                isHindi = !isHindi;
+                const lang = isHindi ? 'hi' : 'en';
+                
+                // Update all text elements
+                document.querySelectorAll('[class$="-text"]').forEach(el => {
+                    const className = Array.from(el.classList).find(c => c.endsWith('-text'));
+                    if (className && translations[lang][className]) {
+                        el.textContent = translations[lang][className];
+                    }
+                });
+                
+                // Update status buttons in checklist table
+                document.querySelectorAll('.status-btn-ok').forEach(btn => {
+                    btn.textContent = translations[lang].okText;
+                });
+                document.querySelectorAll('.status-btn-na').forEach(btn => {
+                    btn.textContent = translations[lang].naText;
+                });
+                document.querySelectorAll('.status-btn-issue').forEach(btn => {
+                    btn.textContent = translations[lang].issueText;
+                });
+                
+                // Update remove buttons
+                document.querySelectorAll('.delete-btn').forEach(btn => {
+                    if (btn.textContent.includes('Remove')) {
+                        btn.innerHTML = `<i class="fas fa-trash"></i> ${translations[lang].removeText}`;
+                    }
+                });
+            });
+
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                if (document.body.classList.contains('dark-mode')) {
+                    document.querySelector('.theme-text').textContent = isHindi ? 'लाइट मोड' : 'Light Mode';
+                } else {
+                    document.querySelector('.theme-text').textContent = isHindi ? 'डार्क मोड' : 'Dark Mode';
+                }
+            });
+
+            // Add default checklist items
+            const defaultChecklistItems = [
+                { category: "Permits & Planning", item: "Applicable permits displayed & valid" },
+                { category: "Permits & Planning", item: "JSA/Method Statement relevant & briefed" },
+                { category: "Access / Housekeeping", item: "Walkways clear; access/egress maintained" },
+                { category: "Access / Housekeeping", item: "Work area housekeeping acceptable" },
+                { category: "Working at Height", item: "Scaffolding tagged & in good condition" },
+                { category: "Working at Height", item: "Ladders secured; 4:1 angle; inspected" },
+                { category: "Working at Height", item: "Fall protection used correctly (100% tie-off)" },
+                { category: "Lifting / Rigging", item: "Lifting plan / load chart followed" },
+                { category: "Lifting / Rigging", item: "Slings/hooks/shackles inspected & tagged" },
+                { category: "Electrical", item: "Cables routed safely; no damage; RCCB used" },
+                { category: "Electrical", item: "LOTO applied where required; panels closed" },
+                { category: "Tools & Equipment", item: "Tools inspected; guards in place" },
+                { category: "Hot Work", item: "Fire watch; extinguisher ready; sparks controlled" },
+                { category: "Confined Space", item: "Permit; gas test; attendant & rescue plan" },
+                { category: "Traffic Management", item: "Barricades/signage; spotter used as needed" },
+                { category: "PPE", item: "Helmet, Hi-Vis, Shoes; task-specific PPE worn" },
+                { category: "Emergency Preparedness", item: "Emergency numbers/route known; first-aid ready" },
+                { category: "Environmental", item: "Spill control available; waste managed" },
+                { category: "Weather", item: "Weather monitored; heat/wind controls applied" }
+            ];
+
+            // Load default checklist items
+            defaultChecklistItems.forEach(item => {
+                addChecklistRow(item.category, item.item);
+            });
+
+            // Add checklist row functionality
+            document.getElementById('addChecklistRow').addEventListener('click', function() {
+                addChecklistRow();
+            });
+
+            function addChecklistRow(category = "", item = "") {
+                const tableBody = document.getElementById('checklistTableBody');
+                const newRow = document.createElement('tr');
+                
+                newRow.innerHTML = `
+                    <td>
+                        <select class="category-select">
+                            <option value="">Select Category</option>
+                            <option value="Permits & Planning" ${category === "Permits & Planning" ? "selected" : ""}>Permits & Planning</option>
+                            <option value="Access / Housekeeping" ${category === "Access / Housekeeping" ? "selected" : ""}>Access / Housekeeping</option>
+                            <option value="Working at Height" ${category === "Working at Height" ? "selected" : ""}>Working at Height</option>
+                            <option value="Lifting / Rigging" ${category === "Lifting / Rigging" ? "selected" : ""}>Lifting / Rigging</option>
+                            <option value="Electrical" ${category === "Electrical" ? "selected" : ""}>Electrical</option>
+                            <option value="Tools & Equipment" ${category === "Tools & Equipment" ? "selected" : ""}>Tools & Equipment</option>
+                            <option value="Hot Work" ${category === "Hot Work" ? "selected" : ""}>Hot Work</option>
+                            <option value="Confined Space" ${category === "Confined Space" ? "selected" : ""}>Confined Space</option>
+                            <option value="Traffic Management" ${category === "Traffic Management" ? "selected" : ""}>Traffic Management</option>
+                            <option value="PPE" ${category === "PPE" ? "selected" : ""}>PPE</option>
+                            <option value="Emergency Preparedness" ${category === "Emergency Preparedness" ? "selected" : ""}>Emergency Preparedness</option>
+                            <option value="Environmental" ${category === "Environmental" ? "selected" : ""}>Environmental</option>
+                            <option value="Weather" ${category === "Weather" ? "selected" : ""}>Weather</option>
+                        </select>
+                    </td>
+                    <td><input type="text" class="item-input" value="${item}" placeholder="Item description"></td>
+                    <td>
+                        <div class="status-buttons">
+                            <button type="button" class="status-btn status-ok status-btn-ok">${isHindi ? translations.hi.okText : translations.en.okText}</button>
+                            <button type="button" class="status-btn status-na status-btn-na">${isHindi ? translations.hi.naText : translations.en.naText}</button>
+                            <button type="button" class="status-btn status-issue status-btn-issue">${isHindi ? translations.hi.issueText : translations.en.issueText}</button>
+                        </div>
+                    </td>
+                    <td><input type="text" class="remarks-input" placeholder="Remarks or controls"></td>
+                    <td><button class="delete-btn" onclick="deleteChecklistRow(this)"><i class="fas fa-trash"></i> ${isHindi ? translations.hi.removeText : translations.en.removeText}</button></td>
+                `;
+                
+                tableBody.appendChild(newRow);
+                
+                // Add event listeners to status buttons with proper highlighting
+                const statusButtons = newRow.querySelectorAll('.status-btn');
+                
+                // Set first button as active by default
+                statusButtons[0].classList.add('active');
+                
+                statusButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        // Remove active class from all buttons in this row
+                        statusButtons.forEach(b => b.classList.remove('active'));
+                        
+                        // Add active class to clicked button
+                        this.classList.add('active');
+                        
+                        updatePreview();
+                    });
+                });
+                
+                // Add event listeners to inputs
+                newRow.querySelectorAll('input, select').forEach(input => {
+                    input.addEventListener('input', updatePreview);
+                });
+            }
+
+            // Add action row functionality
+            document.getElementById('addActionRow').addEventListener('click', function() {
+                addActionRow();
+            });
+
+            function addActionRow() {
+                const tableBody = document.getElementById('actionTableBody');
+                const newRow = document.createElement('tr');
+                
+                newRow.innerHTML = `
+                    <td><input type="text" class="action-input" placeholder="Action required"></td>
+                    <td><input type="text" class="owner-input" placeholder="Owner name"></td>
+                    <td><input type="date" class="due-date-input"></td>
+                    <td>
+                        <select class="action-status">
+                            <option value="open">Open</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </td>
+                    <td><button class="delete-btn" onclick="deleteActionRow(this)"><i class="fas fa-trash"></i> ${isHindi ? translations.hi.removeText : translations.en.removeText}</button></td>
+                `;
+                
+                tableBody.appendChild(newRow);
+                
+                // Add event listeners to inputs
+                newRow.querySelectorAll('input, select').forEach(input => {
+                    input.addEventListener('input', updatePreview);
+                });
+            }
+
+            // Delete row functions
+            window.deleteChecklistRow = function(button) {
+                const row = button.closest('tr');
+                row.remove();
+                updatePreview();
+            };
+
+            window.deleteActionRow = function(button) {
+                const row = button.closest('tr');
+                row.remove();
+                updatePreview();
+            };
+
+            // Preview functionality
+            document.getElementById('previewBtn').addEventListener('click', function() {
+                generatePreview();
+            });
+
+            function generatePreview() {
+                const previewContent = document.getElementById('previewContent');
+                
+                // Calculate summary counts
+                let okCount = 0, naCount = 0, issueCount = 0;
+                document.querySelectorAll('#checklistTableBody tr').forEach(row => {
+                    const activeBtn = row.querySelector('.status-btn.active');
+                    if (activeBtn) {
+                        if (activeBtn.classList.contains('status-ok')) okCount++;
+                        else if (activeBtn.classList.contains('status-na')) naCount++;
+                        else if (activeBtn.classList.contains('status-issue')) issueCount++;
+                    }
+                });
+                
+                let previewHTML = `
+                    <h2>Construction Safety Checklist — Report</h2>
+                    <p><em>Generated preview — review and export to PDF</em></p>
+                    
+                    <div class="preview-section-title">Session Details</div>
+                    <table class="preview-table">
+                        <tr>
+                            <td><strong>Project / Site:</strong></td>
+                            <td>${document.getElementById('siteName').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Location / Area:</strong></td>
+                            <td>${document.getElementById('location').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Conducted by:</strong></td>
+                            <td>${document.getElementById('conductedBy').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Company / Trade:</strong></td>
+                            <td>${document.getElementById('companyTrade').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Date & Time:</strong></td>
+                            <td>${document.getElementById('dateTime').value || 'Not specified'}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Weather:</strong></td>
+                            <td>${document.getElementById('weather').value || 'Not specified'}</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="preview-section-title">Session Notes</div>
+                    <p>${document.getElementById('sessionNotes').value || 'No notes provided'}</p>
+                    
+                    <div class="preview-section-title">Checklist Summary</div>
+                    <div class="summary-cards">
+                        <div class="summary-card summary-ok">
+                            <div class="summary-count">${okCount}</div>
+                            <div class="summary-label">OK</div>
+                        </div>
+                        <div class="summary-card summary-na">
+                            <div class="summary-count">${naCount}</div>
+                            <div class="summary-label">N/A</div>
+                        </div>
+                        <div class="summary-card summary-issue">
+                            <div class="summary-count">${issueCount}</div>
+                            <div class="summary-label">ISSUES</div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-section-title">Checklist Results</div>
+                    <table class="preview-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Item</th>
+                                <th>Status</th>
+                                <th>Remarks / Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                // Add checklist rows to preview
+                document.querySelectorAll('#checklistTableBody tr').forEach(row => {
+                    const category = row.querySelector('.category-select').value;
+                    const item = row.querySelector('.item-input').value;
+                    const activeBtn = row.querySelector('.status-btn.active');
+                    const status = activeBtn ? activeBtn.textContent : 'Not set';
+                    const remarks = row.querySelector('.remarks-input').value;
+                    
+                    let statusIndicator = '';
+                    if (activeBtn) {
+                        if (activeBtn.classList.contains('status-ok')) statusIndicator = '<span class="status-indicator status-ok-indicator"></span>';
+                        else if (activeBtn.classList.contains('status-na')) statusIndicator = '<span class="status-indicator status-na-indicator"></span>';
+                        else if (activeBtn.classList.contains('status-issue')) statusIndicator = '<span class="status-indicator status-issue-indicator"></span>';
+                    }
+                    
+                    previewHTML += `
+                        <tr>
+                            <td>${category}</td>
+                            <td>${item}</td>
+                            <td>${statusIndicator} ${status}</td>
+                            <td>${remarks}</td>
+                        </tr>
+                    `;
+                });
+                
+                previewHTML += `
+                        </tbody>
+                    </table>
+                    
+                    <div class="preview-section-title">Action Items</div>
+                    <table class="preview-table">
+                        <thead>
+                            <tr>
+                                <th>Action / Control Required</th>
+                                <th>Owner</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                // Add action rows to preview
+                const actionRows = document.querySelectorAll('#actionTableBody tr');
+                if (actionRows.length > 0) {
+                    actionRows.forEach(row => {
+                        const action = row.querySelector('.action-input').value;
+                        const owner = row.querySelector('.owner-input').value;
+                        const dueDate = row.querySelector('.due-date-input').value;
+                        const status = row.querySelector('.action-status').value;
+                        
+                        previewHTML += `
+                            <tr>
+                                <td>${action}</td>
+                                <td>${owner}</td>
+                                <td>${dueDate}</td>
+                                <td>${status}</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    previewHTML += '<tr><td colspan="4">No actions recorded</td></tr>';
+                }
+                
+                previewHTML += `
+                        </tbody>
+                    </table>
+                    
+                    <div class="preview-section-title">Final Notes</div>
+                    <p>${document.getElementById('finalNotesText').value || 'No final notes provided'}</p>
+                    
+                    <p><em>Generated by Construction Safety Checklist — ${new Date().toLocaleString()}</em></p>
+                `;
+                
+                previewContent.innerHTML = previewHTML;
+                
+                // Set preview as generated
+                isPreviewGenerated = true;
+            }
+
+            // Save draft functionality
+            document.getElementById('saveBtn').addEventListener('click', function() {
+                saveDraft();
+                alert(isHindi ? 'ड्राफ्ट सफलतापूर्वक सहेजा गया!' : 'Draft saved successfully!');
+            });
+
+            function saveDraft() {
+                const formData = {};
+                document.querySelectorAll('input, select, textarea').forEach(element => {
+                    if (element.type !== 'button' && element.type !== 'submit') {
+                        formData[element.id] = element.value;
+                    }
+                });
+                
+                // Save checklist items
+                const checklistItems = [];
+                document.querySelectorAll('#checklistTableBody tr').forEach(row => {
+                    const category = row.querySelector('.category-select').value;
+                    const item = row.querySelector('.item-input').value;
+                    const activeBtn = row.querySelector('.status-btn.active');
+                    const status = activeBtn ? activeBtn.textContent : '';
+                    const remarks = row.querySelector('.remarks-input').value;
+                    
+                    checklistItems.push({ category, item, status, remarks });
+                });
+                formData.checklistItems = checklistItems;
+                
+                // Save action items
+                const actionItems = [];
+                document.querySelectorAll('#actionTableBody tr').forEach(row => {
+                    const action = row.querySelector('.action-input').value;
+                    const owner = row.querySelector('.owner-input').value;
+                    const dueDate = row.querySelector('.due-date-input').value;
+                    const status = row.querySelector('.action-status').value;
+                    
+                    actionItems.push({ action, owner, dueDate, status });
+                });
+                formData.actionItems = actionItems;
+                
+                localStorage.setItem('constructionChecklistDraft', JSON.stringify(formData));
+            }
+
+            // Reset functionality
+            document.getElementById('resetBtn').addEventListener('click', function() {
+                if (confirm(isHindi ? 'क्या आप वाकई फॉर्म रीसेट करना चाहते हैं? सभी डेटा खो जाएगा।' : 'Are you sure you want to reset the form? All data will be lost.')) {
+                    resetForm();
+                }
+            });
+
+            document.getElementById('finalResetBtn').addEventListener('click', function() {
+                if (confirm(isHindi ? 'क्या आप वाकई फॉर्म रीसेट करना चाहते हैं? सभी डेटा खो जाएगा।' : 'Are you sure you want to reset the form? All data will be lost.')) {
+                    resetForm();
+                }
+            });
+
+            function resetForm() {
+                document.querySelectorAll('input, textarea').forEach(element => {
+                    if (element.type !== 'button' && element.type !== 'submit') {
+                        element.value = '';
+                    }
+                });
+                
+                // Reset date and time
+                const now = new Date();
+                const timezoneOffset = now.getTimezoneOffset() * 60000;
+                const localISOTime = new Date(now - timezoneOffset).toISOString().slice(0, 16);
+                document.getElementById('dateTime').value = localISOTime;
+                
+                // Clear tables
+                document.getElementById('checklistTableBody').innerHTML = '';
+                document.getElementById('actionTableBody').innerHTML = '';
+                
+                // Reload default checklist items
+                defaultChecklistItems.forEach(item => {
+                    addChecklistRow(item.category, item.item);
+                });
+                
+                document.getElementById('previewContent').innerHTML = '<p class="preview-instruction-text">Generated preview — review and export to PDF</p>';
+                
+                // Reset preview flag
+                isPreviewGenerated = false;
+                
+                alert(isHindi ? 'फॉर्म सफलतापूर्वक रीसेट कर दिया गया है!' : 'Form has been reset successfully!');
+            }
+
+            // PDF download functionality
+            document.getElementById('downloadBtn').addEventListener('click', function() {
+                downloadPDF();
+            });
+
+            document.getElementById('finalDownloadBtn').addEventListener('click', function() {
+                downloadPDF();
+            });
+
+            function downloadPDF() {
+                // Check if preview has been generated
+                if (!isPreviewGenerated) {
+                    alert(isHindi ? 'कृपया पहले चेकलिस्ट का पूर्वावलोकन करें!' : 'Please preview the checklist first!');
+                    return;
+                }
+                
+                const previewContent = document.getElementById('previewContent');
+                
+                html2canvas(previewContent).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+                    
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                    
+                    pdf.save('construction-safety-checklist.pdf');
+                });
+            }
+
+            // Auto-save every 30 seconds
+            setInterval(saveDraft, 30000);
+
+            // Load draft on page load if available
+            window.addEventListener('load', function() {
+                const draft = localStorage.getItem('constructionChecklistDraft');
+                if (draft) {
+                    const formData = JSON.parse(draft);
+                    
+                    // Load form inputs
+                    for (const id in formData) {
+                        if (id !== 'checklistItems' && id !== 'actionItems') {
+                            const element = document.getElementById(id);
+                            if (element) {
+                                element.value = formData[id];
+                            }
+                        }
+                    }
+                    
+                    // Load checklist items
+                    if (formData.checklistItems) {
+                        document.getElementById('checklistTableBody').innerHTML = '';
+                        formData.checklistItems.forEach(item => {
+                            addChecklistRow(item.category, item.item);
+                            
+                            // Set status for the last added row
+                            const lastRow = document.querySelector('#checklistTableBody tr:last-child');
+                            if (lastRow) {
+                                const statusButtons = lastRow.querySelectorAll('.status-btn');
+                                statusButtons.forEach(btn => {
+                                    if (btn.textContent === item.status) {
+                                        btn.classList.add('active');
+                                    } else {
+                                        btn.classList.remove('active');
+                                    }
+                                });
+                                
+                                const remarksInput = lastRow.querySelector('.remarks-input');
+                                if (remarksInput) {
+                                    remarksInput.value = item.remarks || '';
+                                }
+                            }
+                        });
+                    }
+                    
+                    // Load action items
+                    if (formData.actionItems) {
+                        formData.actionItems.forEach(item => {
+                            addActionRow();
+                            
+                            // Set values for the last added row
+                            const lastRow = document.querySelector('#actionTableBody tr:last-child');
+                            if (lastRow) {
+                                lastRow.querySelector('.action-input').value = item.action || '';
+                                lastRow.querySelector('.owner-input').value = item.owner || '';
+                                lastRow.querySelector('.due-date-input').value = item.dueDate || '';
+                                lastRow.querySelector('.action-status').value = item.status || 'open';
+                            }
+                        });
+                    }
+                }
+            });
+
+            // Update preview when form inputs change
+            document.querySelectorAll('input, select, textarea').forEach(element => {
+                element.addEventListener('input', updatePreview);
+            });
+
+            function updatePreview() {
+                // This function can be enhanced to provide real-time preview updates
+                // For now, it's called when inputs change but doesn't regenerate the full preview
+            }
+        });
+    </script>
+</body>
+</html>

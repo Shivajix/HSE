@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Safety Analysis Generator - Complete Guide | HSE Tools</title>
+    <meta name="description" content="Complete guide to Job Safety Analysis (JSA) Generator. Learn how to identify risks, define controls, and create professional safety reports.">
+    <meta name="keywords" content="JSA generator, job safety analysis, HSE tools, risk assessment, safety planning">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Job Safety Analysis Generator - Complete Guide | HSE Tools">
+    <meta property="og:description" content="Complete guide to Job Safety Analysis with templates, examples, and best practices for HSE safety management.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/jsa-generator.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Job Safety Analysis Generator - Complete Guide">
+    <meta name="twitter:description" content="Complete guide to Job Safety Analysis Generator">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Content Styles */
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .example-box h4 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        /* How to Use Section */
+        .how-to-use-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .step-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-bold);
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        /* Template Grid */
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .template-card {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid var(--bg-tertiary);
+        }
+
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .template-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .template-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-en="Job Safety Analysis Generator - Complete Guide" data-hi="जॉब सेफ्टी एनालिसिस जनरेटर - संपूर्ण गाइड">Job Safety Analysis Generator - Complete Guide</h1>
+            <p data-en="Identify risks, define controls, and create professional safety reports" data-hi="जोखिमों की पहचान करें, नियंत्रण परिभाषित करें, और पेशेवर सुरक्षा रिपोर्ट बनाएं">Identify risks, define controls, and create professional safety reports</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Introduction -->
+        <div class="content-card">
+            <h2><i class="fas fa-hard-hat"></i> <span data-en="Job Safety Analysis Generator - Complete Guide" data-hi="जॉब सेफ्टी एनालिसिस जनरेटर - संपूर्ण गाइड">Job Safety Analysis Generator - Complete Guide</span></h2>
+            <p data-en="Every job task carries potential hazards—from minor risks to life-threatening dangers. Job Safety Analysis (JSA) is a proactive method to identify risks in each step of a job, define controls, and assign responsibility." 
+               data-hi="हर जॉब टास्क में संभावित खतरे होते हैं—छोटे जोखिमों से लेकर जानलेवा खतरों तक। जॉब सेफ्टी एनालिसिस (JSA) एक सक्रिय विधि है जो किसी कार्य के प्रत्येक चरण में जोखिमों की पहचान करने, नियंत्रणों को परिभाषित करने और जिम्मेदारी सौंपने के लिए है।">
+                Every job task carries potential hazards—from minor risks to life-threatening dangers. Job Safety Analysis (JSA) is a proactive method to identify risks in each step of a job, define controls, and assign responsibility.
+            </p>
+            <p data-en="By using a Job Safety Analysis Generator, safety officers and supervisors can create structured JSAs quickly, ensure hazards are identified before work starts, and maintain compliance with international standards like OSHA, ISO 45001, and ILO guidelines." 
+               data-hi="जॉब सेफ्टी एनालिसिस जनरेटर का उपयोग करके, सुरक्षा अधिकारी और पर्यवेक्षक संरचित JSA जल्दी से बना सकते हैं, यह सुनिश्चित कर सकते हैं कि काम शुरू होने से पहले खतरों की पहचान की जाए, और OSHA, ISO 45001, और ILO दिशानिर्देशों जैसे अंतरराष्ट्रीय मानकों के साथ अनुपालन बनाए रख सकते हैं।">
+                By using a Job Safety Analysis Generator, safety officers and supervisors can create structured JSAs quickly, ensure hazards are identified before work starts, and maintain compliance with international standards like OSHA, ISO 45001, and ILO guidelines.
+            </p>
+        </div>
+
+        <!-- What Is JSA Generator -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle"></i> <span data-en="What Is a Job Safety Analysis Generator?" data-hi="जॉब सेफ्टी एनालिसिस जनरेटर क्या है?">What Is a Job Safety Analysis Generator?</span></h2>
+            <p data-en="A digital tool that lets HSE teams:" 
+               data-hi="एक डिजिटल टूल जो HSE टीमों को अनुमति देता है:">
+                A digital tool that lets HSE teams:
+            </p>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Break down work into Job Steps" 
+                        data-hi="काम को जॉब स्टेप्स में तोड़ें">Break down work into Job Steps</li>
+                    <li data-en="Identify Potential Hazards for each step" 
+                        data-hi="प्रत्येक चरण के लिए संभावित खतरों की पहचान करें">Identify Potential Hazards for each step</li>
+                    <li data-en="Define Control Measures (procedures, checks, PTW requirements, and PPE if needed)" 
+                        data-hi="नियंत्रण उपायों को परिभाषित करें (प्रक्रियाएं, जांचें, PTW आवश्यकताएं, और यदि आवश्यक हो तो PPE)">Define Control Measures (procedures, checks, PTW requirements, and PPE if needed)</li>
+                    <li data-en="Assign a Responsible Person" 
+                        data-hi="एक जिम्मेदार व्यक्ति नियुक्त करें">Assign a Responsible Person</li>
+                    <li data-en="Preview the report and export a professional PDF (A4, vector, print-ready) with signature lines" 
+                        data-hi="रिपोर्ट का पूर्वावलोकन करें और सिग्नेचर लाइनों के साथ एक पेशेवर PDF (A4, वेक्टर, प्रिंट-रेडी) निर्यात करें">Preview the report and export a professional PDF (A4, vector, print-ready) with signature lines</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <p data-en="Unlike a generic checklist, a JSA is job-specific and must be reviewed before each task begins." 
+                   data-hi="एक सामान्य चेकलिस्ट के विपरीत, एक JSA नौकरी-विशिष्ट होता है और प्रत्येक कार्य शुरू होने से पहले इसकी समीक्षा की जानी चाहिए।">
+                    Unlike a generic checklist, a JSA is job-specific and must be reviewed before each task begins.
+                </p>
+            </div>
+        </div>
+
+        <!-- Key Components -->
+        <div class="content-card">
+            <h2><i class="fas fa-cogs"></i> <span data-en="Key Components of a JSA Generator" data-hi="JSA जनरेटर के प्रमुख घटक">Key Components of a JSA Generator</span></h2>
+            <p data-en="A well-structured JSA includes the following:" 
+               data-hi="एक अच्छी तरह से संरचित JSA में निम्नलिखित शामिल हैं:">
+                A well-structured JSA includes the following:
+            </p>
+            
+            <div class="content-section">
+                <h3><i class="fas fa-info-circle"></i> <span data-en="Job Meta" data-hi="जॉब मेटा">Job Meta</span></h3>
+                <ul>
+                    <li data-en="Job/Task" data-hi="जॉब/टास्क">Job/Task</li>
+                    <li data-en="Site/Location" data-hi="साइट/स्थान">Site/Location</li>
+                    <li data-en="Date" data-hi="तारीख">Date</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3><i class="fas fa-clipboard-list"></i> <span data-en="Templates (prefill common steps)" data-hi="टेम्पलेट्स (सामान्य चरणों को पहले से भरें)">Templates (prefill common steps)</span></h3>
+                <div class="template-grid">
+                    <div class="template-card">
+                        <i class="fas fa-digging"></i>
+                        <h4 data-en="Excavation" data-hi="उत्खनन">Excavation</h4>
+                    </div>
+                    <div class="template-card">
+                        <i class="fas fa-layer-group"></i>
+                        <h4 data-en="Scaffolding" data-hi="मचान">Scaffolding</h4>
+                    </div>
+                    <div class="template-card">
+                        <i class="fas fa-fire"></i>
+                        <h4 data-en="Hot Work" data-hi="हॉट वर्क">Hot Work</h4>
+                    </div>
+                    <div class="template-card">
+                        <i class="fas fa-bolt"></i>
+                        <h4 data-en="Electrical Work" data-hi="इलेक्ट्रिकल वर्क">Electrical Work</h4>
+                    </div>
+                    <div class="template-card">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                        <h4 data-en="Confined Space Entry" data-hi="सीमित स्थान प्रवेश">Confined Space Entry</h4>
+                    </div>
+                    <div class="template-card">
+                        <i class="fas fa-crane"></i>
+                        <h4 data-en="Lifting Operations" data-hi="लिफ्टिंग ऑपरेशन">Lifting Operations</h4>
+                    </div>
+                    <div class="template-card">
+                        <i class="fas fa-flask"></i>
+                        <h4 data-en="Chemical Handling" data-hi="केमिकल हैंडलिंग">Chemical Handling</h4>
+                    </div>
+                    <div class="template-card">
+                        <i class="fas fa-mountain"></i>
+                        <h4 data-en="Working at Height" data-hi="ऊंचाई पर काम">Working at Height</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3><i class="fas fa-table"></i> <span data-en="Job Steps Table" data-hi="जॉब स्टेप्स टेबल">Job Steps Table</span></h3>
+                <ul>
+                    <li data-en="Job Step - brief action description" 
+                        data-hi="जॉब स्टेप - संक्षिप्त कार्य विवरण">Job Step - brief action description</li>
+                    <li data-en="Potential Hazards - credible risks per step" 
+                        data-hi="संभावित खतरे - प्रति चरण विश्वसनीय जोखिम">Potential Hazards - credible risks per step</li>
+                    <li data-en="Control Measures - procedures, isolations, checks, permits, and PPE (if required)" 
+                        data-hi="नियंत्रण उपाय - प्रक्रियाएं, अलगाव, जांचें, परमिट, और PPE (यदि आवश्यक हो)">Control Measures - procedures, isolations, checks, permits, and PPE (if required)</li>
+                    <li data-en="Responsible Person - role accountable for implementing the controls" 
+                        data-hi="जिम्मेदार व्यक्ति - नियंत्रण लागू करने के लिए जवाबदेह भूमिका">Responsible Person - role accountable for implementing the controls</li>
+                    <li data-en="Reorderable rows - move up/down to keep a logical sequence" 
+                        data-hi="पुन: क्रमबद्ध करने योग्य पंक्तियाँ - तार्किक क्रम बनाए रखने के लिए ऊपर/नीचे ले जाएँ">Reorderable rows - move up/down to keep a logical sequence</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3><i class="fas fa-file-export"></i> <span data-en="Export & Records" data-hi="निर्यात और रिकॉर्ड">Export & Records</span></h3>
+                <ul>
+                    <li data-en="Preview — verify content and pagination" 
+                        data-hi="पूर्वावलोकन — सामग्री और पेजिनेशन सत्यापित करें">Preview — verify content and pagination</li>
+                    <li data-en="Download PDF — clean A4 report with signatures" 
+                        data-hi="PDF डाउनलोड करें — हस्ताक्षरों के साथ साफ A4 रिपोर्ट">Download PDF — clean A4 report with signatures</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- How to Use -->
+        <div class="content-card">
+            <h2><i class="fas fa-user-check"></i> <span data-en="How to Use the JSA Generator" data-hi="JSA जनरेटर का उपयोग कैसे करें">How to Use the JSA Generator</span></h2>
+            
+            <div class="how-to-use-section">
+                <div class="step-box">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4 data-en="Fill Job Details" data-hi="जॉब विवरण भरें">Fill Job Details</h4>
+                        <p data-en="Enter Job/Task, Site, and Date." 
+                           data-hi="जॉब/टास्क, साइट, और तारीख दर्ज करें।">
+                            Enter Job/Task, Site, and Date.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4 data-en="Select a Template" data-hi="एक टेम्पलेट चुनें">Select a Template</h4>
+                        <p data-en="Choose from the 8 built-in options or start blank." 
+                           data-hi="8 बिल्ट-इन विकल्पों में से चुनें या खाली शुरू करें।">
+                            Choose from the 8 built-in options or start blank.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4 data-en="Add/Modify Steps" data-hi="चरण जोड़ें/संशोधित करें">Add/Modify Steps</h4>
+                        <p data-en="Keep each step clear and action-oriented." 
+                           data-hi="प्रत्येक चरण को स्पष्ट और कार्य-उन्मुख रखें।">
+                            Keep each step clear and action-oriented.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4 data-en="Identify Hazards" data-hi="खतरों की पहचान करें">Identify Hazards</h4>
+                        <p data-en="List realistic, specific hazards for each step." 
+                           data-hi="प्रत्येक चरण के लिए यथार्थवादी, विशिष्ट खतरों की सूची बनाएं।">
+                            List realistic, specific hazards for each step.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4 data-en="Define Control Measures" data-hi="नियंत्रण उपायों को परिभाषित करें">Define Control Measures</h4>
+                        <p data-en="Include procedures, isolations, checklists, and any PPE needed." 
+                           data-hi="प्रक्रियाएं, अलगाव, चेकलिस्ट, और आवश्यक कोई भी PPE शामिल करें।">
+                            Include procedures, isolations, checklists, and any PPE needed.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <h4 data-en="Assign Responsible Person" data-hi="जिम्मेदार व्यक्ति नियुक्त करें">Assign Responsible Person</h4>
+                        <p data-en="e.g., Supervisor, Foreman, Operator, HSE." 
+                           data-hi="जैसे, पर्यवेक्षक, फोरमैन, ऑपरेटर, HSE।">
+                            e.g., Supervisor, Foreman, Operator, HSE.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">7</div>
+                    <div class="step-content">
+                        <h4 data-en="Reorder & Finalize" data-hi="पुन: क्रमबद्ध करें और अंतिम रूप दें">Reorder & Finalize</h4>
+                        <p data-en="Use up/down arrows to sequence steps logically." 
+                           data-hi="चरणों को तार्किक रूप से क्रमबद्ध करने के लिए ऊपर/नीचे तीरों का उपयोग करें।">
+                            Use up/down arrows to sequence steps logically.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">8</div>
+                    <div class="step-content">
+                        <h4 data-en="Preview" data-hi="पूर्वावलोकन">Preview</h4>
+                        <p data-en="Confirm layout and content." 
+                           data-hi="लेआउट और सामग्री की पुष्टि करें।">
+                            Confirm layout and content.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step-box">
+                    <div class="step-number">9</div>
+                    <div class="step-content">
+                        <h4 data-en="Download PDF" data-hi="PDF डाउनलोड करें">Download PDF</h4>
+                        <p data-en="Print, sign, and file for approval." 
+                           data-hi="प्रिंट करें, हस्ताक्षर करें, और अनुमोदन के लिए फाइल करें।">
+                            Print, sign, and file for approval.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p data-en="Review JSAs daily or when conditions change (weather, location, crew, equipment)." 
+                   data-hi="JSAs की दैनिक समीक्षा करें या जब स्थितियां बदलें (मौसम, स्थान, कर्मचारी, उपकरण)।">
+                    Review JSAs daily or when conditions change (weather, location, crew, equipment).
+                </p>
+            </div>
+        </div>
+
+        <!-- Example Usage -->
+        <div class="content-card">
+            <h2><i class="fas fa-list-alt"></i> <span data-en="Example Usage" data-hi="उदाहरण उपयोग">Example Usage</span></h2>
+            
+            <div class="example-box">
+                <h4 data-en="Excavation" data-hi="उत्खनन">Excavation</h4>
+                <ul>
+                    <li data-en="Job Step: Mark & barricade area" 
+                        data-hi="जॉब स्टेप: क्षेत्र को चिह्नित और बैरिकेड करें">Job Step: Mark & barricade area</li>
+                    <li data-en="Potential Hazards: Unauthorized entry; struck-by" 
+                        data-hi="संभावित खतरे: अनधिकृत प्रवेश; टकराना">Potential Hazards: Unauthorized entry; struck-by</li>
+                    <li data-en="Control Measures: Barricades, signage, banksman" 
+                        data-hi="नियंत्रण उपाय: बैरिकेड्स, साइनेज, बैंक्समैन">Control Measures: Barricades, signage, banksman</li>
+                    <li data-en="Responsible Person: Supervisor" 
+                        data-hi="जिम्मेदार व्यक्ति: पर्यवेक्षक">Responsible Person: Supervisor</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Scaffolding" data-hi="मचान">Scaffolding</h4>
+                <ul>
+                    <li data-en="Job Step: Install platforms & guardrails" 
+                        data-hi="जॉब स्टेप: प्लेटफॉर्म और गार्डरेल स्थापित करें">Job Step: Install platforms & guardrails</li>
+                    <li data-en="Potential Hazards: Fall from height" 
+                        data-hi="संभावित खतरे: ऊंचाई से गिरना">Potential Hazards: Fall from height</li>
+                    <li data-en="Control Measures: Full guardrails, midrails, toe boards; green-tag system" 
+                        data-hi="नियंत्रण उपाय: पूर्ण गार्डरेल, मिडरेल, टो बोर्ड; ग्रीन-टैग सिस्टम">Control Measures: Full guardrails, midrails, toe boards; green-tag system</li>
+                    <li data-en="Responsible Person: Scaffolder" 
+                        data-hi="जिम्मेदार व्यक्ति: मचान बनाने वाला">Responsible Person: Scaffolder</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h4 data-en="Hot Work" data-hi="हॉट वर्क">Hot Work</h4>
+                <ul>
+                    <li data-en="Job Step: Gas testing" 
+                        data-hi="जॉब स्टेप: गैस टेस्टिंग">Job Step: Gas testing</li>
+                    <li data-en="Potential Hazards: Flammable atmosphere" 
+                        data-hi="संभावित खतरे: ज्वलनशील वातावरण">Potential Hazards: Flammable atmosphere</li>
+                    <li data-en="Control Measures: Pre-entry and periodic gas tests; stop work if unsafe" 
+                        data-hi="नियंत्रण उपाय: प्री-एंट्री और आवधिक गैस टेस्ट; असुरक्षित होने पर काम रोकें">Control Measures: Pre-entry and periodic gas tests; stop work if unsafe</li>
+                    <li data-en="Responsible Person: HSE / Permit Holder" 
+                        data-hi="जिम्मेदार व्यक्ति: HSE / परमिट धारक">Responsible Person: HSE / Permit Holder</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Why JSA Important -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-circle"></i> <span data-en="Why Is a JSA Important?" data-hi="JSA क्यों महत्वपूर्ण है?">Why Is a JSA Important?</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Identifies hazards before work starts." 
+                        data-hi="काम शुरू होने से पहले खतरों की पहचान करता है।">Identifies hazards before work starts.</li>
+                    <li data-en="Defines controls and responsibilities." 
+                        data-hi="नियंत्रण और जिम्मेदारियों को परिभाषित करता है।">Defines controls and responsibilities.</li>
+                    <li data-en="Prevents accidents due to oversight." 
+                        data-hi="चूक के कारण होने वाली दुर्घटनाओं को रोकता है।">Prevents accidents due to oversight.</li>
+                    <li data-en="Documents safety planning for audits." 
+                        data-hi="ऑडिट के लिए सुरक्षा योजना का दस्तावेजीकरण करता है।">Documents safety planning for audits.</li>
+                    <li data-en="Boosts worker confidence and compliance." 
+                        data-hi="कर्मचारी आत्मविश्वास और अनुपालन को बढ़ाता है।">Boosts worker confidence and compliance.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Where JSAs Shine -->
+        <div class="content-card">
+            <h2><i class="fas fa-industry"></i> <span data-en="Where JSAs Shine" data-hi="JSAs कहाँ प्रभावी हैं">Where JSAs Shine</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Construction: scaffolding, excavation, lifting" 
+                        data-hi="निर्माण: मचान, उत्खनन, लिफ्टिंग">Construction: scaffolding, excavation, lifting</li>
+                    <li data-en="Factories & Plants: maintenance, hot work, isolations" 
+                        data-hi="कारखाने और प्लांट: रखरखाव, हॉट वर्क, अलगाव">Factories & Plants: maintenance, hot work, isolations</li>
+                    <li data-en="Oil & Gas: confined space, welding, electrical work" 
+                        data-hi="तेल और गैस: सीमित स्थान, वेल्डिंग, इलेक्ट्रिकल वर्क">Oil & Gas: confined space, welding, electrical work</li>
+                    <li data-en="Utilities: trenching, road works, powerline tasks" 
+                        data-hi="उपयोगिताएँ: ट्रेंचिंग, सड़क कार्य, पावरलाइन कार्य">Utilities: trenching, road works, powerline tasks</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-triangle"></i> <span data-en="Common Mistakes in JSA Preparation" data-hi="JSA तैयारी में सामान्य गलतियाँ">Common Mistakes in JSA Preparation</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Copy-pasting JSAs without site-specific review" 
+                        data-hi="साइट-विशिष्ट समीक्षा के बिना JSAs को कॉपी-पेस्ट करना">Copy-pasting JSAs without site-specific review</li>
+                    <li data-en="Vague steps (e.g., 'do work') instead of clear Job Steps" 
+                        data-hi="अस्पष्ट चरण (जैसे, 'काम करें') स्पष्ट जॉब स्टेप्स के बजाय">Vague steps (e.g., 'do work') instead of clear Job Steps</li>
+                    <li data-en="Listing hazards without matching Control Measures" 
+                        data-hi="मिलान नियंत्रण उपायों के बिना खतरों की सूची बनाना">Listing hazards without matching Control Measures</li>
+                    <li data-en="Not assigning a Responsible Person" 
+                        data-hi="एक जिम्मेदार व्यक्ति नियुक्त न करना">Not assigning a Responsible Person</li>
+                    <li data-en="Preparing a JSA but not communicating it to the crew" 
+                        data-hi="JSA तैयार करना लेकिन इसे कर्मचारियों तक संचारित न करना">Preparing a JSA but not communicating it to the crew</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-card">
+            <h2><i class="fas fa-trophy"></i> <span data-en="Best Practices for Effective JSA" data-hi="प्रभावी JSA के लिए सर्वोत्तम प्रथाएं">Best Practices for Effective JSA</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Customize templates to your site and scope" 
+                        data-hi="अपनी साइट और स्कोप के लिए टेम्पलेट्स को अनुकूलित करें">Customize templates to your site and scope</li>
+                    <li data-en="Keep language clear, concise, and actionable" 
+                        data hi="भाषा को स्पष्ट, संक्षिप्त और क्रियाशील रखें">Keep language clear, concise, and actionable</li>
+                    <li data-en="Involve frontline workers—they know the job best" 
+                        data-hi="फ्रंटलाइन कर्मचारियों को शामिल करें—वे नौकरी को सबसे अच्छी तरह जानते हैं">Involve frontline workers—they know the job best</li>
+                    <li data-en="Reference PTW, isolation standards, and OEM manuals" 
+                        data-hi="PTW, अलगाव मानकों, और OEM मैनुअल का संदर्भ लें">Reference PTW, isolation standards, and OEM manuals</li>
+                    <li data-en="Capture lessons learned and update regularly" 
+                        data-hi="सीखे गए सबक को कैप्चर करें और नियमित रूप से अपडेट करें">Capture lessons learned and update regularly</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle"></i> <span data-en="Frequently Asked Questions (FAQ)" data-hi="अक्सर पूछे जाने वाले प्रश्न (FAQ)">Frequently Asked Questions (FAQ)</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Who prepares the JSA?" data-hi="JSA कौन तैयार करता है?">Who prepares the JSA?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Usually the supervisor or safety officer, with input from the working team." 
+                       data-hi="आमतौर पर पर्यवेक्षक या सुरक्षा अधिकारी, कार्य टीम के इनपुट के साथ।">
+                        Usually the supervisor or safety officer, with input from the working team.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Is a JSA mandatory?" data-hi="क्या JSA अनिवार्य है?">Is a JSA mandatory?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Required for high-risk work (e.g., excavation, scaffolding, confined space, hot work) and strongly recommended for all non-routine tasks." 
+                       data-hi="उच्च-जोखिम वाले कार्य (जैसे, उत्खनन, मचान, सीमित स्थान, हॉट वर्क) के लिए आवश्यक और सभी गैर-नियमित कार्यों के लिए दृढ़ता से अनुशंसित।">
+                        Required for high-risk work (e.g., excavation, scaffolding, confined space, hot work) and strongly recommended for all non-routine tasks.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can JSAs be reused?" data-hi="क्या JSAs का पुन: उपयोग किया जा सकता है?">Can JSAs be reused?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Yes—but review and revise for current conditions, location, and team." 
+                       data-hi="हाँ—लेकिन वर्तमान स्थितियों, स्थान और टीम के लिए समीक्षा और संशोधन करें।">
+                        Yes—but review and revise for current conditions, location, and team.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="What if PPE column is removed?" data-hi="यदि PPE कॉलम हटा दिया जाए तो क्या होगा?">What if PPE column is removed?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Add PPE requirements inside Control Measures for the relevant step." 
+                       data-hi="संबंधित चरण के लिए नियंत्रण उपायों के अंदर PPE आवश्यकताएँ जोड़ें।">
+                        Add PPE requirements inside Control Measures for the relevant step.
+                    </p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can this integrate with PTW?" data-hi="क्या यह PTW के साथ एकीकृत हो सकता है?">Can this integrate with PTW?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="Absolutely. The JSA often forms an attachment to your Permit-to-Work pack." 
+                       data-hi="बिल्कुल। JSA अक्सर आपके Permit-to-Work पैक के लिए एक अनुलग्नक बनाता है।">
+                        Absolutely. The JSA often forms an attachment to your Permit-to-Work pack.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Thoughts -->
+        <div class="content-card">
+            <h2><i class="fas fa-lightbulb"></i> <span data-en="Final Thoughts" data-hi="अंतिम विचार">Final Thoughts</span></h2>
+            <p data-en="A Job Safety Analysis (JSA) is not just paperwork—it is a lifesaving planning tool." 
+               data-hi="एक जॉब सेफ्टी एनालिसिस (JSA) सिर्फ कागजी कार्रवाई नहीं है—यह एक जीवनरक्षक योजना उपकरण है।">
+                A Job Safety Analysis (JSA) is not just paperwork—it is a lifesaving planning tool.
+            </p>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="Quickly build JSAs with templates." 
+                        data-hi="टेम्पलेट्स के साथ जल्दी से JSAs बनाएं।">Quickly build JSAs with templates.</li>
+                    <li data-en="Edit, reorder, and customize steps." 
+                        data-hi="चरणों को संपादित करें, पुन: क्रमबद्ध करें और अनुकूलित करें।">Edit, reorder, and customize steps.</li>
+                    <li data-en="Export professional PDFs for approval." 
+                        data-hi="अनुमोदन के लिए पेशेवर PDFs निर्यात करें।">Export professional PDFs for approval.</li>
+                    <li data-en="Ensure safety and compliance with OSHA, ILO, and ISO standards." 
+                        data-hi="OSHA, ILO, और ISO मानकों के साथ सुरक्षा और अनुपालन सुनिश्चित करें।">Ensure safety and compliance with OSHA, ILO, and ISO standards.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h3 data-en="Pro Tip" data-hi="प्रो टिप">Pro Tip</h3>
+                <p data-en="Always link your JSA with HIRA and PTW systems for a complete safety management framework." 
+                   data-hi="एक संपूर्ण सुरक्षा प्रबंधन ढांचे के लिए हमेशा अपने JSA को HIRA और PTW सिस्टम से लिंक करें।">
+                    Always link your JSA with HIRA and PTW systems for a complete safety management framework.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Attendance Sheet Generator | Employee Training Records</title>
+    <meta name="description" content="Generate professional training attendance sheets. Track participants, record sessions, and export to PDF.">
+    <meta name="keywords" content="training attendance, employee training, attendance sheet, training records, PDF generator">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3c4e;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f9fa;
+            --border-color: #ddd;
+        }
+
+        .dark-mode {
+            --primary-color: #34495e;
+            --secondary-color: #2980b9;
+            --success-color: #2ecc71;
+            --danger-color: #c0392b;
+            --warning-color: #e67e22;
+            --light-color: #2c3e50;
+            --dark-color: #1a252f;
+            --text-color: #ecf0f1;
+            --bg-color: #1e2a3a;
+            --card-bg: #2c3c4e;
+            --border-color: #34495e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-light {
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        .form-section {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .dynamic-list {
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .attendees-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .attendees-table th, .attendees-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .attendees-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .attendees-table input[type="text"] {
+            width: 100%;
+            border: none;
+            background: transparent;
+            padding: 4px;
+        }
+
+        .attendees-table input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        .remove-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-count {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .preview-section {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .status-present {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .status-absent {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .header-controls {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .dynamic-list {
+                overflow-x: auto;
+            }
+            
+            .attendees-table {
+                min-width: 700px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Training Attendance Sheet Generator</h1>
+                <p>Track training sessions and participant attendance</p>
+            </div>
+            <div class="header-controls">
+                <button id="translateBtn" class="btn-light">
+                    <span class="lang-text">हिंदी</span>
+                </button>
+                <button id="darkModeBtn" class="btn-light">
+                    <span class="mode-text">Dark Mode</span>
+                </button>
+                <button id="previewBtn" class="btn-primary">Preview</button>
+                <button id="downloadBtn" class="btn-success">Download PDF</button>
+                <button id="resetBtn" class="btn-danger">Reset</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="formView">
+                <div class="form-section">
+                    <h2>Training Session Details</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trainingTitle">Training Title</label>
+                            <input type="text" id="trainingTitle" placeholder="e.g., Fire Extinguisher Use (PASS)">
+                        </div>
+                        <div class="form-group">
+                            <label for="projectSite">Project / Site</label>
+                            <input type="text" id="projectSite" placeholder="e.g., Metro Depot – Shed 4">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dateTime">Date & Time</label>
+                            <input type="datetime-local" id="dateTime" value="2025-11-01T17:42">
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Duration (minutes)</label>
+                            <input type="number" id="duration" placeholder="30" value="30">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="conductedBy">Conducted by</label>
+                            <input type="text" id="conductedBy" placeholder="Name (HSE/Supervisor/Trainer)">
+                        </div>
+                        <div class="form-group">
+                            <label for="language">Language</label>
+                            <select id="language">
+                                <option value="english" selected>English</option>
+                                <option value="hindi">Hindi</option>
+                                <option value="bilingual">Bilingual</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="objectives">Objectives (optional)</label>
+                        <textarea id="objectives" placeholder="Key learning outcomes..."></textarea>
+                    </div>
+                </div>
+
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count" id="totalAttendees">0</div>
+                        <div>Total Attendees</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="presentCount">0</div>
+                        <div>Present</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="absentCount">0</div>
+                        <div>Absent</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Attendees List</h2>
+                    <div class="dynamic-list">
+                        <table class="attendees-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Designation</th>
+                                    <th>Company</th>
+                                    <th>Emp ID (opt.)</th>
+                                    <th>Present?</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendeesList">
+                                <tr>
+                                    <td><input type="text" placeholder="Name"></td>
+                                    <td><input type="text" placeholder="Designation"></td>
+                                    <td><input type="text" placeholder="Company"></td>
+                                    <td><input type="text" placeholder="Emp ID"></td>
+                                    <td style="text-align: center;">
+                                        <input type="checkbox" class="present-checkbox" checked>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button class="remove-btn">×</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="add-btn" id="addAttendee">Add Attendee</button>
+                </div>
+
+                <div class="form-section">
+                    <h2>Training Notes</h2>
+                    <div class="form-group">
+                        <textarea id="trainingNotes" placeholder="Training highlights, observations, follow-up actions, references..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="previewView" class="hidden">
+                <div class="preview-section">
+                    <h2>Training Attendance Sheet Preview</h2>
+                    <div class="header-controls">
+                        <button id="backToFormBtn" class="btn-primary">Back to Form</button>
+                        <button id="downloadFromPreviewBtn" class="btn-success">Download PDF</button>
+                    </div>
+                    <div id="previewContent"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Translation data
+        const translations = {
+            en: {
+                title: "Training Attendance Sheet Generator",
+                subtitle: "Track training sessions and participant attendance",
+                trainingTitle: "Training Title",
+                projectSite: "Project / Site",
+                dateTime: "Date & Time",
+                duration: "Duration (minutes)",
+                conductedBy: "Conducted by",
+                language: "Language",
+                objectives: "Objectives (optional)",
+                attendeesList: "Attendees List",
+                trainingNotes: "Training Notes",
+                name: "Name",
+                designation: "Designation",
+                company: "Company",
+                empId: "Emp ID (opt.)",
+                present: "Present?",
+                action: "Action",
+                addAttendee: "Add Attendee",
+                totalAttendees: "Total Attendees",
+                presentCount: "Present",
+                absentCount: "Absent",
+                preview: "Preview",
+                downloadPDF: "Download PDF",
+                reset: "Reset",
+                backToForm: "Back to Form",
+                remove: "Remove",
+                trainingAttendanceSheet: "Training Attendance Sheet",
+                sessionDetails: "Training Session Details",
+                attendeesRoster: "Attendees Roster",
+                signature: "Signature",
+                noAttendees: "No attendees added",
+                generatedOn: "Generated on",
+                generatedBy: "Generated by The HSE Tools - Training Attendance Sheet",
+                presentStatus: "Present",
+                absentStatus: "Absent"
+            },
+            hi: {
+                title: "प्रशिक्षण उपस्थिति पत्र जनरेटर",
+                subtitle: "प्रशिक्षण सत्रों और प्रतिभागी उपस्थिति को ट्रैक करें",
+                trainingTitle: "प्रशिक्षण शीर्षक",
+                projectSite: "परियोजना / साइट",
+                dateTime: "दिनांक और समय",
+                duration: "अवधि (मिनट)",
+                conductedBy: "द्वारा आयोजित",
+                language: "भाषा",
+                objectives: "उद्देश्य (वैकल्पिक)",
+                attendeesList: "उपस्थित लोगों की सूची",
+                trainingNotes: "प्रशिक्षण नोट्स",
+                name: "नाम",
+                designation: "पदनाम",
+                company: "कंपनी",
+                empId: "कर्मचारी आईडी (वैकल्पिक)",
+                present: "उपस्थित?",
+                action: "कार्रवाई",
+                addAttendee: "उपस्थिति जोड़ें",
+                totalAttendees: "कुल उपस्थित",
+                presentCount: "उपस्थित",
+                absentCount: "अनुपस्थित",
+                preview: "पूर्वावलोकन",
+                downloadPDF: "PDF डाउनलोड करें",
+                reset: "रीसेट",
+                backToForm: "फॉर्म पर वापस जाएं",
+                remove: "हटाएं",
+                trainingAttendanceSheet: "प्रशिक्षण उपस्थिति पत्र",
+                sessionDetails: "प्रशिक्षण सत्र विवरण",
+                attendeesRoster: "उपस्थित लोगों की सूची",
+                signature: "हस्ताक्षर",
+                noAttendees: "कोई उपस्थिति जोड़ी नहीं गई",
+                generatedOn: "पर जनरेट किया गया",
+                generatedBy: "द एचएसई टूल्स - प्रशिक्षण उपस्थिति पत्र द्वारा जनरेट किया गया",
+                presentStatus: "उपस्थित",
+                absentStatus: "अनुपस्थित"
+            }
+        };
+
+        // State management
+        let state = {
+            isHindi: false,
+            isDarkMode: false
+        };
+
+        // Initialize the application
+        function init() {
+            setupEventListeners();
+            updateSummary();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mode and language toggles
+            document.getElementById('translateBtn').addEventListener('click', toggleLanguage);
+            document.getElementById('darkModeBtn').addEventListener('click', toggleDarkMode);
+            
+            // Main buttons
+            document.getElementById('previewBtn').addEventListener('click', showPreview);
+            document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+            document.getElementById('resetBtn').addEventListener('click', resetForm);
+            
+            // Preview buttons
+            document.getElementById('backToFormBtn').addEventListener('click', backToForm);
+            document.getElementById('downloadFromPreviewBtn').addEventListener('click', downloadPDF);
+            
+            // Dynamic list management
+            document.getElementById('addAttendee').addEventListener('click', addAttendee);
+            
+            // Present checkbox changes
+            document.addEventListener('change', function(e) {
+                if (e.target.classList.contains('present-checkbox')) {
+                    updateSummary();
+                }
+            });
+            
+            // Delegated event listeners for dynamic elements
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('remove-btn')) {
+                    e.target.closest('tr').remove();
+                    updateSummary();
+                }
+            });
+        }
+
+        // Add attendee row
+        function addAttendee() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            const attendeesList = document.getElementById('attendeesList');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" placeholder="${lang.name}"></td>
+                <td><input type="text" placeholder="${lang.designation}"></td>
+                <td><input type="text" placeholder="${lang.company}"></td>
+                <td><input type="text" placeholder="${lang.empId}"></td>
+                <td style="text-align: center;">
+                    <input type="checkbox" class="present-checkbox" checked>
+                </td>
+                <td style="text-align: center;">
+                    <button class="remove-btn">×</button>
+                </td>
+            `;
+            attendeesList.appendChild(newRow);
+            updateSummary();
+        }
+
+        // Update summary counts
+        function updateSummary() {
+            const rows = document.querySelectorAll('#attendeesList tr');
+            let presentCount = 0;
+            
+            rows.forEach(row => {
+                const checkbox = row.querySelector('.present-checkbox');
+                if (checkbox && checkbox.checked) {
+                    presentCount++;
+                }
+            });
+            
+            const totalAttendees = rows.length;
+            const absentCount = totalAttendees - presentCount;
+            
+            document.getElementById('totalAttendees').textContent = totalAttendees;
+            document.getElementById('presentCount').textContent = presentCount;
+            document.getElementById('absentCount').textContent = absentCount;
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            state.isHindi = !state.isHindi;
+            const btn = document.getElementById('translateBtn');
+            btn.querySelector('.lang-text').textContent = state.isHindi ? 'English' : 'हिंदी';
+            
+            // Update all text content
+            updateLanguage();
+        }
+
+        // Update all text content based on current language
+        function updateLanguage() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Update header
+            document.querySelector('h1').textContent = lang.title;
+            document.querySelector('header p').textContent = lang.subtitle;
+            
+            // Update form labels
+            document.querySelector('label[for="trainingTitle"]').textContent = lang.trainingTitle;
+            document.querySelector('label[for="projectSite"]').textContent = lang.projectSite;
+            document.querySelector('label[for="dateTime"]').textContent = lang.dateTime;
+            document.querySelector('label[for="duration"]').textContent = lang.duration;
+            document.querySelector('label[for="conductedBy"]').textContent = lang.conductedBy;
+            document.querySelector('label[for="language"]').textContent = lang.language;
+            document.querySelector('label[for="objectives"]').textContent = lang.objectives;
+            document.querySelector('label[for="trainingNotes"]').textContent = lang.trainingNotes;
+            
+            // Update section headers
+            document.querySelectorAll('.form-section h2')[0].textContent = lang.sessionDetails;
+            document.querySelectorAll('.form-section h2')[1].textContent = lang.attendeesList;
+            document.querySelectorAll('.form-section h2')[2].textContent = lang.trainingNotes;
+            
+            // Update buttons
+            document.getElementById('previewBtn').textContent = lang.preview;
+            document.getElementById('downloadBtn').textContent = lang.downloadPDF;
+            document.getElementById('resetBtn').textContent = lang.reset;
+            document.getElementById('backToFormBtn').textContent = lang.backToForm;
+            document.getElementById('downloadFromPreviewBtn').textContent = lang.downloadPDF;
+            document.getElementById('addAttendee').textContent = lang.addAttendee;
+            
+            // Update placeholders
+            document.getElementById('trainingTitle').placeholder = lang.trainingTitle;
+            document.getElementById('projectSite').placeholder = lang.projectSite;
+            document.getElementById('conductedBy').placeholder = lang.conductedBy;
+            document.getElementById('objectives').placeholder = lang.objectives;
+            document.getElementById('trainingNotes').placeholder = lang.trainingNotes;
+            
+            // Update table headers
+            const tableHeaders = document.querySelectorAll('.attendees-table th');
+            if (tableHeaders.length >= 6) {
+                tableHeaders[0].textContent = lang.name;
+                tableHeaders[1].textContent = lang.designation;
+                tableHeaders[2].textContent = lang.company;
+                tableHeaders[3].textContent = lang.empId;
+                tableHeaders[4].textContent = lang.present;
+                tableHeaders[5].textContent = lang.action;
+            }
+            
+            // Update input placeholders in table
+            document.querySelectorAll('#attendeesList input[type="text"]').forEach((input, index) => {
+                const placeholders = [lang.name, lang.designation, lang.company, lang.empId];
+                const placeholderIndex = index % 4;
+                if (placeholders[placeholderIndex]) {
+                    input.placeholder = placeholders[placeholderIndex];
+                }
+            });
+            
+            // Update summary labels
+            document.querySelectorAll('.summary-item div:last-child')[0].textContent = lang.totalAttendees;
+            document.querySelectorAll('.summary-item div:last-child')[1].textContent = lang.presentCount;
+            document.querySelectorAll('.summary-item div:last-child')[2].textContent = lang.absentCount;
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.isDarkMode = !state.isDarkMode;
+            const btn = document.getElementById('darkModeBtn');
+            
+            if (state.isDarkMode) {
+                document.body.classList.add('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Light Mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Dark Mode';
+            }
+        }
+
+        // Show preview
+        function showPreview() {
+            document.getElementById('formView').classList.add('hidden');
+            document.getElementById('previewView').classList.remove('hidden');
+            
+            generatePreviewContent();
+        }
+
+        // Back to form
+        function backToForm() {
+            document.getElementById('formView').classList.remove('hidden');
+            document.getElementById('previewView').classList.add('hidden');
+        }
+
+        // Generate preview content
+        function generatePreviewContent() {
+            const previewContent = document.getElementById('previewContent');
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Get form values
+            const trainingTitle = document.getElementById('trainingTitle').value || '—';
+            const projectSite = document.getElementById('projectSite').value || '—';
+            const dateTime = document.getElementById('dateTime').value || '—';
+            const duration = document.getElementById('duration').value || '—';
+            const conductedBy = document.getElementById('conductedBy').value || '—';
+            const language = document.getElementById('language').value || '—';
+            const objectives = document.getElementById('objectives').value || '—';
+            const trainingNotes = document.getElementById('trainingNotes').value || '—';
+            
+            // Get attendees
+            const attendees = [];
+            document.querySelectorAll('#attendeesList tr').forEach(row => {
+                const inputs = row.querySelectorAll('input[type="text"]');
+                const checkbox = row.querySelector('.present-checkbox');
+                
+                if (inputs[0].value || inputs[1].value || inputs[2].value) {
+                    attendees.push({
+                        name: inputs[0].value || '—',
+                        designation: inputs[1].value || '—',
+                        company: inputs[2].value || '—',
+                        empId: inputs[3].value || '—',
+                        present: checkbox ? checkbox.checked : false
+                    });
+                }
+            });
+            
+            // Calculate summary
+            const totalAttendees = attendees.length;
+            const presentCount = attendees.filter(a => a.present).length;
+            const absentCount = totalAttendees - presentCount;
+            
+            // Build preview HTML
+            let html = `
+                <div class="form-section">
+                    <h2>${lang.trainingAttendanceSheet}</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.trainingTitle}:</label>
+                            <p>${trainingTitle}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.projectSite}:</label>
+                            <p>${projectSite}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.dateTime}:</label>
+                            <p>${formatDateTime(dateTime)}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.duration}:</label>
+                            <p>${duration} minutes</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.conductedBy}:</label>
+                            <p>${conductedBy}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.language}:</label>
+                            <p>${language}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>${lang.objectives}:</label>
+                        <p>${objectives}</p>
+                    </div>
+                </div>
+                
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count">${totalAttendees}</div>
+                        <div>${lang.totalAttendees}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${presentCount}</div>
+                        <div>${lang.presentCount}</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count">${absentCount}</div>
+                        <div>${lang.absentCount}</div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.attendeesRoster}</h2>
+                    ${attendees.length > 0 ? `
+                        <table class="preview-table">
+                            <thead>
+                                <tr>
+                                    <th>${lang.name}</th>
+                                    <th>${lang.designation}</th>
+                                    <th>${lang.company}</th>
+                                    <th>${lang.empId}</th>
+                                    <th>${lang.present}</th>
+                                    <th>${lang.signature}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${attendees.map(attendee => `
+                                    <tr>
+                                        <td>${attendee.name}</td>
+                                        <td>${attendee.designation}</td>
+                                        <td>${attendee.company}</td>
+                                        <td>${attendee.empId}</td>
+                                        <td class="${attendee.present ? 'status-present' : 'status-absent'}">
+                                            ${attendee.present ? lang.presentStatus : lang.absentStatus}
+                                        </td>
+                                        <td style="height: 40px;"></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    ` : `<p>${lang.noAttendees}</p>`}
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.trainingNotes}</h2>
+                    <p>${trainingNotes}</p>
+                </div>
+                
+                <div class="form-section">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            previewContent.innerHTML = html;
+        }
+
+        // Format date time for display
+        function formatDateTime(dateTimeString) {
+            if (!dateTimeString) return '—';
+            
+            const date = new Date(dateTimeString);
+            return date.toLocaleString();
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            // Show loading indicator
+            const originalText = document.querySelector('#downloadBtn').innerHTML;
+            document.querySelector('#downloadBtn').innerHTML = 'Generating PDF...';
+            document.querySelector('#downloadBtn').disabled = true;
+            
+            // Use html2canvas and jsPDF to generate PDF
+            generatePDF().then(() => {
+                // Restore button text
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            });
+        }
+
+        // Generate PDF using html2canvas and jsPDF
+        async function generatePDF() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Create a temporary element for PDF generation
+            const pdfElement = document.createElement('div');
+            pdfElement.style.width = '210mm';
+            pdfElement.style.padding = '20px';
+            pdfElement.style.backgroundColor = 'white';
+            pdfElement.style.color = 'black';
+            pdfElement.style.fontFamily = 'Arial, sans-serif';
+            
+            // Get form values
+            const trainingTitle = document.getElementById('trainingTitle').value || '—';
+            const projectSite = document.getElementById('projectSite').value || '—';
+            const dateTime = document.getElementById('dateTime').value || '—';
+            const duration = document.getElementById('duration').value || '—';
+            const conductedBy = document.getElementById('conductedBy').value || '—';
+            const language = document.getElementById('language').value || '—';
+            const objectives = document.getElementById('objectives').value || '—';
+            const trainingNotes = document.getElementById('trainingNotes').value || '—';
+            
+            // Get attendees
+            const attendees = [];
+            document.querySelectorAll('#attendeesList tr').forEach(row => {
+                const inputs = row.querySelectorAll('input[type="text"]');
+                const checkbox = row.querySelector('.present-checkbox');
+                
+                if (inputs[0].value || inputs[1].value || inputs[2].value) {
+                    attendees.push({
+                        name: inputs[0].value || '—',
+                        designation: inputs[1].value || '—',
+                        company: inputs[2].value || '—',
+                        empId: inputs[3].value || '—',
+                        present: checkbox ? checkbox.checked : false
+                    });
+                }
+            });
+            
+            // Calculate summary
+            const totalAttendees = attendees.length;
+            const presentCount = attendees.filter(a => a.present).length;
+            const absentCount = totalAttendees - presentCount;
+            
+            // Build PDF content
+            let html = `
+                <h1 style="text-align: center; color: #2c3e50; margin-bottom: 10px;">${lang.trainingAttendanceSheet}</h1>
+                <p style="text-align: center; margin-bottom: 20px;">${lang.subtitle}</p>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.sessionDetails}</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.trainingTitle}:</strong> ${trainingTitle}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.projectSite}:</strong> ${projectSite}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.dateTime}:</strong> ${formatDateTime(dateTime)}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.duration}:</strong> ${duration} minutes</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.conductedBy}:</strong> ${conductedBy}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.language}:</strong> ${language}</td>
+                        </tr>
+                    </table>
+                    <div style="margin-bottom: 10px;"><strong>${lang.objectives}:</strong></div>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 40px; border-radius: 4px;">${objectives}</div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-around; background-color: #2c3e50; color: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${totalAttendees}</div>
+                        <div>${lang.totalAttendees}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${presentCount}</div>
+                        <div>${lang.presentCount}</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: bold;">${absentCount}</div>
+                        <div>${lang.absentCount}</div>
+                    </div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.attendeesRoster}</h2>
+                    ${attendees.length > 0 ? `
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="background-color: #2c3e50; color: white;">
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.name}</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.designation}</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.company}</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.empId}</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.present}</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: left;">${lang.signature}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${attendees.map(attendee => `
+                                    <tr>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">${attendee.name}</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">${attendee.designation}</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">${attendee.company}</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px;">${attendee.empId}</td>
+                                        <td style="border: 1px solid #ddd; padding: 8px; color: ${attendee.present ? '#27ae60' : '#e74c3c'}; font-weight: bold;">
+                                            ${attendee.present ? lang.presentStatus : lang.absentStatus}
+                                        </td>
+                                        <td style="border: 1px solid #ddd; padding: 8px; height: 40px;"></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    ` : `<p>${lang.noAttendees}</p>`}
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.trainingNotes}</h2>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px;">${trainingNotes}</div>
+                </div>
+                
+                <div style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 20px; font-size: 12px; color: #666;">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            pdfElement.innerHTML = html;
+            document.body.appendChild(pdfElement);
+            
+            try {
+                // Use html2canvas to capture the content
+                const canvas = await html2canvas(pdfElement, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                });
+                
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Add image to PDF
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add new pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Download PDF
+                const fileName = `Training_Attendance_${trainingTitle.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+            } finally {
+                // Clean up
+                document.body.removeChild(pdfElement);
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                // Reset form fields
+                document.getElementById('trainingTitle').value = '';
+                document.getElementById('projectSite').value = '';
+                document.getElementById('dateTime').value = '2025-11-01T17:42';
+                document.getElementById('duration').value = '30';
+                document.getElementById('conductedBy').value = '';
+                document.getElementById('language').value = 'english';
+                document.getElementById('objectives').value = '';
+                document.getElementById('trainingNotes').value = '';
+                
+                // Reset attendees
+                const attendeesList = document.getElementById('attendeesList');
+                attendeesList.innerHTML = `
+                    <tr>
+                        <td><input type="text" placeholder="${lang.name}"></td>
+                        <td><input type="text" placeholder="${lang.designation}"></td>
+                        <td><input type="text" placeholder="${lang.company}"></td>
+                        <td><input type="text" placeholder="${lang.empId}"></td>
+                        <td style="text-align: center;">
+                            <input type="checkbox" class="present-checkbox" checked>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="remove-btn">×</button>
+                        </td>
+                    </tr>
+                `;
+                
+                // Update summary
+                updateSummary();
+                
+                // If in preview, go back to form
+                if (!document.getElementById('previewView').classList.contains('hidden')) {
+                    backToForm();
+                }
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

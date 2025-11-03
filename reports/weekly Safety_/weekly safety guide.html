@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Weekly Safety Report Generator - Create professional weekly safety reports with KPI tracking, trends analysis, and PDF export functionality.">
+    <meta name="keywords" content="weekly safety report, HSE, safety generator, KPI tracking, workplace safety, safety trends">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Weekly Safety Report Generator - Complete Guide">
+    <meta property="og:description" content="Create professional weekly safety reports with KPI tracking, trends analysis, and PDF export functionality.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/weekly-safety-report.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Weekly Safety Report Generator">
+    <meta name="twitter:description" content="Create professional weekly safety reports with KPI tracking">
+    
+    <title>Weekly Safety Report Generator - Complete Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero Section */
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #1e40af;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: var(--font-semibold);
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--white-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--white-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #d97706;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 40px 0;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Checklist Grid */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .checklist-item {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .checklist-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .checklist-item:hover::before {
+            opacity: 1;
+        }
+
+        .checklist-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(96, 165, 250, 0.4);
+        }
+
+        .tool-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+            color: var(--white-color);
+        }
+
+        .tool-content {
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tool-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: var(--font-semibold);
+        }
+
+        .tool-content p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            font-size: var(--normal-font-size);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.03);
+        }
+
+        [data-theme="light"] tr:nth-child(even) {
+            background-color: rgba(0,0,0,0.05);
+        }
+
+        /* Example Applications */
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .example-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid var(--info-color);
+            transition: all 0.3s ease;
+        }
+
+        .example-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mistakes Grid */
+        .mistakes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .mistake-item {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--danger-color);
+            transition: all 0.3s ease;
+        }
+
+        .mistake-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mistakes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+        }
+
+        /* Additional styles for Weekly Safety Report page */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .note-box {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--warning-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background-color: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--info-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .kpi-card {
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .kpi-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: var(--bg-tertiary);
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success-color);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="footer\about.html"><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="hero-badge">
+                <i class="fas fa-certificate"></i> <span data-en="Strategic Safety Performance Overview" data-hi="रणनीतिक सुरक्षा प्रदर्शन अवलोकन">Strategic Safety Performance Overview</span>
+            </div>
+            <h1 data-en="Weekly Safety Report Generator" data-hi="साप्ताहिक सुरक्षा रिपोर्ट जनरेटर">Weekly Safety Report Generator</h1>
+            <p data-en="Track safety trends, KPIs, and performance metrics with comprehensive weekly reports. Ensure compliance with OSHA, ISO 45001, ILO standards, and local HSE regulations." 
+               data-hi="व्यापक साप्ताहिक रिपोर्टों के साथ सुरक्षा रुझानों, केपीआई और प्रदर्शन मेट्रिक्स को ट्रैक करें। OSHA, ISO 45001, ILO मानकों और स्थानीय HSE विनियमों के साथ अनुपालन सुनिश्चित करें।">
+                Track safety trends, KPIs, and performance metrics with comprehensive weekly reports. Ensure compliance with OSHA, ISO 45001, ILO standards, and local HSE regulations.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+                <button class="btn" style="background: rgba(255,255,255,0.2); color: white; border-color: white;">
+                    <i class="fas fa-eye"></i> <span data-en="Preview Dashboard" data-hi="डैशबोर्ड पूर्वावलोकन">Preview Dashboard</span>
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-download"></i> <span data-en="Download PDF Report" data-hi="PDF रिपोर्ट डाउनलोड करें">Download PDF Report</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats Section -->
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">5min</span>
+                <span class="stat-label" data-en="Report Generation" data-hi="रिपोर्ट जनरेशन">Report Generation</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">100%</span>
+                <span class="stat-label" data-en="Compliance Ready" data-hi="अनुपालन तैयार">Compliance Ready</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label" data-en="Trend Analysis" data-hi="ट्रेंड विश्लेषण">Trend Analysis</span>
+            </div>
+        </div>
+
+        <!-- What Is a Weekly Safety Report? -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-chart-bar"></i> <span data-en="What Is a Weekly Safety Report?" data-hi="साप्ताहिक सुरक्षा रिपोर्ट क्या है?">What Is a Weekly Safety Report?</span></h2>
+                <p data-en="In every workplace, safety is not just a daily responsibility—it's a weekly performance indicator. While daily reports capture immediate hazards, the Weekly Safety Report summarizes trends, inspections, incidents, and actions across multiple days, providing a strategic overview for managers and safety officers." 
+                   data-hi="हर कार्यस्थल में, सुरक्षा केवल एक दैनिक जिम्मेदारी नहीं है—यह एक साप्ताहिक प्रदर्शन संकेतक है। जबकि दैनिक रिपोर्टें तत्काल खतरों को कैप्चर करती हैं, साप्ताहिक सुरक्षा रिपोर्ट कई दिनों में रुझानों, निरीक्षणों, घटनाओं और कार्यों को सारांशित करती है, जो प्रबंधकों और सुरक्षा अधिकारियों के लिए एक रणनीतिक अवलोकन प्रदान करती है।">
+                    In every workplace, safety is not just a daily responsibility—it's a weekly performance indicator. While daily reports capture immediate hazards, the Weekly Safety Report summarizes trends, inspections, incidents, and actions across multiple days, providing a strategic overview for managers and safety officers.
+                </p>
+                
+                <div class="highlight-box">
+                    <p data-en="With this, supervisors can track KPIs (hours, headcount, toolbox talks, inspections, incidents, CAPA progress) and plan for continuous improvement. It also provides documented proof of compliance with OSHA, ISO 45001, ILO standards, and local HSE regulations." 
+                       data-hi="इसके साथ, पर्यवेक्षक केपीआई (घंटे, हेडकाउंट, टूलबॉक्स टॉक, निरीक्षण, घटनाएं, CAPA प्रगति) को ट्रैक कर सकते हैं और निरंतर सुधार की योजना बना सकते हैं। यह OSHA, ISO 45001, ILO मानकों और स्थानीय HSE विनियमों के साथ अनुपालन का दस्तावेजी प्रमाण भी प्रदान करता है।">
+                        With this, supervisors can track KPIs (hours, headcount, toolbox talks, inspections, incidents, CAPA progress) and plan for continuous improvement. It also provides documented proof of compliance with OSHA, ISO 45001, ILO standards, and local HSE regulations.
+                    </p>
+                </div>
+                
+                <p data-en="A Weekly Safety Report consolidates all safety activities and performance data from the week into one structured summary. It typically includes:" 
+                   data-hi="एक साप्ताहिक सुरक्षा रिपोर्ट सप्ताह की सभी सुरक्षा गतिविधियों और प्रदर्शन डेटा को एक संरचित सारांश में समेकित करती है। इसमें आम तौर पर शामिल हैं:">
+                    A Weekly Safety Report consolidates all safety activities and performance data from the week into one structured summary. It typically includes:
+                </p>
+                <ul>
+                    <li data-en="Work duration: Total hours worked and average headcount" data-hi="कार्य अवधि: कुल काम किए गए घंटे और औसत हेडकाउंट">Work duration: Total hours worked and average headcount</li>
+                    <li data-en="Engagement: Toolbox talks (TBT) conducted" data-hi="सगाई: आयोजित टूलबॉक्स टॉक (TBT)">Engagement: Toolbox talks (TBT) conducted</li>
+                    <li data-en="Oversight: Inspections completed and their findings" data-hi="पर्यवेक्षण: पूर्ण निरीक्षण और उनके निष्कर्ष">Oversight: Inspections completed and their findings</li>
+                    <li data-en="Performance: Incidents, near misses, and CAPA closure status" data-hi="प्रदर्शन: घटनाएं, नियर मिसेज और CAPA समापन स्थिति">Performance: Incidents, near misses, and CAPA closure status</li>
+                    <li data-en="Planning: Highlights achieved and next week's action plan" data-hi="योजना: प्राप्त की गई हाइलाइट्स और अगले सप्ताह की कार्य योजना">Planning: Highlights achieved and next week's action plan</li>
+                </ul>
+                
+                <div class="note-box">
+                    <p><strong data-en="Note:" data-hi="नोट:">Note:</strong> <span data-en="Weekly reports are trend-focused, complementing daily reports and Job Safety Analysis (JSA)." data-hi="साप्ताहिक रिपोर्टें ट्रेंड-केंद्रित होती हैं, दैनिक रिपोर्टों और जॉब सेफ्टी एनालिसिस (JSA) को पूरक करती हैं।">Weekly reports are trend-focused, complementing daily reports and Job Safety Analysis (JSA).</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Components -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-list-alt"></i> <span data-en="Key Components of a Weekly Safety Report" data-hi="साप्ताहिक सुरक्षा रिपोर्ट के प्रमुख घटक">Key Components of a Weekly Safety Report</span></h2>
+                
+                <div class="checklist-grid">
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-calendar-week"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-calendar-week" style="color: var(--info-color);"></i> <span data-en="Timeframe" data-hi="समय सीमा">Timeframe</span></h3>
+                            <ul>
+                                <li data-en="Week start and end dates" data-hi="सप्ताह की शुरुआत और समाप्ति तिथियां">Week start and end dates</li>
+                                <li data-en="Clear period identification" data-hi="स्पष्ट अवधि पहचान">Clear period identification</li>
+                                <li data-en="Reporting cycle definition" data-hi="रिपोर्टिंग चक्र परिभाषा">Reporting cycle definition</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-chart-pie"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-chart-pie" style="color: var(--success-color);"></i> <span data-en="KPIs" data-hi="केपीआई">KPIs</span></h3>
+                            <ul>
+                                <li data-en="Total hours worked" data-hi="कुल काम किए गए घंटे">Total hours worked</li>
+                                <li data-en="Average headcount" data-hi="औसत हेडकाउंट">Average headcount</li>
+                                <li data-en="Toolbox talks conducted" data-hi="आयोजित टूलबॉक्स टॉक">Toolbox talks conducted</li>
+                                <li data-en="Inspections completed" data-hi="पूर्ण निरीक्षण">Inspections completed</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-clipboard-check" style="color: var(--warning-color);"></i> <span data-en="Findings & CAPA" data-hi="निष्कर्ष और CAPA">Findings & CAPA</span></h3>
+                            <ul>
+                                <li data-en="Progress on corrective actions" data-hi="सुधारात्मक कार्यों पर प्रगति">Progress on corrective actions</li>
+                                <li data-en="Preventive measures status" data-hi="निवारक उपाय स्थिति">Preventive measures status</li>
+                                <li data-en="Closure rates and timelines" data-hi="समापन दरें और समयसीमा">Closure rates and timelines</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-exclamation-triangle" style="color: var(--danger-color);"></i> <span data-en="Incidents & Near Misses" data-hi="घटनाएं और नियर मिसेज">Incidents & Near Misses</span></h3>
+                            <ul>
+                                <li data-en="First Aid cases (FA)" data-hi="प्राथमिक चिकित्सा मामले (FA)">First Aid cases (FA)</li>
+                                <li data-en="Medical Treatment Injuries (MTI)" data-hi="चिकित्सा उपचार चोटें (MTI)">Medical Treatment Injuries (MTI)</li>
+                                <li data-en="Lost Time Injuries (LTI)" data-hi="खोया हुआ समय चोटें (LTI)">Lost Time Injuries (LTI)</li>
+                                <li data-en="Near Miss summaries" data-hi="नियर मिस सारांश">Near Miss summaries</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-bullseye"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-bullseye" style="color: var(--accent-color);"></i> <span data-en="Highlights & Plans" data-hi="हाइलाइट्स और योजनाएं">Highlights & Plans</span></h3>
+                            <ul>
+                                <li data-en="Weekly achievements" data-hi="साप्ताहिक उपलब्धियां">Weekly achievements</li>
+                                <li data-en="Upcoming initiatives" data-hi="आगामी पहल">Upcoming initiatives</li>
+                                <li data-en="Drills and audits scheduled" data-hi="निर्धारित ड्रिल और ऑडिट">Drills and audits scheduled</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-chart-line" style="color: var(--secondary-color);"></i> <span data-en="Trends / Charts" data-hi="रुझान / चार्ट">Trends / Charts</span></h3>
+                            <ul>
+                                <li data-en="Coverage metrics visualization" data-hi="कवरेज मेट्रिक्स विज़ुअलाइज़ेशन">Coverage metrics visualization</li>
+                                <li data-en="Performance trend analysis" data-hi="प्रदर्शन रुझान विश्लेषण">Performance trend analysis</li>
+                                <li data-en="Target vs actual comparison" data-hi="लक्ष्य बनाम वास्तविक तुलना">Target vs actual comparison</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Use -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-user-graduate"></i> <span data-en="How to Use the Weekly Safety Report Generator" data-hi="साप्ताहिक सुरक्षा रिपोर्ट जनरेटर का उपयोग कैसे करें">How to Use the Weekly Safety Report Generator</span></h2>
+                
+                <ol>
+                    <li data-en="Enter the Week Range: Select start and end dates for the reporting period." data-hi="सप्ताह सीमा दर्ज करें: रिपोर्टिंग अवधि के लिए प्रारंभ और समाप्ति तिथियां चुनें।">Enter the Week Range: Select start and end dates for the reporting period.</li>
+                    <li data-en="Fill in KPIs: Input hours worked, headcount, toolbox talks conducted, and inspections completed." data-hi="केपीआई भरें: काम किए गए घंटे, हेडकाउंट, आयोजित टूलबॉक्स टॉक और पूर्ण निरीक्षण इनपुट करें।">Fill in KPIs: Input hours worked, headcount, toolbox talks conducted, and inspections completed.</li>
+                    <li data-en="Summarize Safety Performance: Document CAPA progress, incidents, and weekly highlights." data-hi="सुरक्षा प्रदर्शन सारांशित करें: CAPA प्रगति, घटनाओं और साप्ताहिक हाइलाइट्स को दस्तावेज करें।">Summarize Safety Performance: Document CAPA progress, incidents, and weekly highlights.</li>
+                    <li data-en="Preview Live Dashboard: Check KPI tiles and progress bars for visual performance tracking." data-hi="लाइव डैशबोर्ड का पूर्वावलोकन करें: दृश्य प्रदर्शन ट्रैकिंग के लिए केपीआई टाइल्स और प्रगति बार जांचें।">Preview Live Dashboard: Check KPI tiles and progress bars for visual performance tracking.</li>
+                    <li data-en="Download PDF: Export as an A4-formatted, print-ready report for distribution." data-hi="पीडीएफ डाउनलोड करें: वितरण के लिए A4-स्वरूपित, प्रिंट-तैयार रिपोर्ट के रूप में निर्यात करें।">Download PDF: Export as an A4-formatted, print-ready report for distribution.</li>
+                    <li data-en="File Records: Maintain reports for compliance audits and management review." data-hi="फाइल रिकॉर्ड: अनुपालन ऑडिट और प्रबंधन समीक्षा के लिए रिपोर्ट बनाए रखें।">File Records: Maintain reports for compliance audits and management review.</li>
+                </ol>
+                
+                <div class="highlight-box">
+                    <p><strong data-en="Pro Tip:" data-hi="प्रो टिप:">Pro Tip:</strong> <span data-en="Use the built-in bar graphs to compare actual vs. target coverage (e.g., >1 TBT/day, =2 inspections/day)." data-hi="वास्तविक बनाम लक्ष्य कवरेज की तुलना करने के लिए अंतर्निहित बार ग्राफ का उपयोग करें (जैसे, >1 TBT/दिन, =2 निरीक्षण/दिन)।">Use the built-in bar graphs to compare actual vs. target coverage (e.g., >1 TBT/day, =2 inspections/day).</span></p>
+                </div>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-lightbulb"></i> <span data-en="Sample KPI Dashboard" data-hi="नमूना केपीआई डैशबोर्ड">Sample KPI Dashboard</span></h4>
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-value">5,600</div>
+                            <div class="kpi-label" data-en="Hours Worked" data-hi="काम किए गए घंटे">Hours Worked</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value">180</div>
+                            <div class="kpi-label" data-en="Avg. Headcount" data-hi="औसत हेडकाउंट">Avg. Headcount</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value">24</div>
+                            <div class="kpi-label" data-en="Toolbox Talks" data-hi="टूलबॉक्स टॉक">Toolbox Talks</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                            <div class="kpi-label" data-en="Target: 20" data-hi="लक्ष्य: 20">Target: 20</div>
+                        </div>
+                        <div class="kpi-card">
+                            <div class="kpi-value">18</div>
+                            <div class="kpi-label" data-en="Inspections" data-hi="निरीक्षण">Inspections</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            <div class="kpi-label" data-en="Target: 20" data-hi="लक्ष्य: 20">Target: 20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Example Usage -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-building"></i> <span data-en="Example Usage" data-hi="उदाहरण उपयोग">Example Usage</span></h2>
+                
+                <div class="example-item">
+                    <h4><i class="fas fa-hard-hat"></i> <span data-en="Construction Site" data-hi="निर्माण स्थल">Construction Site</span></h4>
+                    <ul>
+                        <li data-en="Hours: 5,600 | Avg. Headcount: 180" data-hi="घंटे: 5,600 | औसत हेडकाउंट: 180">Hours: 5,600 | Avg. Headcount: 180</li>
+                        <li data-en="Toolbox Talks: 24 (met target)" data-hi="टूलबॉक्स टॉक: 24 (लक्ष्य पूरा)">Toolbox Talks: 24 (met target)</li>
+                        <li data-en="Inspections: 18 (below target)" data-hi="निरीक्षण: 18 (लक्ष्य से कम)">Inspections: 18 (below target)</li>
+                        <li data-en="Action: Focus on more scaffold inspections next week" data-hi="कार्रवाई: अगले सप्ताह अधिक स्कैफोल्ड निरीक्षण पर ध्यान दें">Action: Focus on more scaffold inspections next week</li>
+                    </ul>
+                </div>
+                
+                <div class="example-item">
+                    <h4><i class="fas fa-industry"></i> <span data-en="Factory" data-hi="फैक्ट्री">Factory</span></h4>
+                    <ul>
+                        <li data-en="CAPA Findings: 12 (8 closed, 4 pending)" data-hi="CAPA निष्कर्ष: 12 (8 बंद, 4 लंबित)">CAPA Findings: 12 (8 closed, 4 pending)</li>
+                        <li data-en="Incidents: 1 FA case (finger cut), 0 LTI, 2 near misses" data-hi="घटनाएं: 1 FA मामला (उंगली कट), 0 LTI, 2 नियर मिस">Incidents: 1 FA case (finger cut), 0 LTI, 2 near misses</li>
+                        <li data-en="Action: Toolbox talk on guarding; replace damaged hoses" data-hi="कार्रवाई: गार्डिंग पर टूलबॉक्स टॉक; क्षतिग्रस्त होज़ बदलें">Action: Toolbox talk on guarding; replace damaged hoses</li>
+                    </ul>
+                </div>
+                
+                <div class="example-item">
+                    <h4><i class="fas fa-building"></i> <span data-en="Office / Corporate" data-hi="कार्यालय / कॉर्पोरेट">Office / Corporate</span></h4>
+                    <ul>
+                        <li data-en="Incidents: 0 incidents, strong housekeeping compliance" data-hi="घटनाएं: 0 घटनाएं, मजबूत हाउसकीपिंग अनुपालन">Incidents: 0 incidents, strong housekeeping compliance</li>
+                        <li data-en="Next Week: Fire drill + AED awareness training" data-hi="अगला सप्ताह: फायर ड्रिल + AED जागरूकता प्रशिक्षण">Next Week: Fire drill + AED awareness training</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Is a Weekly Safety Report Important? -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-exclamation-circle"></i> <span data-en="Why Is a Weekly Safety Report Important?" data-hi="साप्ताहिक सुरक्षा रिपोर्ट क्यों महत्वपूर्ण है?">Why Is a Weekly Safety Report Important?</span></h2>
+                
+                <ul>
+                    <li data-en="Tracks safety performance trends over time" data-hi="समय के साथ सुरक्षा प्रदर्शन रुझानों को ट्रैक करता है">Tracks safety performance trends over time</li>
+                    <li data-en="Provides data-driven insights for management decisions" data-hi="प्रबंधन निर्णयों के लिए डेटा-संचालित अंतर्दृष्टि प्रदान करता है">Provides data-driven insights for management decisions</li>
+                    <li data-en="Ensures legal and standards compliance documentation" data-hi="कानूनी और मानक अनुपालन दस्तावेज़ीकरण सुनिश्चित करता है">Ensures legal and standards compliance documentation</li>
+                    <li data-en="Identifies gaps in inspections and CAPA follow-up processes" data-hi="निरीक्षण और CAPA फॉलो-अप प्रक्रियाओं में अंतराल की पहचान करता है">Identifies gaps in inspections and CAPA follow-up processes</li>
+                    <li data-en="Enhances the overall safety culture through transparency" data-hi="पारदर्शिता के माध्यम से समग्र सुरक्षा संस्कृति को बढ़ाता है">Enhances the overall safety culture through transparency</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Real-World Applications -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-globe"></i> <span data-en="Real-World Applications" data-hi="वास्तविक दुनिया के अनुप्रयोग">Real-World Applications</span></h2>
+                
+                <div class="checklist-grid">
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-hard-hat"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-hard-hat" style="color: var(--info-color);"></i> <span data-en="Construction Projects" data-hi="निर्माण परियोजनाएं">Construction Projects</span></h3>
+                            <p data-en="Track weekly site safety performance, contractor compliance, and hazard trends across multiple work areas." data-hi="साप्ताहिक साइट सुरक्षा प्रदर्शन, ठेकेदार अनुपालन और कई कार्य क्षेत्रों में खतरा रुझानों को ट्रैक करें।">Track weekly site safety performance, contractor compliance, and hazard trends across multiple work areas.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-industry"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-industry" style="color: var(--success-color);"></i> <span data-en="Factories & Plants" data-hi="फैक्ट्रियां और प्लांट">Factories & Plants</span></h3>
+                            <p data-en="Monitor inspection frequencies, incident patterns, and CAPA closure rates in industrial settings." data-hi="औद्योगिक सेटिंग्स में निरीक्षण आवृत्तियों, घटना पैटर्न और CAPA समापन दरों की निगरानी करें।">Monitor inspection frequencies, incident patterns, and CAPA closure rates in industrial settings.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-building"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-building" style="color: var(--warning-color);"></i> <span data-en="Corporate Offices" data-hi="कॉर्पोरेट कार्यालय">Corporate Offices</span></h3>
+                            <p data-en="Review emergency drill effectiveness, welfare safety compliance, and ergonomic program progress." data-hi="आपातकालीन ड्रिल प्रभावशीलता, कल्याण सुरक्षा अनुपालन और एर्गोनोमिक कार्यक्रम प्रगति की समीक्षा करें।">Review emergency drill effectiveness, welfare safety compliance, and ergonomic program progress.</p>
+                        </div>
+                    </div>
+
+                    <div class="checklist-item">
+                        <div class="tool-icon"><i class="fas fa-oil-well"></i></div>
+                        <div class="tool-content">
+                            <h3><i class="fas fa-oil-well" style="color: var(--danger-color);"></i> <span data-en="Oil & Gas" data-hi="तेल और गैस">Oil & Gas</span></h3>
+                            <p data-en="Ensure weekly safety briefing consistency, compliance audit tracking, and high-risk activity monitoring." data-hi="साप्ताहिक सुरक्षा ब्रीफिंग स्थिरता, अनुपालन ऑडिट ट्रैकिंग और उच्च-जोखिम गतिविधि निगरानी सुनिश्चित करें।">Ensure weekly safety briefing consistency, compliance audit tracking, and high-risk activity monitoring.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Mistakes -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-exclamation-triangle"></i> <span data-en="Common Mistakes in Weekly Safety Reports" data-hi="साप्ताहिक सुरक्षा रिपोर्टों में सामान्य गलतियाँ">Common Mistakes in Weekly Safety Reports</span></h2>
+                
+                <div class="mistakes-grid">
+                    <div class="mistake-item">
+                        <h3><i class="fas fa-file-alt"></i> <span data-en="Treating as Paperwork" data-hi="कागजी कार्यवाही के रूप में मानना">Treating as Paperwork</span></h3>
+                        <p data-en="Viewing weekly reports as just administrative tasks rather than strategic tools." data-hi="साप्ताहिक रिपोर्टों को रणनीतिक उपकरणों के बजाय केवल प्रशासनिक कार्यों के रूप में देखना।">Viewing weekly reports as just administrative tasks rather than strategic tools.</p>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3><i class="fas fa-chart-bar"></i> <span data-en="Ignoring Targets" data-hi="लक्ष्यों को नजरअंदाज करना">Ignoring Targets</span></h3>
+                        <p data-en="Failing to compare performance against established safety targets and benchmarks." data_h="स्थापित सुरक्षा लक्ष्यों और बेंचमार्क के विरुद्ध प्रदर्शन की तुलना करने में विफल।">Failing to compare performance against established safety targets and benchmarks.</p>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3><i class="fas fa-tasks"></i> <span data-en="Missing CAPA Tracking" data_h="CAPA ट्रैकिंग गुम होना">Missing CAPA Tracking</span></h3>
+                        <p data-en="Not properly tracking corrective and preventive action closure progress." data_h="सुधारात्मक और निवारक कार्रवाई समापन प्रगति को ठीक से ट्रैक नहीं करना।">Not properly tracking corrective and preventive action closure progress.</p>
+                    </div>
+                    
+                    <div class="mistake-item">
+                        <h3><i class="fas fa-eye-slash"></i> <span data-en="Limited Reporting" data_h="सीमित रिपोर्टिंग">Limited Reporting</span></h3>
+                        <p data-en="Reporting only incidents while ignoring near misses or hazard observations." data_h="नियर मिस या खतरा अवलोकनों को नजरअंदाज करते हुए केवल घटनाओं की रिपोर्टिंग करना।">Reporting only incidents while ignoring near misses or hazard observations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Practices -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-star"></i> <span data-en="Best Practices for Weekly Safety Reporting" data_h="साप्ताहिक सुरक्षा रिपोर्टिंग के लिए सर्वोत्तम प्रथाएं">Best Practices for Weekly Safety Reporting</span></h2>
+                
+                <ul>
+                    <li data-en="Define clear KPI targets (e.g., >1 TBT/day, =2 inspections/day)" data_h="स्पष्ट केपीआई लक्ष्य परिभाषित करें (जैसे, >1 TBT/दिन, =2 निरीक्षण/दिन)">Define clear KPI targets (e.g., >1 TBT/day, =2 inspections/day)</li>
+                    <li data-en="Compare actual vs. target performance using visual progress indicators" data_h="दृश्य प्रगति संकेतकों का उपयोग करके वास्तविक बनाम लक्ष्य प्रदर्शन की तुलना करें">Compare actual vs. target performance using visual progress indicators</li>
+                    <li data-en="Include trend analysis and CAPA updates, not just numerical data" data_h="संख्यात्मक डेटा के अलावा रुझान विश्लेषण और CAPA अपडेट शामिल करें">Include trend analysis and CAPA updates, not just numerical data</li>
+                    <li data-en="Utilize digital tools with auto-PDF export for consistency and efficiency" data_h="स्थिरता और दक्षता के लिए ऑटो-पीडीएफ निर्यात के साथ डिजिटल टूल्स का उपयोग करें">Utilize digital tools with auto-PDF export for consistency and efficiency</li>
+                    <li data-en="Share reports with both management and workforce for transparency" data_h="पारदर्शिता के लिए प्रबंधन और कार्यबल दोनों के साथ रिपोर्ट साझा करें">Share reports with both management and workforce for transparency</li>
+                    <li data-en="Establish a regular review cycle for continuous improvement" data_h="निरंतर सुधार के लिए एक नियमित समीक्षा चक्र स्थापित करें">Establish a regular review cycle for continuous improvement</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Frequently Asked Questions" data_h="अक्सर पूछे जाने वाले प्रश्न">Frequently Asked Questions</span></h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Who prepares the weekly safety report?" data_h="साप्ताहिक सुरक्षा रिपोर्ट कौन तैयार करता है?">Who prepares the weekly safety report?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="Safety officers, site supervisors, or HSE managers typically prepare the weekly safety report, with input from various department heads." data_h="सुरक्षा अधिकारी, साइट पर्यवेक्षक, या HSE प्रबंधक आमतौर पर साप्ताहिक सुरक्षा रिपोर्ट तैयार करते हैं, जिसमें विभिन्न विभाग प्रमुखों का इनपुट होता है।">Safety officers, site supervisors, or HSE managers typically prepare the weekly safety report, with input from various department heads.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="What is the ideal length of a weekly safety report?" data_h="साप्ताहिक सुरक्षा रिपोर्ट की आदर्श लंबाई क्या है?">What is the ideal length of a weekly safety report?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="1-2 pages with focused KPIs, incident summaries, and CAPA progress updates—concise yet comprehensive for management review." data_h="1-2 पृष्ठ केंद्रित केपीआई, घटना सारांश और CAPA प्रगति अपडेट के साथ—प्रबंधन समीक्षा के लिए संक्षिप्त फिर भी व्यापक।">1-2 pages with focused KPIs, incident summaries, and CAPA progress updates—concise yet comprehensive for management review.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Can charts/visuals be included in weekly reports?" data_h="क्या साप्ताहिक रिपोर्टों में चार्ट/विज़ुअल शामिल किए जा सकते हैं?">Can charts/visuals be included in weekly reports?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="Yes, digital tools (like this generator) include progress bars, trend charts, and KPI visualizations for enhanced data comprehension." data_h="हां, डिजिटल टूल्स (इस जनरेटर की तरह) में बेहतर डेटा समझ के लिए प्रगति बार, रुझान चार्ट और केपीआई विज़ुअलाइज़ेशन शामिल हैं।">Yes, digital tools (like this generator) include progress bars, trend charts, and KPI visualizations for enhanced data comprehension.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span data-en="Is weekly safety reporting mandatory for all workplaces?" data_h="क्या साप्ताहिक सुरक्षा रिपोर्टिंग सभी कार्यस्थलों के लिए अनिवार्य है?">Is weekly safety reporting mandatory for all workplaces?</span>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p data-en="High-risk industries (construction, oil & gas) typically require it; offices may adapt simplified formats based on risk assessment." data_h="उच्च-जोखिम उद्योग (निर्माण, तेल और गैस) आमतौर पर इसकी आवश्यकता होती है; कार्यालय जोखिम मूल्यांकन के आधार पर सरलीकृत स्वरूपों को अपना सकते हैं।">High-risk industries (construction, oil & gas) typically require it; offices may adapt simplified formats based on risk assessment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Thoughts -->
+        <section>
+            <div class="content-card">
+                <h2><i class="fas fa-lightbulb"></i> <span data-en="Final Thoughts" data_h="अंतिम विचार">Final Thoughts</span></h2>
+                <p data-en="A Weekly Safety Report bridges the gap between daily updates and monthly management reviews. It highlights trends, performance, and compliance, ensuring accountability and continuous improvement." 
+                   data_h="एक साप्ताहिक सुरक्षा रिपोर्ट दैनिक अपडेट और मासिक प्रबंधन समीक्षाओं के बीच की खाई को पाटती है। यह रुझानों, प्रदर्शन और अनुपालन पर प्रकाश डालती है, जवाबदेही और निरंतर सुधार सुनिश्चित करती है।">
+                    A Weekly Safety Report bridges the gap between daily updates and monthly management reviews. It highlights trends, performance, and compliance, ensuring accountability and continuous improvement.
+                </p>
+                
+                <p data-en="By using our Weekly Safety Report Generator, you can:" data_h="हमारे साप्ताहिक सुरक्षा रिपोर्ट जनरेटर का उपयोग करके, आप कर सकते हैं:">By using our Weekly Safety Report Generator, you can:</p>
+                <ul>
+                    <li data-en="Input weekly data in minutes with intuitive forms" data_h="सहज फॉर्म के साथ मिनटों में साप्ताहिक डेटा इनपुट करें">Input weekly data in minutes with intuitive forms</li>
+                    <li data-en="Visualize coverage metrics instantly with interactive dashboards" data_h="इंटरैक्टिव डैशबोर्ड के साथ तुरंत कवरेज मेट्रिक्स विज़ुअलाइज़ करें">Visualize coverage metrics instantly with interactive dashboards</li>
+                    <li data-en="Export audit-ready PDF reports for compliance documentation" data_h="अनुपालन दस्तावेज़ीकरण के लिए ऑडिट-तैयार पीडीएफ रिपोर्ट निर्यात करें">Export audit-ready PDF reports for compliance documentation</li>
+                    <li data-en="Improve transparency and safety culture through regular reporting" data_h="नियमित रिपोर्टिंग के माध्यम से पारदर्शिता और सुरक्षा संस्कृति में सुधार करें">Improve transparency and safety culture through regular reporting</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <p><strong data-en="Pro Tip:" data_h="प्रो टिप:">Pro Tip:</strong> <span data-en="Always integrate weekly reports with Daily Safety Reports, JSA, and CAPA trackers for a complete safety framework that provides comprehensive visibility across all timeframes." data_h="सभी समय सीमाओं में व्यापक दृश्यता प्रदान करने वाले पूर्ण सुरक्षा ढांचे के लिए हमेशा साप्ताहिक रिपोर्टों को दैनिक सुरक्षा रिपोर्ट, JSA और CAPA ट्रैकर्स के साथ एकीकृत करें।">Always integrate weekly reports with Daily Safety Reports, JSA, and CAPA trackers for a complete safety framework that provides comprehensive visibility across all timeframes.</span></p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2025 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIRA Generator - Complete Guide | HSE Tools</title>
+    <meta name="description" content="Complete guide to Hazard Identification & Risk Assessment (HIRA) - Learn how to use our digital HIRA Generator for effective risk management.">
+    <meta name="keywords" content="HIRA, hazard identification, risk assessment, HSE tools, safety management, risk matrix, HIRA generator">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="HIRA Generator - Complete Guide | HSE Tools">
+    <meta property="og:description" content="Learn how to use our digital HIRA Generator for effective hazard identification and risk assessment">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://hsetools.vercel.app/hira-guide.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HIRA Generator - Complete Guide">
+    <meta name="twitter:description" content="Complete guide to Hazard Identification & Risk Assessment">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "HIRA Generator - Complete Guide",
+      "description": "Complete guide to Hazard Identification & Risk Assessment (HIRA)",
+      "author": {
+        "@type": "Person",
+        "name": "Shivshakti Sahani"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "HSE Tools",
+        "url": "https://hsetools.vercel.app"
+      },
+      "datePublished": "2024-12-01",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://hsetools.vercel.app/hira-guide.html"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            color: var(--accent-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 20px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
+        }
+
+        .content-card h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px;
+            font-weight: var(--font-semibold);
+        }
+
+        /* Content Styles */
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .content-section li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--success-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--warning-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-left: 4px solid var(--info-color);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .faq-question {
+            background-color: var(--bg-secondary);
+            padding: 15px 20px;
+            font-weight: var(--font-semibold);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .faq-question:hover {
+            background-color: var(--bg-tertiary);
+        }
+
+        .faq-answer {
+            background-color: var(--bg-primary);
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-answer.open {
+            padding: 15px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: transform 0.3s;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(96, 165, 250, 0.1);
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        /* Example Box */
+        .example-box {
+            background: linear-gradient(145deg, var(--bg-primary), var(--bg-secondary));
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid var(--bg-tertiary);
+        }
+
+        .example-title {
+            color: var(--accent-color);
+            font-weight: var(--font-semibold);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
+        }
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 10px 0;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="https://hsetools.vercel.app" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="footer/about.html"><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 data-en="HIRA Generator - Complete Guide" data-hi="HIRA जनरेटर - संपूर्ण गाइड">HIRA Generator - Complete Guide</h1>
+            <p data-en="Learn how to effectively identify hazards and assess risks" data-hi="जानें कैसे प्रभावी ढंग से खतरों की पहचान करें और जोखिमों का आकलन करें">Learn how to effectively identify hazards and assess risks</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Introduction -->
+        <div class="content-card">
+            <h2><i class="fas fa-info-circle" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="What is HIRA?" data-hi="HIRA क्या है?">What is HIRA?</span></h2>
+            <p data-en="In every industry or construction project, risks exist at every step. To manage them effectively, organizations rely on Hazard Identification & Risk Assessment (HIRA) — a systematic process to identify hazards, assess their severity and likelihood, and implement suitable controls." 
+               data-hi="हर उद्योग या निर्माण परियोजना में, हर कदम पर जोखिम मौजूद होते हैं। उन्हें प्रभावी ढंग से प्रबंधित करने के लिए, संगठन HIRA (खतरा पहचान और जोखिम मूल्यांकन) पर भरोसा करते हैं - खतरों की पहचान करने, उनकी गंभीरता और संभावना का आकलन करने और उपयुक्त नियंत्रण लागू करने की एक व्यवस्थित प्रक्रिया।">
+                In every industry or construction project, risks exist at every step. To manage them effectively, organizations rely on Hazard Identification & Risk Assessment (HIRA) — a systematic process to identify hazards, assess their severity and likelihood, and implement suitable controls.
+            </p>
+            
+            <div class="highlight-box">
+                <h3><i class="fas fa-lightbulb" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Digital HIRA Advantage" data-hi="डिजिटल HIRA लाभ">Digital HIRA Advantage</span></h3>
+                <p data-en="By using a digital HIRA Generator, you can streamline this process, auto-calculate risk scores, and export professional PDF reports for record keeping." 
+                   data-hi="डिजिटल HIRA जनरेटर का उपयोग करके, आप इस प्रक्रिया को सुव्यवस्थित कर सकते हैं, जोखिम स्कोर स्वचालित रूप से गणना कर सकते हैं, और रिकॉर्ड रखने के लिए पेशेवर PDF रिपोर्ट निर्यात कर सकते हैं।">
+                    By using a digital HIRA Generator, you can streamline this process, auto-calculate risk scores, and export professional PDF reports for record keeping.
+                </p>
+            </div>
+        </div>
+
+        <!-- HIRA Definition -->
+        <div class="content-card">
+            <h2><i class="fas fa-clipboard-list" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="HIRA Process Explained" data-hi="HIRA प्रक्रिया समझाई गई">HIRA Process Explained</span></h2>
+            
+            <div class="content-section">
+                <p data-en="HIRA is a structured process where each task/step is analyzed for potential hazards, and the risk level is determined using:" 
+                   data-hi="HIRA एक संरचित प्रक्रिया है जहां प्रत्येक कार्य/चरण का संभावित खतरों के लिए विश्लेषण किया जाता है, और जोखिम स्तर निम्नलिखित का उपयोग करके निर्धारित किया जाता है:">
+                    HIRA is a structured process where each task/step is analyzed for potential hazards, and the risk level is determined using:
+                </p>
+                <ul>
+                    <li data-en="Severity (S) — consequence of hazard if it occurs (1–5)" 
+                        data-hi="गंभीरता (S) — यदि खतरा होता है तो उसके परिणाम (1–5)">Severity (S) — consequence of hazard if it occurs (1–5)</li>
+                    <li data-en="Likelihood (L) — probability of occurrence (1–5)" 
+                        data-hi="संभावना (L) — घटित होने की संभावना (1–5)">Likelihood (L) — probability of occurrence (1–5)</li>
+                    <li data-en="Risk Rating (R) = S × L" 
+                        data-hi="जोखिम रेटिंग (R) = S × L">Risk Rating (R) = S × L</li>
+                    <li data-en="Risk Level — Classified as Low, Medium, High, or Extreme" 
+                        data-hi="जोखिम स्तर — निम्न, मध्यम, उच्च, या अत्यधिक के रूप में वर्गीकृत">Risk Level — Classified as Low, Medium, High, or Extreme</li>
+                </ul>
+                <p data-en="This ensures hazards are not overlooked and proper controls are planned." 
+                   data-hi="यह सुनिश्चित करता है कि खतरों की अनदेखी नहीं की जाती है और उचित नियंत्रण योजनाबद्ध हैं।">
+                    This ensures hazards are not overlooked and proper controls are planned.
+                </p>
+            </div>
+        </div>
+
+        <!-- Key Components -->
+        <div class="content-card">
+            <h2><i class="fas fa-cogs" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Key Components of a HIRA" data-hi="HIRA के मुख्य घटक">Key Components of a HIRA</span></h2>
+            
+            <div class="content-section">
+                <p data-en="A robust HIRA document typically includes:" 
+                   data-hi="एक मजबूत HIRA दस्तावेज़ में आम तौर पर शामिल होते हैं:">
+                    A robust HIRA document typically includes:
+                </p>
+                <ul>
+                    <li data-en="Project Meta Information — Site, activity, location, date, prepared/reviewed/approved by" 
+                        data-hi="परियोजना मेटा जानकारी — साइट, गतिविधि, स्थान, तारीख, तैयार/समीक्षित/अनुमोदित किया गया">Project Meta Information — Site, activity, location, date, prepared/reviewed/approved by</li>
+                    <li data-en="Risk Matrix — Severity and likelihood scoring system" 
+                        data-hi="जोखिम मैट्रिक्स — गंभीरता और संभावना स्कोरिंग प्रणाली">Risk Matrix — Severity and likelihood scoring system</li>
+                    <li data-en="Hazard Identification — Potential hazards like fall, fire, electrical shock, etc." 
+                        data-hi="खतरा पहचान — संभावित खतरे जैसे गिरना, आग, बिजली का झटका, आदि">Hazard Identification — Potential hazards like fall, fire, electrical shock, etc.</li>
+                    <li data-en="Existing Controls — PPE, engineering controls, administrative controls" 
+                        data-hi="मौजूदा नियंत्रण — पीपीई, इंजीनियरिंग नियंत्रण, प्रशासनिक नियंत्रण">Existing Controls — PPE, engineering controls, administrative controls</li>
+                    <li data-en="Additional Controls — Further measures required (training, equipment, supervision)" 
+                        data-hi="अतिरिक्त नियंत्रण — आवश्यक आगे के उपाय (प्रशिक्षण, उपकरण, पर्यवेक्षण)">Additional Controls — Further measures required (training, equipment, supervision)</li>
+                    <li data-en="Risk Level Classification — Low, Medium, High, Extreme" 
+                        data-hi="जोखिम स्तर वर्गीकरण — निम्न, मध्यम, उच्च, अत्यधिक">Risk Level Classification — Low, Medium, High, Extreme</li>
+                    <li data-en="Summary & Sign-off — Final approval with signatures" 
+                        data-hi="सारांश और हस्ताक्षर — हस्ताक्षर के साथ अंतिम अनुमोदन">Summary & Sign-off — Final approval with signatures</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- How to Use -->
+        <div class="content-card">
+            <h2><i class="fas fa-play-circle" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="How to Use the HIRA Generator" data-hi="HIRA जनरेटर का उपयोग कैसे करें">How to Use the HIRA Generator</span></h2>
+            
+            <div class="content-section">
+                <ol>
+                    <li data-en="Enter Project Meta — Fill site, activity, location, date, and responsible persons" 
+                        data-hi="परियोजना मेटा दर्ज करें — साइट, गतिविधि, स्थान, तारीख और जिम्मेदार व्यक्तियों को भरें">Enter Project Meta — Fill site, activity, location, date, and responsible persons</li>
+                    <li data-en="Add Tasks/Steps — Each item represents a specific activity (e.g., 'Scaffolding erection')" 
+                        data-hi="कार्य/चरण जोड़ें — प्रत्येक आइटम एक विशिष्ट गतिविधि का प्रतिनिधित्व करता है (जैसे, 'मचान स्थापना')">Add Tasks/Steps — Each item represents a specific activity (e.g., 'Scaffolding erection')</li>
+                    <li data-en="Identify Hazards — List the potential hazards for each task" 
+                        data-hi="खतरों की पहचान करें — प्रत्येक कार्य के लिए संभावित खतरों की सूची बनाएं">Identify Hazards — List the potential hazards for each task</li>
+                    <li data-en="Select Severity & Likelihood — System calculates risk rating automatically" 
+                        data-hi="गंभीरता और संभावना चुनें — सिस्टम स्वचालित रूप से जोखिम रेटिंग की गणना करता है">Select Severity & Likelihood — System calculates risk rating automatically</li>
+                    <li data-en="Add Additional Controls — E.g., 'Job safety analysis', 'Toolbox talk'" 
+                        data-hi="अतिरिक्त नियंत्रण जोड़ें — जैसे, 'काम सुरक्षा विश्लेषण', 'टूलबॉक्स टॉक'">Add Additional Controls — E.g., 'Job safety analysis', 'Toolbox talk'</li>
+                    <li data-en="Enter Residual Risk — The system calculates residual risk after controls" 
+                        data-hi="अवशिष्ट जोखिम दर्ज करें — सिस्टम नियंत्रणों के बाद अवशिष्ट जोखिम की गणना करता है">Enter Residual Risk — The system calculates residual risk after controls</li>
+                    <li data-en="Check Summary — Overview of all risks with color-coded risk levels" 
+                        data-hi="सारांश जांचें — रंग-कोडित जोखिम स्तरों के साथ सभी जोखिमों का अवलोकन">Check Summary — Overview of all risks with color-coded risk levels</li>
+                    <li data-en="Download PDF Report — Professional report with risk matrix and signatures" 
+                        data-hi="PDF रिपोर्ट डाउनलोड करें — जोखिम मैट्रिक्स और हस्ताक्षर के साथ पेशेवर रिपोर्ट">Download PDF Report — Professional report with risk matrix and signatures</li>
+                </ol>
+            </div>
+
+            <div class="info-box">
+                <p data-en="If the risk remains high even after controls, apply additional measures — only proceed if residual risk falls within acceptable range." 
+                   data-hi="यदि नियंत्रणों के बाद भी जोखिम उच्च बना रहता है, तो अतिरिक्त उपाय लागू करें — केवल तभी आगे बढ़ें जब अवशिष्ट जोखिम स्वीकार्य सीमा के भीतर हो।">
+                    If the risk remains high even after controls, apply additional measures — only proceed if residual risk falls within acceptable range.
+                </p>
+            </div>
+        </div>
+
+        <!-- Examples -->
+        <div class="content-card">
+            <h2><i class="fas fa-list-alt" style="color: var(--accent-color);" aria-hidden="true"></i> <span data-en="Example Usage" data-hi="उदाहरण उपयोग">Example Usage</span></h2>
+            
+            <div class="example-box">
+                <div class="example-title">
+                    <i class="fas fa-hard-hat"></i>
+                    <span data-en="Example 1 - Working at Height:" data-hi="उदाहरण 1 - ऊंचाई पर काम करना:">Example 1 - Working at Height:</span>
+                </div>
+                <ul>
+                    <li data-en="Hazard: Fall from height" 
+                        data-hi="खतरा: ऊंचाई से गिरना">Hazard: Fall from height</li>
+                    <li data-en="Initial Risk: Severity 5 × Likelihood 4 = 20 (High)" 
+                        data-hi="प्रारंभिक जोखिम: गंभीरता 5 × संभावना 4 = 20 (उच्च)">Initial Risk: Severity 5 × Likelihood 4 = 20 (High)</li>
+                    <li data-en="Controls: Fall protection, safety harness, supervision" 
+                        data-hi="नियंत्रण: गिरने से सुरक्षा, सुरक्षा हार्नेस, पर्यवेक्षण">Controls: Fall protection, safety harness, supervision</li>
+                    <li data-en="Residual Risk: Severity 3 × Likelihood 2 = 6 (Medium)" 
+                        data-hi="अवशिष्ट जोखिम: गंभीरता 3 × संभावना 2 = 6 (मध्यम)">Residual Risk: Severity 3 × Likelihood 2 = 6 (Medium)</li>
+                </ul>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">
+                    <i class="fas fa-compress-arrows-alt"></i>
+                    <span data-en="Example 2 - Working in Confined Space:" data-hi="उदाहरण 2 - सीमित स्थान में काम करना:">Example 2 - Working in Confined Space:</span>
+                </div>
+                <ul>
+                    <li data-en="Hazards: Fire, toxic atmosphere, oxygen deficiency" 
+                        data-hi="खतरे: आग, विषैला वातावरण, ऑक्सीजन की कमी">Hazards: Fire, toxic atmosphere, oxygen deficiency</li>
+                    <li data-en="Initial Risk: Severity 5 × Likelihood 3 = 15 (High)" 
+                        data-hi="प्रारंभिक जोखिम: गंभीरता 5 × संभावना 3 = 15 (उच्च)">Initial Risk: Severity 5 × Likelihood 3 = 15 (High)</li>
+                    <li data-en="Controls: Gas testing, permit to work, ventilation, fire watch" 
+                        data-hi="नियंत्रण: गैस परीक्षण, कार्य अनुमति, वेंटिलेशन, फायर वॉच">Controls: Gas testing, permit to work, ventilation, fire watch</li>
+                    <li data-en="Residual Risk: Severity 2 × Likelihood 2 = 4 (Low)" 
+                        data-hi="अवशिष्ट जोखिम: गंभीरता 2 × संभावना 2 = 4 (निम्न)">Residual Risk: Severity 2 × Likelihood 2 = 4 (Low)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Importance -->
+        <div class="content-card">
+            <h2><i class="fas fa-exclamation-triangle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Why Is HIRA Important?" data-hi="HIRA क्यों महत्वपूर्ण है?">Why Is HIRA Important?</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="✓ Ensure hazards are systematically identified before work begins" 
+                        data-hi="✓ सुनिश्चित करें कि काम शुरू होने से पहले खतरों की व्यवस्थित रूप से पहचान की जाती है">✓ Ensure hazards are systematically identified before work begins</li>
+                    <li data-en="✓ Prevent accidents through proactive risk management" 
+                        data-hi="✓ सक्रिय जोखिम प्रबंधन के माध्यम से दुर्घटनाओं को रोकें">✓ Prevent accidents through proactive risk management</li>
+                    <li data-en="✓ Create documented procedures for compliance (OSHA, ISO 45001, legal)" 
+                        data-hi="✓ अनुपालन के लिए दस्तावेजी प्रक्रियाएं बनाएं (OSHA, ISO 45001, कानूनी)">✓ Create documented procedures for compliance (OSHA, ISO 45001, legal)</li>
+                    <li data-en="✓ Improve safety awareness and accountability" 
+                        data-hi="✓ सुरक्षा जागरूकता और जवाबदेही में सुधार करें">✓ Improve safety awareness and accountability</li>
+                    <li data-en="✓ Enable continuous improvement in risk management" 
+                        data-hi="✓ जोखिम प्रबंधन में निरंतर सुधार सक्षम करें">✓ Enable continuous improvement in risk management</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Applications -->
+        <div class="content-card">
+            <h2><i class="fas fa-industry" style="color: var(--info-color);" aria-hidden="true"></i> <span data-en="Real-World Applications" data-hi="वास्तविक दुनिया के अनुप्रयोग">Real-World Applications</span></h2>
+            
+            <div class="content-section">
+                <h3><i class="fas fa-building" style="color: var(--primary-color);" aria-hidden="true"></i> <span data-en="Construction Projects" data-hi="निर्माण परियोजनाएं">Construction Projects</span></h3>
+                <ul>
+                    <li data-en="Earthworks (excavation, trenching)" 
+                        data-hi="मिट्टी का काम (खुदाई, खाई खोदना)">Earthworks (excavation, trenching)</li>
+                    <li data-en="Scaffolding erection and dismantling" 
+                        data-hi="मचान स्थापना और विघटन">Scaffolding erection and dismantling</li>
+                    <li data-en="Working at height activities" 
+                        data-hi="ऊंचाई पर काम करने की गतिविधियां">Working at height activities</li>
+                </ul>
+                
+                <h3><i class="fas fa-tools" style="color: var(--secondary-color);" aria-hidden="true"></i> <span data-en="Maintenance & Operations" data-hi="रखरखाव और संचालन">Maintenance & Operations</span></h3>
+                <ul>
+                    <li data-en="Routine maintenance tasks" 
+                        data-hi="नियमित रखरखाव कार्य">Routine maintenance tasks</li>
+                    <li data-en="Hot work (welding, grinding)" 
+                        data-hi="गर्म कार्य (वेल्डिंग, ग्राइंडिंग)">Hot work (welding, grinding)</li>
+                    <li data-en="Equipment installation and repair" 
+                        data-hi="उपकरण स्थापना और मरम्मत">Equipment installation and repair</li>
+                </ul>
+                
+                <h3><i class="fas fa-warehouse" style="color: var(--accent-color);" aria-hidden="true"></i> <span data-en="Manufacturing & Warehousing" data-hi="विनिर्माण और वेयरहाउसिंग">Manufacturing & Warehousing</span></h3>
+                <ul>
+                    <li data-en="Manual handling operations" 
+                        data-hi="मैनुअल हैंडलिंग संचालन">Manual handling operations</li>
+                    <li data-en="Machine operation and maintenance" 
+                        data-hi="मशीन संचालन और रखरखाव">Machine operation and maintenance</li>
+                    <li data-en="Vehicle and traffic safety" 
+                        data-hi="वाहन और यातायात सुरक्षा">Vehicle and traffic safety</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Common Mistakes -->
+        <div class="content-card">
+            <h2><i class="fas fa-times-circle" style="color: var(--danger-color);" aria-hidden="true"></i> <span data-en="Common Mistakes in HIRA" data-hi="HIRA में सामान्य गलतियाँ">Common Mistakes in HIRA</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="X Copying hazards without site-specific adaptations" 
+                        data-hi="X साइट-विशिष्ट अनुकूलन के बिना खतरों की नकल करना">X Copying hazards without site-specific adaptations</li>
+                    <li data-en="X Relying only on PPE instead of eliminating hazards at source" 
+                        data-hi="X स्रोत पर खतरों को खत्म करने के बजाय केवल पीपीई पर निर्भर रहना">X Relying only on PPE instead of eliminating hazards at source</li>
+                    <li data-en="X Underestimating likelihood (e.g., assuming rare = impossible)" 
+                        data-hi="X संभावना को कम आंकना (जैसे, दुर्लभ = असंभव मान लेना)">X Underestimating likelihood (e.g., assuming rare = impossible)</li>
+                    <li data-en="X Skipping residual risk assessment after controls" 
+                        data-hi="X नियंत्रणों के बाद अवशिष्ट जोखिम मूल्यांकन छोड़ना">X Skipping residual risk assessment after controls</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="content-card">
+            <h2><i class="fas fa-check-circle" style="color: var(--success-color);" aria-hidden="true"></i> <span data-en="Best Practices for Effective HIRA" data-hi="प्रभावी HIRA के लिए सर्वोत्तम अभ्यास">Best Practices for Effective HIRA</span></h2>
+            
+            <div class="content-section">
+                <ul>
+                    <li data-en="✓ Use a standard 5×5 risk matrix (adjust if your policy differs)" 
+                        data-hi="✓ एक मानक 5×5 जोखिम मैट्रिक्स का उपयोग करें (यदि आपकी नीति भिन्न है तो समायोजित करें)">✓ Use a standard 5×5 risk matrix (adjust if your policy differs)</li>
+                    <li data-en="✓ Involve workers in hazard identification" 
+                        data-hi="✓ खतरा पहचान में श्रमिकों को शामिल करें">✓ Involve workers in hazard identification</li>
+                    <li data-en="✓ Review HIRA before every high-risk activity or when conditions change" 
+                        data-hi="✓ प्रत्येक उच्च-जोखिम गतिविधि से पहले या जब स्थितियां बदलती हैं तो HIRA की समीक्षा करें">✓ Review HIRA before every high-risk activity or when conditions change</li>
+                    <li data-en="✓ Ensure residual risks are at acceptable level before proceeding" 
+                        data-hi="✓ आगे बढ़ने से पहले सुनिश्चित करें कि अवशिष्ट जोखिम स्वीकार्य स्तर पर हैं">✓ Ensure residual risks are at acceptable level before proceeding</li>
+                    <li data-en="✓ Integrate HIRA with JSA, PTW, and Incident Tracking Systems" 
+                        data-hi="✓ HIRA को JSA, PTW और घटना ट्रैकिंग सिस्टम के साथ एकीकृत करें">✓ Integrate HIRA with JSA, PTW, and Incident Tracking Systems</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="content-card">
+            <h2><i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i> <span data-en="Frequently Asked Questions" data-hi="अक्सर पूछे जाने वाले प्रश्न">Frequently Asked Questions</span></h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="How often should HIRA be reviewed?" data-hi="HIRA की समीक्षा कितनी बार की जानी चाहिए?">How often should HIRA be reviewed?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="HIRA should be reviewed before each high-risk activity or whenever conditions change significantly (new equipment, personnel, or work environment)." 
+                       data-hi="HIRA की समीक्षा प्रत्येक उच्च-जोखिम गतिविधि से पहले या जब भी स्थितियां महत्वपूर्ण रूप से बदलती हैं (नए उपकरण, कर्मियों, या कार्य वातावरण) की जानी चाहिए।">
+                        HIRA should be reviewed before each high-risk activity or whenever conditions change significantly (new equipment, personnel, or work environment).
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Can HIRA replace JSA (Job Safety Analysis)?" data-hi="क्या HIRA JSA (जॉब सेफ्टी एनालिसिस) को प्रतिस्थापित कर सकता है?">Can HIRA replace JSA (Job Safety Analysis)?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="No. While both tools focus on safety, HIRA is broader risk classification at activity level, while JSA provides step-by-step analysis of specific tasks." 
+                       data-hi="नहीं। जबकि दोनों टूल सुरक्षा पर केंद्रित हैं, HIRA गतिविधि स्तर पर व्यापक जोखिम वर्गीकरण है, जबकि JSA विशिष्ट कार्यों का चरण-दर-चरण विश्लेषण प्रदान करता है।">
+                        No. While both tools focus on safety, HIRA is broader risk classification at activity level, while JSA provides step-by-step analysis of specific tasks.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-en="Who should be involved in HIRA preparation?" data-hi="HIRA तैयारी में किन्हें शामिल किया जाना चाहिए?">Who should be involved in HIRA preparation?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p data-en="HIRA should involve supervisors, safety officers, and most importantly, workers who perform the tasks as they have practical knowledge of hazards." 
+                       data-hi="HIRA में पर्यवेक्षकों, सुरक्षा अधिकारियों और सबसे महत्वपूर्ण रूप से, उन श्रमिकों को शामिल किया जाना चाहिए जो कार्यों को करते हैं क्योंकि उनके पास खतरों का व्यावहारिक ज्ञान होता है।">
+                        HIRA should involve supervisors, safety officers, and most importantly, workers who perform the tasks as they have practical knowledge of hazards.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home" style="color: var(--primary-color);" aria-hidden="true"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
+                </a>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope" style="color: var(--secondary-color);" aria-hidden="true"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
+                </a>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
+                </a>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle" style="color: var(--warning-color);" aria-hidden="true"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
+                </a>
+            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const toggle = this.querySelector('.faq-toggle');
+                
+                answer.classList.toggle('open');
+                toggle.textContent = answer.classList.contains('open') ? '-' : '+';
+                toggle.classList.toggle('rotated');
+            });
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

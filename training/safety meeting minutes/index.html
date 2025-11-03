@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Meeting Minutes | Documentation & Action Tracking System</title>
+    <meta name="description" content="Comprehensive safety meeting minutes generator and management system. Document safety discussions, track action items, and ensure compliance with meeting documentation requirements.">
+    <meta name="keywords" content="safety meeting minutes, meeting documentation, safety committee, action tracking, OSHA compliance, safety discussions">
+    <meta name="author" content="Safety Documentation Solutions">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #2e7d32;
+            --primary-dark: #1b5e20;
+            --secondary: #ff8f00;
+            --secondary-dark: #ef6c00;
+            --accent: #4caf50;
+            --accent-dark: #388e3c;
+            --light: #f5f7fa;
+            --dark: #333;
+            --gray: #6c757d;
+            --border: #dee2e6;
+            --bg-color: #f5f7fa;
+            --card-bg: white;
+            --text-color: #333;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Dark mode variables */
+        .dark-mode {
+            --primary: #4caf50;
+            --primary-dark: #2e7d32;
+            --secondary: #ffa000;
+            --secondary-dark: #ff8f00;
+            --accent: #66bb6a;
+            --accent-dark: #4caf50;
+            --light: #1a1a1a;
+            --dark: #f0f0f0;
+            --gray: #a0a0a0;
+            --border: #444;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #f0f0f0;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        
+        /* Header Styles */
+        header {
+            background: var(--card-bg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px 0;
+            transition: background-color 0.3s;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            background: var(--primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        
+        .logo-text h1 {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .logo-text p {
+            color: var(--gray);
+            font-size: 16px;
+        }
+        
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .toggle-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .toggle-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .mode-toggle {
+            width: 60px;
+            height: 30px;
+            background: var(--border);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .mode-toggle::after {
+            content: '';
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+        
+        .dark-mode .mode-toggle {
+            background: var(--primary);
+        }
+        
+        .dark-mode .mode-toggle::after {
+            transform: translateX(30px);
+            background: var(--card-bg);
+        }
+        
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+        
+        /* Cards Section */
+        .cards-section {
+            padding: 40px 0 80px;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .card-1 .card-icon {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+        }
+        
+        .card-2 .card-icon {
+            background: linear-gradient(135deg, #ff8f00, #ffa000);
+        }
+        
+        .card-title {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .card-description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            flex: 1;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+        }
+        
+        .btn-success {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 143, 0, 0.3);
+        }
+        
+        /* Features Section */
+        .features {
+            background: var(--card-bg);
+            padding: 80px 0;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: background-color 0.3s;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 50px;
+            font-weight: 600;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 20px;
+            color: white;
+        }
+        
+        .feature-1 .feature-icon {
+            background: linear-gradient(135deg, #2e7d32, #4caf50);
+        }
+        
+        .feature-2 .feature-icon {
+            background: linear-gradient(135deg, #2196f3, #42a5f5);
+        }
+        
+        .feature-3 .feature-icon {
+            background: linear-gradient(135deg, #ff8f00, #ffa000);
+        }
+        
+        .feature-4 .feature-icon {
+            background: linear-gradient(135deg, #7b1fa2, #9c27b0);
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .feature-description {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* Meeting Components Section */
+        .meeting-components {
+            background: var(--card-bg);
+            padding: 80px 0;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: background-color 0.3s;
+        }
+        
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .component-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .component-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .component-icon {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        
+        .component-content h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .component-content p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* Action Tracking Section */
+        .action-tracking {
+            background: var(--card-bg);
+            padding: 80px 0;
+            margin-top: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: background-color 0.3s;
+        }
+        
+        .tracking-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .tracking-card {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .tracking-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tracking-icon {
+            background: var(--accent);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 15px;
+        }
+        
+        .tracking-title {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .tracking-description {
+            color: var(--gray);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        /* Simplified Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 50px 0 30px;
+            margin-top: 60px;
+            transition: background-color 0.3s;
+        }
+        
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .social-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                padding: 30px 20px;
+            }
+            
+            .footer-social {
+                gap: 15px;
+            }
+            
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tracking-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 50px 0 30px;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .social-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Safety Meeting Minutes</h1>
+                        <p>Documentation & Action Tracking System</p>
+                    </div>
+                </div>
+                <div class="header-controls">
+                    <button class="toggle-btn" id="languageToggle">
+                        <i class="fas fa-language"></i>
+                        <span>English</span>
+                    </button>
+                    <div class="mode-toggle" id="modeToggle"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Safety Meeting Minutes Generator & Management</h1>
+            <p>Create comprehensive safety meeting minutes, track action items, and maintain complete documentation for compliance and accountability. Streamline your safety committee meetings with professional documentation tools.</p>
+        </div>
+    </section>
+
+    <!-- Cards Section -->
+    <section class="cards-section">
+        <div class="container">
+            <div class="cards-container">
+                <!-- Card 1: Generate Minutes -->
+                <div class="card card-1">
+                    <div class="card-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h2 class="card-title">Generate Meeting Minutes</h2>
+                    <p class="card-description">
+                        Create professional safety meeting minutes with our easy-to-use templates. Document discussions, decisions, and action items while ensuring compliance with documentation requirements.
+                    </p>
+                    <a href="generate-minutes.html" class="btn btn-primary">
+                        <i class="fas fa-play-circle"></i> Generate Minutes
+                    </a>
+                </div>
+                
+                <!-- Card 2: Action Tracking -->
+                <div class="card card-2">
+                    <div class="card-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h2 class="card-title">Track Action Items</h2>
+                    <p class="card-description">
+                        Monitor and manage safety action items from meeting discussions. Assign responsibilities, set deadlines, and track progress to ensure all safety issues are properly addressed.
+                    </p>
+                    <a href="track-actions.html" class="btn btn-success">
+                        <i class="fas fa-download"></i> Track Actions
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Use Our Meeting Minutes System?</h2>
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature feature-1">
+                    <div class="feature-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="feature-title">Compliance Documentation</h3>
+                    <p class="feature-description">
+                        Maintain complete records of safety meetings for regulatory compliance and audit requirements with properly formatted minutes.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature feature-2">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="feature-title">Action Accountability</h3>
+                    <p class="feature-description">
+                        Ensure safety issues are properly addressed by tracking action items with clear responsibilities and deadlines.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature feature-3">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3 class="feature-title">Historical Reference</h3>
+                    <p class="feature-description">
+                        Maintain complete meeting history for reference, trend analysis, and demonstrating continuous safety improvement.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature feature-4">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Stakeholder Communication</h3>
+                    <p class="feature-description">
+                        Share meeting outcomes and action items with all stakeholders to ensure transparency and collective responsibility.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meeting Components Section -->
+    <section class="meeting-components">
+        <div class="container">
+            <h2 class="section-title">Essential Meeting Minutes Components</h2>
+            <div class="components-grid">
+                <!-- Component 1 -->
+                <div class="component-card">
+                    <div class="component-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="component-content">
+                        <h3>Meeting Details</h3>
+                        <p>Date, time, location, meeting type, attendees, and absent members with proper identification of roles and responsibilities.</p>
+                    </div>
+                </div>
+                
+                <!-- Component 2 -->
+                <div class="component-card">
+                    <div class="component-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="component-content">
+                        <h3>Agenda Items</h3>
+                        <p>Structured agenda with discussion topics, safety reviews, incident reports, and old/new business items for systematic coverage.</p>
+                    </div>
+                </div>
+                
+                <!-- Component 3 -->
+                <div class="component-card">
+                    <div class="component-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="component-content">
+                        <h3>Discussion Summary</h3>
+                        <p>Concise summary of key discussions, safety concerns raised, questions asked, and information shared during the meeting.</p>
+                    </div>
+                </div>
+                
+                <!-- Component 4 -->
+                <div class="component-card">
+                    <div class="component-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <div class="component-content">
+                        <h3>Decisions Made</h3>
+                        <p>Clear documentation of all decisions, approvals, rejections, and voting outcomes with rationale and supporting information.</p>
+                    </div>
+                </div>
+                
+                <!-- Component 5 -->
+                <div class="component-card">
+                    <div class="component-icon">
+                        <i class="fas fa-list-check"></i>
+                    </div>
+                    <div class="component-content">
+                        <h3>Action Items</h3>
+                        <p>Specific action items with assigned personnel, deadlines, and expected outcomes for accountability and follow-up.</p>
+                    </div>
+                </div>
+                
+                <!-- Component 6 -->
+                <div class="component-card">
+                    <div class="component-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="component-content">
+                        <h3>Next Meeting Planning</h3>
+                        <p>Scheduled date for next meeting, proposed agenda items, and any preparation requirements for committee members.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Action Tracking Section -->
+    <section class="action-tracking">
+        <div class="container">
+            <h2 class="section-title">Comprehensive Action Item Tracking</h2>
+            <div class="tracking-grid">
+                <!-- Tracking 1 -->
+                <div class="tracking-card">
+                    <div class="tracking-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3 class="tracking-title">Responsibility Assignment</h3>
+                    <p class="tracking-description">Clearly assign action items to specific individuals or departments with defined roles and expectations for completion.</p>
+                </div>
+                
+                <!-- Tracking 2 -->
+                <div class="tracking-card">
+                    <div class="tracking-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="tracking-title">Deadline Management</h3>
+                    <p class="tracking-description">Set realistic deadlines and monitor progress with automated reminders and escalation procedures for overdue items.</p>
+                </div>
+                
+                <!-- Tracking 3 -->
+                <div class="tracking-card">
+                    <div class="tracking-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="tracking-title">Progress Monitoring</h3>
+                    <p class="tracking-description">Track completion status, identify bottlenecks, and provide support to ensure timely resolution of safety issues.</p>
+                </div>
+                
+                <!-- Tracking 4 -->
+                <div class="tracking-card">
+                    <div class="tracking-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3 class="tracking-title">Verification & Closure</h3>
+                    <p class="tracking-description">Verify completed actions, document outcomes, and formally close items with proper documentation and evidence.</p>
+                </div>
+                
+                <!-- Tracking 5 -->
+                <div class="tracking-card">
+                    <div class="tracking-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="tracking-title">Escalation Procedures</h3>
+                    <p class="tracking-description">Automatic escalation for overdue items and procedures for addressing persistent non-compliance or delays.</p>
+                </div>
+                
+                <!-- Tracking 6 -->
+                <div class="tracking-card">
+                    <div class="tracking-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="tracking-title">Performance Analytics</h3>
+                    <p class="tracking-description">Generate reports on action item completion rates, response times, and overall safety program effectiveness.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simplified Footer with Social Buttons Only -->
+    <footer>
+        <div class="container">
+            <div class="footer-social">
+                <a href="#" class="social-btn">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-btn">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-btn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-btn">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-btn">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Safety Documentation Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle functionality
+        const modeToggle = document.getElementById('modeToggle');
+        modeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            // Save preference to localStorage
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        
+        // Language toggle functionality with improved error handling
+        const languageToggle = document.getElementById('languageToggle');
+        let currentLanguage = 'English';
+        let isTranslating = false;
+        
+        // Store original English content
+        const originalContent = {
+            logoTitle: document.querySelector('.logo-text h1').textContent,
+            logoSubtitle: document.querySelector('.logo-text p').textContent,
+            heroTitle: document.querySelector('.hero h1').textContent,
+            heroDescription: document.querySelector('.hero p').textContent,
+            card1Title: document.querySelector('.card-1 .card-title').textContent,
+            card1Description: document.querySelector('.card-1 .card-description').textContent,
+            card1Button: document.querySelector('.card-1 .btn').innerHTML,
+            card2Title: document.querySelector('.card-2 .card-title').textContent,
+            card2Description: document.querySelector('.card-2 .card-description').textContent,
+            card2Button: document.querySelector('.card-2 .btn').innerHTML,
+            sectionTitle: document.querySelector('.section-title').textContent,
+            feature1Title: document.querySelector('.feature-1 .feature-title').textContent,
+            feature1Description: document.querySelector('.feature-1 .feature-description').textContent,
+            feature2Title: document.querySelector('.feature-2 .feature-title').textContent,
+            feature2Description: document.querySelector('.feature-2 .feature-description').textContent,
+            feature3Title: document.querySelector('.feature-3 .feature-title').textContent,
+            feature3Description: document.querySelector('.feature-3 .feature-description').textContent,
+            feature4Title: document.querySelector('.feature-4 .feature-title').textContent,
+            feature4Description: document.querySelector('.feature-4 .feature-description').textContent,
+            componentsTitle: document.querySelector('.meeting-components .section-title').textContent,
+            component1Title: document.querySelector('.component-card:nth-child(1) h3').textContent,
+            component1Description: document.querySelector('.component-card:nth-child(1) p').textContent,
+            component2Title: document.querySelector('.component-card:nth-child(2) h3').textContent,
+            component2Description: document.querySelector('.component-card:nth-child(2) p').textContent,
+            component3Title: document.querySelector('.component-card:nth-child(3) h3').textContent,
+            component3Description: document.querySelector('.component-card:nth-child(3) p').textContent,
+            component4Title: document.querySelector('.component-card:nth-child(4) h3').textContent,
+            component4Description: document.querySelector('.component-card:nth-child(4) p').textContent,
+            component5Title: document.querySelector('.component-card:nth-child(5) h3').textContent,
+            component5Description: document.querySelector('.component-card:nth-child(5) p').textContent,
+            component6Title: document.querySelector('.component-card:nth-child(6) h3').textContent,
+            component6Description: document.querySelector('.component-card:nth-child(6) p').textContent,
+            trackingTitle: document.querySelector('.action-tracking .section-title').textContent,
+            tracking1Title: document.querySelector('.tracking-card:nth-child(1) .tracking-title').textContent,
+            tracking1Description: document.querySelector('.tracking-card:nth-child(1) .tracking-description').textContent,
+            tracking2Title: document.querySelector('.tracking-card:nth-child(2) .tracking-title').textContent,
+            tracking2Description: document.querySelector('.tracking-card:nth-child(2) .tracking-description').textContent,
+            tracking3Title: document.querySelector('.tracking-card:nth-child(3) .tracking-title').textContent,
+            tracking3Description: document.querySelector('.tracking-card:nth-child(3) .tracking-description').textContent,
+            tracking4Title: document.querySelector('.tracking-card:nth-child(4) .tracking-title').textContent,
+            tracking4Description: document.querySelector('.tracking-card:nth-child(4) .tracking-description').textContent,
+            tracking5Title: document.querySelector('.tracking-card:nth-child(5) .tracking-title').textContent,
+            tracking5Description: document.querySelector('.tracking-card:nth-child(5) .tracking-description').textContent,
+            tracking6Title: document.querySelector('.tracking-card:nth-child(6) .tracking-title').textContent,
+            tracking6Description: document.querySelector('.tracking-card:nth-child(6) .tracking-description').textContent,
+            footerText: document.querySelector('.footer-bottom p').textContent
+        };
+        
+        // Hindi translations
+        const hindiTranslations = {
+            logoTitle: "सुरक्षा बैठक मिनट",
+            logoSubtitle: "दस्तावेजीकरण और कार्रवाई ट्रैकिंग प्रणाली",
+            heroTitle: "सुरक्षा बैठक मिनट जनरेटर और प्रबंधन",
+            heroDescription: "व्यापक सुरक्षा बैठक मिनट बनाएं, कार्रवाई आइटम ट्रैक करें, और अनुपालन और जवाबदेही के लिए पूर्ण दस्तावेजीकरण बनाए रखें। पेशेवर दस्तावेजीकरण उपकरणों के साथ अपनी सुरक्षा समिति बैठकों को सुव्यवस्थित करें।",
+            card1Title: "बैठक मिनट जनरेट करें",
+            card1Description: "हमारे आसान-से-उपयोग टेम्पलेट्स के साथ पेशेवर सुरक्षा बैठक मिनट बनाएं। दस्तावेजीकरण आवश्यकताओं के अनुपालन को सुनिश्चित करते हुए चर्चाओं, निर्णयों और कार्रवाई आइटमों को दस्तावेज करें।",
+            card1Button: '<i class="fas fa-play-circle"></i> मिनट जनरेट करें',
+            card2Title: "कार्रवाई आइटम ट्रैक करें",
+            card2Description: "बैठक चर्चाओं से सुरक्षा कार्रवाई आइटमों की निगरानी और प्रबंधन करें। जिम्मेदारियां सौंपें, समय सीमा निर्धारित करें, और यह सुनिश्चित करने के लिए प्रगति ट्रैक करें कि सभी सुरक्षा मुद्दों को ठीक से संबोधित किया जाता है।",
+            card2Button: '<i class="fas fa-download"></i> कार्रवाइयां ट्रैक करें',
+            sectionTitle: "हमारी बैठक मिनट प्रणाली क्यों उपयोग करें?",
+            feature1Title: "अनुपालन दस्तावेजीकरण",
+            feature1Description: "नियामक अनुपालन और ऑडिट आवश्यकताओं के लिए सुरक्षा बैठकों के पूर्ण रिकॉर्ड उचित रूप से फॉर्मेटेड मिनटों के साथ बनाए रखें।",
+            feature2Title: "कार्रवाई जवाबदेही",
+            feature2Description: "स्पष्ट जिम्मेदारियों और समय सीमाओं के साथ कार्रवाई आइटमों को ट्रैक करके यह सुनिश्चित करें कि सुरक्षा मुद्दों को ठीक से संबोधित किया जाता है।",
+            feature3Title: "ऐतिहासिक संदर्भ",
+            feature3Description: "संदर्भ, रुझान विश्लेषण और निरंतर सुरक्षा सुधार प्रदर्शित करने के लिए बैठक का पूर्ण इतिहास बनाए रखें।",
+            feature4Title: "हितधारक संचार",
+            feature4Description: "पारदर्शिता और सामूहिक जिम्मेदारी सुनिश्चित करने के लिए सभी हितधारकों के साथ बैठक परिणामों और कार्रवाई आइटमों को साझा करें।",
+            componentsTitle: "आवश्यक बैठक मिनट घटक",
+            component1Title: "बैठक विवरण",
+            component1Description: "तिथि, समय, स्थान, बैठक प्रकार, उपस्थित लोग, और भूमिकाओं और जिम्मेदारियों की उचित पहचान के साथ अनुपस्थित सदस्य।",
+            component2Title: "एजेंडा आइटम",
+            component2Description: "चर्चा विषयों, सुरक्षा समीक्षाओं, घटना रिपोर्टों और पुराने/नए व्यवसाय आइटमों के साथ संरचित एजेंडा व्यवस्थित कवरेज के लिए।",
+            component3Title: "चर्चा सारांश",
+            component3Description: "मुख्य चर्चाओं, उठाए गए सुरक्षा चिंताओं, पूछे गए प्रश्नों और बैठक के दौरान साझा की गई जानकारी का संक्षिप्त सारांश।",
+            component4Title: "किए गए निर्णय",
+            component4Description: "तर्क और सहायक जानकारी के साथ सभी निर्णयों, स्वीकृतियों, अस्वीकृतियों और मतदान परिणामों का स्पष्ट दस्तावेजीकरण।",
+            component5Title: "कार्रवाई आइटम",
+            component5Description: "जवाबदेही और फॉलो-अप के लिए सौंपे गए कर्मियों, समय सीमा और अपेक्षित परिणामों के साथ विशिष्ट कार्रवाई आइटम।",
+            component6Title: "अगली बैठक योजना",
+            component6Description: "अगली बैठक के लिए निर्धारित तिथि, प्रस्तावित एजेंडा आइटम और समिति सदस्यों के लिए कोई भी तैयारी आवश्यकताएं।",
+            trackingTitle: "व्यापक कार्रवाई आइटम ट्रैकिंग",
+            tracking1Title: "जिम्मेदारी असाइनमेंट",
+            tracking1Description: "पूरा होने के लिए परिभाषित भूमिकाओं और अपेक्षाओं के साथ विशिष्ट व्यक्तियों या विभागों को कार्रवाई आइटम स्पष्ट रूप से सौंपें।",
+            tracking2Title: "समय सीमा प्रबंधन",
+            tracking2Description: "यथार्थवादी समय सीमा निर्धारित करें और ओवरड्यू आइटमों के लिए स्वचालित अनुस्मारक और एस्केलेशन प्रक्रियाओं के साथ प्रगति की निगरानी करें।",
+            tracking3Title: "प्रगति निगरानी",
+            tracking3Description: "पूर्णता स्थिति ट्रैक करें, बॉटलनेक की पहचान करें, और सुरक्षा मुद्दों के समय पर समाधान सुनिश्चित करने के लिए सहायता प्रदान करें।",
+            tracking4Title: "सत्यापन और समापन",
+            tracking4Description: "पूर्ण कार्यों को सत्यापित करें, परिणामों को दस्तावेज करें, और उचित दस्तावेजीकरण और साक्ष्य के साथ आइटमों को औपचारिक रूप से बंद करें।",
+            tracking5Title: "एस्केलेशन प्रक्रियाएं",
+            tracking5Description: "ओवरड्यू आइटमों के लिए स्वचालित एस्केलेशन और लगातार गैर-अनुपालन या देरी को संबोधित करने की प्रक्रियाएं।",
+            tracking6Title: "प्रदर्शन एनालिटिक्स",
+            tracking6Description: "कार्रवाई आइटम पूर्णता दरों, प्रतिक्रिया समय और समग्र सुरक्षा कार्यक्रम प्रभावशीलता पर रिपोर्ट तैयार करें।",
+            footerText: "© 2023 सुरक्षा दस्तावेजीकरण समाधान। सर्वाधिकार सुरक्षित।"
+        };
+        
+        languageToggle.addEventListener('click', function() {
+            // Prevent multiple rapid clicks
+            if (isTranslating) return;
+            isTranslating = true;
+            
+            // Toggle between English and Hindi
+            if (currentLanguage === 'English') {
+                currentLanguage = 'Hindi';
+                languageToggle.querySelector('span').textContent = 'हिंदी';
+                
+                // Update all content to Hindi
+                document.querySelector('.logo-text h1').textContent = hindiTranslations.logoTitle;
+                document.querySelector('.logo-text p').textContent = hindiTranslations.logoSubtitle;
+                document.querySelector('.hero h1').textContent = hindiTranslations.heroTitle;
+                document.querySelector('.hero p').textContent = hindiTranslations.heroDescription;
+                document.querySelector('.card-1 .card-title').textContent = hindiTranslations.card1Title;
+                document.querySelector('.card-1 .card-description').textContent = hindiTranslations.card1Description;
+                document.querySelector('.card-1 .btn').innerHTML = hindiTranslations.card1Button;
+                document.querySelector('.card-2 .card-title').textContent = hindiTranslations.card2Title;
+                document.querySelector('.card-2 .card-description').textContent = hindiTranslations.card2Description;
+                document.querySelector('.card-2 .btn').innerHTML = hindiTranslations.card2Button;
+                document.querySelector('.section-title').textContent = hindiTranslations.sectionTitle;
+                document.querySelector('.feature-1 .feature-title').textContent = hindiTranslations.feature1Title;
+                document.querySelector('.feature-1 .feature-description').textContent = hindiTranslations.feature1Description;
+                document.querySelector('.feature-2 .feature-title').textContent = hindiTranslations.feature2Title;
+                document.querySelector('.feature-2 .feature-description').textContent = hindiTranslations.feature2Description;
+                document.querySelector('.feature-3 .feature-title').textContent = hindiTranslations.feature3Title;
+                document.querySelector('.feature-3 .feature-description').textContent = hindiTranslations.feature3Description;
+                document.querySelector('.feature-4 .feature-title').textContent = hindiTranslations.feature4Title;
+                document.querySelector('.feature-4 .feature-description').textContent = hindiTranslations.feature4Description;
+                document.querySelector('.meeting-components .section-title').textContent = hindiTranslations.componentsTitle;
+                document.querySelector('.component-card:nth-child(1) h3').textContent = hindiTranslations.component1Title;
+                document.querySelector('.component-card:nth-child(1) p').textContent = hindiTranslations.component1Description;
+                document.querySelector('.component-card:nth-child(2) h3').textContent = hindiTranslations.component2Title;
+                document.querySelector('.component-card:nth-child(2) p').textContent = hindiTranslations.component2Description;
+                document.querySelector('.component-card:nth-child(3) h3').textContent = hindiTranslations.component3Title;
+                document.querySelector('.component-card:nth-child(3) p').textContent = hindiTranslations.component3Description;
+                document.querySelector('.component-card:nth-child(4) h3').textContent = hindiTranslations.component4Title;
+                document.querySelector('.component-card:nth-child(4) p').textContent = hindiTranslations.component4Description;
+                document.querySelector('.component-card:nth-child(5) h3').textContent = hindiTranslations.component5Title;
+                document.querySelector('.component-card:nth-child(5) p').textContent = hindiTranslations.component5Description;
+                document.querySelector('.component-card:nth-child(6) h3').textContent = hindiTranslations.component6Title;
+                document.querySelector('.component-card:nth-child(6) p').textContent = hindiTranslations.component6Description;
+                document.querySelector('.action-tracking .section-title').textContent = hindiTranslations.trackingTitle;
+                document.querySelector('.tracking-card:nth-child(1) .tracking-title').textContent = hindiTranslations.tracking1Title;
+                document.querySelector('.tracking-card:nth-child(1) .tracking-description').textContent = hindiTranslations.tracking1Description;
+                document.querySelector('.tracking-card:nth-child(2) .tracking-title').textContent = hindiTranslations.tracking2Title;
+                document.querySelector('.tracking-card:nth-child(2) .tracking-description').textContent = hindiTranslations.tracking2Description;
+                document.querySelector('.tracking-card:nth-child(3) .tracking-title').textContent = hindiTranslations.tracking3Title;
+                document.querySelector('.tracking-card:nth-child(3) .tracking-description').textContent = hindiTranslations.tracking3Description;
+                document.querySelector('.tracking-card:nth-child(4) .tracking-title').textContent = hindiTranslations.tracking4Title;
+                document.querySelector('.tracking-card:nth-child(4) .tracking-description').textContent = hindiTranslations.tracking4Description;
+                document.querySelector('.tracking-card:nth-child(5) .tracking-title').textContent = hindiTranslations.tracking5Title;
+                document.querySelector('.tracking-card:nth-child(5) .tracking-description').textContent = hindiTranslations.tracking5Description;
+                document.querySelector('.tracking-card:nth-child(6) .tracking-title').textContent = hindiTranslations.tracking6Title;
+                document.querySelector('.tracking-card:nth-child(6) .tracking-description').textContent = hindiTranslations.tracking6Description;
+                document.querySelector('.footer-bottom p').textContent = hindiTranslations.footerText;
+                
+            } else {
+                currentLanguage = 'English';
+                languageToggle.querySelector('span').textContent = 'English';
+                
+                // Restore original English content
+                document.querySelector('.logo-text h1').textContent = originalContent.logoTitle;
+                document.querySelector('.logo-text p').textContent = originalContent.logoSubtitle;
+                document.querySelector('.hero h1').textContent = originalContent.heroTitle;
+                document.querySelector('.hero p').textContent = originalContent.heroDescription;
+                document.querySelector('.card-1 .card-title').textContent = originalContent.card1Title;
+                document.querySelector('.card-1 .card-description').textContent = originalContent.card1Description;
+                document.querySelector('.card-1 .btn').innerHTML = originalContent.card1Button;
+                document.querySelector('.card-2 .card-title').textContent = originalContent.card2Title;
+                document.querySelector('.card-2 .card-description').textContent = originalContent.card2Description;
+                document.querySelector('.card-2 .btn').innerHTML = originalContent.card2Button;
+                document.querySelector('.section-title').textContent = originalContent.sectionTitle;
+                document.querySelector('.feature-1 .feature-title').textContent = originalContent.feature1Title;
+                document.querySelector('.feature-1 .feature-description').textContent = originalContent.feature1Description;
+                document.querySelector('.feature-2 .feature-title').textContent = originalContent.feature2Title;
+                document.querySelector('.feature-2 .feature-description').textContent = originalContent.feature2Description;
+                document.querySelector('.feature-3 .feature-title').textContent = originalContent.feature3Title;
+                document.querySelector('.feature-3 .feature-description').textContent = originalContent.feature3Description;
+                document.querySelector('.feature-4 .feature-title').textContent = originalContent.feature4Title;
+                document.querySelector('.feature-4 .feature-description').textContent = originalContent.feature4Description;
+                document.querySelector('.meeting-components .section-title').textContent = originalContent.componentsTitle;
+                document.querySelector('.component-card:nth-child(1) h3').textContent = originalContent.component1Title;
+                document.querySelector('.component-card:nth-child(1) p').textContent = originalContent.component1Description;
+                document.querySelector('.component-card:nth-child(2) h3').textContent = originalContent.component2Title;
+                document.querySelector('.component-card:nth-child(2) p').textContent = originalContent.component2Description;
+                document.querySelector('.component-card:nth-child(3) h3').textContent = originalContent.component3Title;
+                document.querySelector('.component-card:nth-child(3) p').textContent = originalContent.component3Description;
+                document.querySelector('.component-card:nth-child(4) h3').textContent = originalContent.component4Title;
+                document.querySelector('.component-card:nth-child(4) p').textContent = originalContent.component4Description;
+                document.querySelector('.component-card:nth-child(5) h3').textContent = originalContent.component5Title;
+                document.querySelector('.component-card:nth-child(5) p').textContent = originalContent.component5Description;
+                document.querySelector('.component-card:nth-child(6) h3').textContent = originalContent.component6Title;
+                document.querySelector('.component-card:nth-child(6) p').textContent = originalContent.component6Description;
+                document.querySelector('.action-tracking .section-title').textContent = originalContent.trackingTitle;
+                document.querySelector('.tracking-card:nth-child(1) .tracking-title').textContent = originalContent.tracking1Title;
+                document.querySelector('.tracking-card:nth-child(1) .tracking-description').textContent = originalContent.tracking1Description;
+                document.querySelector('.tracking-card:nth-child(2) .tracking-title').textContent = originalContent.tracking2Title;
+                document.querySelector('.tracking-card:nth-child(2) .tracking-description').textContent = originalContent.tracking2Description;
+                document.querySelector('.tracking-card:nth-child(3) .tracking-title').textContent = originalContent.tracking3Title;
+                document.querySelector('.tracking-card:nth-child(3) .tracking-description').textContent = originalContent.tracking3Description;
+                document.querySelector('.tracking-card:nth-child(4) .tracking-title').textContent = originalContent.tracking4Title;
+                document.querySelector('.tracking-card:nth-child(4) .tracking-description').textContent = originalContent.tracking4Description;
+                document.querySelector('.tracking-card:nth-child(5) .tracking-title').textContent = originalContent.tracking5Title;
+                document.querySelector('.tracking-card:nth-child(5) .tracking-description').textContent = originalContent.tracking5Description;
+                document.querySelector('.tracking-card:nth-child(6) .tracking-title').textContent = originalContent.tracking6Title;
+                document.querySelector('.tracking-card:nth-child(6) .tracking-description').textContent = originalContent.tracking6Description;
+                document.querySelector('.footer-bottom p').textContent = originalContent.footerText;
+            }
+            
+            // Reset translation lock after a short delay
+            setTimeout(() => {
+                isTranslating = false;
+            }, 300);
+        });
+        
+        // Add click animation to buttons
+        document.querySelectorAll('.btn, .social-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Only add animation if it's not a link to another page
+                if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

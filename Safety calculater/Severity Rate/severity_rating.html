@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Severity Rate (SR) Report Generator | Safety Metrics Calculator</title>
+    <meta name="description" content="Generate professional Severity Rate (SR) reports for safety metrics. Calculate SR using man-hours, lost days, and export to PDF.">
+    <meta name="keywords" content="severity rate, SR calculator, safety metrics, lost time injury, OSHA, safety report, PDF generator">
+    <meta name="author" content="TEA LLC">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3c4e;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f9fa;
+            --border-color: #ddd;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --radius: 8px;
+        }
+
+        .dark-mode {
+            --primary-color: #34495e;
+            --secondary-color: #2980b9;
+            --success-color: #2ecc71;
+            --danger-color: #c0392b;
+            --warning-color: #e67e22;
+            --light-color: #2c3e50;
+            --dark-color: #1a252f;
+            --text-color: #ecf0f1;
+            --bg-color: #1e2a3a;
+            --card-bg: #2c3c4e;
+            --border-color: #34495e;
+            --shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius) var(--radius) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-light {
+            background-color: var(--light-color);
+            color: var(--text-color);
+        }
+
+        .form-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-section h2 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+        }
+
+        .summary {
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-count {
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .preview-section {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .preview-table th, .preview-table td {
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .preview-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .sr-result {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--light-color);
+            border-radius: var(--radius);
+            margin: 20px 0;
+        }
+
+        .sr-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: var(--radius);
+            background-color: var(--success-color);
+            color: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background-color: var(--danger-color);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 var(--radius) var(--radius) 0;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-group {
+                min-width: 100%;
+            }
+            
+            .header-controls {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .summary {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Severity Rate (SR) Report Generator</h1>
+                <p>Calculate and generate professional Severity Rate reports</p>
+            </div>
+            <div class="header-controls">
+                <button id="translateBtn" class="btn-light" aria-label="Toggle language">
+                    <span class="lang-text">हिंदी</span>
+                </button>
+                <button id="darkModeBtn" class="btn-light" aria-label="Toggle dark mode">
+                    <span class="mode-text">Dark Mode</span>
+                </button>
+                <button id="previewBtn" class="btn-primary">Preview</button>
+                <button id="downloadBtn" class="btn-success">Download PDF</button>
+                <button id="resetBtn" class="btn-danger">Reset</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="formView">
+                <div class="form-section">
+                    <h2>Project Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="projectName">Project / Site Name</label>
+                            <input type="text" id="projectName" placeholder="e.g., Severfront Expressway Pkg-81" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="companyName">Class / Company</label>
+                            <input type="text" id="companyName" placeholder="e.g., InfoBuilds Communications Ltd." aria-required="true">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" placeholder="City, Country" aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="period">Reporting Period</label>
+                            <input type="text" id="period" placeholder="e.g., Jan 2025 - Dec 2025" aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Severity Rate Calculation</h2>
+                    
+                    <div class="info-box">
+                        <p><strong>Severity Rate (SR) Formula:</strong> SR = (Total Lost Days × Rate Base) / Total Man-Hours</p>
+                        <p>Use: 1,000,000 (International) or 200,000 (US/OSHA) as the rate base.</p>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rateBase">Rate Base</label>
+                            <select id="rateBase" aria-required="true">
+                                <option value="1000000">1,000,000 hours (International)</option>
+                                <option value="200000">200,000 hours (US/OSHA)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalManHours">Total Man-Hours</label>
+                            <input type="number" id="totalManHours" placeholder="e.g., 450000" min="1" aria-required="true">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Total Lost Days Calculation Method</label>
+                        <div class="checkbox-group">
+                            <input type="radio" id="lostDaysDirect" name="lostDaysMethod" value="direct" checked>
+                            <label for="lostDaysDirect">Enter Total Lost Days directly</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="radio" id="lostDaysCalculate" name="lostDaysMethod" value="calculate">
+                            <label for="lostDaysCalculate">Calculate using cases (days per case)</label>
+                        </div>
+                    </div>
+                    
+                    <div id="lostDaysDirectSection">
+                        <div class="form-group">
+                            <label for="totalLostDays">Total Lost Days</label>
+                            <input type="number" id="totalLostDays" placeholder="e.g., 12" min="0">
+                        </div>
+                    </div>
+                    
+                    <div id="lostDaysCalculateSection" class="hidden">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="lostTimeCases">Number of Lost Time Cases</label>
+                                <input type="number" id="lostTimeCases" placeholder="e.g., 2" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="daysPerCase">Average Days Per Case</label>
+                                <input type="number" id="daysPerCase" placeholder="e.g., 6" min="0">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Calculation Notes (optional)</label>
+                        <textarea id="notes" placeholder="Additional information about the calculation..."></textarea>
+                    </div>
+                </div>
+
+                <div class="summary">
+                    <div class="summary-item">
+                        <div class="summary-count" id="totalManHoursDisplay">0</div>
+                        <div>Total Man-Hours</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="totalLostDaysDisplay">0</div>
+                        <div>Total Lost Days</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-count" id="srValueDisplay">0.00</div>
+                        <div>Severity Rate</div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2>Report Details</h2>
+                    <div class="form-group">
+                        <label for="reportDetails">Additional Report Information</label>
+                        <textarea id="reportDetails" placeholder="Report context, observations, recommendations..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="previewView" class="hidden">
+                <div class="preview-section">
+                    <h2>Severity Rate (SR) Report Preview</h2>
+                    <div class="header-controls">
+                        <button id="backToFormBtn" class="btn-primary">Back to Form</button>
+                        <button id="downloadFromPreviewBtn" class="btn-success">Download PDF</button>
+                    </div>
+                    <div id="previewContent"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="notification" class="notification" role="alert" aria-live="polite"></div>
+
+    <script>
+        // Translation data
+        const translations = {
+            en: {
+                title: "Severity Rate (SR) Report Generator",
+                subtitle: "Calculate and generate professional Severity Rate reports",
+                projectName: "Project / Site Name",
+                companyName: "Class / Company",
+                location: "Location",
+                period: "Reporting Period",
+                rateBase: "Rate Base",
+                totalManHours: "Total Man-Hours",
+                totalLostDays: "Total Lost Days",
+                lostDaysDirect: "Enter Total Lost Days directly",
+                lostDaysCalculate: "Calculate using cases (days per case)",
+                lostTimeCases: "Number of Lost Time Cases",
+                daysPerCase: "Average Days Per Case",
+                notes: "Calculation Notes (optional)",
+                reportDetails: "Additional Report Information",
+                preview: "Preview",
+                downloadPDF: "Download PDF",
+                reset: "Reset",
+                backToForm: "Back to Form",
+                severityRateReport: "Severity Rate (SR) Report",
+                projectInfo: "Project Information",
+                calculationDetails: "Calculation Details",
+                srFormula: "Severity Rate Formula",
+                srValue: "Severity Rate Value",
+                generatedOn: "Generated on",
+                generatedBy: "Generated by TEA LLC - Severity Rate Calculator",
+                requiredField: "This field is required",
+                pdfGenerated: "PDF generated successfully",
+                formReset: "Form has been reset",
+                errorGeneratingPDF: "Error generating PDF. Please try again.",
+                totalManHoursLabel: "Total Man-Hours",
+                totalLostDaysLabel: "Total Lost Days",
+                severityRateLabel: "Severity Rate"
+            },
+            hi: {
+                title: "गंभीरता दर (SR) रिपोर्ट जनरेटर",
+                subtitle: "पेशेवर गंभीरता दर रिपोर्ट की गणना और जनरेशन करें",
+                projectName: "परियोजना / साइट नाम",
+                companyName: "वर्ग / कंपनी",
+                location: "स्थान",
+                period: "रिपोर्टिंग अवधि",
+                rateBase: "दर आधार",
+                totalManHours: "कुल मानव-घंटे",
+                totalLostDays: "कुल खोए दिन",
+                lostDaysDirect: "कुल खोए दिन सीधे दर्ज करें",
+                lostDaysCalculate: "मामलों का उपयोग करके गणना करें (प्रति मामला दिन)",
+                lostTimeCases: "खोए समय के मामलों की संख्या",
+                daysPerCase: "प्रति मामला औसत दिन",
+                notes: "गणना नोट्स (वैकल्पिक)",
+                reportDetails: "अतिरिक्त रिपोर्ट जानकारी",
+                preview: "पूर्वावलोकन",
+                downloadPDF: "PDF डाउनलोड करें",
+                reset: "रीसेट",
+                backToForm: "फॉर्म पर वापस जाएं",
+                severityRateReport: "गंभीरता दर (SR) रिपोर्ट",
+                projectInfo: "परियोजना जानकारी",
+                calculationDetails: "गणना विवरण",
+                srFormula: "गंभीरता दर सूत्र",
+                srValue: "गंभीरता दर मान",
+                generatedOn: "पर जनरेट किया गया",
+                generatedBy: "टीईए एलएलसी - गंभीरता दर कैलकुलेटर द्वारा जनरेट किया गया",
+                requiredField: "यह फ़ील्ड आवश्यक है",
+                pdfGenerated: "PDF सफलतापूर्वक जनरेट किया गया",
+                formReset: "फॉर्म रीसेट कर दिया गया है",
+                errorGeneratingPDF: "PDF जनरेट करने में त्रुटि। कृपया पुनः प्रयास करें।",
+                totalManHoursLabel: "कुल मानव-घंटे",
+                totalLostDaysLabel: "कुल खोए दिन",
+                severityRateLabel: "गंभीरता दर"
+            }
+        };
+
+        // State management
+        let state = {
+            isHindi: false,
+            isDarkMode: false
+        };
+
+        // Initialize the application
+        function init() {
+            loadSettings();
+            setupEventListeners();
+            updateCalculation();
+        }
+
+        // Load saved settings from localStorage
+        function loadSettings() {
+            const savedLanguage = localStorage.getItem('srLanguage');
+            const savedDarkMode = localStorage.getItem('srDarkMode');
+            
+            if (savedLanguage === 'hi') {
+                state.isHindi = true;
+                document.getElementById('translateBtn').querySelector('.lang-text').textContent = 'English';
+                updateLanguage();
+            }
+            
+            if (savedDarkMode === 'true') {
+                state.isDarkMode = true;
+                document.body.classList.add('dark-mode');
+                document.getElementById('darkModeBtn').querySelector('.mode-text').textContent = 'Light Mode';
+            }
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            localStorage.setItem('srLanguage', state.isHindi ? 'hi' : 'en');
+            localStorage.setItem('srDarkMode', state.isDarkMode);
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Mode and language toggles
+            document.getElementById('translateBtn').addEventListener('click', toggleLanguage);
+            document.getElementById('darkModeBtn').addEventListener('click', toggleDarkMode);
+            
+            // Main buttons
+            document.getElementById('previewBtn').addEventListener('click', showPreview);
+            document.getElementById('downloadBtn').addEventListener('click', downloadPDF);
+            document.getElementById('resetBtn').addEventListener('click', resetForm);
+            
+            // Preview buttons
+            document.getElementById('backToFormBtn').addEventListener('click', backToForm);
+            document.getElementById('downloadFromPreviewBtn').addEventListener('click', downloadPDF);
+            
+            // Calculation method toggles
+            document.getElementById('lostDaysDirect').addEventListener('change', toggleLostDaysMethod);
+            document.getElementById('lostDaysCalculate').addEventListener('change', toggleLostDaysMethod);
+            
+            // Input changes for real-time calculation
+            document.getElementById('rateBase').addEventListener('change', updateCalculation);
+            document.getElementById('totalManHours').addEventListener('input', updateCalculation);
+            document.getElementById('totalLostDays').addEventListener('input', updateCalculation);
+            document.getElementById('lostTimeCases').addEventListener('input', updateCalculation);
+            document.getElementById('daysPerCase').addEventListener('input', updateCalculation);
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+Enter to preview
+                if (e.ctrlKey && e.key === 'Enter') {
+                    e.preventDefault();
+                    showPreview();
+                }
+                
+                // Ctrl+D to download
+                if (e.ctrlKey && e.key === 'd') {
+                    e.preventDefault();
+                    downloadPDF();
+                }
+            });
+        }
+
+        // Show notification
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = 'notification';
+            
+            if (isError) {
+                notification.classList.add('error');
+            }
+            
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Toggle lost days calculation method
+        function toggleLostDaysMethod() {
+            const directMethod = document.getElementById('lostDaysDirect').checked;
+            document.getElementById('lostDaysDirectSection').classList.toggle('hidden', !directMethod);
+            document.getElementById('lostDaysCalculateSection').classList.toggle('hidden', directMethod);
+            updateCalculation();
+        }
+
+        // Update calculation and summary
+        function updateCalculation() {
+            // Get values
+            const rateBase = parseInt(document.getElementById('rateBase').value) || 1000000;
+            const totalManHours = parseInt(document.getElementById('totalManHours').value) || 0;
+            
+            let totalLostDays = 0;
+            const directMethod = document.getElementById('lostDaysDirect').checked;
+            
+            if (directMethod) {
+                totalLostDays = parseInt(document.getElementById('totalLostDays').value) || 0;
+            } else {
+                const lostTimeCases = parseInt(document.getElementById('lostTimeCases').value) || 0;
+                const daysPerCase = parseInt(document.getElementById('daysPerCase').value) || 0;
+                totalLostDays = lostTimeCases * daysPerCase;
+            }
+            
+            // Calculate Severity Rate
+            let severityRate = 0;
+            if (totalManHours > 0) {
+                severityRate = (totalLostDays * rateBase) / totalManHours;
+            }
+            
+            // Update summary displays
+            document.getElementById('totalManHoursDisplay').textContent = totalManHours.toLocaleString();
+            document.getElementById('totalLostDaysDisplay').textContent = totalLostDays.toLocaleString();
+            document.getElementById('srValueDisplay').textContent = severityRate.toFixed(2);
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            state.isHindi = !state.isHindi;
+            const btn = document.getElementById('translateBtn');
+            btn.querySelector('.lang-text').textContent = state.isHindi ? 'English' : 'हिंदी';
+            
+            // Update all text content
+            updateLanguage();
+            saveSettings();
+        }
+
+        // Update all text content based on current language
+        function updateLanguage() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Update header
+            document.querySelector('h1').textContent = lang.title;
+            document.querySelector('header p').textContent = lang.subtitle;
+            
+            // Update form labels
+            document.querySelector('label[for="projectName"]').textContent = lang.projectName;
+            document.querySelector('label[for="companyName"]').textContent = lang.companyName;
+            document.querySelector('label[for="location"]').textContent = lang.location;
+            document.querySelector('label[for="period"]').textContent = lang.period;
+            document.querySelector('label[for="rateBase"]').textContent = lang.rateBase;
+            document.querySelector('label[for="totalManHours"]').textContent = lang.totalManHours;
+            document.querySelector('label[for="totalLostDays"]').textContent = lang.totalLostDays;
+            document.querySelector('label[for="lostTimeCases"]').textContent = lang.lostTimeCases;
+            document.querySelector('label[for="daysPerCase"]').textContent = lang.daysPerCase;
+            document.querySelector('label[for="notes"]').textContent = lang.notes;
+            document.querySelector('label[for="reportDetails"]').textContent = lang.reportDetails;
+            
+            // Update section headers
+            document.querySelectorAll('.form-section h2')[0].textContent = lang.projectInfo;
+            document.querySelectorAll('.form-section h2')[1].textContent = lang.calculationDetails;
+            document.querySelectorAll('.form-section h2')[2].textContent = lang.reportDetails;
+            
+            // Update buttons
+            document.getElementById('previewBtn').textContent = lang.preview;
+            document.getElementById('downloadBtn').textContent = lang.downloadPDF;
+            document.getElementById('resetBtn').textContent = lang.reset;
+            document.getElementById('backToFormBtn').textContent = lang.backToForm;
+            document.getElementById('downloadFromPreviewBtn').textContent = lang.downloadPDF;
+            
+            // Update placeholders
+            document.getElementById('projectName').placeholder = lang.projectName;
+            document.getElementById('companyName').placeholder = lang.companyName;
+            document.getElementById('location').placeholder = lang.location;
+            document.getElementById('period').placeholder = lang.period;
+            document.getElementById('totalManHours').placeholder = lang.totalManHours;
+            document.getElementById('totalLostDays').placeholder = lang.totalLostDays;
+            document.getElementById('lostTimeCases').placeholder = lang.lostTimeCases;
+            document.getElementById('daysPerCase').placeholder = lang.daysPerCase;
+            document.getElementById('notes').placeholder = lang.notes;
+            document.getElementById('reportDetails').placeholder = lang.reportDetails;
+            
+            // Update calculation method labels
+            document.querySelector('label[for="lostDaysDirect"]').textContent = lang.lostDaysDirect;
+            document.querySelector('label[for="lostDaysCalculate"]').textContent = lang.lostDaysCalculate;
+            
+            // Update summary labels
+            document.querySelectorAll('.summary-item div:last-child')[0].textContent = lang.totalManHoursLabel;
+            document.querySelectorAll('.summary-item div:last-child')[1].textContent = lang.totalLostDaysLabel;
+            document.querySelectorAll('.summary-item div:last-child')[2].textContent = lang.severityRateLabel;
+        }
+
+        // Toggle dark mode
+        function toggleDarkMode() {
+            state.isDarkMode = !state.isDarkMode;
+            const btn = document.getElementById('darkModeBtn');
+            
+            if (state.isDarkMode) {
+                document.body.classList.add('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Light Mode';
+            } else {
+                document.body.classList.remove('dark-mode');
+                btn.querySelector('.mode-text').textContent = 'Dark Mode';
+            }
+            
+            saveSettings();
+        }
+
+        // Show preview
+        function showPreview() {
+            // Validate required fields
+            if (!validateForm()) {
+                return;
+            }
+            
+            document.getElementById('formView').classList.add('hidden');
+            document.getElementById('previewView').classList.remove('hidden');
+            
+            generatePreviewContent();
+        }
+
+        // Validate form
+        function validateForm() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            let isValid = true;
+            
+            // Check required fields
+            const requiredFields = [
+                { id: 'projectName', name: lang.projectName },
+                { id: 'companyName', name: lang.companyName },
+                { id: 'location', name: lang.location },
+                { id: 'period', name: lang.period },
+                { id: 'totalManHours', name: lang.totalManHours }
+            ];
+            
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element.value.trim()) {
+                    isValid = false;
+                    element.style.borderColor = 'var(--danger-color)';
+                    showNotification(`${field.name} ${lang.requiredField}`, true);
+                } else {
+                    element.style.borderColor = '';
+                }
+            });
+            
+            // Check lost days fields based on method
+            const directMethod = document.getElementById('lostDaysDirect').checked;
+            if (directMethod) {
+                const totalLostDays = document.getElementById('totalLostDays');
+                if (!totalLostDays.value) {
+                    isValid = false;
+                    totalLostDays.style.borderColor = 'var(--danger-color)';
+                    showNotification(`${lang.totalLostDays} ${lang.requiredField}`, true);
+                } else {
+                    totalLostDays.style.borderColor = '';
+                }
+            } else {
+                const lostTimeCases = document.getElementById('lostTimeCases');
+                const daysPerCase = document.getElementById('daysPerCase');
+                
+                if (!lostTimeCases.value || !daysPerCase.value) {
+                    isValid = false;
+                    if (!lostTimeCases.value) {
+                        lostTimeCases.style.borderColor = 'var(--danger-color)';
+                    }
+                    if (!daysPerCase.value) {
+                        daysPerCase.style.borderColor = 'var(--danger-color)';
+                    }
+                    showNotification(`${lang.lostTimeCases} and ${lang.daysPerCase} ${lang.requiredField}`, true);
+                } else {
+                    lostTimeCases.style.borderColor = '';
+                    daysPerCase.style.borderColor = '';
+                }
+            }
+            
+            return isValid;
+        }
+
+        // Back to form
+        function backToForm() {
+            document.getElementById('formView').classList.remove('hidden');
+            document.getElementById('previewView').classList.add('hidden');
+        }
+
+        // Generate preview content
+        function generatePreviewContent() {
+            const previewContent = document.getElementById('previewContent');
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Get form values
+            const projectName = document.getElementById('projectName').value || '—';
+            const companyName = document.getElementById('companyName').value || '—';
+            const location = document.getElementById('location').value || '—';
+            const period = document.getElementById('period').value || '—';
+            const rateBase = parseInt(document.getElementById('rateBase').value) || 1000000;
+            const totalManHours = parseInt(document.getElementById('totalManHours').value) || 0;
+            const notes = document.getElementById('notes').value || '—';
+            const reportDetails = document.getElementById('reportDetails').value || '—';
+            
+            // Calculate lost days and severity rate
+            let totalLostDays = 0;
+            const directMethod = document.getElementById('lostDaysDirect').checked;
+            let calculationMethod = '';
+            
+            if (directMethod) {
+                totalLostDays = parseInt(document.getElementById('totalLostDays').value) || 0;
+                calculationMethod = lang.lostDaysDirect;
+            } else {
+                const lostTimeCases = parseInt(document.getElementById('lostTimeCases').value) || 0;
+                const daysPerCase = parseInt(document.getElementById('daysPerCase').value) || 0;
+                totalLostDays = lostTimeCases * daysPerCase;
+                calculationMethod = `${lang.lostDaysCalculate}: ${lostTimeCases} cases × ${daysPerCase} days/case`;
+            }
+            
+            // Calculate Severity Rate
+            let severityRate = 0;
+            if (totalManHours > 0) {
+                severityRate = (totalLostDays * rateBase) / totalManHours;
+            }
+            
+            // Build preview HTML
+            let html = `
+                <div class="form-section">
+                    <h2>${lang.severityRateReport}</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.projectName}:</label>
+                            <p>${projectName}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.companyName}:</label>
+                            <p>${companyName}</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>${lang.location}:</label>
+                            <p>${location}</p>
+                        </div>
+                        <div class="form-group">
+                            <label>${lang.period}:</label>
+                            <p>${period}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.calculationDetails}</h2>
+                    <div class="info-box">
+                        <p><strong>${lang.srFormula}:</strong> SR = (Total Lost Days × Rate Base) / Total Man-Hours</p>
+                        <p><strong>${lang.rateBase}:</strong> ${rateBase.toLocaleString()} hours</p>
+                        <p><strong>${lang.totalManHours}:</strong> ${totalManHours.toLocaleString()}</p>
+                        <p><strong>${lang.totalLostDays}:</strong> ${totalLostDays.toLocaleString()} (${calculationMethod})</p>
+                    </div>
+                    
+                    <div class="sr-result">
+                        <div>${lang.srValue}</div>
+                        <div class="sr-value">${severityRate.toFixed(2)}</div>
+                        <div>SR = (${totalLostDays} × ${rateBase.toLocaleString()}) / ${totalManHours.toLocaleString()}</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>${lang.notes}:</label>
+                        <p>${notes}</p>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>${lang.reportDetails}</h2>
+                    <p>${reportDetails}</p>
+                </div>
+                
+                <div class="form-section">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            previewContent.innerHTML = html;
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            // Validate form first
+            if (!validateForm()) {
+                return;
+            }
+            
+            // Show loading indicator
+            const originalText = document.querySelector('#downloadBtn').innerHTML;
+            document.querySelector('#downloadBtn').innerHTML = '<span class="loading"></span> Generating...';
+            document.querySelector('#downloadBtn').disabled = true;
+            
+            // Use html2canvas and jsPDF to generate PDF
+            generatePDF().then(() => {
+                // Restore button text
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+                
+                const lang = state.isHindi ? translations.hi : translations.en;
+                showNotification(lang.pdfGenerated);
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                const lang = state.isHindi ? translations.hi : translations.en;
+                showNotification(lang.errorGeneratingPDF, true);
+                document.querySelector('#downloadBtn').innerHTML = originalText;
+                document.querySelector('#downloadBtn').disabled = false;
+            });
+        }
+
+        // Generate PDF using html2canvas and jsPDF
+        async function generatePDF() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            
+            // Create a temporary element for PDF generation
+            const pdfElement = document.createElement('div');
+            pdfElement.style.width = '210mm';
+            pdfElement.style.padding = '20px';
+            pdfElement.style.backgroundColor = 'white';
+            pdfElement.style.color = 'black';
+            pdfElement.style.fontFamily = 'Arial, sans-serif';
+            
+            // Get form values
+            const projectName = document.getElementById('projectName').value || '—';
+            const companyName = document.getElementById('companyName').value || '—';
+            const location = document.getElementById('location').value || '—';
+            const period = document.getElementById('period').value || '—';
+            const rateBase = parseInt(document.getElementById('rateBase').value) || 1000000;
+            const totalManHours = parseInt(document.getElementById('totalManHours').value) || 0;
+            const notes = document.getElementById('notes').value || '—';
+            const reportDetails = document.getElementById('reportDetails').value || '—';
+            
+            // Calculate lost days and severity rate
+            let totalLostDays = 0;
+            const directMethod = document.getElementById('lostDaysDirect').checked;
+            let calculationMethod = '';
+            
+            if (directMethod) {
+                totalLostDays = parseInt(document.getElementById('totalLostDays').value) || 0;
+                calculationMethod = lang.lostDaysDirect;
+            } else {
+                const lostTimeCases = parseInt(document.getElementById('lostTimeCases').value) || 0;
+                const daysPerCase = parseInt(document.getElementById('daysPerCase').value) || 0;
+                totalLostDays = lostTimeCases * daysPerCase;
+                calculationMethod = `${lang.lostDaysCalculate}: ${lostTimeCases} cases × ${daysPerCase} days/case`;
+            }
+            
+            // Calculate Severity Rate
+            let severityRate = 0;
+            if (totalManHours > 0) {
+                severityRate = (totalLostDays * rateBase) / totalManHours;
+            }
+            
+            // Build PDF content
+            let html = `
+                <h1 style="text-align: center; color: #2c3e50; margin-bottom: 10px;">${lang.severityRateReport}</h1>
+                <p style="text-align: center; margin-bottom: 20px;">${lang.subtitle}</p>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.projectInfo}</h2>
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.projectName}:</strong> ${projectName}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.companyName}:</strong> ${companyName}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.location}:</strong> ${location}</td>
+                            <td style="width: 50%; padding: 5px;"><strong>${lang.period}:</strong> ${period}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.calculationDetails}</h2>
+                    <div style="background-color: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin-bottom: 15px;">
+                        <p style="margin-bottom: 5px;"><strong>${lang.srFormula}:</strong> SR = (Total Lost Days × Rate Base) / Total Man-Hours</p>
+                        <p style="margin-bottom: 5px;"><strong>${lang.rateBase}:</strong> ${rateBase.toLocaleString()} hours</p>
+                        <p style="margin-bottom: 5px;"><strong>${lang.totalManHours}:</strong> ${totalManHours.toLocaleString()}</p>
+                        <p style="margin-bottom: 0;"><strong>${lang.totalLostDays}:</strong> ${totalLostDays.toLocaleString()} (${calculationMethod})</p>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 20px; background-color: #ecf0f1; border-radius: 5px; margin: 20px 0;">
+                        <div style="font-size: 18px; margin-bottom: 10px;">${lang.srValue}</div>
+                        <div style="font-size: 48px; font-weight: bold; color: #2c3e50;">${severityRate.toFixed(2)}</div>
+                        <div style="font-size: 14px; margin-top: 10px;">SR = (${totalLostDays} × ${rateBase.toLocaleString()}) / ${totalManHours.toLocaleString()}</div>
+                    </div>
+                    
+                    <div style="margin-bottom: 10px;"><strong>${lang.notes}:</strong></div>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 40px; border-radius: 4px;">${notes}</div>
+                </div>
+                
+                <div style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px;">${lang.reportDetails}</h2>
+                    <div style="border: 1px solid #ddd; padding: 10px; min-height: 60px; border-radius: 4px;">${reportDetails}</div>
+                </div>
+                
+                <div style="border-top: 1px solid #ddd; padding-top: 15px; margin-top: 20px; font-size: 12px; color: #666;">
+                    <p><em>${lang.generatedOn} ${new Date().toLocaleString()}</em></p>
+                    <p><em>${lang.generatedBy}</em></p>
+                </div>
+            `;
+            
+            pdfElement.innerHTML = html;
+            document.body.appendChild(pdfElement);
+            
+            try {
+                // Use html2canvas to capture the content
+                const canvas = await html2canvas(pdfElement, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false
+                });
+                
+                // Create PDF
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                // Add image to PDF
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                let heightLeft = imgHeight;
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                // Add new pages if needed
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                // Download PDF
+                const fileName = `Severity_Rate_${projectName.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`;
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                throw error;
+            } finally {
+                // Clean up
+                document.body.removeChild(pdfElement);
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            const lang = state.isHindi ? translations.hi : translations.en;
+            if (confirm(state.isHindi ? 'क्या आप वाकई फॉर्म रीसेट करना चाहते हैं? सभी डेटा खो जाएगा।' : 'Are you sure you want to reset the form? All data will be lost.')) {
+                // Reset form fields
+                document.getElementById('projectName').value = '';
+                document.getElementById('companyName').value = '';
+                document.getElementById('location').value = '';
+                document.getElementById('period').value = '';
+                document.getElementById('rateBase').value = '1000000';
+                document.getElementById('totalManHours').value = '';
+                document.getElementById('totalLostDays').value = '';
+                document.getElementById('lostTimeCases').value = '';
+                document.getElementById('daysPerCase').value = '';
+                document.getElementById('notes').value = '';
+                document.getElementById('reportDetails').value = '';
+                
+                // Reset calculation method
+                document.getElementById('lostDaysDirect').checked = true;
+                toggleLostDaysMethod();
+                
+                // Update summary
+                updateCalculation();
+                
+                // If in preview, go back to form
+                if (!document.getElementById('previewView').classList.contains('hidden')) {
+                    backToForm();
+                }
+                
+                showNotification(lang.formReset);
+            }
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
