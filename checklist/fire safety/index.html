@@ -3,207 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire Safety Checklist | Complete Fire Prevention & Safety Management</title>
-    <meta name="description" content="Comprehensive fire safety checklist generator and guide. Ensure fire prevention compliance and building safety with our professional fire safety management tools.">
-    <meta name="keywords" content="fire safety, fire prevention, fire checklist, emergency planning, fire extinguisher, OSHA compliance, fire management">
-    <meta name="author" content="Fire Safety Solutions">
+    <title>Fire Safety | Professional Hazard Identification & Risk Assessment Tool</title>
+    <meta name="description" content="Free Fire Safety tools for professional Hazard Identification and Risk Assessment. Create comprehensive safety reports with our easy-to-use generator.">
+    <meta name="keywords" content="fire safety, HIRA generator, hazard identification, risk assessment, safety management, workplace safety, HSE tools">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Fire Safety | Professional Hazard Identification & Risk Assessment Tool">
+    <meta property="og:description" content="Free Fire Safety tools for professional Hazard Identification and Risk Assessment">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/fire-safety.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Fire Safety | Professional Hazard Identification & Risk Assessment Tool">
+    <meta name="twitter:description" content="Free Fire Safety tools for professional Hazard Identification and Risk Assessment">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Fire Safety",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Free tool for Fire Safety and Risk Assessment",
+        "url": "https://hsetools.vercel.app/fire-safety.html",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Shivshakti Sahani"
+        }
+    }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        :root {
-            --primary: #d32f2f;
-            --primary-dark: #b71c1c;
-            --secondary: #ff9800;
-            --secondary-dark: #f57c00;
-            --accent: #ff5722;
-            --accent-dark: #e64a19;
-            --light: #f5f7fa;
-            --dark: #333;
-            --gray: #6c757d;
-            --border: #dee2e6;
-            --bg-color: #f5f7fa;
-            --card-bg: white;
-            --text-color: #333;
-            --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Dark mode variables */
-        .dark-mode {
-            --primary: #f44336;
-            --primary-dark: #d32f2f;
-            --secondary: #ffa726;
-            --secondary-dark: #ff9800;
-            --accent: #ff7043;
-            --accent-dark: #ff5722;
-            --light: #1a1a1a;
-            --dark: #f0f0f0;
-            --gray: #a0a0a0;
-            --border: #444;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #f0f0f0;
-            --shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        
+
         body {
-            background: var(--bg-color);
-            color: var(--text-color);
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            transition: all 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            transition: background-color 0.3s, color 0.3s;
         }
-        
+
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            flex: 1;
+            padding: 0 15px;
         }
-        
-        /* Header Styles */
-        header {
-            background: var(--card-bg);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 20px 0;
-            transition: background-color 0.3s;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            background: var(--primary);
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            width: 60px;
-            height: 60px;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
             font-size: 28px;
+            color: var(--accent-color);
         }
-        
-        .logo-text h1 {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 5px;
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
         }
-        
-        .logo-text p {
-            color: var(--gray);
-            font-size: 16px;
+
+        .nav-menu li {
+            margin-left: 20px;
         }
-        
-        .header-controls {
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 5px;
         }
-        
-        .toggle-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-color);
-            padding: 8px 15px;
-            border-radius: 6px;
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-        
-        .toggle-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .mode-toggle {
-            width: 60px;
-            height: 30px;
-            background: var(--border);
-            border-radius: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             position: relative;
-            cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        
-        .mode-toggle::after {
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
             content: '';
             position: absolute;
-            width: 26px;
-            height: 26px;
-            background: white;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
-        
-        .dark-mode .mode-toggle {
-            background: var(--primary);
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
         }
-        
-        .dark-mode .mode-toggle::after {
-            transform: translateX(30px);
-            background: var(--card-bg);
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
-        
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 80px 0 60px;
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
-        
-        .hero h1 {
-            font-size: 42px;
-            color: var(--primary);
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
             margin-bottom: 20px;
-            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
         }
-        
-        .hero p {
-            font-size: 20px;
-            color: var(--gray);
-            max-width: 800px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
-        
+
         /* Cards Section */
         .cards-section {
             padding: 40px 0 80px;
         }
-        
+
         .cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .card {
-            background: var(--card-bg);
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             border-radius: 12px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             padding: 40px 30px;
             text-align: center;
             transition: all 0.3s ease;
@@ -211,13 +346,37 @@
             flex-direction: column;
             align-items: center;
             height: 100%;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
-        
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
-        
+
         .card-icon {
             width: 80px;
             height: 80px;
@@ -229,29 +388,29 @@
             margin-bottom: 25px;
             color: white;
         }
-        
+
         .card-1 .card-icon {
-            background: linear-gradient(135deg, #d32f2f, #f44336);
+            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
         }
-        
+
         .card-2 .card-icon {
-            background: linear-gradient(135deg, #ff9800, #ffb74d);
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
         }
-        
+
         .card-title {
             font-size: 24px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .card-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             margin-bottom: 25px;
             line-height: 1.6;
             flex: 1;
         }
-        
+
         .btn {
             padding: 14px 30px;
             border: none;
@@ -265,58 +424,59 @@
             gap: 10px;
             text-decoration: none;
         }
-        
+
         .btn-primary {
-            background: var(--primary);
+            background: var(--primary-color);
             color: white;
         }
-        
+
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: var(--primary-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         .btn-success {
-            background: var(--secondary);
+            background: var(--success-color);
             color: white;
         }
-        
+
         .btn-success:hover {
-            background: var(--secondary-dark);
+            background: var(--success-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         /* Features Section */
         .features {
-            background: var(--card-bg);
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             padding: 80px 0;
             margin-top: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: background-color 0.3s;
         }
-        
+
         .section-title {
             text-align: center;
             font-size: 32px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 50px;
             font-weight: 600;
         }
-        
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
         }
-        
+
         .feature {
             text-align: center;
             padding: 20px;
         }
-        
+
         .feature-icon {
             width: 70px;
             height: 70px;
@@ -328,68 +488,41 @@
             margin: 0 auto 20px;
             color: white;
         }
-        
+
         .feature-1 .feature-icon {
-            background: linear-gradient(135deg, #f44336, #ef5350);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
         }
-        
+
         .feature-2 .feature-icon {
-            background: linear-gradient(135deg, #ff9800, #ffb74d);
+            background: linear-gradient(135deg, hsl(280, 70%, 50%), hsl(280, 70%, 70%));
         }
-        
+
         .feature-3 .feature-icon {
-            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            background: linear-gradient(135deg, var(--danger-color), hsl(0, 70%, 60%));
         }
-        
+
         .feature-4 .feature-icon {
-            background: linear-gradient(135deg, #2196f3, #42a5f5);
+            background: linear-gradient(135deg, var(--info-color), hsl(190, 70%, 60%));
         }
-        
+
         .feature-title {
             font-size: 20px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .feature-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
-        
-        /* Fire Safety Tips Section */
-        .safety-tips {
-            background: var(--card-bg);
-            padding: 80px 0;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: background-color 0.3s;
-        }
-        
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .tip-card {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 25px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            transition: transform 0.3s;
-        }
-        
-        .tip-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .tip-icon {
-            background: var(--primary);
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             width: 50px;
             height: 50px;
@@ -397,221 +530,163 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            flex-shrink: 0;
-        }
-        
-        .tip-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .tip-content p {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        
-        /* Emergency Numbers Section */
-        .emergency-numbers {
-            background: var(--card-bg);
-            padding: 60px 0;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: background-color 0.3s;
-        }
-        
-        .numbers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .number-card {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .number-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .number-icon {
-            background: var(--accent);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 15px;
-        }
-        
-        .number-title {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
-        .number {
-            color: var(--accent);
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        
-        .number-description {
-            color: var(--gray);
-            font-size: 14px;
-        }
-        
-        /* Simplified Footer */
-        footer {
-            background: var(--primary);
-            color: white;
-            padding: 50px 0 30px;
-            margin-top: 60px;
-            transition: background-color 0.3s;
-        }
-        
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .social-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transition: all 0.3s ease;
             text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
         }
-        
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
-        
-        .footer-bottom {
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
         }
-        
-        /* Responsive Design */
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
         @media (max-width: 768px) {
-            .header-content {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
                 flex-direction: column;
-                text-align: center;
-                gap: 20px;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             }
-            
-            .hero h1 {
-                font-size: 32px;
+
+            .nav-menu.active {
+                display: flex;
             }
-            
-            .hero p {
-                font-size: 18px;
+
+            .nav-menu li {
+                margin: 10px 0;
             }
-            
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+
             .cards-container {
                 grid-template-columns: 1fr;
             }
-            
-            .card {
-                padding: 30px 20px;
-            }
-            
-            .footer-social {
-                gap: 15px;
-            }
-            
-            .tips-grid {
+
+            .features-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .numbers-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero {
-                padding: 50px 0 30px;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .social-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-fire-extinguisher"></i>
-                    </div>
-                    <div class="logo-text">
-                        <h1>Fire Safety Checklist</h1>
-                        <p>Complete Fire Prevention & Safety Management</p>
-                    </div>
-                </div>
-                <div class="header-controls">
-                    <button class="toggle-btn" id="languageToggle">
-                        <i class="fas fa-language"></i>
-                        <span>English</span>
-                    </button>
-                    <div class="mode-toggle" id="modeToggle"></div>
-                </div>
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Page Header -->
+    <section class="page-header">
         <div class="container">
-            <h1>Fire Safety Checklist Generator & Emergency Guide</h1>
-            <p>Ensure fire prevention compliance and building safety with our comprehensive fire safety checklist tools. Generate custom checklists and access our complete emergency planning guide for various facilities.</p>
+            <h1 data-en="Fire Safety & Complete Guide" data-hi="अग्नि सुरक्षा और संपूर्ण गाइड">Fire Safety & Complete Guide</h1>
+            <p data-en="Your comprehensive solution for Fire Safety and Risk Assessment. Create professional safety reports and access our complete guide to fire safety management." 
+               data-hi="अग्नि सुरक्षा और जोखिम मूल्यांकन के लिए आपका व्यापक समाधान। पेशेवर सुरक्षा रिपोर्ट बनाएं और अग्नि सुरक्षा प्रबंधन के लिए हमारी संपूर्ण गाइड तक पहुंचें।">
+                Your comprehensive solution for Fire Safety and Risk Assessment. Create professional safety reports and access our complete guide to fire safety management.
+            </p>
         </div>
     </section>
 
@@ -619,31 +694,33 @@
     <section class="cards-section">
         <div class="container">
             <div class="cards-container">
-                <!-- Card 1: Generate Checklist -->
+                <!-- Card 1: Generate Fire Safety Report -->
                 <div class="card card-1">
                     <div class="card-icon">
-                        <i class="fas fa-clipboard-check"></i>
+                        <i class="fas fa-fire-extinguisher"></i>
                     </div>
-                    <h2 class="card-title">Generate Fire Safety Checklist</h2>
-                    <p class="card-description">
-                        Create customized fire safety checklists for your specific facility needs. Our easy-to-use generator helps you identify fire hazards, ensure proper equipment maintenance, and comply with fire safety regulations.
+                    <h2 class="card-title" data-en="Generate Safety Report" data-hi="सुरक्षा रिपोर्ट जनरेट करें">Generate Safety Report</h2>
+                    <p class="card-description" data-en="Create professional Fire Safety and Risk Assessment reports with our easy-to-use generator. Input your facility data, identify fire hazards, assess risks, and generate comprehensive safety documents ready for implementation." 
+                       data-hi="हमारे उपयोग में आसान जनरेटर के साथ पेशेवर अग्नि सुरक्षा और जोखिम मूल्यांकन रिपोर्ट बनाएं। अपना सुविधा डेटा इनपुट करें, अग्नि खतरों की पहचान करें, जोखिमों का आकलन करें, और कार्यान्वयन के लिए तैयार व्यापक सुरक्षा दस्तावेज़ जनरेट करें।">
+                        Create professional Fire Safety and Risk Assessment reports with our easy-to-use generator. Input your facility data, identify fire hazards, assess risks, and generate comprehensive safety documents ready for implementation.
                     </p>
-                    <a href="checklist-generator.html" class="btn btn-primary">
-                        <i class="fas fa-play-circle"></i> Generate Checklist
+                    <a href="Fire_call.html" class="btn btn-primary">
+                        <i class="fas fa-play-circle"></i> <span data-en="Generate Report" data-hi="रिपोर्ट जनरेट करें">Generate Report</span>
                     </a>
                 </div>
                 
-                <!-- Card 2: Safety Guide -->
+                <!-- Card 2: Fire Safety Complete Guide -->
                 <div class="card card-2">
                     <div class="card-icon">
                         <i class="fas fa-book-open"></i>
                     </div>
-                    <h2 class="card-title">Fire Safety & Emergency Guide</h2>
-                    <p class="card-description">
-                        Access our comprehensive guide to fire prevention and emergency response. Learn best practices for evacuation planning, fire extinguisher use, alarm systems, and implementation strategies to protect lives and property.
+                    <h2 class="card-title" data-en="Safety Complete Guide" data-hi="सुरक्षा संपूर्ण गाइड">Safety Complete Guide</h2>
+                    <p class="card-description" data-en="Access our comprehensive guide to Fire Safety and Risk Assessment. Learn best practices, step-by-step processes, real-world examples, and implementation strategies to enhance fire safety and compliance." 
+                       data-hi="अग्नि सुरक्षा और जोखिम मूल्यांकन के लिए हमारी व्यापक गाइड तक पहुंचें। अग्नि सुरक्षा और अनुपालन को बढ़ाने के लिए सर्वोत्तम प्रथाओं, चरण-दर-चरण प्रक्रियाओं, वास्तविक दुनिया के उदाहरणों और कार्यान्वयन रणनीतियों को सीखें।">
+                        Access our comprehensive guide to Fire Safety and Risk Assessment. Learn best practices, step-by-step processes, real-world examples, and implementation strategies to enhance fire safety and compliance.
                     </p>
-                    <a href="safety-guide.html" class="btn btn-success">
-                        <i class="fas fa-download"></i> View Guide
+                    <a href="fire-safety-guide.html" class="btn btn-success">
+                        <i class="fas fa-download"></i> <span data-en="View Guide" data-hi="गाइड देखें">View Guide</span>
                     </a>
                 </div>
             </div>
@@ -653,431 +730,174 @@
     <!-- Features Section -->
     <section class="features">
         <div class="container">
-            <h2 class="section-title">Why Use Our Fire Safety Solutions?</h2>
+            <h2 class="section-title" data-en="Why Use Our Fire Safety Solutions?" data-hi="हमारे अग्नि सुरक्षा समाधान क्यों उपयोग करें?">Why Use Our Fire Safety Solutions?</h2>
             <div class="features-grid">
                 <!-- Feature 1 -->
                 <div class="feature feature-1">
                     <div class="feature-icon">
                         <i class="fas fa-fire"></i>
                     </div>
-                    <h3 class="feature-title">Fire Prevention</h3>
-                    <p class="feature-description">
-                        Identify and eliminate fire hazards before they can cause damage through systematic inspection and maintenance protocols.
+                    <h3 class="feature-title" data-en="Fire Prevention" data-hi="अग्नि निवारण">Fire Prevention</h3>
+                    <p class="feature-description" data-en="Identify potential fire hazards and implement preventive measures to reduce fire risks." 
+                       data-hi="संभावित अग्नि खतरों की पहचान करें और अग्नि जोखिमों को कम करने के लिए निवारक उपाय लागू करें।">
+                        Identify potential fire hazards and implement preventive measures to reduce fire risks.
                     </p>
                 </div>
                 
                 <!-- Feature 2 -->
                 <div class="feature feature-2">
                     <div class="feature-icon">
-                        <i class="fas fa-file-contract"></i>
+                        <i class="fas fa-smoke"></i>
                     </div>
-                    <h3 class="feature-title">Regulatory Compliance</h3>
-                    <p class="feature-description">
-                        Ensure your facility meets all fire code, OSHA, and insurance requirements with professionally documented safety procedures.
+                    <h3 class="feature-title" data-en="Smoke Detection" data-hi="धुआं पहचान">Smoke Detection</h3>
+                    <p class="feature-description" data-en="Implement effective smoke detection systems and early warning protocols." 
+                       data-hi="प्रभावी धुआं पहचान प्रणाली और प्रारंभिक चेतावनी प्रोटोकॉल लागू करें।">
+                        Implement effective smoke detection systems and early warning protocols.
                     </p>
                 </div>
                 
                 <!-- Feature 3 -->
                 <div class="feature feature-3">
                     <div class="feature-icon">
-                        <i class="fas fa-user-shield"></i>
+                        <i class="fas fa-file-contract"></i>
                     </div>
-                    <h3 class="feature-title">Life Safety</h3>
-                    <p class="feature-description">
-                        Protect building occupants with clear evacuation plans, properly maintained equipment, and regular safety drills.
+                    <h3 class="feature-title" data-en="Compliance Ready" data-hi="अनुपालन तैयार">Compliance Ready</h3>
+                    <p class="feature-description" data-en="Meet fire safety regulatory requirements with professionally documented assessments." 
+                       data-hi="पेशेवर रूप से प्रलेखित मूल्यांकन के साथ अग्नि सुरक्षा नियामक आवश्यकताओं को पूरा करें।">
+                        Meet fire safety regulatory requirements with professionally documented assessments.
                     </p>
                 </div>
                 
                 <!-- Feature 4 -->
                 <div class="feature feature-4">
                     <div class="feature-icon">
-                        <i class="fas fa-building"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h3 class="feature-title">Property Protection</h3>
-                    <p class="feature-description">
-                        Minimize property damage and business interruption through proactive fire prevention and early detection systems.
+                    <h3 class="feature-title" data-en="Emergency Planning" data-hi="आपातकालीन योजना">Emergency Planning</h3>
+                    <p class="feature-description" data-en="Develop comprehensive emergency evacuation plans and conduct regular fire drills." 
+                       data-hi="व्यापक आपातकालीन निकासी योजनाएं विकसित करें और नियमित अग्नि अभ्यास आयोजित करें।">
+                        Develop comprehensive emergency evacuation plans and conduct regular fire drills.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Fire Safety Tips Section -->
-    <section class="safety-tips">
-        <div class="container">
-            <h2 class="section-title">Essential Fire Safety Tips</h2>
-            <div class="tips-grid">
-                <!-- Tip 1 -->
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-smoke"></i>
-                    </div>
-                    <div class="tip-content">
-                        <h3>Smoke Detectors</h3>
-                        <p>Test smoke detectors monthly and replace batteries annually. Install detectors on every level and in every sleeping area.</p>
-                    </div>
-                </div>
-                
-                <!-- Tip 2 -->
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-fire-extinguisher"></i>
-                    </div>
-                    <div class="tip-content">
-                        <h3>Fire Extinguishers</h3>
-                        <p>Place ABC-type extinguishers in key locations. Train staff on PASS technique (Pull, Aim, Squeeze, Sweep).</p>
-                    </div>
-                </div>
-                
-                <!-- Tip 3 -->
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-door-open"></i>
-                    </div>
-                    <div class="tip-content">
-                        <h3>Clear Exits</h3>
-                        <p>Keep emergency exits unobstructed and clearly marked. Ensure exit signs are illuminated and visible.</p>
-                    </div>
-                </div>
-                
-                <!-- Tip 4 -->
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-plug"></i>
-                    </div>
-                    <div class="tip-content">
-                        <h3>Electrical Safety</h3>
-                        <p>Avoid overloading circuits. Check for damaged cords and replace them immediately. Use surge protectors.</p>
-                    </div>
-                </div>
-                
-                <!-- Tip 5 -->
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-people-carry"></i>
-                    </div>
-                    <div class="tip-content">
-                        <h3>Evacuation Plans</h3>
-                        <p>Develop and practice evacuation drills regularly. Establish meeting points and assign evacuation helpers.</p>
-                    </div>
-                </div>
-                
-                <!-- Tip 6 -->
-                <div class="tip-card">
-                    <div class="tip-icon">
-                        <i class="fas fa-flame"></i>
-                    </div>
-                    <div class="tip-content">
-                        <h3>Combustible Materials</h3>
-                        <p>Store flammable liquids properly. Keep work areas clean and free of excessive combustible materials.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
 
-    <!-- Emergency Numbers Section -->
-    <section class="emergency-numbers">
-        <div class="container">
-            <h2 class="section-title">Emergency Contact Numbers</h2>
-            <div class="numbers-grid">
-                <!-- Number 1 -->
-                <div class="number-card">
-                    <div class="number-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <h3 class="number-title">Fire Emergency</h3>
-                    <div class="number">911</div>
-                    <p class="number-description">For immediate fire response and rescue</p>
-                </div>
-                
-                <!-- Number 2 -->
-                <div class="number-card">
-                    <div class="number-icon">
-                        <i class="fas fa-ambulance"></i>
-                    </div>
-                    <h3 class="number-title">Medical Emergency</h3>
-                    <div class="number">911</div>
-                    <p class="number-description">For medical emergencies and ambulance</p>
-                </div>
-                
-                <!-- Number 3 -->
-                <div class="number-card">
-                    <div class="number-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3 class="number-title">Fire Department</h3>
-                    <div class="number">(555) 123-FIRE</div>
-                    <p class="number-description">Local fire department non-emergency</p>
-                </div>
-                
-                <!-- Number 4 -->
-                <div class="number-card">
-                    <div class="number-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3 class="number-title">Facility Manager</h3>
-                    <div class="number">(555) 123-HELP</div>
-                    <p class="number-description">Building maintenance and safety issues</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Simplified Footer with Social Buttons Only -->
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-social">
-                <a href="#" class="social-btn">
-                    <i class="fab fa-facebook-f"></i>
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-twitter"></i>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-linkedin-in"></i>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-youtube"></i>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
                 </a>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 Fire Safety Solutions. All rights reserved.</p>
-            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
         </div>
     </footer>
 
     <script>
-        // Dark mode toggle functionality
-        const modeToggle = document.getElementById('modeToggle');
-        modeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            
-            // Save preference to localStorage
-            if (document.body.classList.contains('dark-mode')) {
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
                 localStorage.setItem('theme', 'dark');
             } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
                 localStorage.setItem('theme', 'light');
             }
         });
-        
-        // Check for saved theme preference
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
         }
-        
-        // Language toggle functionality with improved error handling
-        const languageToggle = document.getElementById('languageToggle');
-        let currentLanguage = 'English';
-        let isTranslating = false;
-        
-        // Store original English content
-        const originalContent = {
-            logoTitle: document.querySelector('.logo-text h1').textContent,
-            logoSubtitle: document.querySelector('.logo-text p').textContent,
-            heroTitle: document.querySelector('.hero h1').textContent,
-            heroDescription: document.querySelector('.hero p').textContent,
-            card1Title: document.querySelector('.card-1 .card-title').textContent,
-            card1Description: document.querySelector('.card-1 .card-description').textContent,
-            card1Button: document.querySelector('.card-1 .btn').innerHTML,
-            card2Title: document.querySelector('.card-2 .card-title').textContent,
-            card2Description: document.querySelector('.card-2 .card-description').textContent,
-            card2Button: document.querySelector('.card-2 .btn').innerHTML,
-            sectionTitle: document.querySelector('.section-title').textContent,
-            feature1Title: document.querySelector('.feature-1 .feature-title').textContent,
-            feature1Description: document.querySelector('.feature-1 .feature-description').textContent,
-            feature2Title: document.querySelector('.feature-2 .feature-title').textContent,
-            feature2Description: document.querySelector('.feature-2 .feature-description').textContent,
-            feature3Title: document.querySelector('.feature-3 .feature-title').textContent,
-            feature3Description: document.querySelector('.feature-3 .feature-description').textContent,
-            feature4Title: document.querySelector('.feature-4 .feature-title').textContent,
-            feature4Description: document.querySelector('.feature-4 .feature-description').textContent,
-            tipsTitle: document.querySelector('.safety-tips .section-title').textContent,
-            tip1Title: document.querySelector('.tip-card:nth-child(1) h3').textContent,
-            tip1Description: document.querySelector('.tip-card:nth-child(1) p').textContent,
-            tip2Title: document.querySelector('.tip-card:nth-child(2) h3').textContent,
-            tip2Description: document.querySelector('.tip-card:nth-child(2) p').textContent,
-            tip3Title: document.querySelector('.tip-card:nth-child(3) h3').textContent,
-            tip3Description: document.querySelector('.tip-card:nth-child(3) p').textContent,
-            tip4Title: document.querySelector('.tip-card:nth-child(4) h3').textContent,
-            tip4Description: document.querySelector('.tip-card:nth-child(4) p').textContent,
-            tip5Title: document.querySelector('.tip-card:nth-child(5) h3').textContent,
-            tip5Description: document.querySelector('.tip-card:nth-child(5) p').textContent,
-            tip6Title: document.querySelector('.tip-card:nth-child(6) h3').textContent,
-            tip6Description: document.querySelector('.tip-card:nth-child(6) p').textContent,
-            emergencyTitle: document.querySelector('.emergency-numbers .section-title').textContent,
-            number1Title: document.querySelector('.number-card:nth-child(1) .number-title').textContent,
-            number1Description: document.querySelector('.number-card:nth-child(1) .number-description').textContent,
-            number2Title: document.querySelector('.number-card:nth-child(2) .number-title').textContent,
-            number2Description: document.querySelector('.number-card:nth-child(2) .number-description').textContent,
-            number3Title: document.querySelector('.number-card:nth-child(3) .number-title').textContent,
-            number3Description: document.querySelector('.number-card:nth-child(3) .number-description').textContent,
-            number4Title: document.querySelector('.number-card:nth-child(4) .number-title').textContent,
-            number4Description: document.querySelector('.number-card:nth-child(4) .number-description').textContent,
-            footerText: document.querySelector('.footer-bottom p').textContent
-        };
-        
-        // Hindi translations
-        const hindiTranslations = {
-            logoTitle: "अग्नि सुरक्षा चेकलिस्ट",
-            logoSubtitle: "पूर्ण अग्नि रोकथाम और सुरक्षा प्रबंधन",
-            heroTitle: "अग्नि सुरक्षा चेकलिस्ट जनरेटर और आपातकालीन गाइड",
-            heroDescription: "हमारे व्यापक अग्नि सुरक्षा चेकलिस्ट उपकरणों के साथ अग्नि रोकथाम अनुपालन और भवन सुरक्षा सुनिश्चित करें। कस्टम चेकलिस्ट जनरेट करें और विभिन्न सुविधाओं के लिए हमारे पूर्ण आपातकालीन योजना गाइड तक पहुंचें।",
-            card1Title: "अग्नि सुरक्षा चेकलिस्ट जनरेट करें",
-            card1Description: "अपनी विशिष्ट सुविधा आवश्यकताओं के लिए अनुकूलित अग्नि सुरक्षा चेकलिस्ट बनाएं। हमारा उपयोग में आसान जनरेटर आपको अग्नि खतरों की पहचान करने, उपकरण रखरखाव सुनिश्चित करने और अग्नि सुरक्षा विनियमों का पालन करने में मदद करता है।",
-            card1Button: '<i class="fas fa-play-circle"></i> चेकलिस्ट जनरेट करें',
-            card2Title: "अग्नि सुरक्षा और आपातकालीन गाइड",
-            card2Description: "अग्नि रोकथाम और आपातकालीन प्रतिक्रिया के लिए हमारे व्यापक गाइड तक पहुंचें। निकासी योजना, अग्निशामक उपयोग, अलार्म सिस्टम और जीवन और संपत्ति की सुरक्षा के लिए कार्यान्वयन रणनीतियों के लिए सर्वोत्तम प्रथाओं को सीखें।",
-            card2Button: '<i class="fas fa-download"></i> गाइड देखें',
-            sectionTitle: "हमारे अग्नि सुरक्षा समाधान क्यों उपयोग करें?",
-            feature1Title: "अग्नि रोकथाम",
-            feature1Description: "व्यवस्थित निरीक्षण और रखरखाव प्रोटोकॉल के माध्यम से नुकसान पहुंचाने से पहले अग्नि खतरों की पहचान करें और उन्हें समाप्त करें।",
-            feature2Title: "नियामक अनुपालन",
-            feature2Description: "पेशेवर रूप से प्रलेखित सुरक्षा प्रक्रियाओं के साथ सुनिश्चित करें कि आपकी सुविधा सभी अग्नि कोड, OSHA और बीमा आवश्यकताओं को पूरा करती है।",
-            feature3Title: "जीवन सुरक्षा",
-            feature3Description: "स्पष्ट निकासी योजनाओं, ठीक से बनाए रखे गए उपकरणों और नियमित सुरक्षा अभ्यासों के साथ भवन के लोगों की सुरक्षा करें।",
-            feature4Title: "संपत्ति संरक्षण",
-            feature4Description: "सक्रिय अग्नि रोकथाम और प्रारंभिक पहचान प्रणालियों के माध्यम से संपत्ति की क्षति और व्यापार में रुकावट को कम से कम करें।",
-            tipsTitle: "आवश्यक अग्नि सुरक्षा युक्तियाँ",
-            tip1Title: "धुआं डिटेक्टर",
-            tip1Description: "धुआं डिटेक्टरों को मासिक रूप से जांचें और बैटरियों को वार्षिक रूप से बदलें। हर स्तर पर और हर सोने के क्षेत्र में डिटेक्टर स्थापित करें।",
-            tip2Title: "अग्निशामक यंत्र",
-            tip2Description: "मुख्य स्थानों पर ABC-प्रकार के अग्निशामक रखें। कर्मचारियों को PASS तकनीक (खींचें, निशाना लगाएं, निचोड़ें, स्वीप करें) पर प्रशिक्षित करें।",
-            tip3Title: "स्पष्ट निकास",
-            tip3Description: "आपातकालीन निकास को अवरोधित और स्पष्ट रूप से चिह्नित रखें। सुनिश्चित करें कि निकास संकेत जलाए जाते हैं और दिखाई देते हैं।",
-            tip4Title: "विद्युत सुरक्षा",
-            tip4Description: "सर्किट को ओवरलोड करने से बचें। क्षतिग्रस्त तारों की जांच करें और उन्हें तुरंत बदलें। सर्ज प्रोटेक्टर का उपयोग करें।",
-            tip5Title: "निकासी योजनाएं",
-            tip5Description: "निकासी अभ्यासों को नियमित रूप से विकसित करें और अभ्यास करें। बैठक बिंदु स्थापित करें और निकासी सहायकों को नियुक्त करें।",
-            tip6Title: "दहनशील सामग्री",
-            tip6Description: "ज्वलनशील तरल पदार्थों को ठीक से संग्रहीत करें। कार्य क्षेत्रों को साफ और अत्यधिक दहनशील सामग्रियों से मुक्त रखें।",
-            emergencyTitle: "आपातकालीन संपर्क नंबर",
-            number1Title: "अग्नि आपातकाल",
-            number1Description: "तत्काल अग्नि प्रतिक्रिया और बचाव के लिए",
-            number2Title: "चिकित्सा आपातकाल",
-            number2Description: "चिकित्सा आपात स्थितियों और एम्बुलेंस के लिए",
-            number3Title: "अग्निशमन विभाग",
-            number3Description: "स्थानीय अग्निशमन विभाग गैर-आपातकालीन",
-            number4Title: "सुविधा प्रबंधक",
-            number4Description: "भवन रखरखाव और सुरक्षा मुद्दे",
-            footerText: "© 2023 अग्नि सुरक्षा समाधान। सर्वाधिकार सुरक्षित।"
-        };
-        
-        languageToggle.addEventListener('click', function() {
-            // Prevent multiple rapid clicks
-            if (isTranslating) return;
-            isTranslating = true;
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
             
-            // Toggle between English and Hindi
-            if (currentLanguage === 'English') {
-                currentLanguage = 'Hindi';
-                languageToggle.querySelector('span').textContent = 'हिंदी';
-                
-                // Update all content to Hindi
-                document.querySelector('.logo-text h1').textContent = hindiTranslations.logoTitle;
-                document.querySelector('.logo-text p').textContent = hindiTranslations.logoSubtitle;
-                document.querySelector('.hero h1').textContent = hindiTranslations.heroTitle;
-                document.querySelector('.hero p').textContent = hindiTranslations.heroDescription;
-                document.querySelector('.card-1 .card-title').textContent = hindiTranslations.card1Title;
-                document.querySelector('.card-1 .card-description').textContent = hindiTranslations.card1Description;
-                document.querySelector('.card-1 .btn').innerHTML = hindiTranslations.card1Button;
-                document.querySelector('.card-2 .card-title').textContent = hindiTranslations.card2Title;
-                document.querySelector('.card-2 .card-description').textContent = hindiTranslations.card2Description;
-                document.querySelector('.card-2 .btn').innerHTML = hindiTranslations.card2Button;
-                document.querySelector('.section-title').textContent = hindiTranslations.sectionTitle;
-                document.querySelector('.feature-1 .feature-title').textContent = hindiTranslations.feature1Title;
-                document.querySelector('.feature-1 .feature-description').textContent = hindiTranslations.feature1Description;
-                document.querySelector('.feature-2 .feature-title').textContent = hindiTranslations.feature2Title;
-                document.querySelector('.feature-2 .feature-description').textContent = hindiTranslations.feature2Description;
-                document.querySelector('.feature-3 .feature-title').textContent = hindiTranslations.feature3Title;
-                document.querySelector('.feature-3 .feature-description').textContent = hindiTranslations.feature3Description;
-                document.querySelector('.feature-4 .feature-title').textContent = hindiTranslations.feature4Title;
-                document.querySelector('.feature-4 .feature-description').textContent = hindiTranslations.feature4Description;
-                document.querySelector('.safety-tips .section-title').textContent = hindiTranslations.tipsTitle;
-                document.querySelector('.tip-card:nth-child(1) h3').textContent = hindiTranslations.tip1Title;
-                document.querySelector('.tip-card:nth-child(1) p').textContent = hindiTranslations.tip1Description;
-                document.querySelector('.tip-card:nth-child(2) h3').textContent = hindiTranslations.tip2Title;
-                document.querySelector('.tip-card:nth-child(2) p').textContent = hindiTranslations.tip2Description;
-                document.querySelector('.tip-card:nth-child(3) h3').textContent = hindiTranslations.tip3Title;
-                document.querySelector('.tip-card:nth-child(3) p').textContent = hindiTranslations.tip3Description;
-                document.querySelector('.tip-card:nth-child(4) h3').textContent = hindiTranslations.tip4Title;
-                document.querySelector('.tip-card:nth-child(4) p').textContent = hindiTranslations.tip4Description;
-                document.querySelector('.tip-card:nth-child(5) h3').textContent = hindiTranslations.tip5Title;
-                document.querySelector('.tip-card:nth-child(5) p').textContent = hindiTranslations.tip5Description;
-                document.querySelector('.tip-card:nth-child(6) h3').textContent = hindiTranslations.tip6Title;
-                document.querySelector('.tip-card:nth-child(6) p').textContent = hindiTranslations.tip6Description;
-                document.querySelector('.emergency-numbers .section-title').textContent = hindiTranslations.emergencyTitle;
-                document.querySelector('.number-card:nth-child(1) .number-title').textContent = hindiTranslations.number1Title;
-                document.querySelector('.number-card:nth-child(1) .number-description').textContent = hindiTranslations.number1Description;
-                document.querySelector('.number-card:nth-child(2) .number-title').textContent = hindiTranslations.number2Title;
-                document.querySelector('.number-card:nth-child(2) .number-description').textContent = hindiTranslations.number2Description;
-                document.querySelector('.number-card:nth-child(3) .number-title').textContent = hindiTranslations.number3Title;
-                document.querySelector('.number-card:nth-child(3) .number-description').textContent = hindiTranslations.number3Description;
-                document.querySelector('.number-card:nth-child(4) .number-title').textContent = hindiTranslations.number4Title;
-                document.querySelector('.number-card:nth-child(4) .number-description').textContent = hindiTranslations.number4Description;
-                document.querySelector('.footer-bottom p').textContent = hindiTranslations.footerText;
-                
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
             } else {
-                currentLanguage = 'English';
-                languageToggle.querySelector('span').textContent = 'English';
-                
-                // Restore original English content
-                document.querySelector('.logo-text h1').textContent = originalContent.logoTitle;
-                document.querySelector('.logo-text p').textContent = originalContent.logoSubtitle;
-                document.querySelector('.hero h1').textContent = originalContent.heroTitle;
-                document.querySelector('.hero p').textContent = originalContent.heroDescription;
-                document.querySelector('.card-1 .card-title').textContent = originalContent.card1Title;
-                document.querySelector('.card-1 .card-description').textContent = originalContent.card1Description;
-                document.querySelector('.card-1 .btn').innerHTML = originalContent.card1Button;
-                document.querySelector('.card-2 .card-title').textContent = originalContent.card2Title;
-                document.querySelector('.card-2 .card-description').textContent = originalContent.card2Description;
-                document.querySelector('.card-2 .btn').innerHTML = originalContent.card2Button;
-                document.querySelector('.section-title').textContent = originalContent.sectionTitle;
-                document.querySelector('.feature-1 .feature-title').textContent = originalContent.feature1Title;
-                document.querySelector('.feature-1 .feature-description').textContent = originalContent.feature1Description;
-                document.querySelector('.feature-2 .feature-title').textContent = originalContent.feature2Title;
-                document.querySelector('.feature-2 .feature-description').textContent = originalContent.feature2Description;
-                document.querySelector('.feature-3 .feature-title').textContent = originalContent.feature3Title;
-                document.querySelector('.feature-3 .feature-description').textContent = originalContent.feature3Description;
-                document.querySelector('.feature-4 .feature-title').textContent = originalContent.feature4Title;
-                document.querySelector('.feature-4 .feature-description').textContent = originalContent.feature4Description;
-                document.querySelector('.safety-tips .section-title').textContent = originalContent.tipsTitle;
-                document.querySelector('.tip-card:nth-child(1) h3').textContent = originalContent.tip1Title;
-                document.querySelector('.tip-card:nth-child(1) p').textContent = originalContent.tip1Description;
-                document.querySelector('.tip-card:nth-child(2) h3').textContent = originalContent.tip2Title;
-                document.querySelector('.tip-card:nth-child(2) p').textContent = originalContent.tip2Description;
-                document.querySelector('.tip-card:nth-child(3) h3').textContent = originalContent.tip3Title;
-                document.querySelector('.tip-card:nth-child(3) p').textContent = originalContent.tip3Description;
-                document.querySelector('.tip-card:nth-child(4) h3').textContent = originalContent.tip4Title;
-                document.querySelector('.tip-card:nth-child(4) p').textContent = originalContent.tip4Description;
-                document.querySelector('.tip-card:nth-child(5) h3').textContent = originalContent.tip5Title;
-                document.querySelector('.tip-card:nth-child(5) p').textContent = originalContent.tip5Description;
-                document.querySelector('.tip-card:nth-child(6) h3').textContent = originalContent.tip6Title;
-                document.querySelector('.tip-card:nth-child(6) p').textContent = originalContent.tip6Description;
-                document.querySelector('.emergency-numbers .section-title').textContent = originalContent.emergencyTitle;
-                document.querySelector('.number-card:nth-child(1) .number-title').textContent = originalContent.number1Title;
-                document.querySelector('.number-card:nth-child(1) .number-description').textContent = originalContent.number1Description;
-                document.querySelector('.number-card:nth-child(2) .number-title').textContent = originalContent.number2Title;
-                document.querySelector('.number-card:nth-child(2) .number-description').textContent = originalContent.number2Description;
-                document.querySelector('.number-card:nth-child(3) .number-title').textContent = originalContent.number3Title;
-                document.querySelector('.number-card:nth-child(3) .number-description').textContent = originalContent.number3Description;
-                document.querySelector('.number-card:nth-child(4) .number-title').textContent = originalContent.number4Title;
-                document.querySelector('.number-card:nth-child(4) .number-description').textContent = originalContent.number4Description;
-                document.querySelector('.footer-bottom p').textContent = originalContent.footerText;
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
-            
-            // Reset translation lock after a short delay
-            setTimeout(() => {
-                isTranslating = false;
-            }, 300);
         });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
         
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         // Add click animation to buttons
-        document.querySelectorAll('.btn, .social-btn').forEach(button => {
+        document.querySelectorAll('.btn').forEach(button => {
             button.addEventListener('click', function(e) {
                 // Only add animation if it's not a link to another page
                 if (!this.getAttribute('href') || this.getAttribute('href') === '#') {

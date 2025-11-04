@@ -1,126 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Severity Rate Calculator | Safety Metrics Tools</title>
+    <title>Severity Rate Calculator | Professional Safety Metrics Calculator</title>
+    <meta name="description" content="Calculate OSHA Severity Rate for workplace safety metrics. Track injury severity, lost workdays, and measure safety performance with professional reporting.">
+    <meta name="keywords" content="severity rate calculator, OSHA severity rate, safety metrics, lost workdays, injury severity, HSE calculator">
+    <meta name="author" content="HSE Tools">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Severity Rate Calculator | Professional Safety Metrics Calculator">
+    <meta property="og:description" content="Calculate OSHA Severity Rate for workplace safety metrics. Track injury severity and lost workdays.">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Severity Rate Calculator | Professional Safety Metrics Calculator">
+    <meta name="twitter:description" content="Calculate OSHA Severity Rate for safety metrics.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Severity Rate Calculator",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Calculate OSHA Severity Rate for workplace safety metrics and injury severity tracking",
+        "url": "https://hsetools.vercel.app/severity-rate-calculator.html",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "HSE Tools"
+        }
+    }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        :root {
-            --primary: #2c5aa0;
-            --primary-dark: #1e3d72;
-            --secondary: #4caf50;
-            --secondary-dark: #388e3c;
-            --accent: #e74c3c;
-            --accent-dark: #c0392b;
-            --light: #f5f7fa;
-            --dark: #333;
-            --gray: #6c757d;
-            --border: #dee2e6;
-        }
-        
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: var(--dark);
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            transition: all 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        
+
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            flex: 1;
+            padding: 0 15px;
         }
-        
-        /* Header Styles */
-        header {
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 20px 0;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            background: var(--accent);
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            width: 60px;
-            height: 60px;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
             font-size: 28px;
+            color: var(--accent-color);
         }
-        
-        .logo-text h1 {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 5px;
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
         }
-        
-        .logo-text p {
-            color: var(--gray);
-            font-size: 16px;
+
+        .nav-menu li {
+            margin-left: 20px;
         }
-        
-        /* Hero Section */
-        .hero {
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
             text-align: center;
-            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
         }
-        
-        .hero h1 {
-            font-size: 42px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            line-height: 1.2;
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
-        
-        .hero p {
-            font-size: 20px;
-            color: var(--gray);
-            max-width: 800px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
         }
-        
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
         /* Cards Section */
         .cards-section {
             padding: 40px 0 80px;
         }
-        
+
         .cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .card {
-            background: white;
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             padding: 40px 30px;
@@ -130,13 +308,37 @@
             flex-direction: column;
             align-items: center;
             height: 100%;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
-        
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
-        
+
         .card-icon {
             width: 80px;
             height: 80px;
@@ -148,29 +350,29 @@
             margin-bottom: 25px;
             color: white;
         }
-        
+
         .card-1 .card-icon {
-            background: linear-gradient(135deg, #e74c3c, #e67e22);
+            background: linear-gradient(135deg, var(--warning-color), var(--accent-color));
         }
-        
+
         .card-2 .card-icon {
-            background: linear-gradient(135deg, #2196f3, #42a5f5);
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
         }
-        
+
         .card-title {
             font-size: 24px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .card-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             margin-bottom: 25px;
             line-height: 1.6;
             flex: 1;
         }
-        
+
         .btn {
             padding: 14px 30px;
             border: none;
@@ -184,57 +386,67 @@
             gap: 10px;
             text-decoration: none;
         }
-        
+
         .btn-primary {
-            background: var(--accent);
+            background: var(--primary-color);
             color: white;
         }
-        
+
         .btn-primary:hover {
-            background: var(--accent-dark);
+            background: var(--primary-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        .btn-success {
-            background: var(--secondary);
+
+        .btn-warning {
+            background: var(--warning-color);
             color: white;
         }
-        
-        .btn-success:hover {
-            background: var(--secondary-dark);
+
+        .btn-warning:hover {
+            background: var(--warning-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        /* Features Section */
-        .features {
-            background: white;
+
+        /* Why Our Severity Rate Section */
+        .why-our-section {
             padding: 80px 0;
-            margin-top: 40px;
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin: 40px 0;
         }
-        
+
         .section-title {
             text-align: center;
             font-size: 32px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 50px;
             font-weight: 600;
         }
-        
+
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
-        
+
         .feature {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
         .feature-icon {
             width: 70px;
             height: 70px;
@@ -246,766 +458,413 @@
             margin: 0 auto 20px;
             color: white;
         }
-        
+
         .feature-1 .feature-icon {
-            background: linear-gradient(135deg, #e74c3c, #e67e22);
+            background: linear-gradient(135deg, var(--warning-color), var(--accent-color));
         }
-        
+
         .feature-2 .feature-icon {
+            background: linear-gradient(135deg, var(--danger-color), #ff6b6b);
+        }
+
+        .feature-3 .feature-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+        }
+
+        .feature-4 .feature-icon {
             background: linear-gradient(135deg, #9c27b0, #ba68c8);
         }
-        
-        .feature-3 .feature-icon {
-            background: linear-gradient(135deg, #3498db, #5dade2);
-        }
-        
-        .feature-4 .feature-icon {
-            background: linear-gradient(135deg, #607d8b, #78909c);
-        }
-        
+
         .feature-title {
             font-size: 20px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .feature-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
-        
-        /* Metrics Section */
-        .metrics {
-            padding: 80px 0;
-        }
-        
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .metric-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-        
-        .metric-icon {
-            width: 70px;
-            height: 70px;
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 20px;
-            color: white;
-        }
-        
-        .metric-1 .metric-icon {
-            background: linear-gradient(135deg, #e74c3c, #e67e22);
-        }
-        
-        .metric-2 .metric-icon {
-            background: linear-gradient(135deg, #3498db, #5dade2);
-        }
-        
-        .metric-3 .metric-icon {
-            background: linear-gradient(135deg, #2ecc71, #58d68d);
-        }
-        
-        .metric-title {
-            font-size: 22px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .metric-formula {
-            background: var(--light);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-family: monospace;
-            font-size: 16px;
-            color: var(--dark);
-        }
-        
-        .metric-description {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        
-        /* Calculation Steps Section */
-        .steps {
-            background: white;
-            padding: 80px 0;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .steps-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: var(--light);
-            border-radius: 8px;
-        }
-        
-        .step-number {
-            background: var(--accent);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        
-        .step-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-        
-        .step-content p {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        
-        /* Severity Levels Section */
-        .severity-levels {
-            padding: 80px 0;
-        }
-        
-        .levels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .level-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border-left: 5px solid;
-        }
-        
-        .level-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-        
-        .level-1 {
-            border-left-color: #2ecc71;
-        }
-        
-        .level-2 {
-            border-left-color: #f39c12;
-        }
-        
-        .level-3 {
-            border-left-color: #e74c3c;
-        }
-        
-        .level-4 {
-            border-left-color: #c0392b;
-        }
-        
-        .level-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 20px;
-            color: white;
-        }
-        
-        .level-1 .level-icon {
-            background: linear-gradient(135deg, #2ecc71, #58d68d);
-        }
-        
-        .level-2 .level-icon {
-            background: linear-gradient(135deg, #f39c12, #f7dc6f);
-        }
-        
-        .level-3 .level-icon {
-            background: linear-gradient(135deg, #e74c3c, #ec7063);
-        }
-        
-        .level-4 .level-icon {
-            background: linear-gradient(135deg, #c0392b, #e74c3c);
-        }
-        
-        .level-title {
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .level-description {
-            color: var(--gray);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .level-range {
-            font-weight: bold;
-            color: var(--dark);
-            font-size: 18px;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            background: white;
-            padding: 80px 0;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .benefit-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 20px;
-            color: white;
-        }
-        
-        .benefit-1 .benefit-icon {
-            background: linear-gradient(135deg, #e74c3c, #e67e22);
-        }
-        
-        .benefit-2 .benefit-icon {
-            background: linear-gradient(135deg, #3498db, #5dade2);
-        }
-        
-        .benefit-3 .benefit-icon {
-            background: linear-gradient(135deg, #2ecc71, #58d68d);
-        }
-        
-        .benefit-4 .benefit-icon {
-            background: linear-gradient(135deg, #9c27b0, #ba68c8);
-        }
-        
-        .benefit-title {
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .benefit-description {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        
-        /* Simplified Footer */
-        footer {
-            background: var(--primary);
-            color: white;
-            padding: 50px 0 30px;
-            margin-top: 60px;
-        }
-        
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .social-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transition: all 0.3s ease;
             text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
         }
-        
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
-        
-        .footer-bottom {
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
         }
-        
-        /* Responsive Design */
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
         @media (max-width: 768px) {
-            .header-content {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
                 flex-direction: column;
-                text-align: center;
-                gap: 20px;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             }
-            
-            .hero h1 {
-                font-size: 32px;
+
+            .nav-menu.active {
+                display: flex;
             }
-            
-            .hero p {
-                font-size: 18px;
+
+            .nav-menu li {
+                margin: 10px 0;
             }
-            
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+
             .cards-container {
                 grid-template-columns: 1fr;
             }
-            
-            .card {
-                padding: 30px 20px;
-            }
-            
-            .step {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .footer-social {
-                gap: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero {
-                padding: 50px 0 30px;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .social-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-weight-hanging"></i>
-                    </div>
-                    <div class="logo-text">
-                        <h1>Severity Rate Calculator</h1>
-                        <p>Safety Severity Metrics Tools</p>
-                    </div>
-                </div>
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Page Header -->
+    <section class="page-header">
         <div class="container">
-            <h1>Severity Rate (SR) Calculator & Complete Guide</h1>
-            <p>Your comprehensive solution for calculating and understanding Severity Rate safety metrics. Calculate SR with our easy-to-use tools and access our complete guide to measuring injury severity and implementing effective safety controls.</p>
+            <h1 data-en="Severity Rate Calculator & Complete Guide" data-hi="सेवेरिटी रेट कैलकुलेटर और संपूर्ण गाइड">Severity Rate Calculator & Complete Guide</h1>
+            <p data-en="Your comprehensive solution for calculating OSHA Severity Rate. Track injury severity, measure lost workdays, and analyze safety performance impact with professional reporting." 
+               data-hi="OSHA सेवेरिटी रेट की गणना के लिए आपका व्यापक समाधान। चोट की गंभीरता को ट्रैक करें, खोए हुए कार्यदिवसों को मापें, और पेशेवर रिपोर्टिंग के साथ सुरक्षा प्रदर्शन प्रभाव का विश्लेषण करें।">
+                Your comprehensive solution for calculating OSHA Severity Rate. Track injury severity, measure lost workdays, and analyze safety performance impact with professional reporting.
+            </p>
         </div>
     </section>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
-		'format' : 'iframe',
-		'height' : 250,
-		'width' : 300,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+
     <!-- Cards Section -->
     <section class="cards-section">
         <div class="container">
             <div class="cards-container">
-                <!-- Card 1: Calculator -->
+                <!-- Card 1: Calculate Severity Rate -->
                 <div class="card card-1">
                     <div class="card-icon">
-                        <i class="fas fa-calculator"></i>
+                        <i class="fas fa-weight-scale"></i>
                     </div>
-                    <h2 class="card-title">Severity Rate (SR) Calculator</h2>
-                    <p class="card-description">
-                        Calculate your organization's Severity Rate with our easy-to-use calculator. Input your data for lost workdays and employee hours worked to get accurate SR values and understand the impact of workplace injuries on productivity.
+                    <h2 class="card-title" data-en="Calculate Severity Rate" data-hi="सेवेरिटी रेट की गणना करें">Calculate Severity Rate</h2>
+                    <p class="card-description" data-en="Use our professional calculator to determine your OSHA Severity Rate. Input total lost workdays and total hours worked to measure the severity of workplace injuries and their impact on operations." 
+                       data-hi="अपने OSHA सेवेरिटी रेट का निर्धारण करने के लिए हमारे पेशेवर कैलकुलेटर का उपयोग करें। कार्यस्थल चोटों की गंभीरता और संचालन पर उनके प्रभाव को मापने के लिए कुल खोए हुए कार्यदिवस और कुल काम के घंटे इनपुट करें।">
+                        Use our professional calculator to determine your OSHA Severity Rate. Input total lost workdays and total hours worked to measure the severity of workplace injuries and their impact on operations.
                     </p>
                     <a href="severity_rating.html" class="btn btn-primary">
-                        <i class="fas fa-calculator"></i> Calculate SR
+                        <i class="fas fa-calculator"></i> <span data-en="Calculate Now" data-hi="अभी गणना करें">Calculate Now</span>
                     </a>
                 </div>
                 
-                <!-- Card 2: Complete Guide -->
+                <!-- Card 2: Severity Rate Guide -->
                 <div class="card card-2">
                     <div class="card-icon">
-                        <i class="fas fa-book-open"></i>
+                        <i class="fas fa-book-medical"></i>
                     </div>
-                    <h2 class="card-title">Severity Rate (SR) Complete Guide</h2>
-                    <p class="card-description">
-                        Access our comprehensive guide to understanding Severity Rate metrics. Learn how to calculate, interpret, and benchmark SR values. Includes industry standards, severity level classifications, and strategies for reducing injury severity.
+                    <h2 class="card-title" data-en="Severity Rate Guide" data-hi="सेवेरिटी रेट गाइड">Severity Rate Guide</h2>
+                    <p class="card-description" data-en="Access our comprehensive guide to understanding and using severity rates. Learn calculation methods, interpretation, impact analysis, and best practices for injury severity management." 
+                       data-hi="सेवेरिटी रेट को समझने और उपयोग करने के लिए हमारी व्यापक गाइड तक पहुंचें। गणना विधियों, व्याख्या, प्रभाव विश्लेषण और चोट गंभीरता प्रबंधन के लिए सर्वोत्तम प्रथाओं को सीखें।">
+                        Access our comprehensive guide to understanding and using severity rates. Learn calculation methods, interpretation, impact analysis, and best practices for injury severity management.
                     </p>
-                    <a href="guide.html" class="btn btn-success">
-                        <i class="fas fa-download"></i> View Guide
+                    <a href="guide.html" class="btn btn-warning">
+                        <i class="fas fa-download"></i> <span data-en="View Guide" data-hi="गाइड देखें">View Guide</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Why Our Severity Rate Section -->
+    <section class="why-our-section">
         <div class="container">
-            <h2 class="section-title">Why Track Severity Rate?</h2>
+            <h2 class="section-title" data-en="Why Use Our Severity Rate Solutions?" data-hi="हमारे सेवेरिटी रेट समाधान क्यों उपयोग करें?">Why Use Our Severity Rate Solutions?</h2>
+            
             <div class="features-grid">
                 <!-- Feature 1 -->
                 <div class="feature feature-1">
                     <div class="feature-icon">
-                        <i class="fas fa-balance-scale"></i>
+                        <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <h3 class="feature-title">Injury Impact Assessment</h3>
-                    <p class="feature-description">
-                        Measure the severity of workplace injuries to understand their true impact on operations and productivity.
+                    <h3 class="feature-title" data-en="Injury Severity Analysis" data-hi="चोट गंभीरता विश्लेषण">Injury Severity Analysis</h3>
+                    <p class="feature-description" data-en="Measure the seriousness of workplace injuries by tracking lost workdays and understanding the true impact of incidents on your workforce and productivity." 
+                       data-hi="खोए हुए कार्यदिवसों को ट्रैक करके और आपकी कार्यबल और उत्पादकता पर घटनाओं के वास्तविक प्रभाव को समझकर कार्यस्थल चोटों की गंभीरता को मापें।">
+                        Measure the seriousness of workplace injuries by tracking lost workdays and understanding the true impact of incidents on your workforce and productivity.
                     </p>
                 </div>
                 
                 <!-- Feature 2 -->
                 <div class="feature feature-2">
                     <div class="feature-icon">
-                        <i class="fas fa-industry"></i>
+                        <i class="fas fa-chart-bar"></i>
                     </div>
-                    <h3 class="feature-title">Risk Prioritization</h3>
-                    <p class="feature-description">
-                        Identify high-severity risks that require immediate attention and resource allocation for safety improvements.
+                    <h3 class="feature-title" data-en="Impact Measurement" data-hi="प्रभाव माप">Impact Measurement</h3>
+                    <p class="feature-description" data-en="Quantify the operational and financial impact of workplace injuries to prioritize safety investments and demonstrate the value of safety programs to stakeholders." 
+                       data-hi="सुरक्षा निवेशों को प्राथमिकता देने और हितधारकों को सुरक्षा कार्यक्रमों के मूल्य को प्रदर्शित करने के लिए कार्यस्थल चोटों के परिचालन और वित्तीय प्रभाव को मात्रात्मक रूप दें।">
+                        Quantify the operational and financial impact of workplace injuries to prioritize safety investments and demonstrate the value of safety programs to stakeholders.
                     </p>
                 </div>
                 
                 <!-- Feature 3 -->
                 <div class="feature feature-3">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-trend-down"></i>
                     </div>
-                    <h3 class="feature-title">Trend Analysis</h3>
-                    <p class="feature-description">
-                        Track SR over time to identify patterns in injury severity and measure effectiveness of safety controls.
+                    <h3 class="feature-title" data-en="Trend Identification" data-hi="रुझान पहचान">Trend Identification</h3>
+                    <p class="feature-description" data-en="Identify patterns in injury severity over time to target prevention efforts and reduce the most serious workplace incidents through data-driven interventions." 
+                       data-hi="रोकथाम प्रयासों को लक्षित करने और डेटा-संचालित हस्तक्षेपों के माध्यम से सबसे गंभीर कार्यस्थल घटनाओं को कम करने के लिए समय के साथ चोट गंभीरता में पैटर्न की पहचान करें।">
+                        Identify patterns in injury severity over time to target prevention efforts and reduce the most serious workplace incidents through data-driven interventions.
                     </p>
                 </div>
                 
                 <!-- Feature 4 -->
                 <div class="feature feature-4">
                     <div class="feature-icon">
-                        <i class="fas fa-bullseye"></i>
+                        <i class="fas fa-file-contract"></i>
                     </div>
-                    <h3 class="feature-title">Safety Program Evaluation</h3>
-                    <p class="feature-description">
-                        Assess whether safety programs are effectively reducing the severity of workplace injuries and incidents.
+                    <h3 class="feature-title" data-en="Compliance Reporting" data-hi="अनुपालन रिपोर्टिंग">Compliance Reporting</h3>
+                    <p class="feature-description" data-en="Meet OSHA regulatory requirements with professionally calculated severity rates and comprehensive documentation for safety performance reporting and audits." 
+                       data-hi="पेशेवर रूप से गणना की गई सेवेरिटी रेट और सुरक्षा प्रदर्शन रिपोर्टिंग और ऑडिट के लिए व्यापक दस्तावेज़ीकरण के साथ OSHA नियामक आवश्यकताओं को पूरा करें।">
+                        Meet OSHA regulatory requirements with professionally calculated severity rates and comprehensive documentation for safety performance reporting and audits.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Metrics Section -->
-    <section class="metrics">
-        <div class="container">
-            <h2 class="section-title">Key Safety Severity Metrics</h2>
-            <div class="metrics-grid">
-                <!-- Metric 1: SR -->
-                <div class="metric-card metric-1">
-                    <div class="metric-icon">
-                        <i class="fas fa-weight-hanging"></i>
-                    </div>
-                    <h3 class="metric-title">Severity Rate (SR)</h3>
-                    <div class="metric-formula">
-                        SR = (Total Lost Workdays × 1,000,000) / Employee Hours Worked
-                    </div>
-                    <p class="metric-description">
-                        Severity Rate measures the number of lost workdays per 1,000,000 hours worked. It indicates the severity of workplace injuries by quantifying the impact on work time and productivity.
-                    </p>
-                </div>
-                
-                <!-- Metric 2: Average Severity -->
-                <div class="metric-card metric-2">
-                    <div class="metric-icon">
-                        <i class="fas fa-ruler"></i>
-                    </div>
-                    <h3 class="metric-title">Average Severity Rate</h3>
-                    <div class="metric-formula">
-                        Avg. Severity = Total Lost Workdays / Number of Lost Time Injuries
-                    </div>
-                    <p class="metric-description">
-                        Average Severity measures the average number of lost workdays per lost time injury. It helps understand the typical impact of injuries when they do occur.
-                    </p>
-                </div>
-                
-                <!-- Metric 3: Frequency-Severity Index -->
-                <div class="metric-card metric-3">
-                    <div class="metric-icon">
-                        <i class="fas fa-cube"></i>
-                    </div>
-                    <h3 class="metric-title">Frequency-Severity Index</h3>
-                    <div class="metric-formula">
-                        FSI = √(Frequency Rate × Severity Rate)
-                    </div>
-                    <p class="metric-description">
-                        FSI combines both frequency and severity into a single metric, providing a comprehensive view of safety performance that accounts for both how often and how severe injuries are.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
 
-    <!-- Calculation Steps Section -->
-    <section class="steps">
-        <div class="container">
-            <h2 class="section-title">How to Calculate Severity Rate</h2>
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Gather Lost Workday Data</h3>
-                        <p>Collect accurate data on all lost workdays resulting from workplace injuries during the measurement period. Include calendar days employees were unable to work, excluding the day of injury but including weekends and holidays.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Calculate Total Employee Hours</h3>
-                        <p>Calculate the total number of hours worked by all employees during the same measurement period. Include regular hours, overtime, but exclude vacation, sick leave (unless work-related), and other non-work hours.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Apply the Severity Rate Formula</h3>
-                        <p>Use the formula: SR = (Total Lost Workdays × 1,000,000) / Total Employee Hours Worked. The 1,000,000 factor standardizes the rate to represent lost days per million hours worked.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Interpret and Benchmark Results</h3>
-                        <p>Compare your calculated SR with previous periods, organizational targets, and industry benchmarks. Lower SR values indicate better control over injury severity and impact.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Severity Levels Section -->
-    <section class="severity-levels">
-        <div class="container">
-            <h2 class="section-title">Severity Rate Classification</h2>
-            <div class="levels-grid">
-                <!-- Level 1 -->
-                <div class="level-card level-1">
-                    <div class="level-icon">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h3 class="level-title">Low Severity</h3>
-                    <p class="level-description">
-                        Minor injuries with minimal lost time. Typically involves first aid cases or injuries requiring limited medical treatment with quick return to work.
-                    </p>
-                    <div class="level-range">SR &lt; 50</div>
-                </div>
-                
-                <!-- Level 2 -->
-                <div class="level-card level-2">
-                    <div class="level-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <h3 class="level-title">Moderate Severity</h3>
-                    <p class="level-description">
-                        Injuries resulting in significant lost time but full recovery expected. Requires medical treatment and modified duties during recovery.
-                    </p>
-                    <div class="level-range">SR 50 - 200</div>
-                </div>
-                
-                <!-- Level 3 -->
-                <div class="level-card level-3">
-                    <div class="level-icon">
-                        <i class="fas fa-first-aid"></i>
-                    </div>
-                    <h3 class="level-title">High Severity</h3>
-                    <p class="level-description">
-                        Serious injuries with extended lost time, potential for permanent partial disability, or significant medical costs.
-                    </p>
-                    <div class="level-range">SR 200 - 500</div>
-                </div>
-                
-                <!-- Level 4 -->
-                <div class="level-card level-4">
-                    <div class="level-icon">
-                        <i class="fas fa-skull-crossbones"></i>
-                    </div>
-                    <h3 class="level-title">Critical Severity</h3>
-                    <p class="level-description">
-                        Catastrophic injuries including fatalities, permanent total disabilities, or injuries requiring extensive medical treatment and rehabilitation.
-                    </p>
-                    <div class="level-range">SR &gt; 500</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="benefits">
-        <div class="container">
-            <h2 class="section-title">Benefits of Using Our SR Calculator</h2>
-            <div class="benefits-grid">
-                <!-- Benefit 1 -->
-                <div class="benefit benefit-1">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="benefit-title">Quick Calculations</h3>
-                    <p class="benefit-description">
-                        Get accurate Severity Rate calculations instantly without manual computations or complex spreadsheets.
-                    </p>
-                </div>
-                
-                <!-- Benefit 2 -->
-                <div class="benefit benefit-2">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3 class="benefit-title">Visual Reporting</h3>
-                    <p class="benefit-description">
-                        Generate clear charts and reports to visualize injury severity trends and benchmark against industry standards.
-                    </p>
-                </div>
-                
-                <!-- Benefit 3 -->
-                <div class="benefit benefit-3">
-                    <div class="benefit-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="benefit-title">Educational Resources</h3>
-                    <p class="benefit-description">
-                        Access comprehensive guides to understand Severity Rate calculations and implement severity reduction strategies.
-                    </p>
-                </div>
-                
-                <!-- Benefit 4 -->
-                <div class="benefit benefit-4">
-                    <div class="benefit-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="benefit-title">Data Management</h3>
-                    <p class="benefit-description">
-                        Save and track your metrics over time to monitor severity trends and identify improvement areas.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Simplified Footer -->
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-social">
-                <a href="#" class="social-btn">
-                    <i class="fab fa-facebook-f"></i>
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-twitter"></i>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-linkedin-in"></i>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-youtube"></i>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
                 </a>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 Severity Rate Calculator. All rights reserved.</p>
-            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
         </div>
     </footer>
 
     <script>
-        // Add click animation to buttons
-        document.querySelectorAll('.btn, .social-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                // Only add animation if it's not a link to another page
-                if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
-                    e.preventDefault();
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
                 }
             });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>

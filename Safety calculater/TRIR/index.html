@@ -1,126 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<script type='text/javascript' src='//pl27925970.effectivegatecpm.com/31/af/3e/31af3e48e6897c232179bf9508903603.js'></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safety Metrics Calculator | TRIR, AFR, FAR Tools</title>
+    <title>TRIR / AFR Calculator | Professional HSE Incident Rate Calculator</title>
+    <meta name="description" content="Free TRIR/AFR Calculator for HSE professionals. Calculate Total Recordable Incident Rate and Accident Frequency Rate with industry-standard formulas.">
+    <meta name="keywords" content="TRIR calculator, AFR calculator, incident rate calculator, safety metrics, HSE calculator, OSHA calculator, recordable incidents">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="TRIR / AFR Calculator | Professional HSE Incident Rate Calculator">
+    <meta property="og:description" content="Free TRIR/AFR Calculator for HSE professionals. Calculate incident rates with industry-standard formulas.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/trir-afr-calculator.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="TRIR / AFR Calculator | Professional HSE Incident Rate Calculator">
+    <meta name="twitter:description" content="Free TRIR/AFR Calculator for HSE professionals.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "TRIR / AFR Calculator",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Free tool for calculating Total Recordable Incident Rate and Accident Frequency Rate",
+        "url": "https://hsetools.vercel.app/trir-afr-calculator.html",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Shivshakti Sahani"
+        }
+    }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        :root {
-            --primary: #2c5aa0;
-            --primary-dark: #1e3d72;
-            --secondary: #4caf50;
-            --secondary-dark: #388e3c;
-            --accent: #9c27b0;
-            --accent-dark: #7b1fa2;
-            --light: #f5f7fa;
-            --dark: #333;
-            --gray: #6c757d;
-            --border: #dee2e6;
-        }
-        
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: var(--dark);
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            transition: all 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        
+
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            flex: 1;
+            padding: 0 15px;
         }
-        
-        /* Header Styles */
-        header {
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 20px 0;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            background: var(--accent);
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            width: 60px;
-            height: 60px;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
             font-size: 28px;
+            color: var(--accent-color);
         }
-        
-        .logo-text h1 {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 5px;
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
         }
-        
-        .logo-text p {
-            color: var(--gray);
-            font-size: 16px;
+
+        .nav-menu li {
+            margin-left: 20px;
         }
-        
-        /* Hero Section */
-        .hero {
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
             text-align: center;
-            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
         }
-        
-        .hero h1 {
-            font-size: 42px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            line-height: 1.2;
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
-        
-        .hero p {
-            font-size: 20px;
-            color: var(--gray);
-            max-width: 800px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
         }
-        
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
         /* Cards Section */
         .cards-section {
             padding: 40px 0 80px;
         }
-        
+
         .cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .card {
-            background: white;
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             padding: 40px 30px;
@@ -130,13 +309,37 @@
             flex-direction: column;
             align-items: center;
             height: 100%;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
-        
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
-        
+
         .card-icon {
             width: 80px;
             height: 80px;
@@ -148,29 +351,29 @@
             margin-bottom: 25px;
             color: white;
         }
-        
+
         .card-1 .card-icon {
-            background: linear-gradient(135deg, #9c27b0, #ba68c8);
+            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
         }
-        
+
         .card-2 .card-icon {
-            background: linear-gradient(135deg, #2196f3, #42a5f5);
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
         }
-        
+
         .card-title {
             font-size: 24px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .card-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             margin-bottom: 25px;
             line-height: 1.6;
             flex: 1;
         }
-        
+
         .btn {
             padding: 14px 30px;
             border: none;
@@ -184,57 +387,67 @@
             gap: 10px;
             text-decoration: none;
         }
-        
+
         .btn-primary {
-            background: var(--accent);
+            background: var(--primary-color);
             color: white;
         }
-        
+
         .btn-primary:hover {
-            background: var(--accent-dark);
+            background: var(--primary-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(156, 39, 176, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         .btn-success {
-            background: var(--secondary);
+            background: var(--success-color);
             color: white;
         }
-        
+
         .btn-success:hover {
-            background: var(--secondary-dark);
+            background: var(--success-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        /* Features Section */
-        .features {
-            background: white;
+
+        /* Why Our Calculator Section */
+        .why-our-section {
             padding: 80px 0;
-            margin-top: 40px;
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin: 40px 0;
         }
-        
+
         .section-title {
             text-align: center;
             font-size: 32px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 50px;
             font-weight: 600;
         }
-        
+
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
-        
+
         .feature {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
         .feature-icon {
             width: 70px;
             height: 70px;
@@ -246,766 +459,413 @@
             margin: 0 auto 20px;
             color: white;
         }
-        
+
         .feature-1 .feature-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
+        }
+
+        .feature-2 .feature-icon {
+            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
+        }
+
+        .feature-3 .feature-icon {
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+        }
+
+        .feature-4 .feature-icon {
             background: linear-gradient(135deg, #9c27b0, #ba68c8);
         }
-        
-        .feature-2 .feature-icon {
-            background: linear-gradient(135deg, #ff9800, #ffb74d);
-        }
-        
-        .feature-3 .feature-icon {
-            background: linear-gradient(135deg, #f44336, #ef5350);
-        }
-        
-        .feature-4 .feature-icon {
-            background: linear-gradient(135deg, #607d8b, #78909c);
-        }
-        
+
         .feature-title {
             font-size: 20px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .feature-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
-        
-        /* Metrics Section */
-        .metrics {
-            padding: 80px 0;
-        }
-        
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .metric-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-        
-        .metric-icon {
-            width: 70px;
-            height: 70px;
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 20px;
-            color: white;
-        }
-        
-        .metric-1 .metric-icon {
-            background: linear-gradient(135deg, #9c27b0, #ba68c8);
-        }
-        
-        .metric-2 .metric-icon {
-            background: linear-gradient(135deg, #2196f3, #42a5f5);
-        }
-        
-        .metric-3 .metric-icon {
-            background: linear-gradient(135deg, #4caf50, #66bb6a);
-        }
-        
-        .metric-title {
-            font-size: 22px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .metric-formula {
-            background: var(--light);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-family: monospace;
-            font-size: 16px;
-            color: var(--dark);
-        }
-        
-        .metric-description {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        
-        /* Calculation Steps Section */
-        .steps {
-            background: white;
-            padding: 80px 0;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .steps-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .step {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: var(--light);
-            border-radius: 8px;
-        }
-        
-        .step-number {
-            background: var(--accent);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        
-        .step-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-        
-        .step-content p {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        
-        /* Industry Standards Section */
-        .standards {
-            padding: 80px 0;
-        }
-        
-        .standards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .standard-card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border-left: 5px solid;
-        }
-        
-        .standard-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-        
-        .standard-1 {
-            border-left-color: #9c27b0;
-        }
-        
-        .standard-2 {
-            border-left-color: #2196f3;
-        }
-        
-        .standard-3 {
-            border-left-color: #4caf50;
-        }
-        
-        .standard-4 {
-            border-left-color: #ff9800;
-        }
-        
-        .standard-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 20px;
-            color: white;
-        }
-        
-        .standard-1 .standard-icon {
-            background: linear-gradient(135deg, #9c27b0, #ba68c8);
-        }
-        
-        .standard-2 .standard-icon {
-            background: linear-gradient(135deg, #2196f3, #42a5f5);
-        }
-        
-        .standard-3 .standard-icon {
-            background: linear-gradient(135deg, #4caf50, #66bb6a);
-        }
-        
-        .standard-4 .standard-icon {
-            background: linear-gradient(135deg, #ff9800, #ffb74d);
-        }
-        
-        .standard-title {
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .standard-description {
-            color: var(--gray);
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .standard-range {
-            font-weight: bold;
-            color: var(--dark);
-            font-size: 18px;
-        }
-        
-        /* Benefits Section */
-        .benefits {
-            background: white;
-            padding: 80px 0;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .benefit {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .benefit-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin: 0 auto 20px;
-            color: white;
-        }
-        
-        .benefit-1 .benefit-icon {
-            background: linear-gradient(135deg, #9c27b0, #ba68c8);
-        }
-        
-        .benefit-2 .benefit-icon {
-            background: linear-gradient(135deg, #2196f3, #42a5f5);
-        }
-        
-        .benefit-3 .benefit-icon {
-            background: linear-gradient(135deg, #4caf50, #66bb6a);
-        }
-        
-        .benefit-4 .benefit-icon {
-            background: linear-gradient(135deg, #ff9800, #ffb74d);
-        }
-        
-        .benefit-title {
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .benefit-description {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        
-        /* Simplified Footer */
-        footer {
-            background: var(--primary);
-            color: white;
-            padding: 50px 0 30px;
-            margin-top: 60px;
-        }
-        
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .social-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transition: all 0.3s ease;
             text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
         }
-        
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
-        
-        .footer-bottom {
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
         }
-        
-        /* Responsive Design */
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
         @media (max-width: 768px) {
-            .header-content {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
                 flex-direction: column;
-                text-align: center;
-                gap: 20px;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             }
-            
-            .hero h1 {
-                font-size: 32px;
+
+            .nav-menu.active {
+                display: flex;
             }
-            
-            .hero p {
-                font-size: 18px;
+
+            .nav-menu li {
+                margin: 10px 0;
             }
-            
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+
             .cards-container {
                 grid-template-columns: 1fr;
             }
-            
-            .card {
-                padding: 30px 20px;
-            }
-            
-            .step {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .footer-social {
-                gap: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero {
-                padding: 50px 0 30px;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .social-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="logo-text">
-                        <h1>Safety Metrics Calculator</h1>
-                        <p>TRIR, AFR & FAR Calculation Tools</p>
-                    </div>
-                </div>
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Page Header -->
+    <section class="page-header">
         <div class="container">
-            <h1>TRIR / AFR / FAR Calculator & Complete Guide</h1>
-            <p>Your comprehensive solution for calculating and understanding key safety performance metrics. Calculate TRIR, AFR, and FAR with our easy-to-use tools and access our complete guide to safety metrics interpretation and improvement strategies.</p>
+            <h1 data-en="TRIR / AFR Calculator" data-hi="TRIR / AFR कैलकुलेटर">TRIR / AFR Calculator</h1>
+            <p data-en="Your comprehensive solution for calculating Total Recordable Incident Rate and Accident Frequency Rate. Generate professional safety reports and track incident performance metrics." 
+               data-hi="टोटल रिकॉर्डेबल इंसिडेंट रेट और एक्सीडेंट फ्रीक्वेंसी रेट की गणना के लिए आपका व्यापक समाधान। पेशेवर सुरक्षा रिपोर्ट तैयार करें और घटना प्रदर्शन मेट्रिक्स को ट्रैक करें।">
+                Your comprehensive solution for calculating Total Recordable Incident Rate and Accident Frequency Rate. Generate professional safety reports and track incident performance metrics.
+            </p>
         </div>
     </section>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '8c583ba0dcd1a7e997879d6e5d0ed0fc',
-		'format' : 'iframe',
-		'height' : 250,
-		'width' : 300,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/8c583ba0dcd1a7e997879d6e5d0ed0fc/invoke.js"></script>
+
     <!-- Cards Section -->
     <section class="cards-section">
         <div class="container">
             <div class="cards-container">
-                <!-- Card 1: Calculator -->
+                <!-- Card 1: Calculate TRIR/AFR -->
                 <div class="card card-1">
                     <div class="card-icon">
                         <i class="fas fa-calculator"></i>
                     </div>
-                    <h2 class="card-title">TRIR / AFR / FAR Calculator</h2>
-                    <p class="card-description">
-                        Calculate your organization's safety performance metrics with our easy-to-use calculator. Input your data for recordable injuries, lost workdays, fatalities, and employee hours to get accurate TRIR, AFR, and FAR values instantly.
+                    <h2 class="card-title" data-en="Calculate TRIR/AFR" data-hi="TRIR/AFR की गणना करें">Calculate TRIR/AFR</h2>
+                    <p class="card-description" data-en="Use our professional calculator to determine your organization's Total Recordable Incident Rate and Accident Frequency Rate. Input your incident data and get accurate, industry-standard calculations instantly." 
+                       data-hi="अपने संगठन के टोटल रिकॉर्डेबल इंसिडेंट रेट और एक्सीडेंट फ्रीक्वेंसी रेट निर्धारित करने के लिए हमारे पेशेवर कैलकुलेटर का उपयोग करें। अपना घटना डेटा इनपुट करें और सटीक, उद्योग-मानक गणना तुरंत प्राप्त करें।">
+                        Use our professional calculator to determine your organization's Total Recordable Incident Rate and Accident Frequency Rate. Input your incident data and get accurate, industry-standard calculations instantly.
                     </p>
                     <a href="calculator.html" class="btn btn-primary">
-                        <i class="fas fa-calculator"></i> Calculate Metrics
+                        <i class="fas fa-play-circle"></i> <span data-en="Calculate Now" data-hi="अभी गणना करें">Calculate Now</span>
                     </a>
                 </div>
                 
-                <!-- Card 2: Complete Guide -->
+                <!-- Card 2: Incident Rate Guide -->
                 <div class="card card-2">
                     <div class="card-icon">
                         <i class="fas fa-book-open"></i>
                     </div>
-                    <h2 class="card-title">TRIR / AFR / FAR Complete Guide</h2>
-                    <p class="card-description">
-                        Access our comprehensive guide to understanding safety metrics. Learn how to calculate, interpret, and benchmark TRIR, AFR, and FAR values. Includes industry standards, best practices, and proven safety improvement strategies.
+                    <h2 class="card-title" data-en="Incident Rate Guide" data-hi="घटना दर गाइड">Incident Rate Guide</h2>
+                    <p class="card-description" data-en="Access our comprehensive guide to TRIR, AFR, and other incident rate calculations. Learn industry best practices, interpretation methods, and strategies for improving your safety performance metrics." 
+                       data-hi="TRIR, AFR और अन्य घटना दर गणनाओं के लिए हमारी व्यापक गाइड तक पहुंचें। उद्योग की सर्वोत्तम प्रथाओं, व्याख्या विधियों और अपने सुरक्षा प्रदर्शन मेट्रिक्स को सुधारने की रणनीतियों को सीखें।">
+                        Access our comprehensive guide to TRIR, AFR, and other incident rate calculations. Learn industry best practices, interpretation methods, and strategies for improving your safety performance metrics.
                     </p>
                     <a href="guide.html" class="btn btn-success">
-                        <i class="fas fa-download"></i> View Guide
+                        <i class="fas fa-download"></i> <span data-en="View Guide" data-hi="गाइड देखें">View Guide</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Why Our Calculator Section -->
+    <section class="why-our-section">
         <div class="container">
-            <h2 class="section-title">Why Track Safety Metrics?</h2>
+            <h2 class="section-title" data-en="Why Use Our TRIR/AFR Calculator?" data-hi="हमारा TRIR/AFR कैलकुलेटर क्यों उपयोग करें?">Why Use Our TRIR/AFR Calculator?</h2>
+            
             <div class="features-grid">
                 <!-- Feature 1 -->
                 <div class="feature feature-1">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="feature-title">Performance Tracking</h3>
-                    <p class="feature-description">
-                        Monitor your safety performance over time and identify trends to proactively address potential issues before they become incidents.
+                    <h3 class="feature-title" data-en="Accurate Incident Tracking" data-hi="सटीक घटना ट्रैकिंग">Accurate Incident Tracking</h3>
+                    <p class="feature-description" data-en="Precisely calculate TRIR and AFR using OSHA-standard formulas to monitor your organization's safety performance and identify areas for improvement." 
+                       data-hi="अपने संगठन के सुरक्षा प्रदर्शन की निगरानी और सुधार के क्षेत्रों की पहचान करने के लिए OSHA-मानक सूत्रों का उपयोग करके TRIR और AFR की सटीक गणना करें।">
+                        Precisely calculate TRIR and AFR using OSHA-standard formulas to monitor your organization's safety performance and identify areas for improvement.
                     </p>
                 </div>
                 
                 <!-- Feature 2 -->
                 <div class="feature feature-2">
                     <div class="feature-icon">
-                        <i class="fas fa-industry"></i>
+                        <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3 class="feature-title">Industry Benchmarking</h3>
-                    <p class="feature-description">
-                        Compare your safety performance against industry averages and identify areas for targeted improvement initiatives.
+                    <h3 class="feature-title" data-en="Performance Benchmarking" data-hi="प्रदर्शन बेंचमार्किंग">Performance Benchmarking</h3>
+                    <p class="feature-description" data-en="Compare your incident rates against industry benchmarks and set realistic safety targets for continuous improvement in your safety management system." 
+                       data-hi="उद्योग बेंचमार्क के खिलाफ अपनी घटना दरों की तुलना करें और अपनी सुरक्षा प्रबंधन प्रणाली में निरंतर सुधार के लिए यथार्थवादी सुरक्षा लक्ष्य निर्धारित करें।">
+                        Compare your incident rates against industry benchmarks and set realistic safety targets for continuous improvement in your safety management system.
                     </p>
                 </div>
                 
                 <!-- Feature 3 -->
                 <div class="feature feature-3">
                     <div class="feature-icon">
-                        <i class="fas fa-balance-scale"></i>
+                        <i class="fas fa-file-contract"></i>
                     </div>
-                    <h3 class="feature-title">Regulatory Compliance</h3>
-                    <p class="feature-description">
-                        Meet OSHA and other regulatory requirements for tracking and reporting workplace safety performance metrics.
+                    <h3 class="feature-title" data-en="Regulatory Compliance" data-hi="नियामक अनुपालन">Regulatory Compliance</h3>
+                    <p class="feature-description" data-en="Meet OSHA, ISO 45001, and other regulatory reporting requirements with accurately calculated TRIR and AFR metrics for audits and compliance documentation." 
+                       data-hi="ऑडिट और अनुपालन दस्तावेज़ीकरण के लिए सटीक रूप से गणना किए गए TRIR और AFR मेट्रिक्स के साथ OSHA, ISO 45001 और अन्य नियामक रिपोर्टिंग आवश्यकताओं को पूरा करें।">
+                        Meet OSHA, ISO 45001, and other regulatory reporting requirements with accurately calculated TRIR and AFR metrics for audits and compliance documentation.
                     </p>
                 </div>
                 
                 <!-- Feature 4 -->
                 <div class="feature feature-4">
                     <div class="feature-icon">
-                        <i class="fas fa-bullseye"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h3 class="feature-title">Goal Setting</h3>
-                    <p class="feature-description">
-                        Set realistic safety improvement targets and track progress toward achieving your organizational safety goals.
+                    <h3 class="feature-title" data-en="Safety Culture Development" data-hi="सुरक्षा संस्कृति विकास">Safety Culture Development</h3>
+                    <p class="feature-description" data-en="Engage your workforce in safety performance tracking and use TRIR/AFR data to drive safety culture improvements and employee awareness programs." 
+                       data-hi="अपने कार्यबल को सुरक्षा प्रदर्शन ट्रैकिंग में शामिल करें और सुरक्षा संस्कृति सुधारों और कर्मचारी जागरूकता कार्यक्रमों को चलाने के लिए TRIR/AFR डेटा का उपयोग करें।">
+                        Engage your workforce in safety performance tracking and use TRIR/AFR data to drive safety culture improvements and employee awareness programs.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Metrics Section -->
-    <section class="metrics">
-        <div class="container">
-            <h2 class="section-title">Key Safety Metrics Explained</h2>
-            <div class="metrics-grid">
-                <!-- Metric 1: TRIR -->
-                <div class="metric-card metric-1">
-                    <div class="metric-icon">
-                        <i class="fas fa-file-medical-alt"></i>
-                    </div>
-                    <h3 class="metric-title">TRIR (Total Recordable Incident Rate)</h3>
-                    <div class="metric-formula">
-                        TRIR = (Number of Recordable Injuries × 200,000) / Employee Hours Worked
-                    </div>
-                    <p class="metric-description">
-                        TRIR measures the number of recordable injuries per 100 full-time employees during a one-year period. It's the most commonly used safety metric in industry for overall safety performance.
-                    </p>
-                </div>
-                
-                <!-- Metric 2: AFR -->
-                <div class="metric-card metric-2">
-                    <div class="metric-icon">
-                        <i class="fas fa-calendar-times"></i>
-                    </div>
-                    <h3 class="metric-title">AFR (Average Frequency Rate)</h3>
-                    <div class="metric-formula">
-                        AFR = (Number of Lost Time Injuries × 1,000,000) / Employee Hours Worked
-                    </div>
-                    <p class="metric-description">
-                        AFR measures the frequency of lost time injuries per 1,000,000 hours worked. It focuses specifically on injuries that result in time away from work.
-                    </p>
-                </div>
-                
-                <!-- Metric 3: FAR -->
-                <div class="metric-card metric-3">
-                    <div class="metric-icon">
-                        <i class="fas fa-skull-crossbones"></i>
-                    </div>
-                    <h3 class="metric-title">FAR (Fatal Accident Rate)</h3>
-                    <div class="metric-formula">
-                        FAR = (Number of Fatalities × 100,000,000) / Employee Hours Worked
-                    </div>
-                    <p class="metric-description">
-                        FAR measures the number of fatalities per 100 million hours worked. This metric is particularly important in high-risk industries and for catastrophic event prevention.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
 
-    <!-- Calculation Steps Section -->
-    <section class="steps">
-        <div class="container">
-            <h2 class="section-title">How to Calculate Safety Metrics</h2>
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <h3>Gather Incident Data</h3>
-                        <p>Collect accurate data on all recordable incidents, lost time injuries, and fatalities that occurred during the measurement period. Ensure proper classification according to OSHA standards and your organization's safety protocols.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <h3>Calculate Total Employee Hours</h3>
-                        <p>Calculate the total number of hours worked by all employees during the same measurement period. Include regular hours, overtime, but exclude vacation, sick leave, holidays, and other non-work hours.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Apply the Appropriate Formula</h3>
-                        <p>Use the correct formula for each metric: TRIR uses 200,000 as the base, AFR uses 1,000,000, and FAR uses 100,000,000. These bases standardize the rates for comparison across organizations.</p>
-                    </div>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Interpret and Benchmark Results</h3>
-                        <p>Compare your calculated metrics with previous periods, organizational targets, and industry benchmarks. Use these insights to drive safety improvement initiatives and measure their effectiveness.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Industry Standards Section -->
-    <section class="standards">
-        <div class="container">
-            <h2 class="section-title">Industry Benchmark Standards</h2>
-            <div class="standards-grid">
-                <!-- Standard 1 -->
-                <div class="standard-card standard-1">
-                    <div class="standard-icon">
-                        <i class="fas fa-hard-hat"></i>
-                    </div>
-                    <h3 class="standard-title">Construction Industry</h3>
-                    <p class="standard-description">
-                        Typically has higher rates due to inherent risks. Focus on reducing falls, struck-by, and electrocution hazards.
-                    </p>
-                    <div class="standard-range">TRIR: 3.0-4.0</div>
-                </div>
-                
-                <!-- Standard 2 -->
-                <div class="standard-card standard-2">
-                    <div class="standard-icon">
-                        <i class="fas fa-industry"></i>
-                    </div>
-                    <h3 class="standard-title">Manufacturing</h3>
-                    <p class="standard-description">
-                        Moderate rates with focus on machine guarding, ergonomics, and chemical safety improvements.
-                    </p>
-                    <div class="standard-range">TRIR: 2.0-3.0</div>
-                </div>
-                
-                <!-- Standard 3 -->
-                <div class="standard-card standard-3">
-                    <div class="standard-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <h3 class="standard-title">Maintenance & Repair</h3>
-                    <p class="standard-description">
-                        Varied rates depending on industry served. Strong focus on LOTO procedures and confined space safety.
-                    </p>
-                    <div class="standard-range">TRIR: 2.5-3.5</div>
-                </div>
-                
-                <!-- Standard 4 -->
-                <div class="standard-card standard-4">
-                    <div class="standard-icon">
-                        <i class="fas fa-warehouse"></i>
-                    </div>
-                    <h3 class="standard-title">Warehousing & Logistics</h3>
-                    <p class="standard-description">
-                        Focus on material handling safety, vehicle operations, and slip/trip/fall prevention measures.
-                    </p>
-                    <div class="standard-range">TRIR: 3.5-4.5</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="benefits">
-        <div class="container">
-            <h2 class="section-title">Benefits of Using Our Safety Metrics Calculator</h2>
-            <div class="benefits-grid">
-                <!-- Benefit 1 -->
-                <div class="benefit benefit-1">
-                    <div class="benefit-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="benefit-title">Quick Calculations</h3>
-                    <p class="benefit-description">
-                        Get accurate safety metrics calculations instantly without manual computations or complex spreadsheets.
-                    </p>
-                </div>
-                
-                <!-- Benefit 2 -->
-                <div class="benefit benefit-2">
-                    <div class="benefit-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3 class="benefit-title">Visual Reporting</h3>
-                    <p class="benefit-description">
-                        Generate clear charts and reports to visualize safety performance trends and benchmark against industry standards.
-                    </p>
-                </div>
-                
-                <!-- Benefit 3 -->
-                <div class="benefit benefit-3">
-                    <div class="benefit-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3 class="benefit-title">Educational Resources</h3>
-                    <p class="benefit-description">
-                        Access comprehensive guides to understand safety metrics calculations and implement improvement strategies.
-                    </p>
-                </div>
-                
-                <!-- Benefit 4 -->
-                <div class="benefit benefit-4">
-                    <div class="benefit-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="benefit-title">Data Management</h3>
-                    <p class="benefit-description">
-                        Save and track your metrics over time to monitor safety performance and identify improvement areas.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Simplified Footer -->
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-social">
-                <a href="#" class="social-btn">
-                    <i class="fab fa-facebook-f"></i>
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-twitter"></i>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-linkedin-in"></i>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-youtube"></i>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
                 </a>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 Safety Metrics Calculator. All rights reserved.</p>
-            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
         </div>
     </footer>
 
     <script>
-        // Add click animation to buttons
-        document.querySelectorAll('.btn, .social-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                // Only add animation if it's not a link to another page
-                if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
-                    e.preventDefault();
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
                 }
             });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>

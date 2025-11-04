@@ -3,207 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tool Box Talk (TBT) | Daily Safety Meetings & Discussion Management</title>
-    <meta name="description" content="Comprehensive Tool Box Talk generator and safety meeting management system. Create engaging daily safety discussions and access our complete TBT guide for workplace safety.">
-    <meta name="keywords" content="tool box talk, TBT, safety meeting, daily safety, safety discussion, OSHA compliance, safety training">
-    <meta name="author" content="Safety Meeting Solutions">
+    <title>Toolbox Talk Generator | Professional Safety Meeting Tool</title>
+    <meta name="description" content="Free Toolbox Talk Generator for professional safety meetings and discussions. Create comprehensive safety talks with our easy-to-use generator.">
+    <meta name="keywords" content="toolbox talk generator, safety meetings, safety talks, hazard identification, risk assessment, safety management, HSE tools">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Toolbox Talk Generator | Professional Safety Meeting Tool">
+    <meta property="og:description" content="Free Toolbox Talk Generator for professional safety meetings and discussions">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/toolbox-talk-generator.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Toolbox Talk Generator | Professional Safety Meeting Tool">
+    <meta name="twitter:description" content="Free Toolbox Talk Generator for professional safety meetings and discussions">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Toolbox Talk Generator",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Free tool for generating professional toolbox talks and safety meetings",
+        "url": "https://hsetools.vercel.app/toolbox-talk-generator.html",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Shivshakti Sahani"
+        }
+    }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        :root {
-            --primary: #1976d2;
-            --primary-dark: #1565c0;
-            --secondary: #388e3c;
-            --secondary-dark: #2e7d32;
-            --accent: #ffa000;
-            --accent-dark: #ff8f00;
-            --light: #f5f7fa;
-            --dark: #333;
-            --gray: #6c757d;
-            --border: #dee2e6;
-            --bg-color: #f5f7fa;
-            --card-bg: white;
-            --text-color: #333;
-            --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Dark mode variables */
-        .dark-mode {
-            --primary: #2196f3;
-            --primary-dark: #1976d2;
-            --secondary: #4caf50;
-            --secondary-dark: #388e3c;
-            --accent: #ffb300;
-            --accent-dark: #ffa000;
-            --light: #1a1a1a;
-            --dark: #f0f0f0;
-            --gray: #a0a0a0;
-            --border: #444;
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-color: #f0f0f0;
-            --shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        
+
         body {
-            background: var(--bg-color);
-            color: var(--text-color);
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            transition: all 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            transition: background-color 0.3s, color 0.3s;
         }
-        
+
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            flex: 1;
+            padding: 0 15px;
         }
-        
-        /* Header Styles */
-        header {
-            background: var(--card-bg);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 20px 0;
-            transition: background-color 0.3s;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            background: var(--primary);
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            width: 60px;
-            height: 60px;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
             font-size: 28px;
+            color: var(--accent-color);
         }
-        
-        .logo-text h1 {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 5px;
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
         }
-        
-        .logo-text p {
-            color: var(--gray);
-            font-size: 16px;
+
+        .nav-menu li {
+            margin-left: 20px;
         }
-        
-        .header-controls {
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 5px;
         }
-        
-        .toggle-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-color);
-            padding: 8px 15px;
-            border-radius: 6px;
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s;
-        }
-        
-        .toggle-btn:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .mode-toggle {
-            width: 60px;
-            height: 30px;
-            background: var(--border);
-            border-radius: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             position: relative;
-            cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        
-        .mode-toggle::after {
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
             content: '';
             position: absolute;
-            width: 26px;
-            height: 26px;
-            background: white;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
-        
-        .dark-mode .mode-toggle {
-            background: var(--primary);
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
         }
-        
-        .dark-mode .mode-toggle::after {
-            transform: translateX(30px);
-            background: var(--card-bg);
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
-        
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 80px 0 60px;
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
-        
-        .hero h1 {
-            font-size: 42px;
-            color: var(--primary);
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.7;
+        }
+
+        .content-card h2 {
+            color: var(--primary-color);
             margin-bottom: 20px;
-            line-height: 1.2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: var(--font-semibold);
         }
-        
-        .hero p {
-            font-size: 20px;
-            color: var(--gray);
-            max-width: 800px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
-        
+
         /* Cards Section */
         .cards-section {
             padding: 40px 0 80px;
         }
-        
+
         .cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .card {
-            background: var(--card-bg);
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             border-radius: 12px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             padding: 40px 30px;
             text-align: center;
             transition: all 0.3s ease;
@@ -211,13 +346,37 @@
             flex-direction: column;
             align-items: center;
             height: 100%;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
-        
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
-        
+
         .card-icon {
             width: 80px;
             height: 80px;
@@ -229,29 +388,29 @@
             margin-bottom: 25px;
             color: white;
         }
-        
+
         .card-1 .card-icon {
-            background: linear-gradient(135deg, #1976d2, #2196f3);
+            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
         }
-        
+
         .card-2 .card-icon {
-            background: linear-gradient(135deg, #388e3c, #4caf50);
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
         }
-        
+
         .card-title {
             font-size: 24px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .card-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             margin-bottom: 25px;
             line-height: 1.6;
             flex: 1;
         }
-        
+
         .btn {
             padding: 14px 30px;
             border: none;
@@ -265,58 +424,59 @@
             gap: 10px;
             text-decoration: none;
         }
-        
+
         .btn-primary {
-            background: var(--primary);
+            background: var(--primary-color);
             color: white;
         }
-        
+
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: var(--primary-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(25, 118, 210, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         .btn-success {
-            background: var(--secondary);
+            background: var(--success-color);
             color: white;
         }
-        
+
         .btn-success:hover {
-            background: var(--secondary-dark);
+            background: var(--success-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(56, 142, 60, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         /* Features Section */
         .features {
-            background: var(--card-bg);
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             padding: 80px 0;
             margin-top: 40px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: background-color 0.3s;
         }
-        
+
         .section-title {
             text-align: center;
             font-size: 32px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 50px;
             font-weight: 600;
         }
-        
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
         }
-        
+
         .feature {
             text-align: center;
             padding: 20px;
         }
-        
+
         .feature-icon {
             width: 70px;
             height: 70px;
@@ -328,68 +488,41 @@
             margin: 0 auto 20px;
             color: white;
         }
-        
+
         .feature-1 .feature-icon {
-            background: linear-gradient(135deg, #1976d2, #2196f3);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
         }
-        
+
         .feature-2 .feature-icon {
-            background: linear-gradient(135deg, #ffa000, #ffb300);
+            background: linear-gradient(135deg, hsl(280, 70%, 50%), hsl(280, 70%, 70%));
         }
-        
+
         .feature-3 .feature-icon {
-            background: linear-gradient(135deg, #388e3c, #4caf50);
+            background: linear-gradient(135deg, var(--danger-color), hsl(0, 70%, 60%));
         }
-        
+
         .feature-4 .feature-icon {
-            background: linear-gradient(135deg, #7b1fa2, #9c27b0);
+            background: linear-gradient(135deg, var(--info-color), hsl(190, 70%, 60%));
         }
-        
+
         .feature-title {
             font-size: 20px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .feature-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
-        
-        /* TBT Topics Section */
-        .tbt-topics {
-            background: var(--card-bg);
-            padding: 80px 0;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: background-color 0.3s;
-        }
-        
-        .topics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .topic-card {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 25px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            transition: transform 0.3s;
-        }
-        
-        .topic-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .topic-icon {
-            background: var(--primary);
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             width: 50px;
             height: 50px;
@@ -397,216 +530,163 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            flex-shrink: 0;
-        }
-        
-        .topic-content h3 {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .topic-content p {
-            color: var(--gray);
-            line-height: 1.6;
-        }
-        
-        /* Meeting Structure Section */
-        .meeting-structure {
-            background: var(--card-bg);
-            padding: 80px 0;
-            margin-top: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: background-color 0.3s;
-        }
-        
-        .structure-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-        
-        .structure-card {
-            background: var(--light);
-            border-radius: 10px;
-            padding: 25px;
-            text-align: center;
-            transition: transform 0.3s;
-            border-left: 4px solid var(--accent);
-        }
-        
-        .structure-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .structure-icon {
-            background: var(--accent);
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 15px;
-        }
-        
-        .structure-title {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-        
-        .structure-description {
-            color: var(--gray);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-        
-        /* Simplified Footer */
-        footer {
-            background: var(--primary);
-            color: white;
-            padding: 50px 0 30px;
-            margin-top: 60px;
-            transition: background-color 0.3s;
-        }
-        
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .social-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transition: all 0.3s ease;
             text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
         }
-        
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
-        
-        .footer-bottom {
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
         }
-        
-        /* Responsive Design */
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
         @media (max-width: 768px) {
-            .header-content {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
                 flex-direction: column;
-                text-align: center;
-                gap: 20px;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             }
-            
-            .hero h1 {
-                font-size: 32px;
+
+            .nav-menu.active {
+                display: flex;
             }
-            
-            .hero p {
-                font-size: 18px;
+
+            .nav-menu li {
+                margin: 10px 0;
             }
-            
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+
             .cards-container {
                 grid-template-columns: 1fr;
             }
-            
-            .card {
-                padding: 30px 20px;
-            }
-            
-            .footer-social {
-                gap: 15px;
-            }
-            
-            .topics-grid {
+
+            .features-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .structure-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero {
-                padding: 50px 0 30px;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .social-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-toolbox"></i>
-                    </div>
-                    <div class="logo-text">
-                        <h1>Tool Box Talk (TBT)</h1>
-                        <p>Daily Safety Meetings & Discussion Management</p>
-                    </div>
-                </div>
-                <div class="header-controls">
-                    <button class="toggle-btn" id="languageToggle">
-                        <i class="fas fa-language"></i>
-                        <span>English</span>
-                    </button>
-                    <div class="mode-toggle" id="modeToggle"></div>
-                </div>
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Page Header -->
+    <section class="page-header">
         <div class="container">
-            <h1>Tool Box Talk Generator & Safety Meeting Management</h1>
-            <p>Create engaging daily safety discussions and manage your workplace safety meetings effectively. Generate custom TBT topics and access our complete safety meeting guide for various industries and hazards.</p>
+            <h1 data-en="Toolbox Talk Generator & Complete Guide" data-hi="टूलबॉक्स टॉक जनरेटर और संपूर्ण गाइड">Toolbox Talk Generator & Complete Guide</h1>
+            <p data-en="Your comprehensive solution for professional safety meetings and toolbox talks. Create engaging safety discussions and access our complete guide to effective safety communication." 
+               data-hi="पेशेवर सुरक्षा बैठकों और टूलबॉक्स टॉक्स के लिए आपका व्यापक समाधान। आकर्षक सुरक्षा चर्चाएं बनाएं और प्रभावी सुरक्षा संचार के लिए हमारी संपूर्ण गाइड तक पहुंचें।">
+                Your comprehensive solution for professional safety meetings and toolbox talks. Create engaging safety discussions and access our complete guide to effective safety communication.
+            </p>
         </div>
     </section>
 
@@ -614,31 +694,33 @@
     <section class="cards-section">
         <div class="container">
             <div class="cards-container">
-                <!-- Card 1: Generate TBT -->
+                <!-- Card 1: Generate Toolbox Talk -->
                 <div class="card card-1">
                     <div class="card-icon">
-                        <i class="fas fa-comments"></i>
+                        <i class="fas fa-tools"></i>
                     </div>
-                    <h2 class="card-title">Generate Tool Box Talk</h2>
-                    <p class="card-description">
-                        Create customized Tool Box Talk topics for your daily safety meetings. Our easy-to-use generator helps you address specific hazards, seasonal risks, and compliance requirements with engaging discussion materials.
+                    <h2 class="card-title" data-en="Generate Toolbox Talk" data-hi="टूलबॉक्स टॉक जनरेट करें">Generate Toolbox Talk</h2>
+                    <p class="card-description" data-en="Create professional toolbox talks and safety meeting materials with our easy-to-use generator. Input your safety topics, select discussion points, and generate comprehensive toolbox talk documents ready for your next safety meeting." 
+                       data-hi="हमारे उपयोग में आसान जनरेटर के साथ पेशेवर टूलबॉक्स टॉक्स और सुरक्षा बैठक सामग्री बनाएं। अपने सुरक्षा विषयों को इनपुट करें, चर्चा बिंदुओं का चयन करें, और अपनी अगली सुरक्षा बैठक के लिए तैयार व्यापक टूलबॉक्स टॉक दस्तावेज़ जनरेट करें।">
+                        Create professional toolbox talks and safety meeting materials with our easy-to-use generator. Input your safety topics, select discussion points, and generate comprehensive toolbox talk documents ready for your next safety meeting.
                     </p>
                     <a href="TBT_CAL.html" class="btn btn-primary">
-                        <i class="fas fa-play-circle"></i> Generate TBT
+                        <i class="fas fa-play-circle"></i> <span data-en="Generate Talk" data-hi="टॉक जनरेट करें">Generate Talk</span>
                     </a>
                 </div>
                 
-                <!-- Card 2: TBT Guide -->
+                <!-- Card 2: Toolbox Talk Complete Guide -->
                 <div class="card card-2">
                     <div class="card-icon">
                         <i class="fas fa-book-open"></i>
                     </div>
-                    <h2 class="card-title">TBT & Safety Meeting Guide</h2>
-                    <p class="card-description">
-                        Access our comprehensive guide to effective Tool Box Talks and safety meeting management. Learn best practices for facilitation, documentation, engagement strategies, and implementation for maximum safety impact.
+                    <h2 class="card-title" data-en="Toolbox Talk Complete Guide" data-hi="टूलबॉक्स टॉक संपूर्ण गाइड">Toolbox Talk Complete Guide</h2>
+                    <p class="card-description" data-en="Access our comprehensive guide to conducting effective toolbox talks and safety meetings. Learn best practices, engagement techniques, real-world examples, and implementation strategies to enhance workplace safety communication." 
+                       data-hi="प्रभावी टूलबॉक्स टॉक्स और सुरक्षा बैठकों का संचालन करने के लिए हमारी व्यापक गाइड तक पहुंचें। कार्यस्थल सुरक्षा संचार को बढ़ाने के लिए सर्वोत्तम प्रथाओं, संलग्नता तकनीकों, वास्तविक दुनिया के उदाहरणों और कार्यान्वयन रणनीतियों को सीखें।">
+                        Access our comprehensive guide to conducting effective toolbox talks and safety meetings. Learn best practices, engagement techniques, real-world examples, and implementation strategies to enhance workplace safety communication.
                     </p>
                     <a href="TBT guide.html" class="btn btn-success">
-                        <i class="fas fa-download"></i> View Guide
+                        <i class="fas fa-download"></i> <span data-en="View Guide" data-hi="गाइड देखें">View Guide</span>
                     </a>
                 </div>
             </div>
@@ -648,461 +730,174 @@
     <!-- Features Section -->
     <section class="features">
         <div class="container">
-            <h2 class="section-title">Why Use Our TBT Solutions?</h2>
+            <h2 class="section-title" data-en="Why Use Our Toolbox Talk Solutions?" data-hi="हमारे टूलबॉक्स टॉक समाधान क्यों उपयोग करें?">Why Use Our Toolbox Talk Solutions?</h2>
             <div class="features-grid">
                 <!-- Feature 1 -->
                 <div class="feature feature-1">
                     <div class="feature-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3 class="feature-title">Worker Engagement</h3>
-                    <p class="feature-description">
-                        Foster active participation and safety ownership through engaging, relevant daily safety discussions with your workforce.
+                    <h3 class="feature-title" data-en="Team Engagement" data-hi="टीम संलग्नता">Team Engagement</h3>
+                    <p class="feature-description" data-en="Create engaging safety discussions that involve your entire team in the safety process." 
+                       data-hi="आकर्षक सुरक्षा चर्चाएं बनाएं जो आपकी पूरी टीम को सुरक्षा प्रक्रिया में शामिल करें।">
+                        Create engaging safety discussions that involve your entire team in the safety process.
                     </p>
                 </div>
                 
                 <!-- Feature 2 -->
                 <div class="feature feature-2">
                     <div class="feature-icon">
-                        <i class="fas fa-file-contract"></i>
+                        <i class="fas fa-comments"></i>
                     </div>
-                    <h3 class="feature-title">Compliance Documentation</h3>
-                    <p class="feature-description">
-                        Maintain proper records of safety meetings and discussions to demonstrate regulatory compliance and due diligence.
+                    <h3 class="feature-title" data-en="Effective Communication" data-hi="प्रभावी संचार">Effective Communication</h3>
+                    <p class="feature-description" data-en="Deliver clear and concise safety messages that resonate with your workforce." 
+                       data-hi="स्पष्ट और संक्षिप्त सुरक्षा संदेश दें जो आपके कर्मचारियों के साथ प्रतिध्वनित हों।">
+                        Deliver clear and concise safety messages that resonate with your workforce.
                     </p>
                 </div>
                 
                 <!-- Feature 3 -->
                 <div class="feature feature-3">
                     <div class="feature-icon">
-                        <i class="fas fa-exclamation-triangle"></i>
+                        <i class="fas fa-file-contract"></i>
                     </div>
-                    <h3 class="feature-title">Hazard Awareness</h3>
-                    <p class="feature-description">
-                        Address specific workplace hazards, seasonal risks, and incident trends through targeted safety discussions.
+                    <h3 class="feature-title" data-en="Documentation Ready" data-hi="प्रलेखन तैयार">Documentation Ready</h3>
+                    <p class="feature-description" data-en="Generate professionally documented toolbox talks that meet regulatory requirements." 
+                       data-hi="पेशेवर रूप से प्रलेखित टूलबॉक्स टॉक्स जनरेट करें जो नियामक आवश्यकताओं को पूरा करते हैं।">
+                        Generate professionally documented toolbox talks that meet regulatory requirements.
                     </p>
                 </div>
                 
                 <!-- Feature 4 -->
                 <div class="feature feature-4">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-lightbulb"></i>
                     </div>
-                    <h3 class="feature-title">Continuous Improvement</h3>
-                    <p class="feature-description">
-                        Track safety performance and identify areas for improvement through regular, documented safety conversations.
+                    <h3 class="feature-title" data-en="Knowledge Sharing" data-hi="ज्ञान साझाकरण">Knowledge Sharing</h3>
+                    <p class="feature-description" data-en="Facilitate knowledge sharing and continuous safety improvement through regular discussions." 
+                       data-hi="नियमित चर्चाओं के माध्यम से ज्ञान साझाकरण और निरंतर सुरक्षा सुधार को सुविधाजनक बनाएं।">
+                        Facilitate knowledge sharing and continuous safety improvement through regular discussions.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- TBT Topics Section -->
-    <section class="tbt-topics">
-        <div class="container">
-            <h2 class="section-title">Popular Tool Box Talk Topics</h2>
-            <div class="topics-grid">
-                <!-- Topic 1 -->
-                <div class="topic-card">
-                    <div class="topic-icon">
-                        <i class="fas fa-hard-hat"></i>
-                    </div>
-                    <div class="topic-content">
-                        <h3>PPE Requirements</h3>
-                        <p>Proper selection, use, and maintenance of personal protective equipment for different tasks and hazards.</p>
-                    </div>
-                </div>
-                
-                <!-- Topic 2 -->
-                <div class="topic-card">
-                    <div class="topic-icon">
-                        <i class="fas fa-walking"></i>
-                    </div>
-                    <div class="topic-content">
-                        <h3>Slip, Trip & Fall Prevention</h3>
-                        <p>Identifying and controlling slip, trip, and fall hazards in various work environments and conditions.</p>
-                    </div>
-                </div>
-                
-                <!-- Topic 3 -->
-                <div class="topic-card">
-                    <div class="topic-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div class="topic-content">
-                        <h3>Electrical Safety</h3>
-                        <p>Safe work practices around electrical equipment, cords, and power sources to prevent shocks and electrocution.</p>
-                    </div>
-                </div>
-                
-                <!-- Topic 4 -->
-                <div class="topic-card">
-                    <div class="topic-icon">
-                        <i class="fas fa-fire"></i>
-                    </div>
-                    <div class="topic-content">
-                        <h3>Fire Prevention & Response</h3>
-                        <p>Fire hazard identification, prevention measures, and proper emergency response procedures.</p>
-                    </div>
-                </div>
-                
-                <!-- Topic 5 -->
-                <div class="topic-card">
-                    <div class="topic-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                    <div class="topic-content">
-                        <h3>Hand & Power Tool Safety</h3>
-                        <p>Proper inspection, use, and maintenance of hand and power tools to prevent injuries.</p>
-                    </div>
-                </div>
-                
-                <!-- Topic 6 -->
-                <div class="topic-card">
-                    <div class="topic-icon">
-                        <i class="fas fa-temperature-high"></i>
-                    </div>
-                    <div class="topic-content">
-                        <h3>Heat Stress Prevention</h3>
-                        <p>Recognizing and preventing heat-related illnesses during hot weather operations.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
 
-    <!-- Meeting Structure Section -->
-    <section class="meeting-structure">
-        <div class="container">
-            <h2 class="section-title">Effective TBT Meeting Structure</h2>
-            <div class="structure-grid">
-                <!-- Structure 1 -->
-                <div class="structure-card">
-                    <div class="structure-icon">
-                        <i class="fas fa-bullhorn"></i>
-                    </div>
-                    <h3 class="structure-title">Introduction</h3>
-                    <p class="structure-description">Start with a clear topic introduction and explain why it's relevant to today's work activities.</p>
-                </div>
-                
-                <!-- Structure 2 -->
-                <div class="structure-card">
-                    <div class="structure-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <h3 class="structure-title">Discussion Points</h3>
-                    <p class="structure-description">Cover key safety points, procedures, and potential hazards related to the topic.</p>
-                </div>
-                
-                <!-- Structure 3 -->
-                <div class="structure-card">
-                    <div class="structure-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3 class="structure-title">Worker Participation</h3>
-                    <p class="structure-description">Encourage questions, experiences, and suggestions from all meeting participants.</p>
-                </div>
-                
-                <!-- Structure 4 -->
-                <div class="structure-card">
-                    <div class="structure-icon">
-                        <i class="fas fa-clipboard-check"></i>
-                    </div>
-                    <h3 class="structure-title">Action Items</h3>
-                    <p class="structure-description">Identify specific safety actions or behaviors to implement immediately after the meeting.</p>
-                </div>
-                
-                <!-- Structure 5 -->
-                <div class="structure-card">
-                    <div class="structure-icon">
-                        <i class="fas fa-file-signature"></i>
-                    </div>
-                    <h3 class="structure-title">Documentation</h3>
-                    <p class="structure-description">Record attendance, discussion points, and action items for compliance and follow-up.</p>
-                </div>
-                
-                <!-- Structure 6 -->
-                <div class="structure-card">
-                    <div class="structure-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <h3 class="structure-title">Follow-up</h3>
-                    <p class="structure-description">Review previous TBT topics and check on implementation of previous action items.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Simplified Footer with Social Buttons Only -->
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-social">
-                <a href="#" class="social-btn">
-                    <i class="fab fa-facebook-f"></i>
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-twitter"></i>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-linkedin-in"></i>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-youtube"></i>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
                 </a>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 Safety Meeting Solutions. All rights reserved.</p>
-            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
         </div>
     </footer>
 
     <script>
-        // Dark mode toggle functionality
-        const modeToggle = document.getElementById('modeToggle');
-        modeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            
-            // Save preference to localStorage
-            if (document.body.classList.contains('dark-mode')) {
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
+                }
+            });
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
                 localStorage.setItem('theme', 'dark');
             } else {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
                 localStorage.setItem('theme', 'light');
             }
         });
-        
-        // Check for saved theme preference
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-mode');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
         }
-        
-        // Language toggle functionality with improved error handling
-        const languageToggle = document.getElementById('languageToggle');
-        let currentLanguage = 'English';
-        let isTranslating = false;
-        
-        // Store original English content
-        const originalContent = {
-            logoTitle: document.querySelector('.logo-text h1').textContent,
-            logoSubtitle: document.querySelector('.logo-text p').textContent,
-            heroTitle: document.querySelector('.hero h1').textContent,
-            heroDescription: document.querySelector('.hero p').textContent,
-            card1Title: document.querySelector('.card-1 .card-title').textContent,
-            card1Description: document.querySelector('.card-1 .card-description').textContent,
-            card1Button: document.querySelector('.card-1 .btn').innerHTML,
-            card2Title: document.querySelector('.card-2 .card-title').textContent,
-            card2Description: document.querySelector('.card-2 .card-description').textContent,
-            card2Button: document.querySelector('.card-2 .btn').innerHTML,
-            sectionTitle: document.querySelector('.section-title').textContent,
-            feature1Title: document.querySelector('.feature-1 .feature-title').textContent,
-            feature1Description: document.querySelector('.feature-1 .feature-description').textContent,
-            feature2Title: document.querySelector('.feature-2 .feature-title').textContent,
-            feature2Description: document.querySelector('.feature-2 .feature-description').textContent,
-            feature3Title: document.querySelector('.feature-3 .feature-title').textContent,
-            feature3Description: document.querySelector('.feature-3 .feature-description').textContent,
-            feature4Title: document.querySelector('.feature-4 .feature-title').textContent,
-            feature4Description: document.querySelector('.feature-4 .feature-description').textContent,
-            topicsTitle: document.querySelector('.tbt-topics .section-title').textContent,
-            topic1Title: document.querySelector('.topic-card:nth-child(1) h3').textContent,
-            topic1Description: document.querySelector('.topic-card:nth-child(1) p').textContent,
-            topic2Title: document.querySelector('.topic-card:nth-child(2) h3').textContent,
-            topic2Description: document.querySelector('.topic-card:nth-child(2) p').textContent,
-            topic3Title: document.querySelector('.topic-card:nth-child(3) h3').textContent,
-            topic3Description: document.querySelector('.topic-card:nth-child(3) p').textContent,
-            topic4Title: document.querySelector('.topic-card:nth-child(4) h3').textContent,
-            topic4Description: document.querySelector('.topic-card:nth-child(4) p').textContent,
-            topic5Title: document.querySelector('.topic-card:nth-child(5) h3').textContent,
-            topic5Description: document.querySelector('.topic-card:nth-child(5) p').textContent,
-            topic6Title: document.querySelector('.topic-card:nth-child(6) h3').textContent,
-            topic6Description: document.querySelector('.topic-card:nth-child(6) p').textContent,
-            structureTitle: document.querySelector('.meeting-structure .section-title').textContent,
-            structure1Title: document.querySelector('.structure-card:nth-child(1) .structure-title').textContent,
-            structure1Description: document.querySelector('.structure-card:nth-child(1) .structure-description').textContent,
-            structure2Title: document.querySelector('.structure-card:nth-child(2) .structure-title').textContent,
-            structure2Description: document.querySelector('.structure-card:nth-child(2) .structure-description').textContent,
-            structure3Title: document.querySelector('.structure-card:nth-child(3) .structure-title').textContent,
-            structure3Description: document.querySelector('.structure-card:nth-child(3) .structure-description').textContent,
-            structure4Title: document.querySelector('.structure-card:nth-child(4) .structure-title').textContent,
-            structure4Description: document.querySelector('.structure-card:nth-child(4) .structure-description').textContent,
-            structure5Title: document.querySelector('.structure-card:nth-child(5) .structure-title').textContent,
-            structure5Description: document.querySelector('.structure-card:nth-child(5) .structure-description').textContent,
-            structure6Title: document.querySelector('.structure-card:nth-child(6) .structure-title').textContent,
-            structure6Description: document.querySelector('.structure-card:nth-child(6) .structure-description').textContent,
-            footerText: document.querySelector('.footer-bottom p').textContent
-        };
-        
-        // Hindi translations
-        const hindiTranslations = {
-            logoTitle: "टूल बॉक्स टॉक (TBT)",
-            logoSubtitle: "दैनिक सुरक्षा बैठकें और चर्चा प्रबंधन",
-            heroTitle: "टूल बॉक्स टॉक जनरेटर और सुरक्षा बैठक प्रबंधन",
-            heroDescription: "आकर्षक दैनिक सुरक्षा चर्चाएं बनाएं और अपने कार्यस्थल सुरक्षा बैठकों को प्रभावी ढंग से प्रबंधित करें। विभिन्न उद्योगों और खतरों के लिए कस्टम TBT विषय जनरेट करें और हमारे पूर्ण सुरक्षा बैठक गाइड तक पहुंचें।",
-            card1Title: "टूल बॉक्स टॉक जनरेट करें",
-            card1Description: "अपनी दैनिक सुरक्षा बैठकों के लिए अनुकूलित टूल बॉक्स टॉक विषय बनाएं। हमारा उपयोग में आसान जनरेटर आपको विशिष्ट खतरों, मौसमी जोखिमों और अनुपालन आवश्यकताओं को आकर्षक चर्चा सामग्री के साथ संबोधित करने में मदद करता है।",
-            card1Button: '<i class="fas fa-play-circle"></i> TBT जनरेट करें',
-            card2Title: "TBT और सुरक्षा बैठक गाइड",
-            card2Description: "प्रभावी टूल बॉक्स टॉक और सुरक्षा बैठक प्रबंधन के लिए हमारे व्यापक गाइड तक पहुंचें। सुविधा, दस्तावेजीकरण, जुड़ाव रणनीतियों और अधिकतम सुरक्षा प्रभाव के लिए कार्यान्वयन के लिए सर्वोत्तम प्रथाओं को सीखें।",
-            card2Button: '<i class="fas fa-download"></i> गाइड देखें',
-            sectionTitle: "हमारे TBT समाधान क्यों उपयोग करें?",
-            feature1Title: "कर्मचारी जुड़ाव",
-            feature1Description: "अपने कार्यबल के साथ आकर्षक, प्रासंगिक दैनिक सुरक्षा चर्चाओं के माध्यम से सक्रिय भागीदारी और सुरक्षा स्वामित्व को बढ़ावा दें।",
-            feature2Title: "अनुपालन दस्तावेजीकरण",
-            feature2Description: "नियामक अनुपालन और उचित परिश्रम प्रदर्शित करने के लिए सुरक्षा बैठकों और चर्चाओं के उचित रिकॉर्ड बनाए रखें।",
-            feature3Title: "खतरा जागरूकता",
-            feature3Description: "लक्षित सुरक्षा चर्चाओं के माध्यम से विशिष्ट कार्यस्थल खतरों, मौसमी जोखिमों और घटना रुझानों को संबोधित करें।",
-            feature4Title: "निरंतर सुधार",
-            feature4Description: "नियमित, प्रलेखित सुरक्षा वार्तालापों के माध्यम से सुरक्षा प्रदर्शन को ट्रैक करें और सुधार के क्षेत्रों की पहचान करें।",
-            topicsTitle: "लोकप्रिय टूल बॉक्स टॉक विषय",
-            topic1Title: "पीपीई आवश्यकताएं",
-            topic1Description: "विभिन्न कार्यों और खतरों के लिए व्यक्तिगत सुरक्षा उपकरण का उचित चयन, उपयोग और रखरखाव।",
-            topic2Title: "फिसलन, ठोकर और गिरने की रोकथाम",
-            topic1Description: "विभिन्न कार्य वातावरण और स्थितियों में फिसलन, ठोकर और गिरने के खतरों की पहचान और नियंत्रण।",
-            topic3Title: "विद्युत सुरक्षा",
-            topic3Description: "झटके और बिजली के झटके को रोकने के लिए विद्युत उपकरण, तार और बिजली स्रोतों के आसपास सुरक्षित कार्य प्रथाएं।",
-            topic4Title: "अग्नि रोकथाम और प्रतिक्रिया",
-            topic4Description: "अग्नि खतरा पहचान, रोकथाम उपाय और उचित आपातकालीन प्रतिक्रिया प्रक्रियाएं।",
-            topic5Title: "हाथ और बिजली के उपकरण सुरक्षा",
-            topic5Description: "चोटों को रोकने के लिए हाथ और बिजली के उपकरणों का उचित निरीक्षण, उपयोग और रखरखाव।",
-            topic6Title: "हीट स्ट्रेस रोकथाम",
-            topic6Description: "गर्म मौसम के संचालन के दौरान गर्मी से संबंधित बीमारियों को पहचानना और रोकना।",
-            structureTitle: "प्रभावी TBT बैठक संरचना",
-            structure1Title: "परिचय",
-            structure1Description: "एक स्पष्ट विषय परिचय के साथ शुरू करें और समझाएं कि यह आज के कार्य गतिविधियों के लिए प्रासंगिक क्यों है।",
-            structure2Title: "चर्चा बिंदु",
-            structure2Description: "मुख्य सुरक्षा बिंदुओं, प्रक्रियाओं और विषय से संबंधित संभावित खतरों को कवर करें।",
-            structure3Title: "कर्मचारी भागीदारी",
-            structure3Description: "सभी बैठक प्रतिभागियों से प्रश्नों, अनुभवों और सुझावों को प्रोत्साहित करें।",
-            structure4Title: "कार्य आइटम",
-            structure4Description: "बैठक के तुरंत बाद लागू करने के लिए विशिष्ट सुरक्षा कार्यों या व्यवहारों की पहचान करें।",
-            structure5Title: "दस्तावेजीकरण",
-            structure5Description: "अनुपालन और फॉलो-अप के लिए उपस्थिति, चर्चा बिंदुओं और कार्य आइटम को रिकॉर्ड करें।",
-            structure6Title: "फॉलो-अप",
-            structure6Description: "पिछले TBT विषयों की समीक्षा करें और पिछले कार्य आइटम के कार्यान्वयन की जांच करें।",
-            footerText: "© 2023 सुरक्षा बैठक समाधान। सर्वाधिकार सुरक्षित।"
-        };
-        
-        languageToggle.addEventListener('click', function() {
-            // Prevent multiple rapid clicks
-            if (isTranslating) return;
-            isTranslating = true;
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
             
-            // Toggle between English and Hindi
-            if (currentLanguage === 'English') {
-                currentLanguage = 'Hindi';
-                languageToggle.querySelector('span').textContent = 'हिंदी';
-                
-                // Update all content to Hindi
-                document.querySelector('.logo-text h1').textContent = hindiTranslations.logoTitle;
-                document.querySelector('.logo-text p').textContent = hindiTranslations.logoSubtitle;
-                document.querySelector('.hero h1').textContent = hindiTranslations.heroTitle;
-                document.querySelector('.hero p').textContent = hindiTranslations.heroDescription;
-                document.querySelector('.card-1 .card-title').textContent = hindiTranslations.card1Title;
-                document.querySelector('.card-1 .card-description').textContent = hindiTranslations.card1Description;
-                document.querySelector('.card-1 .btn').innerHTML = hindiTranslations.card1Button;
-                document.querySelector('.card-2 .card-title').textContent = hindiTranslations.card2Title;
-                document.querySelector('.card-2 .card-description').textContent = hindiTranslations.card2Description;
-                document.querySelector('.card-2 .btn').innerHTML = hindiTranslations.card2Button;
-                document.querySelector('.section-title').textContent = hindiTranslations.sectionTitle;
-                document.querySelector('.feature-1 .feature-title').textContent = hindiTranslations.feature1Title;
-                document.querySelector('.feature-1 .feature-description').textContent = hindiTranslations.feature1Description;
-                document.querySelector('.feature-2 .feature-title').textContent = hindiTranslations.feature2Title;
-                document.querySelector('.feature-2 .feature-description').textContent = hindiTranslations.feature2Description;
-                document.querySelector('.feature-3 .feature-title').textContent = hindiTranslations.feature3Title;
-                document.querySelector('.feature-3 .feature-description').textContent = hindiTranslations.feature3Description;
-                document.querySelector('.feature-4 .feature-title').textContent = hindiTranslations.feature4Title;
-                document.querySelector('.feature-4 .feature-description').textContent = hindiTranslations.feature4Description;
-                document.querySelector('.tbt-topics .section-title').textContent = hindiTranslations.topicsTitle;
-                document.querySelector('.topic-card:nth-child(1) h3').textContent = hindiTranslations.topic1Title;
-                document.querySelector('.topic-card:nth-child(1) p').textContent = hindiTranslations.topic1Description;
-                document.querySelector('.topic-card:nth-child(2) h3').textContent = hindiTranslations.topic2Title;
-                document.querySelector('.topic-card:nth-child(2) p').textContent = hindiTranslations.topic2Description;
-                document.querySelector('.topic-card:nth-child(3) h3').textContent = hindiTranslations.topic3Title;
-                document.querySelector('.topic-card:nth-child(3) p').textContent = hindiTranslations.topic3Description;
-                document.querySelector('.topic-card:nth-child(4) h3').textContent = hindiTranslations.topic4Title;
-                document.querySelector('.topic-card:nth-child(4) p').textContent = hindiTranslations.topic4Description;
-                document.querySelector('.topic-card:nth-child(5) h3').textContent = hindiTranslations.topic5Title;
-                document.querySelector('.topic-card:nth-child(5) p').textContent = hindiTranslations.topic5Description;
-                document.querySelector('.topic-card:nth-child(6) h3').textContent = hindiTranslations.topic6Title;
-                document.querySelector('.topic-card:nth-child(6) p').textContent = hindiTranslations.topic6Description;
-                document.querySelector('.meeting-structure .section-title').textContent = hindiTranslations.structureTitle;
-                document.querySelector('.structure-card:nth-child(1) .structure-title').textContent = hindiTranslations.structure1Title;
-                document.querySelector('.structure-card:nth-child(1) .structure-description').textContent = hindiTranslations.structure1Description;
-                document.querySelector('.structure-card:nth-child(2) .structure-title').textContent = hindiTranslations.structure2Title;
-                document.querySelector('.structure-card:nth-child(2) .structure-description').textContent = hindiTranslations.structure2Description;
-                document.querySelector('.structure-card:nth-child(3) .structure-title').textContent = hindiTranslations.structure3Title;
-                document.querySelector('.structure-card:nth-child(3) .structure-description').textContent = hindiTranslations.structure3Description;
-                document.querySelector('.structure-card:nth-child(4) .structure-title').textContent = hindiTranslations.structure4Title;
-                document.querySelector('.structure-card:nth-child(4) .structure-description').textContent = hindiTranslations.structure4Description;
-                document.querySelector('.structure-card:nth-child(5) .structure-title').textContent = hindiTranslations.structure5Title;
-                document.querySelector('.structure-card:nth-child(5) .structure-description').textContent = hindiTranslations.structure5Description;
-                document.querySelector('.structure-card:nth-child(6) .structure-title').textContent = hindiTranslations.structure6Title;
-                document.querySelector('.structure-card:nth-child(6) .structure-description').textContent = hindiTranslations.structure6Description;
-                document.querySelector('.footer-bottom p').textContent = hindiTranslations.footerText;
-                
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
             } else {
-                currentLanguage = 'English';
-                languageToggle.querySelector('span').textContent = 'English';
-                
-                // Restore original English content
-                document.querySelector('.logo-text h1').textContent = originalContent.logoTitle;
-                document.querySelector('.logo-text p').textContent = originalContent.logoSubtitle;
-                document.querySelector('.hero h1').textContent = originalContent.heroTitle;
-                document.querySelector('.hero p').textContent = originalContent.heroDescription;
-                document.querySelector('.card-1 .card-title').textContent = originalContent.card1Title;
-                document.querySelector('.card-1 .card-description').textContent = originalContent.card1Description;
-                document.querySelector('.card-1 .btn').innerHTML = originalContent.card1Button;
-                document.querySelector('.card-2 .card-title').textContent = originalContent.card2Title;
-                document.querySelector('.card-2 .card-description').textContent = originalContent.card2Description;
-                document.querySelector('.card-2 .btn').innerHTML = originalContent.card2Button;
-                document.querySelector('.section-title').textContent = originalContent.sectionTitle;
-                document.querySelector('.feature-1 .feature-title').textContent = originalContent.feature1Title;
-                document.querySelector('.feature-1 .feature-description').textContent = originalContent.feature1Description;
-                document.querySelector('.feature-2 .feature-title').textContent = originalContent.feature2Title;
-                document.querySelector('.feature-2 .feature-description').textContent = originalContent.feature2Description;
-                document.querySelector('.feature-3 .feature-title').textContent = originalContent.feature3Title;
-                document.querySelector('.feature-3 .feature-description').textContent = originalContent.feature3Description;
-                document.querySelector('.feature-4 .feature-title').textContent = originalContent.feature4Title;
-                document.querySelector('.feature-4 .feature-description').textContent = originalContent.feature4Description;
-                document.querySelector('.tbt-topics .section-title').textContent = originalContent.topicsTitle;
-                document.querySelector('.topic-card:nth-child(1) h3').textContent = originalContent.topic1Title;
-                document.querySelector('.topic-card:nth-child(1) p').textContent = originalContent.topic1Description;
-                document.querySelector('.topic-card:nth-child(2) h3').textContent = originalContent.topic2Title;
-                document.querySelector('.topic-card:nth-child(2) p').textContent = originalContent.topic2Description;
-                document.querySelector('.topic-card:nth-child(3) h3').textContent = originalContent.topic3Title;
-                document.querySelector('.topic-card:nth-child(3) p').textContent = originalContent.topic3Description;
-                document.querySelector('.topic-card:nth-child(4) h3').textContent = originalContent.topic4Title;
-                document.querySelector('.topic-card:nth-child(4) p').textContent = originalContent.topic4Description;
-                document.querySelector('.topic-card:nth-child(5) h3').textContent = originalContent.topic5Title;
-                document.querySelector('.topic-card:nth-child(5) p').textContent = originalContent.topic5Description;
-                document.querySelector('.topic-card:nth-child(6) h3').textContent = originalContent.topic6Title;
-                document.querySelector('.topic-card:nth-child(6) p').textContent = originalContent.topic6Description;
-                document.querySelector('.meeting-structure .section-title').textContent = originalContent.structureTitle;
-                document.querySelector('.structure-card:nth-child(1) .structure-title').textContent = originalContent.structure1Title;
-                document.querySelector('.structure-card:nth-child(1) .structure-description').textContent = originalContent.structure1Description;
-                document.querySelector('.structure-card:nth-child(2) .structure-title').textContent = originalContent.structure2Title;
-                document.querySelector('.structure-card:nth-child(2) .structure-description').textContent = originalContent.structure2Description;
-                document.querySelector('.structure-card:nth-child(3) .structure-title').textContent = originalContent.structure3Title;
-                document.querySelector('.structure-card:nth-child(3) .structure-description').textContent = originalContent.structure3Description;
-                document.querySelector('.structure-card:nth-child(4) .structure-title').textContent = originalContent.structure4Title;
-                document.querySelector('.structure-card:nth-child(4) .structure-description').textContent = originalContent.structure4Description;
-                document.querySelector('.structure-card:nth-child(5) .structure-title').textContent = originalContent.structure5Title;
-                document.querySelector('.structure-card:nth-child(5) .structure-description').textContent = originalContent.structure5Description;
-                document.querySelector('.structure-card:nth-child(6) .structure-title').textContent = originalContent.structure6Title;
-                document.querySelector('.structure-card:nth-child(6) .structure-description').textContent = originalContent.structure6Description;
-                document.querySelector('.footer-bottom p').textContent = originalContent.footerText;
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
-            
-            // Reset translation lock after a short delay
-            setTimeout(() => {
-                isTranslating = false;
-            }, 300);
         });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
         
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         // Add click animation to buttons
-        document.querySelectorAll('.btn, .social-btn').forEach(button => {
+        document.querySelectorAll('.btn').forEach(button => {
             button.addEventListener('click', function(e) {
                 // Only add animation if it's not a link to another page
                 if (!this.getAttribute('href') || this.getAttribute('href') === '#') {

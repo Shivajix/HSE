@@ -3,196 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Permit to Work System | Safety Management Solutions</title>
-    <meta name="description" content="Professional Permit to Work system for managing hazardous work activities. Ensure safety compliance with our digital PTW solution.">
-    <meta name="keywords" content="permit to work, safety, hazardous work, risk assessment, work authorization">
-    <meta name="author" content="Safety Management Solutions">
+    <title>PTW Generator | Professional Permit to Work System & Calculator</title>
+    <meta name="description" content="Free PTW Generator for HSE professionals. Create professional Permit to Work documents, calculate risk assessments, and manage work permits efficiently.">
+    <meta name="keywords" content="PTW generator, permit to work, work permit system, HSE permits, hot work permit, confined space permit, electrical work permit">
+    <meta name="author" content="Shivshakti Sahani">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="PTW Generator | Professional Permit to Work System & Calculator">
+    <meta property="og:description" content="Free PTW Generator for HSE professionals. Create professional Permit to Work documents and manage work permits.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hsetools.vercel.app/ptw-generator.html">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="PTW Generator | Professional Permit to Work System & Calculator">
+    <meta name="twitter:description" content="Free PTW Generator for HSE professionals.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PTW Generator",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web Browser",
+        "description": "Free tool for generating professional Permit to Work documents and managing work permits",
+        "url": "https://hsetools.vercel.app/ptw-generator.html",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Shivshakti Sahani"
+        }
+    }
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /*=============== GOOGLE FONTS ===============*/
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+        /*=============== VARIABLES CSS ===============*/
+        :root {
+            /*========== Colors ==========*/
+            --white-color: hsl(0, 0%, 100%);
+            --black-color: hsl(0, 0%, 0%);
+            --primary-color: hsl(210, 100%, 50%);
+            --secondary-color: hsl(160, 100%, 40%);
+            --accent-color: hsl(35, 100%, 50%);
+            --danger-color: hsl(0, 100%, 50%);
+            --warning-color: hsl(45, 100%, 50%);
+            --info-color: hsl(190, 100%, 50%);
+            --success-color: hsl(120, 100%, 40%);
+            
+            /* Background Colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+
+            /*========== Font and typography ==========*/
+            --body-font: "Poppins", sans-serif;
+            --h1-font-size: 1.5rem;
+            --normal-font-size: 0.938rem;
+
+            /*========== Font weight ==========*/
+            --font-regular: 400;
+            --font-medium: 500;
+            --font-semibold: 600;
+            --font-bold: 700;
+
+            /*========== z index ==========*/
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        /* Light Theme Variables */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-tertiary: #cbd5e1;
+            --text-primary: #1e293b;
+            --text-secondary: #334155;
+        }
+
+        /*=============== BASE ===============*/
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
-        :root {
-            --primary: #2c5aa0;
-            --primary-dark: #1e3d72;
-            --secondary: #4caf50;
-            --secondary-dark: #388e3c;
-            --accent: #ff9800;
-            --accent-dark: #f57c00;
-            --light: #f5f7fa;
-            --dark: #333;
-            --gray: #6c757d;
-            --border: #dee2e6;
-        }
-        
+
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            color: var(--dark);
+            font-family: var(--body-font);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            transition: all 0.3s ease;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            transition: background 0.3s, color 0.3s;
         }
-        
-        body.dark-mode {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #f0f0f0;
-            --light: #1e2a3a;
-            --dark: #f0f0f0;
-            --gray: #a0a0a0;
-            --border: #2d3748;
-        }
-        
+
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-            flex: 1;
+            padding: 0 15px;
         }
-        
-        /* Header Styles */
-        header {
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 20px 0;
-            transition: background 0.3s;
-        }
-        
-        body.dark-mode header {
-            background: #1e2a3a;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo-icon {
-            background: var(--primary);
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            right: 80px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            width: 60px;
-            height: 60px;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: var(--font-medium);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: var(--z-fixed);
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /*=============== HEADER ===============*/
+        header {
+            background-color: var(--bg-secondary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: var(--z-fixed);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: var(--font-bold);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .logo-icon {
             font-size: 28px;
+            color: var(--accent-color);
         }
-        
-        .logo-text h1 {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 5px;
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
         }
-        
-        .logo-text p {
-            color: var(--gray);
-            font-size: 16px;
+
+        .nav-menu li {
+            margin-left: 20px;
         }
-        
-        .header-controls {
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: var(--font-medium);
+            transition: color 0.3s;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 5px;
         }
-        
-        .toggle-btn {
-            background: rgba(44, 90, 160, 0.1);
-            border: 1px solid rgba(44, 90, 160, 0.2);
-            border-radius: 20px;
-            padding: 8px 15px;
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .toggle-btn:hover {
-            background: rgba(44, 90, 160, 0.2);
-        }
-        
-        .mode-toggle {
-            width: 60px;
-            height: 30px;
-            background: #ddd;
-            border-radius: 15px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             position: relative;
-            cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            color: var(--white-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        
-        .mode-toggle::after {
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-menu-btn.active {
+            background: linear-gradient(135deg, var(--accent-color), var(--danger-color));
+            transform: rotate(90deg);
+        }
+
+        /*=============== PAGE CONTENT ===============*/
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white-color);
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .page-header::before {
             content: '';
             position: absolute;
-            width: 26px;
-            height: 26px;
-            background: white;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.3s;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
-        
-        body.dark-mode .mode-toggle {
-            background: var(--primary);
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            font-weight: var(--font-bold);
+            position: relative;
+            z-index: 1;
         }
-        
-        body.dark-mode .mode-toggle::after {
-            transform: translateX(30px);
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
-        
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 80px 0 60px;
-        }
-        
-        .hero h1 {
-            font-size: 42px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero p {
-            font-size: 20px;
-            color: var(--gray);
-            max-width: 800px;
-            margin: 0 auto 40px;
-            line-height: 1.6;
-        }
-        
+
         /* Cards Section */
         .cards-section {
             padding: 40px 0 80px;
         }
-        
+
         .cards-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
-        
+
         .card {
-            background: white;
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             border-radius: 12px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             padding: 40px 30px;
@@ -202,18 +309,37 @@
             flex-direction: column;
             align-items: center;
             height: 100%;
+            position: relative;
+            border: 2px solid transparent;
+            background-clip: padding-box;
         }
-        
-        body.dark-mode .card {
-            background: #1e2a3a;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
         }
-        
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
-        
+
         .card-icon {
             width: 80px;
             height: 80px;
@@ -225,29 +351,29 @@
             margin-bottom: 25px;
             color: white;
         }
-        
+
         .card-1 .card-icon {
-            background: linear-gradient(135deg, #4caf50, #66bb6a);
+            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
         }
-        
+
         .card-2 .card-icon {
-            background: linear-gradient(135deg, #2196f3, #42a5f5);
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
         }
-        
+
         .card-title {
             font-size: 24px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .card-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             margin-bottom: 25px;
             line-height: 1.6;
             flex: 1;
         }
-        
+
         .btn {
             padding: 14px 30px;
             border: none;
@@ -261,63 +387,67 @@
             gap: 10px;
             text-decoration: none;
         }
-        
+
         .btn-primary {
-            background: var(--primary);
+            background: var(--primary-color);
             color: white;
         }
-        
+
         .btn-primary:hover {
-            background: var(--primary-dark);
+            background: var(--primary-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
+
         .btn-success {
-            background: var(--secondary);
+            background: var(--success-color);
             color: white;
         }
-        
+
         .btn-success:hover {
-            background: var(--secondary-dark);
+            background: var(--success-color);
+            filter: brightness(1.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
-        
-        /* Features Section */
-        .features {
-            background: white;
+
+        /* Why Our PTW Section */
+        .why-our-section {
             padding: 80px 0;
-            margin-top: 40px;
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: background 0.3s;
+            margin: 40px 0;
         }
-        
-        body.dark-mode .features {
-            background: #1e2a3a;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        
+
         .section-title {
             text-align: center;
             font-size: 32px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 50px;
             font-weight: 600;
         }
-        
+
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
-        
+
         .feature {
             text-align: center;
-            padding: 20px;
+            padding: 30px 20px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
         .feature-icon {
             width: 70px;
             height: 70px;
@@ -329,183 +459,205 @@
             margin: 0 auto 20px;
             color: white;
         }
-        
+
         .feature-1 .feature-icon {
-            background: linear-gradient(135deg, #ff9800, #ffb74d);
+            background: linear-gradient(135deg, var(--primary-color), var(--info-color));
         }
-        
+
         .feature-2 .feature-icon {
+            background: linear-gradient(135deg, var(--success-color), var(--secondary-color));
+        }
+
+        .feature-3 .feature-icon {
+            background: linear-gradient(135deg, var(--accent-color), var(--warning-color));
+        }
+
+        .feature-4 .feature-icon {
             background: linear-gradient(135deg, #9c27b0, #ba68c8);
         }
-        
-        .feature-3 .feature-icon {
-            background: linear-gradient(135deg, #f44336, #ef5350);
-        }
-        
-        .feature-4 .feature-icon {
-            background: linear-gradient(135deg, #607d8b, #78909c);
-        }
-        
+
         .feature-title {
             font-size: 20px;
-            color: var(--primary);
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-weight: 600;
         }
-        
+
         .feature-description {
-            color: var(--gray);
+            color: var(--text-secondary);
             line-height: 1.6;
         }
-        
-        /* Simplified Footer */
-        footer {
-            background: var(--primary);
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 50px 0 30px;
-            margin-top: 60px;
-        }
-        
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .social-btn {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            transition: all 0.3s ease;
             text-decoration: none;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            z-index: var(--z-tooltip);
         }
-        
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
         }
-        
-        .footer-bottom {
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /*=============== FOOTER ===============*/
+        footer {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 30px 0;
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid var(--bg-tertiary);
+            margin-top: 50px;
         }
-        
-        /* Responsive Design */
+
+        .footer-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.3s;
+            width: 70px;
+        }
+
+        .footer-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-icon i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .footer-icon span {
+            font-size: 0.8rem;
+        }
+
+        /*=============== RESPONSIVE STYLES ===============*/
         @media (max-width: 768px) {
-            .header-content {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-secondary);
                 flex-direction: column;
-                text-align: center;
-                gap: 20px;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
             }
-            
-            .hero h1 {
-                font-size: 32px;
+
+            .nav-menu.active {
+                display: flex;
             }
-            
-            .hero p {
-                font-size: 18px;
+
+            .nav-menu li {
+                margin: 10px 0;
             }
-            
+
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lang-toggle {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+            }
+
+            .footer-icons {
+                gap: 15px;
+            }
+
+            .footer-icon {
+                width: 60px;
+            }
+
             .cards-container {
                 grid-template-columns: 1fr;
             }
-            
-            .card {
-                padding: 30px 20px;
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
-            
-            .footer-social {
-                gap: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero {
-                padding: 50px 0 30px;
-            }
-            
-            .hero h1 {
-                font-size: 28px;
-            }
-            
-            .hero p {
-                font-size: 16px;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .social-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 20px;
-            }
-        }
-        
-        /* Language Toggle */
-        .hindi {
-            display: none;
-        }
-        
-        body.hindi .hindi {
-            display: block;
-        }
-        
-        body.hindi .english {
-            display: none;
         }
     </style>
 </head>
 <body>
+    <!-- Language Toggle -->
+    <button class="lang-toggle" id="langToggle">
+        <i class="fas fa-language"></i> <span class="lang-text">EN</span>
+    </button>
+
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
     <!-- Header -->
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-file-contract"></i>
-                    </div>
-                    <div class="logo-text">
-                        <h1 class="english">Permit to Work System</h1>
-                        <h1 class="hindi">कार्य अनुमति प्रणाली</h1>
-                        <p class="english">Safety Management Solutions</p>
-                        <p class="hindi">सुरक्षा प्रबंधन समाधान</p>
-                    </div>
-                </div>
-                <div class="header-controls">
-                    <button class="toggle-btn" id="languageToggle">
-                        <i class="fas fa-language"></i>
-                        <span class="english">English</span>
-                        <span class="hindi">हिंदी</span>
-                    </button>
-                    <div class="mode-toggle" id="modeToggle"></div>
-                </div>
+            <div class="header-top">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-hard-hat logo-icon"></i>
+                    HSE <span>Tools</span>
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-hi="होम">Home</span></a></li>
+                    <li><a href="contact.html"><i class="fas fa-envelope"></i> <span data-en="Contact" data-hi="संपर्क">Contact</span></a></li>
+                    <li><a href="privacy.html"><i class="fas fa-shield-alt"></i> <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span></a></li>
+                    <li><a href="help.html"><i class="fas fa-question-circle"></i> <span data-en="Help" data-hi="सहायता">Help</span></a></li>
+                    <li><a href="about.html"><i class="fas fa-info-circle"></i> <span data-en="About" data-hi="हमारे बारे में">About</span></a></li>
+                </ul>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Page Header -->
+    <section class="page-header">
         <div class="container">
-            <h1 class="english">Permit to Work Management System</h1>
-            <h1 class="hindi">कार्य अनुमति प्रबंधन प्रणाली</h1>
-            <p class="english">A comprehensive digital solution for managing hazardous work activities. Ensure safety compliance with our professional Permit to Work system.</p>
-            <p class="hindi">जोखिम भरे कार्य गतिविधियों को प्रबंधित करने के लिए एक व्यापक डिजिटल समाधान। हमारी पेशेवर कार्य अनुमति प्रणाली के साथ सुरक्षा अनुपालन सुनिश्चित करें।</p>
+            <h1 data-en="PTW Generator & Calculator" data-hi="PTW जनरेटर और कैलकुलेटर">PTW Generator & Calculator</h1>
+            <p data-en="Your comprehensive solution for Permit to Work management. Create professional PTW documents, calculate risk assessments, and manage work permits efficiently for enhanced workplace safety." 
+               data-hi="कार्य अनुमति प्रबंधन के लिए आपका व्यापक समाधान। पेशेवर PTW दस्तावेज़ बनाएं, जोखिम मूल्यांकन की गणना करें, और बेहतर कार्यस्थल सुरक्षा के लिए कार्य अनुमतियों को कुशलतापूर्वक प्रबंधित करें।">
+                Your comprehensive solution for Permit to Work management. Create professional PTW documents, calculate risk assessments, and manage work permits efficiently for enhanced workplace safety.
+            </p>
         </div>
     </section>
 
@@ -516,193 +668,205 @@
                 <!-- Card 1: Generate PTW -->
                 <div class="card card-1">
                     <div class="card-icon">
-                        <i class="fas fa-file-alt"></i>
+                        <i class="fas fa-file-contract"></i>
                     </div>
-                    <h2 class="card-title english">Generate PTW</h2>
-                    <h2 class="card-title hindi">कार्य अनुमति बनाएं</h2>
-                    <p class="card-description english">
-                        Create professional Permit to Work documents for various hazardous activities. Our system guides you through the entire process with safety checks and validations.
-                    </p>
-                    <p class="card-description hindi">
-                        विभिन्न जोखिम भरी गतिविधियों के लिए पेशेवर कार्य अनुमति दस्तावेज तैयार करें। हमारी प्रणाली सुरक्षा जांच और सत्यापन के साथ पूरी प्रक्रिया में आपका मार्गदर्शन करती है।
+                    <h2 class="card-title" data-en="Generate PTW" data-hi="PTW जनरेट करें">Generate PTW</h2>
+                    <p class="card-description" data-en="Create professional Permit to Work documents with our easy-to-use generator. Input work details, identify hazards, assess risks, and generate comprehensive PTW documents ready for authorization and implementation." 
+                       data-hi="हमारे उपयोग में आसान जनरेटर के साथ पेशेवर कार्य अनुमति दस्तावेज़ बनाएं। कार्य विवरण इनपुट करें, खतरों की पहचान करें, जोखिमों का आकलन करें, और प्राधिकरण और कार्यान्वयन के लिए तैयार व्यापक PTW दस्तावेज़ जनरेट करें।">
+                        Create professional Permit to Work documents with our easy-to-use generator. Input work details, identify hazards, assess risks, and generate comprehensive PTW documents ready for authorization and implementation.
                     </p>
                     <a href="PTW_Calcu.html" class="btn btn-primary">
-                        <i class="fas fa-play-circle"></i>
-                        <span class="english">Generate PTW</span>
-                        <span class="hindi">कार्य अनुमति बनाएं</span>
+                        <i class="fas fa-play-circle"></i> <span data-en="Generate PTW" data-hi="PTW जनरेट करें">Generate PTW</span>
                     </a>
                 </div>
                 
-                <!-- Card 2: PTW Guide -->
+                <!-- Card 2: PTW Calculator & Guide -->
                 <div class="card card-2">
                     <div class="card-icon">
-                        <i class="fas fa-book-open"></i>
+                        <i class="fas fa-calculator"></i>
                     </div>
-                    <h2 class="card-title english">Permit to Work Guide</h2>
-                    <h2 class="card-title hindi">कार्य अनुमति गाइड</h2>
-                    <p class="card-description english">
-                        Access our comprehensive guide to Permit to Work procedures. Learn best practices, step-by-step processes, real-world examples, and implementation strategies.
-                    </p>
-                    <p class="card-description hindi">
-                        कार्य अनुमति प्रक्रियाओं के लिए हमारी व्यापक गाइड तक पहुंचें। सर्वोत्तम प्रथाओं, चरण-दर-चरण प्रक्रियाओं, वास्तविक दुनिया के उदाहरणों और कार्यान्वयन रणनीतियों के बारे में जानें।
+                    <h2 class="card-title" data-en="PTW Calculator & Guide" data-hi="PTW कैलकुलेटर और गाइड">PTW Calculator & Guide</h2>
+                    <p class="card-description" data-en="Access our comprehensive PTW calculator and guide. Calculate risk levels, determine control measures, and learn best practices for implementing an effective Permit to Work system in your organization." 
+                       data-hi="हमारे व्यापक PTW कैलकुलेटर और गाइड तक पहुंचें। जोखिम स्तरों की गणना करें, नियंत्रण उपाय निर्धारित करें, और अपने संगठन में एक प्रभावी कार्य अनुमति प्रणाली लागू करने की सर्वोत्तम प्रथाओं को सीखें।">
+                        Access our comprehensive PTW calculator and guide. Calculate risk levels, determine control measures, and learn best practices for implementing an effective Permit to Work system in your organization.
                     </p>
                     <a href="PTW Guide.html" class="btn btn-success">
-                        <i class="fas fa-download"></i>
-                        <span class="english">View Guide</span>
-                        <span class="hindi">गाइड देखें</span>
+                        <i class="fas fa-download"></i> <span data-en="View Calculator" data-hi="कैलकुलेटर देखें">View Calculator</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features">
+    <!-- Why Our PTW Section -->
+    <section class="why-our-section">
         <div class="container">
-            <h2 class="section-title english">Why Use Our PTW System?</h2>
-            <h2 class="section-title hindi">हमारी कार्य अनुमति प्रणाली क्यों उपयोग करें?</h2>
+            <h2 class="section-title" data-en="Why Use Our PTW Solutions?" data-hi="हमारे PTW समाधान क्यों उपयोग करें?">Why Use Our PTW Solutions?</h2>
+            
             <div class="features-grid">
                 <!-- Feature 1 -->
                 <div class="feature feature-1">
                     <div class="feature-icon">
-                        <i class="fas fa-shield-alt" style="color: var(--success-color);" aria-hidden="true"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="feature-title english">Enhanced Safety</h3>
-                    <h3 class="feature-title hindi">बेहतर सुरक्षा</h3>
-                    <p class="feature-description english">
-                        Identify potential hazards before they cause harm and implement effective control measures.
-                    </p>
-                    <p class="feature-description hindi">
-                        नुकसान होने से पहले संभावित खतरों की पहचान करें और प्रभावी नियंत्रण उपाय लागू करें।
+                    <h3 class="feature-title" data-en="Enhanced Safety Control" data-hi="बेहतर सुरक्षा नियंत्रण">Enhanced Safety Control</h3>
+                    <p class="feature-description" data-en="Ensure proper authorization and control of high-risk work activities through systematic permit procedures that prevent unauthorized work and reduce accidents." 
+                       data-hi="अनधिकृत कार्य को रोकने और दुर्घटनाओं को कम करने वाली व्यवस्थित अनुमति प्रक्रियाओं के माध्यम से उच्च-जोखिम वाली कार्य गतिविधियों के उचित प्राधिकरण और नियंत्रण को सुनिश्चित करें।">
+                        Ensure proper authorization and control of high-risk work activities through systematic permit procedures that prevent unauthorized work and reduce accidents.
                     </p>
                 </div>
                 
                 <!-- Feature 2 -->
                 <div class="feature feature-2">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h3 class="feature-title english">Risk Management</h3>
-                    <h3 class="feature-title hindi">जोखिम प्रबंधन</h3>
-                    <p class="feature-description english">
-                        Systematically assess and prioritize risks to focus resources where they're needed most.
-                    </p>
-                    <p class="feature-description hindi">
-                        संसाधनों को उन जगहों पर केंद्रित करने के लिए जोखिमों का व्यवस्थित रूप से आकलन और प्राथमिकता दें जहां उनकी सबसे अधिक आवश्यकता है।
+                    <h3 class="feature-title" data-en="Clear Responsibility" data-hi="स्पष्ट जिम्मेदारी">Clear Responsibility</h3>
+                    <p class="feature-description" data-en="Define clear roles and responsibilities for authorized personnel, supervisors, and workers to ensure accountability at every stage of the work process." 
+                       data-hi="कार्य प्रक्रिया के प्रत्येक चरण में जवाबदेही सुनिश्चित करने के लिए अधिकृत कर्मियों, पर्यवेक्षकों और श्रमिकों के लिए स्पष्ट भूमिकाएं और जिम्मेदारियां परिभाषित करें।">
+                        Define clear roles and responsibilities for authorized personnel, supervisors, and workers to ensure accountability at every stage of the work process.
                     </p>
                 </div>
                 
                 <!-- Feature 3 -->
                 <div class="feature feature-3">
                     <div class="feature-icon">
-                        <i class="fas fa-file-contract"></i>
+                        <i class="fas fa-clipboard-check"></i>
                     </div>
-                    <h3 class="feature-title english">Compliance Ready</h3>
-                    <h3 class="feature-title hindi">अनुपालन तैयार</h3>
-                    <p class="feature-description english">
-                        Meet regulatory requirements with professionally documented work permits.
-                    </p>
-                    <p class="feature-description hindi">
-                        पेशेवर रूप से प्रलेखित कार्य परमिटों के साथ नियामक आवश्यकताओं को पूरा करें।
+                    <h3 class="feature-title" data-en="Risk Assessment" data-hi="जोखिम मूल्यांकन">Risk Assessment</h3>
+                    <p class="feature-description" data-en="Systematically identify, assess, and control hazards before work begins, ensuring all necessary precautions are implemented to protect workers and facilities." 
+                       data-hi="कार्य शुरू होने से पहले व्यवस्थित रूप से खतरों की पहचान, मूल्यांकन और नियंत्रण करें, श्रमिकों और सुविधाओं की सुरक्षा के लिए सभी आवश्यक सावधानियों के कार्यान्वयन को सुनिश्चित करें।">
+                        Systematically identify, assess, and control hazards before work begins, ensuring all necessary precautions are implemented to protect workers and facilities.
                     </p>
                 </div>
                 
                 <!-- Feature 4 -->
                 <div class="feature feature-4">
                     <div class="feature-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-file-contract"></i>
                     </div>
-                    <h3 class="feature-title english">Team Collaboration</h3>
-                    <h3 class="feature-title hindi">टीम सहयोग</h3>
-                    <p class="feature-description english">
-                        Involve your entire team in the safety process for better hazard identification.
-                    </p>
-                    <p class="feature-description hindi">
-                        बेहतर खतरा पहचान के लिए अपनी पूरी टीम को सुरक्षा प्रक्रिया में शामिल करें।
+                    <h3 class="feature-title" data-en="Compliance Documentation" data-hi="अनुपालन दस्तावेज़ीकरण">Compliance Documentation</h3>
+                    <p class="feature-description" data-en="Maintain comprehensive records of work permits, risk assessments, and safety measures for regulatory compliance, audits, and continuous improvement." 
+                       data-hi="नियामक अनुपालन, ऑडिट और निरंतर सुधार के लिए कार्य अनुमतियों, जोखिम मूल्यांकन और सुरक्षा उपायों के व्यापक रिकॉर्ड बनाए रखें।">
+                        Maintain comprehensive records of work permits, risk assessments, and safety measures for regulatory compliance, audits, and continuous improvement.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Simplified Footer -->
+    <!-- Back to Top -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-social">
-                <a href="#" class="social-btn">
-                    <i class="fab fa-facebook-f"></i>
+            <div class="footer-icons">
+                <a href="index.html" class="footer-icon">
+                    <i class="fas fa-home"></i>
+                    <span data-en="Home" data-hi="होम">Home</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-twitter"></i>
+                <a href="contact.html" class="footer-icon">
+                    <i class="fas fa-envelope"></i>
+                    <span data-en="Contact" data-hi="संपर्क">Contact</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-linkedin-in"></i>
+                <a href="privacy.html" class="footer-icon">
+                    <i class="fas fa-shield-alt"></i>
+                    <span data-en="Privacy" data-hi="गोपनीयता">Privacy</span>
                 </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" class="social-btn">
-                    <i class="fab fa-youtube"></i>
+                <a href="help.html" class="footer-icon">
+                    <i class="fas fa-question-circle"></i>
+                    <span data-en="Help" data-hi="सहायता">Help</span>
                 </a>
             </div>
-            
-            <div class="footer-bottom">
-                <p class="english">&copy; 2023 Permit to Work System. All rights reserved.</p>
-                <p class="hindi">&copy; 2023 कार्य अनुमति प्रणाली। सभी अधिकार सुरक्षित।</p>
-            </div>
+            <p>&copy; 2024 HSE Tools. <span data-en="All rights reserved" data-hi="सर्वाधिकार सुरक्षित">All rights reserved</span>.</p>
         </div>
     </footer>
 
     <script>
-        // Add click animation to buttons
-        document.querySelectorAll('.btn, .social-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
-                // Only add animation if it's not a link to another page
-                if (!this.getAttribute('href') || this.getAttribute('href') === '#') {
-                    e.preventDefault();
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = '';
-                    }, 150);
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        const langText = langToggle.querySelector('.lang-text');
+        let currentLang = 'en';
+
+        langToggle.addEventListener('click', function() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            langText.textContent = currentLang === 'en' ? 'EN' : 'HI';
+            updatePageLanguage();
+        });
+
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (currentLang === 'en') {
+                    element.textContent = element.getAttribute('data-en');
+                } else {
+                    element.textContent = element.getAttribute('data-hi');
                 }
             });
-        });
-        
-        // Dark mode toggle functionality
-        const modeToggle = document.getElementById('modeToggle');
-        modeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-            
-            // Save preference to localStorage
-            if (document.body.classList.contains('dark-mode')) {
-                localStorage.setItem('darkMode', 'enabled');
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = document.body.getAttribute('data-theme');
+            if (currentTheme === 'light') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
             } else {
-                localStorage.setItem('darkMode', 'disabled');
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
             }
         });
-        
-        // Check for saved dark mode preference
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
         }
-        
-        // Language toggle functionality
-        const languageToggle = document.getElementById('languageToggle');
-        languageToggle.addEventListener('click', function() {
-            document.body.classList.toggle('hindi');
+
+        // Mobile Menu
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenuBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
             
-            // Save preference to localStorage
-            if (document.body.classList.contains('hindi')) {
-                localStorage.setItem('language', 'hindi');
+            const icon = this.querySelector('i');
+            if (this.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
             } else {
-                localStorage.setItem('language', 'english');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
             }
         });
+
+        // Back to Top
+        const backToTop = document.getElementById('backToTop');
         
-        // Check for saved language preference
-        if (localStorage.getItem('language') === 'hindi') {
-            document.body.classList.add('hindi');
-        }
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     </script>
 </body>
 </html>
